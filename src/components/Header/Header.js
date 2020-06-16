@@ -5,7 +5,23 @@ import './Header.css';
 export const Header = () => {
     return (
         <header className="header">
-            <img src={logo} alt="logo" />
+            <a href="/">
+                <img src={logo} alt="logo" />
+            </a>
+            <div>
+                <a href="research" className="header-menu-item">
+                    Исследования
+                </a>
+                <a href="download" className="header-menu-item">
+                    Скачать данные
+                </a>
+                <a href="about" className="header-menu-item">
+                    О проекте
+                </a>
+                <a href="support" className="header-menu-button">
+                    Поддержать проект
+                </a>
+            </div>
         </header>
     );
 };
