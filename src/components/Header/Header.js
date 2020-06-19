@@ -8,7 +8,7 @@ export const Header = () => {
             <a href="/">
                 <img src={logo} alt="logo" />
             </a>
-            <div>
+            <div className="header-menu-items">
                 <a href="research" className="header-menu-item">
                     Исследования
                 </a>
