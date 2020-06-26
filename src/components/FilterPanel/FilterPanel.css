@@ -1,0 +1,20 @@
+.filter-panel {
+    max-width: 400px;
+    margin: 20px 16px;
+    background: #ffffff;
+    box-shadow: 0px 5px 15px #d4dadd;
+    border-radius: 8px;
+    padding: 20px;
+    pointer-events: all;
+}
+
+.filter-item {
+    margin-bottom: 20px;
+}
+
+.filter-title {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    color: #18334a;
+}

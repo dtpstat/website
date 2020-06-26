@@ -18,3 +18,10 @@ body {
     flex-shrink: 0;
     flex-direction: column;
 }
+
+.ui-layer {
+    z-index: 100;
+    pointer-events: none;
+    display: flex;
+    flex-direction: row;
+}

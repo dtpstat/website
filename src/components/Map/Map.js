@@ -8,6 +8,7 @@ export const Map = () => {
             map.current = new window.ymaps.Map('map', {
                 center: [55.76, 37.64],
                 zoom: 9,
+                controls: []
             });
         });
     }, []);
