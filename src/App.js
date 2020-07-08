@@ -7,7 +7,6 @@ import { InfoPanel } from './components/InfoPanel/InfoPanel';
 function App() {
     return (
         <>
-            <Header />
             <Map />
             <div className="ui-layer">
                 <FilterPanel />
