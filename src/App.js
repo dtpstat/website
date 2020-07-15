@@ -4,12 +4,14 @@ import { FilterPanel } from './components/FilterPanel';
 import { InfoPanel } from './components/InfoPanel/InfoPanel';
 
 function App() {
+    const [area, setArea] = React.useState(null);
+
     return (
         <>
-            <Map />
+            <Map onChangeArea={setArea} />
             <div className="ui-layer">
                 <FilterPanel />
-                <InfoPanel />
+                <InfoPanel area={area} />
             </div>
         </>
     );
