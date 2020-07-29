@@ -1,4 +1,5 @@
 import * as React from 'react';
+import config from '../../config';
 import './Map.css';
 
 export const Map = ({ onChangeArea }) => {
@@ -7,7 +8,7 @@ export const Map = ({ onChangeArea }) => {
     const fetchStatistics = React.useCallback(
         (center, zoom) => {
             fetch(
-                `http://beta.dtp-stat.ru/api/stat/?center_point=${center[1]}+${center[0]}&scale=${zoom}`,
+                `${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${zoom}`,
             )
                 .then((response) => response.json())
                 .then((response) => onChangeArea(response))
