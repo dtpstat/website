@@ -10,7 +10,9 @@ export const InfoPanel = ({ area }) => {
         <div className="info-panel">
             <div className="location">
                 <div className="location-title">{area.region_name || ''}</div>
-                {/* <div className="location-description">Восточное Измайлово</div> */}
+                <div className="location-description">
+                    {area.parent_region_name || ''}
+                </div>
             </div>
         </div>
     );
