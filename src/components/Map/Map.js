@@ -1,21 +1,10 @@
-import * as React from 'react';
-import config from '../../config';
+import React from 'react';
 import './Map.css';
+import { useStore } from '../../models/RootStore';
 
 export const Map = ({ onChangeArea }) => {
     const map = React.useRef(null);
-
-    const fetchStatistics = React.useCallback(
-        (center, zoom) => {
-            fetch(
-                `${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${zoom}`,
-            )
-                .then((response) => response.json())
-                .then((response) => onChangeArea(response))
-                .catch((error) => console.warn(error));
-        },
-        [onChangeArea],
-    );
+    const { area } = useStore();
 
     React.useEffect(() => {
         window.ymaps.ready(() => {
@@ -27,16 +16,16 @@ export const Map = ({ onChangeArea }) => {
 
             map.current = _map;
 
-            fetchStatistics(_map.getCenter(), _map.getZoom());
+            area.fetchArea(_map.getCenter(), _map.getZoom());
 
             _map.events.add('boundschange', (e) => {
-                fetchStatistics(
+                area.fetchArea(
                     e.originalEvent.newCenter,
                     e.originalEvent.newZoom,
                 );
             });
         });
-    }, [fetchStatistics]);
+    }, [area]);
 
     return <div id="map" />;
 };

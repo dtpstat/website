@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Sentry from '@sentry/browser';
+import 'mobx-react/batchingForReactDom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-Sentry.init({
-    dsn:
-        'https://2ab4410dbc6440a7ab3bfd0963c217d5@o412018.ingest.sentry.io/5288112',
-});
+if (process.env.NODE_ENV === 'production') {
+    Sentry.init({
+        dsn:
+            'https://2ab4410dbc6440a7ab3bfd0963c217d5@o412018.ingest.sentry.io/5288112',
+    });
+}
 
 ReactDOM.render(
     <React.StrictMode>

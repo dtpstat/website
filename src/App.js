@@ -1,19 +1,18 @@
-import * as React from 'react';
+import React from 'react';
 import { Map } from './components/Map';
 import { FilterPanel } from './components/FilterPanel';
 import { InfoPanel } from './components/InfoPanel/InfoPanel';
+import { rootStore, RootStoreContext } from './models/RootStore';
 
 function App() {
-    const [area, setArea] = React.useState(null);
-
     return (
-        <>
-            <Map onChangeArea={setArea} />
+        <RootStoreContext.Provider value={rootStore}>
+            <Map />
             <div className="ui-layer">
                 <FilterPanel />
-                <InfoPanel area={area} />
+                <InfoPanel />
             </div>
-        </>
+        </RootStoreContext.Provider>
     );
 }
 
