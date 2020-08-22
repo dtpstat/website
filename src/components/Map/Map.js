@@ -1,6 +1,6 @@
 import React from 'react';
 import './Map.css';
-import { useStore } from '../../models/RootStore';
+import { useStore } from 'models/RootStore';
 
 export const Map = ({ onChangeArea }) => {
     const map = React.useRef(null);

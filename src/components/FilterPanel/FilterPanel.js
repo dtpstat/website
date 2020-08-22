@@ -1,19 +1,24 @@
 import React from 'react';
 import './FilterPanel.css';
+import { observer } from 'mobx-react';
+import { useStore } from 'models/RootStore';
 
-export const FilterPanel = () => {
-    return <div className="filter-panel">
-        <div className="filter-item">
-            <div className="filter-title">Период данных</div>
+export const FilterPanel = observer(function FilterPanel() {
+    const { area } = useStore();
+    
+    if (area.filters.length === 0) {
+        return null;
+    }
+
+    return (
+        <div className="filter-panel">
+            {area.filters.map((filter) => {
+                return (
+                    <div key={filter.name} className="filter-item">
+                        <div className="filter-title">{filter.label}</div>
+                    </div>
+                );
+            })}
         </div>
-        <div className="filter-item">
-            <div className="filter-title">Участники ДТП</div>
-        </div>
-        <div className="filter-item">
-            <div className="filter-title">Вред здоровью</div>
-        </div>
-        <div className="filter-item">
-            <div className="filter-title">Фильтры</div>
-        </div>
-    </div>;
-};
+    );
+});
