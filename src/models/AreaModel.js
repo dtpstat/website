@@ -75,6 +75,8 @@ export const AreaModel = types
                 startDate,
                 endDate,
             );
-            console.log(response);
+            self.dead = response?.dead;
+            self.injured = response?.injured;
+            self.count = response?.count;
         }),
     }));

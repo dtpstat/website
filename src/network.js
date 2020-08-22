@@ -14,6 +14,6 @@ export function fetchFilters(id) {
 
 export function fetchStatistics(center, scale, startDate, endDate) {
     return fetch(
-        `${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${scale}&start=${startDate}&end=${endDate}`,
+        `${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${scale}&start_date=${startDate}&end_date=${endDate}`,
     ).then(response => response.json());
 }
