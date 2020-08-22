@@ -40,12 +40,19 @@ export const AreaModel = types
             self.id = id;
             self.name = name;
             self.parentName = parentName;
+            self.filters = [];
+            self.dead = null;
+            self.injured = null;
+            self.count = null;
         },
         clear() {
             self.id = null;
             self.name = null;
             self.parentName = null;
             self.filters = [];
+            self.dead = null;
+            self.injured = null;
+            self.count = null;
         },
         fetchArea: flow(function* (center, scale) {
             const response = yield fetchArea(center, scale);
@@ -53,7 +60,11 @@ export const AreaModel = types
                 self.clear();
                 return;
             }
-            self.init(createAreaModelFromServerResponse(response));
+            const area = createAreaModelFromServerResponse(response)
+            if (self.id === area.id) {
+                return;
+            }
+            self.init(area);
             yield self.fetchFilters();
             yield self.fetchStatistics(center, scale);
         }),
