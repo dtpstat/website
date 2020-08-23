@@ -43,7 +43,7 @@ export const ParticipantsFilterModel = types.model('ParticipantsFilterModel', {
 
 const CategoryItemModel = types.model('CategoryItemModel', {
     preview: types.string,
-    value: types.string,
+    value: types.number,
 });
 
 export const CategoryFilterModel = types.model('CategoryFilterModel', {
