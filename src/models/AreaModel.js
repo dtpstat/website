@@ -4,6 +4,7 @@ import {
     ParticipantsFilterModel,
     DateFilterModel,
     SeverityFilterModel,
+    CategoryFilterModel,
 } from './FilterModel';
 
 function createAreaModelFromServerResponse(response) {
@@ -45,6 +46,7 @@ export const AreaModel = types
                 ParticipantsFilterModel,
                 DateFilterModel,
                 SeverityFilterModel,
+                CategoryFilterModel,
             ),
         ),
     })

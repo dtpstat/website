@@ -1,5 +1,7 @@
 .filter-panel {
     width: 400px;
+    height: 700px;
+    overflow: auto;
     margin: 20px 16px;
     background: #ffffff;
     box-shadow: 0px 5px 15px #d4dadd;

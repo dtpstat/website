@@ -40,3 +40,15 @@ export const ParticipantsFilterModel = types.model('ParticipantsFilterModel', {
     name: types.string,
     values: types.array(ParticipantItemModel),
 });
+
+const CategoryItemModel = types.model('CategoryItemModel', {
+    preview: types.string,
+    value: types.string,
+});
+
+export const CategoryFilterModel = types.model('CategoryFilterModel', {
+    name: types.string,
+    label: types.string,
+    multiple: types.boolean,
+    values: types.array(CategoryItemModel),
+});

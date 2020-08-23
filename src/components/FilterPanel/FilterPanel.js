@@ -98,9 +98,42 @@ const SeverityFilter = (props) => {
     );
 };
 
+const CategoryFilterView = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+`;
+
+const CategoryItemView = styled.div`
+    padding: 4px 8px;
+    background: #f4f8fa;
+    border-radius: 4px;
+    margin-left: 8px;
+    margin-bottom: 12px;
+`;
+
+const CategoryFilterItem = (props) => {
+    return (
+        <CategoryItemView>
+            <Body1 color="#18334A">{props.preview}</Body1>
+        </CategoryItemView>
+    );
+};
+
+const CategoryFilter = (props) => {
+    return (
+        <CategoryFilterView>
+            {props.values.map((item) => (
+                <CategoryFilterItem key={item.value} {...item} />
+            ))}
+        </CategoryFilterView>
+    );
+};
+
 const mapping = {
     participant_categories: ParticipantsFilter,
     severity: SeverityFilter,
+    category: CategoryFilter,
 };
 
 function createFilterComponent(filter) {
