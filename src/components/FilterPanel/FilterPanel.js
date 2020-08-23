@@ -1,10 +1,31 @@
 import React from 'react';
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 import styled from '@emotion/styled';
 import './FilterPanel.css';
 import { observer } from 'mobx-react';
 import { useStore } from 'models/RootStore';
 import { Subtitle2, Subtitle3, Body1 } from 'components/ui/Text';
 import config from 'config';
+import { DateRange } from 'react-date-range';
+
+const DateFilter = (props) => {
+    const handleSelect = () => {};
+    return (
+        <DateRange
+            editableDateInputs
+            moveRangeOnFirstSelection={false}
+            ranges={[
+                {
+                    startDate: new Date(props.defaultValue.startDate),
+                    endDate: new Date(props.defaultValue.endDate),
+                    key: 'selection',
+                },
+            ]}
+            onChange={handleSelect}
+        />
+    );
+};
 
 const ParticipantView = styled.div`
     display: flex;
@@ -134,6 +155,7 @@ const mapping = {
     participant_categories: ParticipantsFilter,
     severity: SeverityFilter,
     category: CategoryFilter,
+    date: DateFilter,
 };
 
 function createFilterComponent(filter) {
