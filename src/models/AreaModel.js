@@ -1,6 +1,10 @@
 import { types, flow } from 'mobx-state-tree';
 import { fetchArea, fetchFilters, fetchStatistics } from 'network';
-import { FilterModel, DateFilterModel } from './FilterModel';
+import {
+    ParticipantsFilterModel,
+    DateFilterModel,
+    SeverityFilterModel,
+} from './FilterModel';
 
 function createAreaModelFromServerResponse(response) {
     return {
@@ -11,18 +15,21 @@ function createAreaModelFromServerResponse(response) {
 }
 
 function createFilterModelFromServerResponse(response) {
-    return response.map(({ id, name, label, multiple, default_value }) => ({
-        id,
-        name,
-        label,
-        multiple,
-        defaultValue: default_value
-            ? {
-                  startDate: default_value.start_date,
-                  endDate: default_value.end_date,
-              }
-            : undefined,
-    }));
+    return response.map(
+        ({ id, name, label, multiple, default_value, values }) => ({
+            id,
+            name,
+            label,
+            multiple,
+            values,
+            defaultValue: default_value
+                ? {
+                      startDate: default_value.start_date,
+                      endDate: default_value.end_date,
+                  }
+                : undefined,
+        }),
+    );
 }
 
 export const AreaModel = types
@@ -33,7 +40,13 @@ export const AreaModel = types
         count: types.maybeNull(types.number),
         injured: types.maybeNull(types.number),
         dead: types.maybeNull(types.number),
-        filters: types.array(types.union(FilterModel, DateFilterModel)),
+        filters: types.array(
+            types.union(
+                ParticipantsFilterModel,
+                DateFilterModel,
+                SeverityFilterModel,
+            ),
+        ),
     })
     .actions((self) => ({
         init({ id, name, parentName }) {
@@ -60,7 +73,7 @@ export const AreaModel = types
                 self.clear();
                 return;
             }
-            const area = createAreaModelFromServerResponse(response)
+            const area = createAreaModelFromServerResponse(response);
             if (self.id === area.id) {
                 return;
             }
