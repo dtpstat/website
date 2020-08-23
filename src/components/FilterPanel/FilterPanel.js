@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import './FilterPanel.css';
 import { observer } from 'mobx-react';
 import { useStore } from 'models/RootStore';
-import { Subtitle2, Subtitle3 } from 'components/ui/Text';
+import { Subtitle2, Subtitle3, Body1 } from 'components/ui/Text';
 import config from 'config';
 
 const ParticipantView = styled.div`
@@ -51,8 +51,56 @@ const ParticipantsFilter = (props) => {
     );
 };
 
+const SeverityFilterView = styled.div``;
+
+const SeverityColor = styled.div`
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+    margin-left: 11px;
+    margin-right: 8px;
+    background: ${(props) => props.color};
+`;
+
+const SeverityFilterItemView = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+`;
+
+const SeverityFilterItem = (props) => {
+    return (
+        <SeverityFilterItemView>
+            <input
+                type="checkbox"
+                checked={props.default}
+                disabled={props.disabled}
+            />
+            <SeverityColor
+                color={props.disabled ? 'rgba(24, 51, 74, 0.5)' : props.color}
+            />
+            <Body1
+                color={props.disabled ? 'rgba(24, 51, 74, 0.5);' : '#18334A'}
+            >
+                {props.preview}
+            </Body1>
+        </SeverityFilterItemView>
+    );
+};
+
+const SeverityFilter = (props) => {
+    return (
+        <SeverityFilterView>
+            {props.values.map((item) => (
+                <SeverityFilterItem key={item.value} {...item} />
+            ))}
+        </SeverityFilterView>
+    );
+};
+
 const mapping = {
     participant_categories: ParticipantsFilter,
+    severity: SeverityFilter,
 };
 
 function createFilterComponent(filter) {
