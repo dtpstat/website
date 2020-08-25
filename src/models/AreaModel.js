@@ -1,11 +1,12 @@
 import { types, flow } from 'mobx-state-tree';
-import { fetchArea, fetchFilters, fetchStatistics } from 'network';
+import { fetchArea, fetchFilters, fetchStatistics, fetchDtp } from 'network';
 import {
     ParticipantsFilterModel,
     DateFilterModel,
     SeverityFilterModel,
     CategoryFilterModel,
 } from './FilterModel';
+import { DtpModel } from './DtpModel';
 
 function createAreaModelFromServerResponse(response) {
     return {
@@ -49,6 +50,7 @@ export const AreaModel = types
                 CategoryFilterModel,
             ),
         ),
+        dtp: types.array(DtpModel),
     })
     .actions((self) => ({
         init({ id, name, parentName }) {
@@ -69,7 +71,7 @@ export const AreaModel = types
             self.injured = null;
             self.count = null;
         },
-        fetchArea: flow(function* (center, scale) {
+        fetchArea: flow(function* (center, scale, bounds) {
             const response = yield fetchArea(center, scale);
             if (!response || !response.region_slug) {
                 self.clear();
@@ -82,6 +84,7 @@ export const AreaModel = types
             self.init(area);
             yield self.fetchFilters();
             yield self.fetchStatistics(center, scale);
+            yield self.fetchDtp(bounds);
         }),
         fetchFilters: flow(function* () {
             const response = yield fetchFilters(self.id);
@@ -104,5 +107,16 @@ export const AreaModel = types
             self.dead = response?.dead;
             self.injured = response?.injured;
             self.count = response?.count;
+        }),
+        fetchDtp: flow(function* (bounds) {
+            const dateFilter = self.filters.filter(
+                (filter) => filter.name === 'date',
+            );
+            if (dateFilter.length === 0) {
+                return;
+            }
+            const { startDate, endDate } = dateFilter[0].defaultValue;
+            const response = yield fetchDtp(startDate, endDate, bounds);
+            self.dtp = response;
         }),
     }));

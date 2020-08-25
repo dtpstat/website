@@ -16,13 +16,15 @@ export const Map = ({ onChangeArea }) => {
 
             map.current = _map;
 
-            area.fetchArea(_map.getCenter(), _map.getZoom());
+            area.fetchArea(_map.getCenter(), _map.getZoom(), _map.getBounds());
 
             _map.events.add('boundschange', (e) => {
                 area.fetchArea(
                     e.originalEvent.newCenter,
                     e.originalEvent.newZoom,
+                    e.originalEvent.newBounds
                 );
+                console.log(e);
             });
         });
     }, [area]);
