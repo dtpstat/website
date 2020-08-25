@@ -79,6 +79,7 @@ export const AreaModel = types
             }
             const area = createAreaModelFromServerResponse(response);
             if (self.id === area.id) {
+                yield self.fetchDtp(bounds);
                 return;
             }
             self.init(area);

@@ -1,9 +1,12 @@
 import React from 'react';
 import './Map.css';
 import { useStore } from 'models/RootStore';
+import { observer } from 'mobx-react';
+import { onSnapshot } from 'mobx-state-tree';
 
-export const Map = ({ onChangeArea }) => {
+export const Map = observer(function Map() {
     const map = React.useRef(null);
+    const objectManager = React.useRef(null);
     const { area } = useStore();
 
     React.useEffect(() => {
@@ -14,6 +17,15 @@ export const Map = ({ onChangeArea }) => {
                 controls: [],
             });
 
+            const _objectManager = new window.ymaps.ObjectManager({
+                clusterize: true,
+                gridSize: 32,
+                clusterDisableClickZoom: true,
+            });
+            _map.geoObjects.add(_objectManager);
+
+            objectManager.current = _objectManager;
+
             map.current = _map;
 
             area.fetchArea(_map.getCenter(), _map.getZoom(), _map.getBounds());
@@ -22,12 +34,30 @@ export const Map = ({ onChangeArea }) => {
                 area.fetchArea(
                     e.originalEvent.newCenter,
                     e.originalEvent.newZoom,
-                    e.originalEvent.newBounds
+                    e.originalEvent.newBounds,
                 );
-                console.log(e);
             });
+        });
+
+        onSnapshot(area.dtp, (dtp) => {
+            objectManager.current.removeAll();
+            objectManager.current.add({
+                type: 'FeatureCollection',
+                features: dtp.map((item) => ({
+                    type: 'Feature',
+                    id: item.id,
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [
+                            item.point.latitude,
+                            item.point.longitude,
+                        ],
+                    },
+                })),
+            });
+            console.log(dtp);
         });
     }, [area]);
 
     return <div id="map" />;
-};
+});
