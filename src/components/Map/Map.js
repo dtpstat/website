@@ -55,7 +55,6 @@ export const Map = observer(function Map() {
                     },
                 })),
             });
-            console.log(dtp);
         });
     }, [area]);
 
