@@ -1,5 +1,6 @@
 import React from 'react';
 import { types } from 'mobx-state-tree';
+// @ts-ignore
 import makeInspectable from 'mobx-devtools-mst';
 import { AreaModel } from './AreaModel';
 
@@ -8,12 +9,14 @@ const RootModel = types.model('RootModel', {
 });
 
 export const rootStore = RootModel.create({
-    area: {}
+    area: {},
 });
 
-makeInspectable(rootStore)
+makeInspectable(rootStore);
 
-export const RootStoreContext = React.createContext(null);
+export const RootStoreContext = React.createContext<typeof rootStore | null>(
+    null,
+);
 
 export function useStore() {
     const store = React.useContext(RootStoreContext);

@@ -5,8 +5,8 @@ import { InfoPanel } from './components/InfoPanel';
 import { rootStore, RootStoreContext } from './models/RootStore';
 
 export const App: React.FC = () => {
+    
     return (
-        // @ts-ignore
         <RootStoreContext.Provider value={rootStore}>
             <Map />
             <div className="ui-layer">
