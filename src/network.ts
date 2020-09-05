@@ -1,25 +1,41 @@
 import config from 'config';
 import { buildGeoFrameFromTwoPoints } from 'geo';
+import {
+    Coordinate,
+    Scale,
+    Bounds,
+    ShortStatisticsResponse,
+    DetailedStatisticsResponse,
+    FilterResponse,
+} from 'types';
 
-export function fetchArea(center, scale) {
+export function fetchArea(
+    center: Coordinate,
+    scale: Scale,
+): Promise<ShortStatisticsResponse> {
     return fetch(
         `${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${scale}`,
     ).then((response) => response.json());
 }
 
-export function fetchFilters(id) {
+export function fetchFilters(id: string): Promise<FilterResponse[]> {
     return fetch(
         `${config.API_URL}/filters/?region_slug=${id}`,
     ).then((response) => response.json());
 }
 
-export function fetchStatistics(center, scale, startDate, endDate) {
+export function fetchStatistics(
+    center: Coordinate,
+    scale: Scale,
+    startDate: string,
+    endDate: string,
+): Promise<DetailedStatisticsResponse> {
     return fetch(
         `${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${scale}&start_date=${startDate}&end_date=${endDate}`,
     ).then((response) => response.json());
 }
 
-export function fetchDtp(startDate, endDate, bounds) {
+export function fetchDtp(startDate: string, endDate: string, bounds: Bounds) {
     const frame = buildGeoFrameFromTwoPoints(bounds);
     if (!frame) {
         // TODO log error

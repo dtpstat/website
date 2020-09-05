@@ -1,4 +1,6 @@
-export function buildGeoFrameFromTwoPoints(bounds) {
+import { Bounds } from 'types';
+
+export function buildGeoFrameFromTwoPoints(bounds: Bounds) {
     if (
         bounds?.length !== 2 &&
         bounds?.[0].length !== 2 &&

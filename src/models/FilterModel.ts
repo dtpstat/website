@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree';
+import { types, Instance } from 'mobx-state-tree';
 
 const DateDefaultValueModel = types.model('DateDefaultValueModel', {
     startDate: types.string,
@@ -52,3 +52,11 @@ export const CategoryFilterModel = types.model('CategoryFilterModel', {
     multiple: types.boolean,
     values: types.array(CategoryItemModel),
 });
+
+export interface IParticipantsFilterModel
+    extends Instance<typeof ParticipantsFilterModel> {}
+export interface ISeverityFilterModel
+    extends Instance<typeof SeverityFilterModel> {}
+export interface IDateFilterModel extends Instance<typeof DateFilterModel> {}
+export interface ICategoryFilterModel
+    extends Instance<typeof CategoryFilterModel> {}
