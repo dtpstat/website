@@ -5,19 +5,24 @@
   "dependencies": {
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
-    "@sentry/browser": "^5.18.0",
+    "@sentry/browser": "^5.22.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "date-fns": "^2.15.0",
-    "mobx": "^5.15.4",
+    "@types/jest": "^26.0.13",
+    "@types/node": "^14.6.4",
+    "@types/react": "^16.9.49",
+    "@types/react-dom": "^16.9.8",
+    "date-fns": "^2.16.1",
+    "mobx": "^5.15.6",
     "mobx-devtools-mst": "^0.9.22",
-    "mobx-react": "^6.2.5",
+    "mobx-react": "^6.3.0",
     "mobx-state-tree": "^3.17.2",
     "react": "^16.13.1",
     "react-date-range": "^1.0.3",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.3",
+    "typescript": "^4.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,6 +46,6 @@
     ]
   },
   "devDependencies": {
-    "prettier": "^2.0.5"
+    "prettier": "^2.1.1"
   }
 }

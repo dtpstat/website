@@ -96,6 +96,7 @@ const SeverityFilterItem = (props) => {
                 type="checkbox"
                 checked={props.default}
                 disabled={props.disabled}
+                onChange={() => {}}
             />
             <SeverityColor
                 color={props.disabled ? 'rgba(24, 51, 74, 0.5)' : props.color}
