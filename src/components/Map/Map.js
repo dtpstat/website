@@ -28,10 +28,10 @@ export const Map = observer(function Map() {
 
             map.current = _map;
 
-            area.fetchArea(_map.getCenter(), _map.getZoom(), _map.getBounds());
+            area.fetchAreaAction(_map.getCenter(), _map.getZoom(), _map.getBounds());
 
             _map.events.add('boundschange', (e) => {
-                area.fetchArea(
+                area.fetchAreaAction(
                     e.originalEvent.newCenter,
                     e.originalEvent.newZoom,
                     e.originalEvent.newBounds,

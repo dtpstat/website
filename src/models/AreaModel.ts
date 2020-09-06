@@ -70,8 +70,8 @@ export const AreaModel = types
         ),
         dtp: types.array(DtpModel),
     })
-    .actions((self) => ({
-        init({
+    .actions((self) => {
+        function init({
             id,
             name,
             parentName,
@@ -87,8 +87,9 @@ export const AreaModel = types
             self.dead = null;
             self.injured = null;
             self.count = null;
-        },
-        clear() {
+        }
+
+        function clear() {
             self.id = null;
             self.name = null;
             self.parentName = null;
@@ -96,34 +97,29 @@ export const AreaModel = types
             self.dead = null;
             self.injured = null;
             self.count = null;
-        },
-        fetchArea: flow(function* (center, scale, bounds) {
+        }
+        const fetchAreaAction = flow(function* (center, scale, bounds) {
             const response = yield fetchArea(center, scale);
             if (!response || !response.region_slug) {
-                // @ts-ignore
-                self.clear();
+                clear();
                 return;
             }
             const area = createAreaModelFromServerResponse(response);
             if (self.id === area.id) {
-                // @ts-ignore
-                yield self.fetchDtp(bounds);
+                yield fetchDtpAction(bounds);
                 return;
             }
-            // @ts-ignore
-            self.init(area);
-            // @ts-ignore
-            yield self.fetchFilters();
-            // @ts-ignore
-            yield self.fetchStatistics(center, scale);
-            // @ts-ignore
-            yield self.fetchDtp(bounds);
-        }),
-        fetchFilters: flow(function* () {
+
+            init(area);
+            yield fetchFiltersAction();
+            yield fetchStatisticsAction(center, scale);
+            yield fetchDtpAction(bounds);
+        });
+        const fetchFiltersAction = flow(function* () {
             const response = yield fetchFilters(self.id!);
             self.filters = cast(createFilterModelFromServerResponse(response));
-        }),
-        fetchStatistics: flow(function* (center, scale) {
+        });
+        const fetchStatisticsAction = flow(function* (center, scale) {
             const dateFilters = self.filters.filter(
                 (filter) => filter.name === 'date',
             );
@@ -143,9 +139,9 @@ export const AreaModel = types
             self.dead = response?.dead;
             self.injured = response?.injured;
             self.count = response?.count;
-        }),
+        });
         // @ts-ignore
-        fetchDtp: flow(function* (bounds: Bounds) {
+        const fetchDtpAction = flow(function* (bounds: Bounds) {
             const dateFilters = self.filters.filter(
                 (filter) => filter.name === 'date',
             );
@@ -156,5 +152,13 @@ export const AreaModel = types
             const { startDate, endDate } = dateFilter.defaultValue;
             const response = yield fetchDtp(startDate, endDate, bounds);
             self.dtp = response;
-        }),
-    }));
+        });
+        return {
+            init,
+            clear,
+            fetchAreaAction,
+            fetchFiltersAction,
+            fetchStatisticsAction,
+            fetchDtpAction,
+        };
+    });
