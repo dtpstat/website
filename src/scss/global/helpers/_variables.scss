@@ -1,0 +1,29 @@
+$font-family-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+'Helvetica Neue', sans-serif;
+//SIZE
+$font-size-main: 16px;
+$font-size-h1: 40px;
+$font-size-h2: 32px;
+//COLORS
+$black: #000;
+$white: #fff;
+$white50: rgba($white, 0.5);
+$white2: #f2f2f2;
+$greyLight: #F4F8FA;
+$greyDark: #18334A;
+$grey10: rgba($greyDark, 0.1);
+$grey20: rgba($greyDark, 0.2);
+$grey50: rgba($greyDark, 0.5);
+$grey70: rgba($greyDark, 0.7);
+$greyMiddle: #EBEEF0;
+$red: #FF001A;
+$red10: rgba($greyDark, 0.1);
+$red20: rgba($greyDark, 0.2);
+$yellow: #FFB81F;
+$yellow10: rgba($yellow, 0.1);
+$green: #17AA14;
+
+$breakpoints: ("320": 320px, "768": 768px, "1024": 1024px, "1280": 1280px, "1440": 1440px);
+//width container
+$max-width: 1440px;

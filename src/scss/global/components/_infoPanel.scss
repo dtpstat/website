@@ -1,0 +1,12 @@
+.info-panel {
+  background: $white;
+  border-radius: 8px;
+  box-shadow: 0px 5px 15px #d4dadd;
+  display: flex;
+  flex-direction: row;
+  height: 76px;
+  margin: 20px 16px;
+  max-width: 683px;
+  padding: 12px 20px;
+  pointer-events: all;
+}

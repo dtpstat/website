@@ -4,24 +4,8 @@ import styled from '@emotion/styled';
 import { useStore } from 'models/RootStore';
 import { Subtitle2, Header3 } from './ui/Text';
 
-const LocationTitle = styled.div`
-    font-weight: bold;
-    font-size: 22px;
-    line-height: 28px;
+const LocationTitle = styled.h3`
     color: #18334a;
-`;
-
-const InfoPanelView = styled.div`
-    display: flex;
-    flex-direction: row;
-    padding: 12px 20px;
-    max-width: 683px;
-    height: 76px;
-    margin: 20px 16px;
-    background: #ffffff;
-    box-shadow: 0px 5px 15px #d4dadd;
-    border-radius: 8px;
-    pointer-events: all;
 `;
 
 const LocationDescription = styled.div`
@@ -43,9 +27,9 @@ const InfoPanelObservable = observer(function InfoPanel() {
     }
 
     return (
-        <InfoPanelView>
+        <article className="info-panel">
             <div>
-                <LocationTitle>{area.name || ''}</LocationTitle>
+                <LocationTitle className="h3">{area.name || ''}</LocationTitle>
                 <LocationDescription>
                     {area.parentName || ''}
                 </LocationDescription>
@@ -62,7 +46,7 @@ const InfoPanelObservable = observer(function InfoPanel() {
                 <Subtitle2 color="rgba(24, 51, 74, 0.5)">Погибли</Subtitle2>
                 <Header3 color="#FF001A">{area?.dead}</Header3>
             </StatisticsView>
-        </InfoPanelView>
+        </article>
     );
 });
 

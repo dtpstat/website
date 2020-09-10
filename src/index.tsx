@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Sentry from '@sentry/browser';
 import 'mobx-react/batchingForReactDom';
-import './index.css';
+import './scss/style.scss'; 
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
 
