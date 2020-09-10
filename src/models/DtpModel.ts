@@ -11,5 +11,5 @@ export const DtpModel = types.model('DtpModel', {
     injured: types.number,
     participants: types.number,
     point: PointModel,
-    severity: types.number,
+    severity: types.maybeNull(types.number),
 });

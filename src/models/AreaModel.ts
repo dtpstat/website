@@ -12,6 +12,7 @@ import {
 } from './FilterModel';
 import { DtpModel } from './DtpModel';
 import { ShortStatisticsResponse, Bounds, FilterResponse } from 'types';
+import { containsBounds } from 'geo';
 
 function createAreaModelFromServerResponse(response: ShortStatisticsResponse) {
     return {
@@ -69,6 +70,7 @@ export const AreaModel = types
             ),
         ),
         dtp: types.array(DtpModel),
+        bounds: types.array(types.array(types.number)),
     })
     .actions((self) => {
         function init({
@@ -119,6 +121,7 @@ export const AreaModel = types
             yield fetchFiltersAction();
             yield fetchStatisticsAction(center, scale);
             yield fetchDtpAction(bounds);
+            self.bounds = bounds;
         });
         const fetchFiltersAction = flow(function* () {
             const response = yield fetchFilters(self.id!);
@@ -155,6 +158,9 @@ export const AreaModel = types
             }
             const dateFilter = dateFilters[0] as IDateFilterModel;
             const { startDate, endDate } = dateFilter.defaultValue;
+            if (self.bounds.length !== 0 && containsBounds(self.bounds, bounds)) {
+                return;
+            }
             const response = yield fetchDtp(startDate, endDate, bounds);
             self.dtp = response;
         });
