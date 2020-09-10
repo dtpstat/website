@@ -99,6 +99,11 @@ export const AreaModel = types
             self.count = null;
         }
         const fetchAreaAction = flow(function* (center, scale, bounds) {
+            window.history.pushState(
+                null,
+                '',
+                `?center=${center[0]}:${center[1]}&scale=${scale}`,
+            );
             const response = yield fetchArea(center, scale);
             if (!response || !response.region_slug) {
                 clear();

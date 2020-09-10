@@ -4,6 +4,16 @@ import { useStore } from 'models/RootStore';
 import { observer } from 'mobx-react';
 import { onSnapshot } from 'mobx-state-tree';
 
+export function getPositionFromURL(url) {
+    const params = new URLSearchParams(url);
+    const center = params.get('center')?.split(':');
+    const zoom = params.get('scale');
+    return {
+        center,
+        zoom
+    };
+}
+
 export const Map = observer(function Map() {
     const map = React.useRef(null);
     const objectManager = React.useRef(null);
@@ -11,9 +21,10 @@ export const Map = observer(function Map() {
 
     React.useEffect(() => {
         window.ymaps.ready(() => {
+            const { center, zoom } = getPositionFromURL(window.location.search);
             const _map = new window.ymaps.Map('map', {
-                center: [55.76, 37.64],
-                zoom: 9,
+                center: center ?? [55.76, 37.64],
+                zoom: zoom ?? 9,
                 controls: [],
             });
 
