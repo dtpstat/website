@@ -41,7 +41,7 @@ export function fetchDtp(startDate: string, endDate: string, bounds: Bounds) {
         // TODO log error
         return null;
     }
-    const boundsStr = frame.map((coord) => `${coord[0]} ${coord[1]}`).join(',');
+    const boundsStr = frame.map((coord) => `${coord[1]} ${coord[0]}`).join(',');
     return fetch(
         `${config.API_URL}/dtp/?start_date=${startDate}&end_date=${endDate}&geo_frame=${boundsStr}`,
     ).then((response) => response.json());
