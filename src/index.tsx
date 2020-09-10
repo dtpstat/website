@@ -4,11 +4,11 @@ import * as Sentry from '@sentry/browser';
 import './scss/style.scss'; 
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
+import config from 'config';
 
 if (process.env.NODE_ENV === 'production') {
     Sentry.init({
-        dsn:
-            'https://2ab4410dbc6440a7ab3bfd0963c217d5@o412018.ingest.sentry.io/5288112',
+        dsn: config.SENTRY_URL,
     });
 }
 
