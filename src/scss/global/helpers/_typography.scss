@@ -70,7 +70,13 @@
 }
 
 .h3 {
-    font-weight: bold;
+    font-size: 1rem;
     font-size: calc(5rem / 4);
-    line-height: calc(7rem / 4);
+    font-weight: bold;
+    letter-spacing: -0.4px;
+    line-height: 1rem;
+    @include mq('1440') {
+        line-height: calc(7rem / 4);
+        font-size: calc(5rem / 4);
+    }
 }

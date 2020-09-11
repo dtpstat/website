@@ -1,0 +1,16 @@
+.btn {
+    border-radius: 20px;
+    font-weight: 500;
+    line-height: 1.5rem;
+    padding: 6px 16px;
+    transition: color 0.3s ease-in-out, background 0.3s ease-in-out;
+}
+
+.btn-light {
+    @extend .btn;
+    background: $greyMiddle;
+    color: $greyDark;
+    &:hover {
+        background: $grey20;
+    }
+}

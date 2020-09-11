@@ -2,11 +2,51 @@
   background: $white;
   border-radius: 8px;
   box-shadow: 0px 5px 15px #d4dadd;
-  display: flex;
-  flex-direction: row;
-  height: 76px;
-  margin: 20px 16px;
-  max-width: 683px;
-  padding: 12px 20px;
+  display: grid;
+  gap: 10px 10px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  margin: 10px;
+  padding: 8px 20px;
   pointer-events: all;
+  width: fit-content;
+
+  @include mq('1440') {
+    display: flex;
+    margin: 20px 16px 20px 0;
+    height: 76px;
+  }
+
+  >div {
+    @include mq('1440') {
+      margin-right: 40px;
+    }
+    &:nth-of-type(1) {
+      align-items: center;
+      grid-column: 1/-1;
+      grid-row: 1/2;
+      text-align: center;
+      text-align: center;
+    }
+    &:nth-of-type(2) {
+      grid-row: 2 / 3;
+      text-align: center;
+    }
+    &:nth-of-type(3) {
+      grid-row: 2 / 3;
+      text-align: center;
+    }
+    &:nth-of-type(4) {
+      grid-row: 2 / 3;
+      text-align: center;
+    }
+  }
+
+  .btn {
+    grid-column: 1/-1;
+    grid-row: 3 / 4;
+    justify-self: center;
+  }
+
+
 }

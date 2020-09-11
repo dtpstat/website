@@ -1,24 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import styled from '@emotion/styled';
+import { Colors } from './ui/Colors';
 import { useStore } from 'models/RootStore';
-import { Subtitle2, Header3 } from './ui/Text';
-
-const LocationTitle = styled.h3`
-    color: #18334a;
-`;
-
-const LocationDescription = styled.div`
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 20px;
-    color: rgba(24, 51, 74, 0.5);
-    margin-top: 4px;
-`;
-
-const StatisticsView = styled.div`
-    margin-left: 40px;
-`;
 
 const InfoPanelObservable = observer(function InfoPanel() {
     const { area } = useStore();
@@ -29,23 +12,22 @@ const InfoPanelObservable = observer(function InfoPanel() {
     return (
         <article className="info-panel">
             <div>
-                <LocationTitle className="h3">{area.name || ''}</LocationTitle>
-                <LocationDescription>
-                    {area.parentName || ''}
-                </LocationDescription>
+                <h3 className="h3" style={{ color: Colors.$greyDark }} >{area.name || ''}</h3>
+                <p className="body2" style={{ color: Colors.$grey50 }}>{area.parentName || ''}</p>
             </div>
-            <StatisticsView>
-                <Subtitle2 color="rgba(24, 51, 74, 0.5)">ДТП</Subtitle2>
-                <Header3 color="#18334A">{area?.count}</Header3>
-            </StatisticsView>
-            <StatisticsView>
-                <Subtitle2 color="rgba(24, 51, 74, 0.5)">Пострадали</Subtitle2>
-                <Header3 color="#FFB81F">{area?.injured}</Header3>
-            </StatisticsView>
-            <StatisticsView>
-                <Subtitle2 color="rgba(24, 51, 74, 0.5)">Погибли</Subtitle2>
-                <Header3 color="#FF001A">{area?.dead}</Header3>
-            </StatisticsView>
+            <div>
+                <p className="subtitle2" style={{ color: Colors.$grey50 }}>ДТП</p>
+                <h3 className="h3" style={{ color: Colors.$greyDark }}>{area?.count}</h3>
+            </div>
+            <div>
+                <p className="subtitle2" style={{ color: Colors.$grey50 }}>Пострадали</p>
+                <h3 className="h3" style={{ color: Colors.$yellow }}>{area?.injured}</h3>
+            </div>
+            <div>
+                <p className="subtitle2" style={{ color: Colors.$grey50 }}>Погибли</p>
+                <h3 className="h3" style={{ color: Colors.$red }}>{area?.dead}</h3>
+            </div>
+            <button className="btn btn-light" style={{ alignSelf: 'center' }}>Подробнее</button>
         </article>
     );
 });

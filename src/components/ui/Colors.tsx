@@ -1,0 +1,20 @@
+// duplicate of styles in scss
+export const Colors = {
+    $black: '#000',
+    $white: '#fff',
+    $white50: 'rgba(255, 255, 255, 0.5)',
+    $white2: '#f2f2f2',
+    $greyLight: '#F4F8FA',
+    $greyDark: '#18334A',
+    $grey10: 'rgba(24, 51, 74, 0.1)',
+    $grey20: 'rgba(24, 51, 74, 0.2)',
+    $grey50: 'rgba(24, 51, 74, 0.5)',
+    $grey70: 'rgba(24, 51, 74, 0.72)',
+    $greyMiddle: '#EBEEF0',
+    $red: '#FF001A',
+    $red10: 'rgba(227, 26, 28, 0.1)',
+    $red20: 'rgba(24, 51, 74, 0.22)',
+    $yellow: '#FFB81F',
+    $yellow10: 'rgba(255, 184, 31, 0.1)',
+    $green: '#17AA14',
+}
