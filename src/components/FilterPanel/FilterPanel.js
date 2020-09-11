@@ -2,12 +2,12 @@ import React from 'react';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import styled from '@emotion/styled';
-import './FilterPanel.css';
 import { observer } from 'mobx-react';
 import { useStore } from 'models/RootStore';
-import { Subtitle2, Subtitle3, Body1 } from 'components/ui/Text';
+import { Subtitle2, Body1 } from 'components/ui/Text';
 import config from 'config';
 import { DateRange } from 'react-date-range';
+import { Colors } from '../ui/Colors';
 
 const DateFilter = (props) => {
     const handleSelect = () => {};
@@ -27,48 +27,26 @@ const DateFilter = (props) => {
     );
 };
 
-const ParticipantView = styled.div`
-    display: flex;
-    width: 112px;
-    height: 60px;
-    background: ${(props) =>
-        props.selected ? 'rgba(24, 51, 74, 0.72)' : '#f4f8fa'};
-    border-radius: 8px;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    align-self: center;
-    margin-right: 12px;
-    margin-top: 12px;
-    padding: 8px;
-`;
-
-const ParticipantFilterView = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-`;
-
 const ParticipantFilterItem = (props) => {
     const selected = props.default === true;
     return (
-        <ParticipantView selected={selected}>
+        <div className="participant-item" selected={selected}>
             <img
                 src={`${config.STATIC_URL}${props.icon}`}
                 alt={props.preview}
             />
-            <Subtitle3 color="#18334A">{props.preview}</Subtitle3>
-        </ParticipantView>
+            <p className="subtitle3" style={{ color: Colors.$greyDark }} >{props.preview}</p>
+        </div>
     );
 };
 
 const ParticipantsFilter = (props) => {
     return (
-        <ParticipantFilterView>
+        <div className="participant-filter" >
             {props.values.map((item) => (
                 <ParticipantFilterItem key={item.value} {...item} />
             ))}
-        </ParticipantFilterView>
+        </div>
     );
 };
 
