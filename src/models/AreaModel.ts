@@ -1,4 +1,4 @@
-import { types, flow, Instance, cast } from 'mobx-state-tree';
+import { types, flow, Instance, cast, getParent } from 'mobx-state-tree';
 import { fetchArea, fetchFilters, fetchStatistics, fetchDtp } from 'network';
 import {
     ParticipantsFilterModel,
@@ -158,11 +158,16 @@ export const AreaModel = types
             }
             const dateFilter = dateFilters[0] as IDateFilterModel;
             const { startDate, endDate } = dateFilter.defaultValue;
-            if (self.bounds.length !== 0 && containsBounds(self.bounds, bounds)) {
+            if (
+                self.bounds.length !== 0 &&
+                containsBounds(self.bounds, bounds)
+            ) {
                 return;
             }
             const response = yield fetchDtp(startDate, endDate, bounds);
             self.dtp = response;
+            // @ts-ignore
+            getParent(self).mapStore.drawObjects(self.dtp);
         });
         return {
             init,
