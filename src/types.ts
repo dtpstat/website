@@ -9,6 +9,14 @@ export type CoordinateObject = {
 
 export type Bounds = Coordinate[];
 
+export type BoundsChangedEvent = {
+    originalEvent: {
+        newCenter: Coordinate;
+        newZoom: Scale;
+        newBounds: Bounds;
+    };
+};
+
 export type ShortStatisticsResponse = {
     parent_region_name: string;
     region_name: string;
