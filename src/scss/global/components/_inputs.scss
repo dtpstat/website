@@ -13,15 +13,22 @@
         width: 100%;
     }
 
-    svg {
+    .btn-search {
         position: absolute;
-        fill: $greyDark;
-        top: 50%;
+        right: 0;
+        top: 0;
+    }
+
+    .icon-calendar {
+        fill: none;
+        height: 18px;
+        pointer-events: none;
+        position: absolute;
         right: 15px;
+        stroke-width: 2; 
+        stroke: $greyDark;
+        top: 50%;
         transform: translateY(-50%);
-        &.icon-calendar {
-            width: 18px;
-            height: 18px;
-        }
+        width: 18px;
     }
 }

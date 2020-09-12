@@ -1,6 +1,5 @@
 .category-filter {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
 }
 
@@ -24,8 +23,9 @@
         }
     }
 
-    &:hover {
+    &:hover, &:focus {
         background-color: $grey70;
+        outline: none;
         .btn-preview {
             color: $white;
         }
@@ -36,6 +36,9 @@
 
     button {
         background-color: transparent;
+        &:focus, &:hover {
+            box-shadow: none;
+        }
     }
 
     .btn-preview {
@@ -43,29 +46,47 @@
         font-weight: normal;
         padding: 7px 8px;
         transition: color 0.3s ease;
+        outline: none;
+        color: $greyDark;
+        display: flex;
+        align-items: center;
+
     }
     .btn-decline {
         align-self: stretch;
         display: none;
         padding: 7px 10px;
-        .icon-decline {
-            height: 12px;
-            opacity: 0.5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            stroke-width: 2px;
-            stroke: white;
-            width: 12px;
-        }
     }
 
-    .icon-edit {
-        cursor: pointer;
-        fill: $greyDark;
-        height: 17px;
-        margin-left: 10px;
+    .icon-decline {
+        height: 12px;
+        opacity: 0.5;
         pointer-events: none;
-        transition: fill 0.3s ease;
-        width: 17px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+        stroke: $white;
+        transition: opacity .3s ease, stroke .3s ease;
+        width: 12px;
     }
 }
+
+.category-item__draw {
+    @extend .category-item;
+    position: relative;
+    .icon-edit {
+        fill: $greyDark;
+        height: 17px;
+        left: 10px;
+        pointer-events: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: fill 0.3s ease;
+        width: 17px; 
+    }
+    .btn-preview {
+        padding-left: 36px;
+    }
+}
+

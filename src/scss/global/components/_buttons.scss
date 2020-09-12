@@ -11,8 +11,10 @@
     @extend .btn;
     background: $greyMiddle;
     color: $greyDark;
-    &:hover {
+    &:hover,
+    &:focus {
         background: $grey20;
+        box-shadow: none;
     }
 }
 
@@ -25,13 +27,38 @@
     left: 50%;
     position: absolute;
     transform: translateX(-50%);
-    &:hover {
+    &:hover,
+    &:focus {
         background-color: $grey20;
+        box-shadow: none;
     }
     .icon-arrow-up {
         width: 12px;
         height: 8px;
         margin-right: 12px;
         pointer-events: none;
+    }
+}
+
+.btn-search {
+    border-radius: 50%;
+    position: relative;
+    padding: 0;
+    padding: 9px 10px 8px 10px;
+    background-color: transparent;
+
+    &:hover,
+    &:focus {
+        box-shadow: none;
+        .icon-search {
+            stroke: $black;
+        }
+    }
+
+    .icon-search {
+        fill: none;
+        stroke: $greyDark;
+        width: 20px;
+        height: 20px;
     }
 }

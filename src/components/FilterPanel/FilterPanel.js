@@ -7,6 +7,59 @@ import config from 'config';
 import { DateRange } from 'react-date-range';
 import { Colors } from '../ui/Colors';
 
+const CategoryHeader = () => {
+    return (
+        <div className="filter-header">
+            <button className="btn-back">
+                <svg className="icon icon-arrow-back">
+                    <use xlinkHref="svg/sprite.svg#arrow-back"></use>
+                </svg>
+                <span>Нарушения ПДД</span>
+            </button>
+            <div className="tags-wrap">
+                <div className="category-item-light" tabIndex="0">
+                    <button className="btn-preview">
+                        <span>Превышение скорости</span>
+                        <svg className="icon icon-decline">
+                            <use xlinkHref="svg/sprite.svg#decline"></use>
+                        </svg>
+                    </button>
+                </div>
+                <div className="category-item-light" tabIndex="0">
+                    <button className="btn-preview">
+                        <span>Нет прав</span>
+                        <svg className="icon icon-decline">
+                            <use xlinkHref="svg/sprite.svg#decline"></use>
+                        </svg>
+                    </button>
+                </div>
+                <div className="category-item-light" tabIndex="0">
+                    <button className="btn-preview">
+                        <span>Превышение скорости</span>
+                        <svg className="icon icon-decline">
+                            <use xlinkHref="svg/sprite.svg#decline"></use>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div className="inputWrap">
+                <input
+                    type="text"
+                    className="input"
+                    placeholder="Введите название нарушения"
+                />
+                {/* maybe it should be button not just svg */}
+                <button className="btn-search">
+                    <svg className="icon icon-search">
+                        <use xlinkHref="svg/sprite.svg#search"></use>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    );
+};
+
 const DateFilter = (props) => {
     const handleSelect = () => {};
     return (
@@ -17,7 +70,6 @@ const DateFilter = (props) => {
                     className="input"
                     defaultValue="Март 2015 — Декабрь 2018"
                 />
-                {/* maybe it should be button not just svg */}
                 <svg className="icon icon-calendar">
                     <use xlinkHref="svg/sprite.svg#calendar"></use>
                 </svg>
@@ -41,7 +93,7 @@ const DateFilter = (props) => {
 const ParticipantFilterItem = (props) => {
     const selected = props.default === true;
     return (
-        <button className="participant-item" selected={selected}>
+        <button className="participant-item" selected={selected} tabIndex="0">
             {
                 <object
                     type="image/svg+xml"
@@ -49,9 +101,6 @@ const ParticipantFilterItem = (props) => {
                     aria-label={props.preview}
                 ></object>
             }
-            {/*<svg class="icon ">
-              { <use xlinkHref={`svg/sprite.svg#${props.icon}`}></use> }
-            </svg> */}
             <p className="subtitle3">{props.preview}</p>
         </button>
     );
@@ -69,7 +118,7 @@ const ParticipantsFilter = (props) => {
 
 const SeverityFilterItem = (props) => {
     return (
-        <label className="severity-item">
+        <label className="severity-item" tabIndex="0">
             <input
                 type="checkbox"
                 checked={props.default}
@@ -111,7 +160,7 @@ const SeverityFilter = (props) => {
 
 const CategoryFilterItem = (props) => {
     return (
-        <div className="category-item">
+        <div className="category-item" tabIndex="0">
             <button className="btn-preview">
                 <span>{props.preview}</span>
             </button>
@@ -127,7 +176,7 @@ const CategoryFilterItem = (props) => {
 const CategoryFilter = (props) => {
     return (
         <div className="category-filter">
-            <div className="category-item">
+            <div className="category-item__draw" tabIndex="0">
                 <svg className="icon icon-edit">
                     <use xlinkHref="svg/sprite.svg#edit"></use>
                 </svg>
@@ -164,6 +213,7 @@ export const FilterPanel = observer(function FilterPanel() {
 
     return (
         <div className="filter-panel">
+            {CategoryHeader()}
             <div className="filter-content">
                 {area.filters.map((filter) => {
                     return (
