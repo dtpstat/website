@@ -1,6 +1,14 @@
 import { cast, flow, types, getParent } from 'mobx-state-tree';
 import { Coordinate, Bounds, Scale } from 'types';
 
+const supportedIconsBySeverity = {
+    0: 'svg/circle-0.svg',
+    1: 'svg/circle-1.svg',
+    3: 'svg/circle-3.svg',
+    4: 'svg/circle-4.svg',
+    default: 'svg/circle-default.svg',
+};
+
 export const MapStore = types
     .model('Map', {
         center: types.array(types.number),
@@ -38,9 +46,7 @@ export const MapStore = types
             map = mapInstance;
 
             // @ts-ignore
-            objectManager = new window.ymaps.ObjectManager({
-                
-            });
+            objectManager = new window.ymaps.ObjectManager({});
 
             map.geoObjects.add(objectManager);
 
@@ -55,23 +61,30 @@ export const MapStore = types
             objectManager.removeAll();
             objectManager.add({
                 type: 'FeatureCollection',
-                features: items.map((item) => ({
-                    type: 'Feature',
-                    id: item.id,
-                    geometry: {
-                        type: 'Point',
-                        coordinates: [
-                            item.point.latitude,
-                            item.point.longitude,
-                        ],
-                    },
-                    options: {
-                        iconLayout: 'default#image',
-                        iconImageHref: 'circle.svg',
-                        iconImageSize: [10, 10],
-                        iconImageOffset: [-5, -5]
-                    }
-                })),
+                features: items.map((item) => {
+                    const icon =
+                        item.severity in supportedIconsBySeverity
+                            ? // @ts-ignore
+                              supportedIconsBySeverity[item.severity]
+                            : supportedIconsBySeverity.default;
+                    return {
+                        type: 'Feature',
+                        id: item.id,
+                        geometry: {
+                            type: 'Point',
+                            coordinates: [
+                                item.point.latitude,
+                                item.point.longitude,
+                            ],
+                        },
+                        options: {
+                            iconLayout: 'default#image',
+                            iconImageHref: icon,
+                            iconImageSize: [10, 10],
+                            iconImageOffset: [-5, -5],
+                        },
+                    };
+                }),
             });
         }
 
