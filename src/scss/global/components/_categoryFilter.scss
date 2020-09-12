@@ -2,16 +2,70 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-};
+}
 
 .category-item {
-    padding: 4px 8px;
+    align-items: center;
     background: $greyLight;
     border-radius: 4px;
-    margin-left: 8px;
+    display: flex;
     margin-bottom: 12px;
+    margin-right: 8px;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
 
-    .body2 {
-        color: $greyDark;
+    &.active {
+        background-color: $grey70;
+        .btn-preview {
+            color: $white;
+        }
+        .btn-decline {
+            display: block;
+        }
     }
-};
+
+    &:hover {
+        background-color: $grey70;
+        .btn-preview {
+            color: $white;
+        }
+        .icon-edit {
+            fill: $white;
+        }
+    }
+
+    button {
+        background-color: transparent;
+    }
+
+    .btn-preview {
+        align-self: stretch;
+        font-weight: normal;
+        padding: 7px 8px;
+        transition: color 0.3s ease;
+    }
+    .btn-decline {
+        align-self: stretch;
+        display: none;
+        padding: 7px 10px;
+        .icon-decline {
+            height: 12px;
+            opacity: 0.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 2px;
+            stroke: white;
+            width: 12px;
+        }
+    }
+
+    .icon-edit {
+        cursor: pointer;
+        fill: $greyDark;
+        height: 17px;
+        margin-left: 10px;
+        pointer-events: none;
+        transition: fill 0.3s ease;
+        width: 17px;
+    }
+}

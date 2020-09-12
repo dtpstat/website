@@ -12,7 +12,11 @@ const DateFilter = (props) => {
     return (
         <div>
             <div className="inputWrap">
-                <input type="text" className="input" value="Март 2015 — Декабрь 2018"/>
+                <input
+                    type="text"
+                    className="input"
+                    defaultValue="Март 2015 — Декабрь 2018"
+                />
                 {/* maybe it should be button not just svg */}
                 <svg className="icon icon-calendar">
                     <use xlinkHref="svg/sprite.svg#calendar"></use>
@@ -108,7 +112,14 @@ const SeverityFilter = (props) => {
 const CategoryFilterItem = (props) => {
     return (
         <div className="category-item">
-            <div className="body2">{props.preview}</div>
+            <button className="btn-preview">
+                <span>{props.preview}</span>
+            </button>
+            <button className="btn-decline">
+                <svg className="icon icon-decline">
+                    <use xlinkHref="svg/sprite.svg#decline"></use>
+                </svg>
+            </button>
         </div>
     );
 };
@@ -116,6 +127,12 @@ const CategoryFilterItem = (props) => {
 const CategoryFilter = (props) => {
     return (
         <div className="category-filter">
+            <div className="category-item">
+                <svg className="icon icon-edit">
+                    <use xlinkHref="svg/sprite.svg#edit"></use>
+                </svg>
+                <button className="btn-preview">Выделить участок</button>
+            </div>
             {props.values.map((item) => (
                 <CategoryFilterItem key={item.value} {...item} />
             ))}
@@ -147,14 +164,23 @@ export const FilterPanel = observer(function FilterPanel() {
 
     return (
         <div className="filter-panel">
-            {area.filters.map((filter) => {
-                return (
-                    <div key={filter.name} className="filter-item">
-                        <p className="subtitle2">{filter.label}</p>
-                        {createFilterComponent(filter)}
-                    </div>
-                );
-            })}
+            <div className="filter-content">
+                {area.filters.map((filter) => {
+                    return (
+                        <div key={filter.name} className="filter-item">
+                            <p className="subtitle2">{filter.label}</p>
+                            {createFilterComponent(filter)}
+                        </div>
+                    );
+                })}
+            </div>
+
+            <button className="btn-hideFilter">
+                <svg className="icon icon-arrow-up">
+                    <use xlinkHref="svg/sprite.svg#arrow-up"></use>
+                </svg>
+                <span>Скрыть</span>
+            </button>
         </div>
     );
 });

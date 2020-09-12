@@ -7,23 +7,31 @@ $font-size-h1: 40px;
 $font-size-h2: 32px;
 //COLORS
 $black: #000;
-$white: #fff;
-$white50: rgba($white, 0.5);
-$white2: #f2f2f2;
-$greyLight: #F4F8FA;
+$green: #17AA14;
+$grey10: #e8ebed;
+$grey20: #ccd2d7;
+$grey50: #8d99a5;
+$grey70: #586c7c;
 $greyDark: #18334A;
+$greyLight: #F4F8FA;
+$greyMiddle: #EBEEF0;
+$red10: #fde9e9;
+$red20: #f9cdcd;
+$red: #FF001A;
+$white2: #f2f2f2;
+$white: #fff;
+$yellow10: #fff8e9;
+$yellow: #FFB81F;
+/*
 $grey10: rgba($greyDark, 0.1);
 $grey20: rgba($greyDark, 0.2);
 $grey50: rgba($greyDark, 0.5);
 $grey70: rgba($greyDark, 0.7);
-$greyMiddle: #EBEEF0;
-$red: #FF001A;
 $red10: rgba($greyDark, 0.1);
 $red20: rgba($greyDark, 0.2);
-$yellow: #FFB81F;
+$white50: rgba($white, 0.5);
 $yellow10: rgba($yellow, 0.1);
-$green: #17AA14;
-
+*/
 $breakpoints: ("320": 320px, "768": 768px, "1024": 1024px, "1280": 1280px, "1440": 1440px);
 //width container
 $max-width: 1440px;
