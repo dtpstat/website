@@ -56,13 +56,18 @@ const ParticipantsFilter = (props) => {
 
 const SeverityFilterItem = (props) => {
     return (
-        <div className="severity-item">
+        <label className="severity-item">
             <input
                 type="checkbox"
                 checked={props.default}
                 disabled={props.disabled}
                 onChange={() => {}}
             />
+            <span className="checkmark">
+                <svg className="icon icon-check">
+                  <use xlinkHref='svg/sprite.svg#check'></use> 
+                </svg>
+            </span>
             <div
                 className="severity-color"
                 style={{
@@ -77,7 +82,7 @@ const SeverityFilterItem = (props) => {
             >
                 {props.preview}
             </p>
-        </div>
+        </label>
     );
 };
 
@@ -94,7 +99,7 @@ const SeverityFilter = (props) => {
 const CategoryFilterItem = (props) => {
     return (
         <div className="category-item">
-            <checkbox className="body2">{props.preview}</checkbox>
+            <div className="body2">{props.preview}</div>
         </div>
     );
 };
