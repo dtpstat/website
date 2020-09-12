@@ -39,9 +39,7 @@ export const MapStore = types
 
             // @ts-ignore
             objectManager = new window.ymaps.ObjectManager({
-                clusterize: true,
-                gridSize: 32,
-                clusterDisableClickZoom: true,
+                
             });
 
             map.geoObjects.add(objectManager);
@@ -67,6 +65,12 @@ export const MapStore = types
                             item.point.longitude,
                         ],
                     },
+                    options: {
+                        iconLayout: 'default#image',
+                        iconImageHref: 'circle.svg',
+                        iconImageSize: [10, 10],
+                        iconImageOffset: [-5, -5]
+                    }
                 })),
             });
         }
