@@ -1,10 +1,8 @@
 import React from 'react';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
-import styled from '@emotion/styled';
 import { observer } from 'mobx-react';
 import { useStore } from 'models/RootStore';
-import { Subtitle2, Body1 } from 'components/ui/Text';
 import config from 'config';
 import { DateRange } from 'react-date-range';
 import { Colors } from '../ui/Colors';
@@ -30,19 +28,25 @@ const DateFilter = (props) => {
 const ParticipantFilterItem = (props) => {
     const selected = props.default === true;
     return (
-        <div className="participant-item" selected={selected}>
-            <img
-                src={`${config.STATIC_URL}${props.icon}`}
-                alt={props.preview}
-            />
-            <p className="subtitle3" style={{ color: Colors.$greyDark }} >{props.preview}</p>
-        </div>
+        <button className="participant-item" selected={selected}>
+            {
+                <object
+                    type="image/svg+xml"
+                    data={`${config.STATIC_URL}${props.icon}`}
+                    aria-label={props.preview}
+                ></object>
+            }
+            {/*<svg class="icon ">
+              { <use xlinkHref={`svg/sprite.svg#${props.icon}`}></use> }
+            </svg> */}
+            <p className="subtitle3">{props.preview}</p>
+        </button>
     );
 };
 
 const ParticipantsFilter = (props) => {
     return (
-        <div className="participant-filter" >
+        <div className="participant-filter">
             {props.values.map((item) => (
                 <ParticipantFilterItem key={item.value} {...item} />
             ))}
@@ -50,83 +54,58 @@ const ParticipantsFilter = (props) => {
     );
 };
 
-const SeverityFilterView = styled.div``;
-
-const SeverityColor = styled.div`
-    width: 12px;
-    height: 12px;
-    border-radius: 6px;
-    margin-left: 11px;
-    margin-right: 8px;
-    background: ${(props) => props.color};
-`;
-
-const SeverityFilterItemView = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-`;
-
 const SeverityFilterItem = (props) => {
     return (
-        <SeverityFilterItemView>
+        <div className="severity-item">
             <input
                 type="checkbox"
                 checked={props.default}
                 disabled={props.disabled}
                 onChange={() => {}}
             />
-            <SeverityColor
-                color={props.disabled ? 'rgba(24, 51, 74, 0.5)' : props.color}
+            <div
+                className="severity-color"
+                style={{
+                    background: props.disabled ? Colors.$grey50 : props.color,
+                }}
             />
-            <Body1
-                color={props.disabled ? 'rgba(24, 51, 74, 0.5);' : '#18334A'}
+            <p
+                className="body1"
+                style={{
+                    color: props.disabled ? Colors.$grey50 : Colors.$greyDark,
+                }}
             >
                 {props.preview}
-            </Body1>
-        </SeverityFilterItemView>
+            </p>
+        </div>
     );
 };
 
 const SeverityFilter = (props) => {
     return (
-        <SeverityFilterView>
+        <div>
             {props.values.map((item) => (
                 <SeverityFilterItem key={item.value} {...item} />
             ))}
-        </SeverityFilterView>
+        </div>
     );
 };
 
-const CategoryFilterView = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-`;
-
-const CategoryItemView = styled.div`
-    padding: 4px 8px;
-    background: #f4f8fa;
-    border-radius: 4px;
-    margin-left: 8px;
-    margin-bottom: 12px;
-`;
-
 const CategoryFilterItem = (props) => {
     return (
-        <CategoryItemView>
-            <Body1 color="#18334A">{props.preview}</Body1>
-        </CategoryItemView>
+        <div className="category-item">
+            <checkbox className="body2">{props.preview}</checkbox>
+        </div>
     );
 };
 
 const CategoryFilter = (props) => {
     return (
-        <CategoryFilterView>
+        <div className="category-filter">
             {props.values.map((item) => (
                 <CategoryFilterItem key={item.value} {...item} />
             ))}
-        </CategoryFilterView>
+        </div>
     );
 };
 
@@ -157,7 +136,7 @@ export const FilterPanel = observer(function FilterPanel() {
             {area.filters.map((filter) => {
                 return (
                     <div key={filter.name} className="filter-item">
-                        <Subtitle2 color="#18334A">{filter.label}</Subtitle2>
+                        <p className="subtitle2">{filter.label}</p>
                         {createFilterComponent(filter)}
                     </div>
                 );

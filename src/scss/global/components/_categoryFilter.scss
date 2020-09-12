@@ -1,0 +1,17 @@
+.category-filter {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+};
+
+.category-item {
+    padding: 4px 8px;
+    background: $greyLight;
+    border-radius: 4px;
+    margin-left: 8px;
+    margin-bottom: 12px;
+
+    .body2 {
+        color: $greyDark;
+    }
+};

@@ -15,6 +15,11 @@
 
 .filter-item {
     margin-bottom: 20px;
+
+    .subtitle2 {
+        margin-bottom: 12px;
+        color: $greyDark;
+    }
 }
 
 .filter-title {
@@ -43,16 +48,30 @@
     flex-direction: column;
     justify-content: center;
     padding: 4px;
+    transition: background .3s ease, color .3s ease;
 
     @include mq('1440') {
         padding: 8px;
     }
 
+    &:hover, &.active {
+        background: $grey70;
+        color: $white;
+        object {
+            filter: invert(1) grayscale(1) brightness(2);
+        }
+        .subtitle3 {
+            color: $white;
+        }
+    }
+
     .subtitle3 {
         font-size: 10px;
         text-align: center;
+        color: $greyDark; 
         @include mq('1440') {
             font-size: calc(3rem / 4);
         }
     }
 }
+

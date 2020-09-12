@@ -1,0 +1,13 @@
+.severity-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+};
+
+.severity-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-left: 11px;
+    margin-right: 8px;
+};
