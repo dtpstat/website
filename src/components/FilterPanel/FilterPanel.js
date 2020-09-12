@@ -10,18 +10,27 @@ import { Colors } from '../ui/Colors';
 const DateFilter = (props) => {
     const handleSelect = () => {};
     return (
-        <DateRange
-            editableDateInputs
-            moveRangeOnFirstSelection={false}
-            ranges={[
-                {
-                    startDate: new Date(props.defaultValue.startDate),
-                    endDate: new Date(props.defaultValue.endDate),
-                    key: 'selection',
-                },
-            ]}
-            onChange={handleSelect}
-        />
+        <div>
+            <div className="inputWrap">
+                <input type="text" className="input" value="Март 2015 — Декабрь 2018"/>
+                {/* maybe it should be button not just svg */}
+                <svg className="icon icon-calendar">
+                    <use xlinkHref="svg/sprite.svg#calendar"></use>
+                </svg>
+            </div>
+            <DateRange
+                editableDateInputs
+                moveRangeOnFirstSelection={false}
+                ranges={[
+                    {
+                        startDate: new Date(props.defaultValue.startDate),
+                        endDate: new Date(props.defaultValue.endDate),
+                        key: 'selection',
+                    },
+                ]}
+                onChange={handleSelect}
+            />
+        </div>
     );
 };
 
@@ -65,7 +74,7 @@ const SeverityFilterItem = (props) => {
             />
             <span className="checkmark">
                 <svg className="icon icon-check">
-                  <use xlinkHref='svg/sprite.svg#check'></use> 
+                    <use xlinkHref="svg/sprite.svg#check"></use>
                 </svg>
             </span>
             <div
