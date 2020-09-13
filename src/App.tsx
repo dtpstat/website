@@ -5,9 +5,9 @@ import { InfoPanel } from './components/InfoPanel';
 import InfoBaloon from './components/InfoBaloon';
 import { rootStore, RootStoreContext } from './models/RootStore';
 import Toast from 'components/Toast';
+import Layers from 'components/Layers';
 
 export const App: React.FC = () => {
-    
     return (
         <RootStoreContext.Provider value={rootStore}>
             <Map />
@@ -16,6 +16,7 @@ export const App: React.FC = () => {
                 <InfoPanel />
                 <InfoBaloon />
                 <Toast />
+                <Layers />
             </div>
         </RootStoreContext.Provider>
     );

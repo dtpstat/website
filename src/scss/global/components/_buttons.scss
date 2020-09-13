@@ -76,3 +76,29 @@
     padding: 7px 8px;
     transition: color 0.3s ease, background-color 0.3s ease;
 }
+
+.btn-layers {
+    align-items: center;
+    background-color: $white;
+    border-radius: 50%;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    width: 40px;
+    &:hover,
+    &:focus {
+        background-color: $greyDark;
+        .icon-layers {
+            fill: $white;
+        }
+    }
+
+    .icon-layers {
+        fill: $grey70;
+        height: 17px;
+        pointer-events: none;
+        transition: fill 0.3s ease;
+        width: 17px;
+    }
+}
