@@ -17,7 +17,7 @@ export const Map = observer(function Map() {
     const { mapStore } = useStore();
 
     React.useEffect(() => {
-        window.ymaps.ready(() => {
+        window.ymaps.ready(['Heatmap']).then(() => {
             const { center, zoom } = getPositionFromURL(window.location.search);
             mapStore.setMap(
                 new window.ymaps.Map('map', {
