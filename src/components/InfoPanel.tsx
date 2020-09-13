@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Colors } from './ui/Colors';
 import { useStore } from 'models/RootStore';
-import InfoPanelStat from './InfoPanelStat'
+import InfoPanelStat from './InfoPanelStat';
 
 const InfoPanelObservable = observer(function InfoPanel() {
     const { area } = useStore();
@@ -45,7 +45,12 @@ const InfoPanelObservable = observer(function InfoPanel() {
                         {area?.dead}
                     </h3>
                 </div>
-                <button className="btn btn-light">Подробнее</button>
+                <button className="btn btn-light">
+                    <span>Подробнее</span>
+                    <svg className="icon icon-decline">
+                        <use xlinkHref="svg/sprite.svg#decline"></use>
+                    </svg>
+                </button>
             </div>
             {InfoPanelStat()}
         </div>

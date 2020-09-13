@@ -5,11 +5,9 @@
 
 .category-item {
     align-items: center;
-    border-radius: 4px;
     display: flex;
     margin-bottom: 12px;
     margin-right: 8px;
-    overflow: hidden;
     transition: background-color 0.3s ease;
 
     &.active {
@@ -42,6 +40,7 @@
 
     .btn-rect {
         align-self: stretch;
+        border-radius: 4px;
     }
 
     .btn-decline {

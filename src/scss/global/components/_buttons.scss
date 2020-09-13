@@ -1,5 +1,7 @@
 .btn {
+    align-items: center;
     border-radius: 20px;
+    display: flex;
     font-weight: 500;
     line-height: 1.5rem;
     padding: 6px 16px;
@@ -66,10 +68,11 @@
 .btn-rect {
     align-items: center;
     background-color: $greyLight;
+    border-radius: 8px;
     color: $greyDark;
     display: flex;
     font-weight: normal;
     outline: none;
     padding: 7px 8px;
-    transition: color .3s ease, background-color .3s ease;
+    transition: color 0.3s ease, background-color 0.3s ease;
 }

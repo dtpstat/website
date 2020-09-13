@@ -53,5 +53,19 @@
     grid-row: 3 / 4;
     align-self: center;
     margin-left: auto;
+
+    &.active {
+      .icon-decline {
+        display: block; 
+      }
+    }
+
+    .icon-decline {
+      display: none;
+      stroke: $greyDark;
+      width: 15px;
+      height: 15px;
+      margin-left: 12px;
+    }
   }
 }
