@@ -4,6 +4,7 @@ import { FilterPanel } from './components/FilterPanel';
 import { InfoPanel } from './components/InfoPanel';
 import InfoBaloon from './components/InfoBaloon';
 import { rootStore, RootStoreContext } from './models/RootStore';
+import Toast from 'components/Toast';
 
 export const App: React.FC = () => {
     
@@ -14,6 +15,7 @@ export const App: React.FC = () => {
                 <FilterPanel />
                 <InfoPanel />
                 <InfoBaloon />
+                <Toast />
             </div>
         </RootStoreContext.Provider>
     );
