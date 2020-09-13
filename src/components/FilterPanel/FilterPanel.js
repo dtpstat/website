@@ -18,7 +18,7 @@ const CategoryHeader = () => {
             </button>
             <div className="tags-wrap">
                 <div className="category-item-light" tabIndex="0">
-                    <button className="btn-preview">
+                    <button className="btn-light">
                         <span>Превышение скорости</span>
                         <svg className="icon icon-decline">
                             <use xlinkHref="svg/sprite.svg#decline"></use>
@@ -26,7 +26,7 @@ const CategoryHeader = () => {
                     </button>
                 </div>
                 <div className="category-item-light" tabIndex="0">
-                    <button className="btn-preview">
+                    <button className="btn-light">
                         <span>Нет прав</span>
                         <svg className="icon icon-decline">
                             <use xlinkHref="svg/sprite.svg#decline"></use>
@@ -34,7 +34,7 @@ const CategoryHeader = () => {
                     </button>
                 </div>
                 <div className="category-item-light" tabIndex="0">
-                    <button className="btn-preview">
+                    <button className="btn-light">
                         <span>Превышение скорости</span>
                         <svg className="icon icon-decline">
                             <use xlinkHref="svg/sprite.svg#decline"></use>
@@ -167,7 +167,7 @@ const SeverityFilter = (props) => {
 const CategoryFilterItem = (props) => {
     return (
         <div className="category-item" tabIndex="0">
-            <button className="btn-preview">
+            <button className="btn-rect">
                 <span>{props.preview}</span>
             </button>
             <button className="btn-decline">
@@ -186,7 +186,7 @@ const CategoryFilter = (props) => {
                 <svg className="icon icon-edit">
                     <use xlinkHref="svg/sprite.svg#edit"></use>
                 </svg>
-                <button className="btn-preview">Выделить участок</button>
+                <button className="btn-rect">Выделить участок</button>
             </div>
             {props.values.map((item) => (
                 <CategoryFilterItem key={item.value} {...item} />

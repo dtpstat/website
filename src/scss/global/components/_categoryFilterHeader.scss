@@ -47,8 +47,6 @@
 
 .category-item-light {
     @extend .category-item;
-    background-color: $greyMiddle;
-    border-radius: 16px;
     position: relative;
 
     &:hover, &:focus {
@@ -56,6 +54,11 @@
         stroke: $white; 
         opacity: 1;
       }
+    }
+
+    .btn-light {
+      color: $greyDark;
+      font-weight: 400;
     }
 
     .icon-decline {
