@@ -21,6 +21,26 @@
 .filter-item {
     margin-bottom: 20px;
 
+    ul {
+        margin: 0;
+        padding: 0;
+        // inner ul
+        > li ul {
+            padding-left: 24px;
+            position: relative;
+            &:after {
+                background-color: $greyMiddle;
+                content: ''; 
+                display: block;
+                height: 100%;
+                left: 0;
+                position: absolute;
+                top: 0;
+                width: 1px;
+            }
+        }
+    }
+
     .subtitle2 {
         margin-bottom: 12px;
         color: $greyDark;

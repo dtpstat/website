@@ -7,10 +7,6 @@
     position: relative;
     margin-bottom: 14px;
 
-    &:focus {
-        outline: none;
-        box-shadow: 0 0 0 1px $grey20;
-    }
 
     input {
         position: absolute;
@@ -26,8 +22,15 @@
         }
     }
 
-    &:hover input ~ .checkmark {
-        background-color: $grey50;
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    &:hover, &:focus {
+        input ~ .checkmark {
+            background-color: $grey50;
+        }
     }
 
     .checkmark {

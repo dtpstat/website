@@ -118,43 +118,49 @@ const ParticipantsFilter = (props) => {
 
 const SeverityFilterItem = (props) => {
     return (
-        <label className="severity-item" tabIndex="0">
-            <input
-                type="checkbox"
-                checked={props.default}
-                disabled={props.disabled}
-                onChange={() => {}}
-            />
-            <span className="checkmark">
-                <svg className="icon icon-check">
-                    <use xlinkHref="svg/sprite.svg#check"></use>
-                </svg>
-            </span>
-            <div
-                className="severity-color"
-                style={{
-                    background: props.disabled ? Colors.$grey50 : props.color,
-                }}
-            />
-            <p
-                className="body1"
-                style={{
-                    color: props.disabled ? Colors.$grey50 : Colors.$greyDark,
-                }}
-            >
-                {props.preview}
-            </p>
-        </label>
+        <li>
+            <label className="severity-item" tabIndex="0">
+                <input
+                    type="checkbox"
+                    checked={props.default}
+                    disabled={props.disabled}
+                    onChange={() => {}}
+                />
+                <span className="checkmark">
+                    <svg className="icon icon-check">
+                        <use xlinkHref="svg/sprite.svg#check"></use>
+                    </svg>
+                </span>
+                <div
+                    className="severity-color"
+                    style={{
+                        background: props.disabled
+                            ? Colors.$grey50
+                            : props.color,
+                    }}
+                />
+                <p
+                    className="body1"
+                    style={{
+                        color: props.disabled
+                            ? Colors.$grey50
+                            : Colors.$greyDark,
+                    }}
+                >
+                    {props.preview}
+                </p>
+            </label>
+        </li>
     );
 };
 
 const SeverityFilter = (props) => {
     return (
-        <div>
+        <ul>
             {props.values.map((item) => (
                 <SeverityFilterItem key={item.value} {...item} />
             ))}
-        </div>
+        </ul>
     );
 };
 
