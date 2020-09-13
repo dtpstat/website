@@ -19,6 +19,7 @@ export const MapStore = types
         // TODO: improve types
         let map: any = null;
         let objectManager: any = null;
+        let heatmap: any = null;
 
         function setCenter(center: Coordinate) {
             self.center = cast(center);
@@ -47,6 +48,14 @@ export const MapStore = types
 
             // @ts-ignore
             objectManager = new window.ymaps.ObjectManager({});
+            // @ts-ignore
+            heatmap = new window.ymaps.Heatmap([], {
+                radius: 15,
+                dissipating: false,
+                opacity: 0.8,
+                intensityOfMidpoint: 0.5,
+            });
+            heatmap.setMap(map, {});
 
             map.geoObjects.add(objectManager);
 
@@ -59,33 +68,40 @@ export const MapStore = types
 
         function drawObjects(items: any[]) {
             objectManager.removeAll();
-            objectManager.add({
-                type: 'FeatureCollection',
-                features: items.map((item) => {
-                    const icon =
-                        item.severity in supportedIconsBySeverity
-                            ? // @ts-ignore
-                              supportedIconsBySeverity[item.severity]
-                            : supportedIconsBySeverity.default;
-                    return {
-                        type: 'Feature',
-                        id: item.id,
-                        geometry: {
-                            type: 'Point',
-                            coordinates: [
-                                item.point.latitude,
-                                item.point.longitude,
-                            ],
-                        },
-                        options: {
-                            iconLayout: 'default#image',
-                            iconImageHref: icon,
-                            iconImageSize: [10, 10],
-                            iconImageOffset: [-5, -5],
-                        },
-                    };
-                }),
+
+            const data = items.map((item) => {
+                const icon =
+                    item.severity in supportedIconsBySeverity
+                        ? // @ts-ignore
+                          supportedIconsBySeverity[item.severity]
+                        : supportedIconsBySeverity.default;
+                return {
+                    type: 'Feature',
+                    id: item.id,
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [
+                            item.point.latitude,
+                            item.point.longitude,
+                        ],
+                    },
+                    options: {
+                        iconLayout: 'default#image',
+                        iconImageHref: icon,
+                        iconImageSize: [10, 10],
+                        iconImageOffset: [-5, -5],
+                    },
+                };
             });
+
+            if (self.zoom !== null && self.zoom <= 12) {
+                heatmap?.setData(data);
+            } else {
+                if (heatmap !== null) {
+                    heatmap.setData([]);
+                }
+                objectManager.add(data);
+            }
         }
 
         return {

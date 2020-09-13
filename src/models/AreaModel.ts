@@ -162,6 +162,8 @@ export const AreaModel = types
                 self.bounds.length !== 0 &&
                 containsBounds(self.bounds, bounds)
             ) {
+                // @ts-ignore
+                getParent(self).mapStore.drawObjects(self.dtp);
                 return;
             }
             const response = yield fetchDtp(startDate, endDate, bounds);
