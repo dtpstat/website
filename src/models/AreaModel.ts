@@ -166,10 +166,17 @@ export const AreaModel = types
                 getParent(self).mapStore.drawObjects(self.dtp);
                 return;
             }
-            const response = yield fetchDtp(startDate, endDate, bounds);
-            self.dtp = response;
-            // @ts-ignore
-            getParent(self).mapStore.drawObjects(self.dtp);
+            try {
+                const response = yield fetchDtp(startDate, endDate, bounds);
+                self.dtp = response;
+                // @ts-ignore
+                getParent(self).mapStore.drawObjects(self.dtp);
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    return;
+                }
+                throw error;
+            }
         });
         return {
             init,
