@@ -13,7 +13,7 @@ const InfoPanelStat = () => {
                     </p>
                 </div>
                 <div className="stat-graph-wrap">
-                    <div className="stat-graph-empty" style={{ width: '200%' }}>
+                    <div className="stat-graph-empty" style={{ width: '200%', flexShrink: 0 }}>
                         <p className="body2">
                             Невозможно отобразить данные.
                             <br />

@@ -20,7 +20,9 @@ const InfoBaloon = () => {
             <div className="baloon-footer">
                 <button className="btn-light">Подробности ДТП</button>
             </div>
-            <div className="pointer"></div>
+            <svg className="icon icon-pointer">
+                <use xlinkHref="svg/sprite.svg#pointer"></use>
+            </svg>
         </div>
     );
 };

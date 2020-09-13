@@ -6,6 +6,7 @@
   pointer-events: all;
   border-radius: 8px;
   overflow: hidden;
+  max-width: 100%;
 
   @include mq('1440') {
     margin: 20px 16px 20px 0;
@@ -53,7 +54,11 @@
     grid-column: 1/-1;
     grid-row: 3 / 4;
     align-self: center;
-    margin-left: auto;
+    margin: 0 auto;
+
+    @include mq('1440') {
+      margin: 0 0 0 auto;
+    }
 
     &.active {
       .icon-decline {
