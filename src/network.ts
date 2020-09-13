@@ -35,14 +35,19 @@ export function fetchStatistics(
     ).then((response) => response.json());
 }
 
+let dtpController: AbortController | null = null;
+
 export function fetchDtp(startDate: string, endDate: string, bounds: Bounds) {
+    dtpController?.abort();
     const frame = buildGeoFrameFromTwoPoints(bounds);
     if (!frame) {
         // TODO log error
         return null;
     }
     const boundsStr = frame.map((coord) => `${coord[1]} ${coord[0]}`).join(',');
+    dtpController = new AbortController();
     return fetch(
         `${config.API_URL}/dtp/?start_date=${startDate}&end_date=${endDate}&geo_frame=${boundsStr}`,
+        { signal: dtpController.signal },
     ).then((response) => response.json());
 }
