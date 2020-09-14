@@ -1,5 +1,4 @@
 import React from 'react';
-import { Colors } from './ui/Colors';
 
 const Layers = () => {
     return (
