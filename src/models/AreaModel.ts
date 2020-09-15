@@ -10,7 +10,6 @@ import {
     ISeverityFilterModel,
     ICategoryFilterModel,
 } from './FilterModel';
-import { DtpModel } from './DtpModel';
 import { ShortStatisticsResponse, Bounds, FilterResponse } from 'types';
 import { containsBounds } from 'geo';
 
@@ -69,7 +68,7 @@ export const AreaModel = types
                 CategoryFilterModel,
             ),
         ),
-        dtp: types.array(DtpModel),
+        dtp: types.frozen(),
         bounds: types.array(types.array(types.number)),
     })
     .actions((self) => {
