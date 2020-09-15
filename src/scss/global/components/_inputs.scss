@@ -25,10 +25,64 @@
         pointer-events: none;
         position: absolute;
         right: 15px;
-        stroke-width: 2; 
+        stroke-width: 2;
         stroke: $greyDark;
         top: 50%;
         transform: translateY(-50%);
         width: 18px;
+    }
+}
+
+.checkWrap {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    margin-bottom: 14px;
+    position: relative;
+    user-select: none;
+    &:hover,
+    &:focus {
+        outline: none;
+        input ~ .checkmark {
+            background-color: $greyMiddle;
+        }
+    }
+
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        &:checked ~ .checkmark {
+            background-color: $greyDark;
+            &:after {
+                display: block;
+            }
+        }
+    }
+    .checkmark {
+        background-color: $white;
+        border-radius: 50%;
+        border: 2px solid $greyMiddle;
+        height: 18px;
+        margin-right: 11px;
+        position: relative;
+        width: 18px;
+        &:after {
+            background: $white;
+            border-radius: 50%;
+            content: '';
+            display: none;
+            height: 43%;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 43%;
+        }
     }
 }

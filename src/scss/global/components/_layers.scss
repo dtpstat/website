@@ -23,7 +23,6 @@
 .toggle-layer {
     display: flex;
     position: relative;
-    margin-bottom: 8px;
 
     input {
         position: absolute;
@@ -42,11 +41,33 @@
                 }
             }
         }
+        &:disabled {
+            ~ .checkmark {
+                cursor: not-allowed;
+                background-color: $greyLight !important;
+                .icon-block {
+                    display: block;
+                }
+                .icon-location {
+                    fill: $grey70;
+                }
+                .icon-heat {
+                    fill: $greyDark;
+                }
+                .subtitle3 {
+                    color: $greyDark;
+                }
+            }
+            &:hover {
+                ~ .tooltip {
+                    opacity: 1;
+                }
+            }
+        }
     }
 
     &:focus {
         outline: none;
-        box-shadow: none;
     }
 
     &:hover,
@@ -54,7 +75,8 @@
         input ~ .checkmark {
             background-color: $grey70;
         }
-        .icon-location {
+        .icon-location,
+        .icon-heat {
             fill: $white;
         }
         .subtitle3 {
@@ -66,19 +88,55 @@
         align-items: center;
         background-color: $greyLight;
         border-radius: 8px;
+        cursor: pointer;
         display: flex;
         height: 40px;
-        padding: 6px 12px 6px 20px;
+        padding: 6px 12px 6px 16px;
         position: relative;
         transition: background-color 0.3s ease;
         width: 100%;
     }
 
     .icon-location {
+        pointer-events: none;
         fill: $grey70;
         height: 24px;
-        margin-right: 12px;
+        margin-right: 19px;
         transition: fill 0.3s ease;
         width: 20px;
     }
+
+    .icon-heat {
+        pointer-events: none;
+        width: 28px;
+        height: 28px;
+        margin-right: 12px;
+        transition: fill 0.3s ease;
+        fill: $greyDark;
+    }
+
+    .icon-block {
+        pointer-events: none;
+        width: 18px;
+        height: 18px;
+        fill: $red;
+        margin-left: auto;
+        opacity: 0.5;
+        display: none;
+    }
+}
+
+.tooltip {
+    background-color: $white;
+    background: rgba(24, 51, 74, 0.72);
+    border-radius: 8px;
+    color: $white;
+    padding: 4px 8px 8px;
+    position: absolute;
+    right: calc(100% + 4px);
+    text-align: center;
+    top: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    opacity: 0;
 }

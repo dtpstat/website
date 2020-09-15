@@ -102,3 +102,35 @@
         width: 17px;
     }
 }
+
+.btn-question {
+    align-items: center;
+    background: $grey20;
+    border-radius: 50%;
+    display: flex;
+    height: 18px;
+    justify-content: center;
+    padding: 0;
+    position: relative;
+    transition: background 0.3s ease;
+    width: 18px;
+
+    &:hover,
+    &:focus {
+        background: $grey50;
+        .icon-question {
+            fill: $greyLight;
+        }
+        .tooltip {
+            opacity: 1;
+        }
+    }
+
+    .icon-question {
+        fill: $white;
+        height: 60%;
+        pointer-events: none;
+        transition: fill 0.3s ease;
+        width: 60%;
+    }
+}
