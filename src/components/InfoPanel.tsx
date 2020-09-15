@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Colors } from './ui/Colors';
 import { useStore } from 'models/RootStore';
-import InfoPanelStat from './InfoPanelStat';
+// import InfoPanelStat from './InfoPanelStat';
 
 const InfoPanelObservable = observer(function InfoPanel() {
     const { area } = useStore();
@@ -52,7 +52,7 @@ const InfoPanelObservable = observer(function InfoPanel() {
                     </svg>
                 </button>
             </div>
-            {InfoPanelStat()}
+            {/* {InfoPanelStat()} */}
         </div>
     );
 });
