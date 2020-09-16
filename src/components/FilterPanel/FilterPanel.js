@@ -69,41 +69,47 @@ const DateFilter = (props) => {
     );
 };
 
-const ParticipantFilterItem = (props) => {
-    const selected = props.default === true;
+const ParticipantFilterItem = observer(function ParticipantFilterItem(props) {
+    const { item } = props;
     return (
-        <button className="participant-item" selected={selected} tabIndex="0">
+        <button
+            className={item.selected ? 'participant-item active' : 'participant-item'}
+            selected={item.selected}
+            tabIndex="0"
+            onClick={item.changeSelection}
+        >
             {
                 <object
                     type="image/svg+xml"
-                    data={`${config.STATIC_URL}${props.icon}`}
-                    aria-label={props.preview}
+                    data={`${config.STATIC_URL}${item.icon}`}
+                    aria-label={item.preview}
                 ></object>
             }
-            <p className="subtitle3">{props.preview}</p>
+            <p className="subtitle3">{item.preview}</p>
         </button>
     );
-};
+});
 
 const ParticipantsFilter = (props) => {
     return (
         <div className="participant-filter">
             {props.values.map((item) => (
-                <ParticipantFilterItem key={item.value} {...item} />
+                <ParticipantFilterItem key={item.value} item={item} />
             ))}
         </div>
     );
 };
 
-const SeverityFilterItem = (props) => {
+const SeverityFilterItem = observer(function SeverityFilterItem(props) {
+    const { item } = props;
     return (
         <li>
             <label className="severity-item" tabIndex="0">
                 <input
                     type="checkbox"
-                    checked={props.default}
-                    disabled={props.disabled}
-                    onChange={() => {}}
+                    checked={item.selected}
+                    disabled={item.disabled}
+                    onChange={item.changeSelection}
                 />
                 <span className="checkmark">
                     <svg className="icon icon-check">
@@ -113,27 +119,27 @@ const SeverityFilterItem = (props) => {
                 <div
                     className="severity-color"
                     style={{
-                        background: props.disabled ? Colors.$grey50 : props.color,
+                        background: item.disabled ? Colors.$grey50 : item.color,
                     }}
                 />
                 <p
                     className="body1"
                     style={{
-                        color: props.disabled ? Colors.$grey50 : Colors.$greyDark,
+                        color: item.disabled ? Colors.$grey50 : Colors.$greyDark,
                     }}
                 >
-                    {props.preview}
+                    {item.preview}
                 </p>
             </label>
         </li>
     );
-};
+});
 
 const SeverityFilter = (props) => {
     return (
         <ul>
             {props.values.map((item) => (
-                <SeverityFilterItem key={item.value} {...item} />
+                <SeverityFilterItem key={item.value} item={item} />
             ))}
         </ul>
     );
