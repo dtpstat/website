@@ -86,6 +86,7 @@
     justify-content: center;
     transition: background-color 0.3s ease;
     width: 40px;
+
     &:hover,
     &:focus {
         background-color: $greyDark;
@@ -132,5 +133,82 @@
         pointer-events: none;
         transition: fill 0.3s ease;
         width: 60%;
+    }
+}
+
+.btn-location {
+    align-items: center;
+    background-color: $white;
+    border-radius: 50%;
+    box-shadow: 0px 3px 7px #d4dadd;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    pointer-events: all;
+    transition: background 0.3s ease;
+    width: 40px;
+
+    &:hover,
+    &:focus {
+        background-color: $greyDark;
+        .icon-location-arrow {
+            fill: $white;
+        }
+    }
+
+    .icon-location-arrow {
+        fill: $grey70;
+        height: 19px;
+        margin-right: 2px;
+        transition: fill 0.3s ease;
+        width: 19px;
+    }
+}
+
+.btn-minus {
+    background-color: $white;
+    border-radius: 50%;
+    border-radius: 6px;
+    height: 24px;
+    padding: 0;
+    position: relative;
+    transition: box-shadow 0.3s ease;
+    width: 24px;
+
+    &:hover,
+    &:focus {
+        outline: 0;
+        box-shadow: 0 0 0 1px #ccd2d7;
+    }
+
+    &:before {
+        background-color: $greyDark;
+        border-radius: 6px;
+        content: '';
+        display: inline-block;
+        height: 2px;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 67%;
+    }
+}
+
+.btn-plus {
+    @extend .btn-minus;
+    &:after {
+        background-color: $greyDark;
+        border-radius: 6px;
+        content: '';
+        display: inline-block;
+        height: 2px;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(90deg);
+        width: 67%;
     }
 }
