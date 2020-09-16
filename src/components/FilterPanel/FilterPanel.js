@@ -4,9 +4,9 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { observer } from 'mobx-react';
 import { useStore } from 'models/RootStore';
 import config from 'config';
-import { DateRange } from 'react-date-range';
 import { Colors } from '../ui/Colors';
 
+// eslint-disable-next-line
 const CategoryHeader = () => {
     return (
         <div className="filter-header">
@@ -44,11 +44,7 @@ const CategoryHeader = () => {
             </div>
 
             <div className="inputWrap">
-                <input
-                    type="text"
-                    className="input"
-                    placeholder="Введите название нарушения"
-                />
+                <input type="text" className="input" placeholder="Введите название нарушения" />
                 {/* maybe it should be button not just svg */}
                 <button className="btn-search">
                     <svg className="icon icon-search">
@@ -61,31 +57,14 @@ const CategoryHeader = () => {
 };
 
 const DateFilter = (props) => {
-    const handleSelect = () => {};
     return (
         <div>
             <div className="inputWrap">
-                <input
-                    type="text"
-                    className="input"
-                    defaultValue="Март 2015 — Декабрь 2018"
-                />
+                <input type="text" className="input" defaultValue="Март 2015 — Декабрь 2018" />
                 <svg className="icon icon-calendar">
                     <use xlinkHref="svg/sprite.svg#calendar"></use>
                 </svg>
             </div>
-            <DateRange
-                editableDateInputs
-                moveRangeOnFirstSelection={false}
-                ranges={[
-                    {
-                        startDate: new Date(props.defaultValue.startDate),
-                        endDate: new Date(props.defaultValue.endDate),
-                        key: 'selection',
-                    },
-                ]}
-                onChange={handleSelect}
-            />
         </div>
     );
 };
@@ -134,17 +113,13 @@ const SeverityFilterItem = (props) => {
                 <div
                     className="severity-color"
                     style={{
-                        background: props.disabled
-                            ? Colors.$grey50
-                            : props.color,
+                        background: props.disabled ? Colors.$grey50 : props.color,
                     }}
                 />
                 <p
                     className="body1"
                     style={{
-                        color: props.disabled
-                            ? Colors.$grey50
-                            : Colors.$greyDark,
+                        color: props.disabled ? Colors.$grey50 : Colors.$greyDark,
                     }}
                 >
                     {props.preview}
@@ -211,17 +186,18 @@ function createFilterComponent(filter) {
 }
 
 export const FilterPanel = observer(function FilterPanel() {
-    const { area } = useStore();
+    const { filterStore } = useStore();
+    const { filters } = filterStore;
 
-    if (area.filters.length === 0) {
+    if (filters.length === 0) {
         return null;
     }
 
     return (
         <div className="filter-panel">
-            {CategoryHeader()}
+            {/* {CategoryHeader()} */}
             <div className="filter-content">
-                {area.filters.map((filter) => {
+                {filters.map((filter) => {
                     return (
                         <div key={filter.name} className="filter-item">
                             <p className="subtitle2">{filter.label}</p>

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import './Map.css';
 import { useStore } from 'models/RootStore';
 import { observer } from 'mobx-react';
+import { debounce } from 'functions';
 
 export function getPositionFromURL(url) {
     const params = new URLSearchParams(url);
@@ -15,6 +16,13 @@ export function getPositionFromURL(url) {
 
 export const Map = observer(function Map() {
     const { mapStore } = useStore();
+    const boundsChangeHandler = useCallback(
+        debounce((e) => {
+            const { newCenter, newZoom, newBounds } = e.originalEvent;
+            mapStore.updateBounds(newCenter, newZoom, newBounds);
+        }, 1000),
+        [mapStore],
+    );
 
     React.useEffect(() => {
         window.ymaps.ready(['Heatmap']).then(() => {
@@ -27,12 +35,9 @@ export const Map = observer(function Map() {
                 }),
             );
 
-            mapStore.getMap().events.add('boundschange', (e) => {
-                const { newCenter, newZoom, newBounds } = e.originalEvent;
-                mapStore.updateBounds(newCenter, newZoom, newBounds);
-            });
+            mapStore.getMap().events.add('boundschange', boundsChangeHandler);
         });
-    }, [mapStore]);
+    }, [mapStore, boundsChangeHandler]);
 
     return <div id="map" />;
 });

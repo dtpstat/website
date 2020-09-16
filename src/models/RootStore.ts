@@ -1,28 +1,67 @@
 import React from 'react';
-import { types } from 'mobx-state-tree';
+import { types, flow } from 'mobx-state-tree';
 // @ts-ignore
 import makeInspectable from 'mobx-devtools-mst';
-import { AreaModel } from './AreaModel';
-import { FilterModel } from './FilterModel';
+import { FilterStore } from './FilterStore';
 import { MapStore } from './MapStore';
+import { AreaStore } from './AreaStore';
+import { TrafficAccidentStore } from './TrafficAccidentStore';
+import { Bounds, Coordinate, Scale } from 'types';
 
-const RootModel = types.model('RootModel', {
-    area: AreaModel,
-    filters: FilterModel,
-    mapStore: MapStore,
-});
+const RootModel = types
+    .model('RootModel', {
+        filterStore: FilterStore,
+        mapStore: MapStore,
+        areaStore: AreaStore,
+        trafficAccidentStore: TrafficAccidentStore,
+    })
+    .actions(function (self) {
+        const onBoundsChanged = flow(function* onBoundsChanged(
+            center: Coordinate,
+            scale: Scale,
+            bounds: Bounds,
+        ) {
+            const { areaStore, filterStore, trafficAccidentStore } = self;
+            yield areaStore.loadArea(center, scale);
+            const areaId = areaStore.area?.id;
+            if (!areaId) {
+                // TODO clear filters?
+                return;
+            }
+            yield filterStore.loadFiltersForArea(areaId);
+            trafficAccidentStore.loadTrafficAccidents(
+                filterStore.startDate,
+                filterStore.endDate,
+                bounds,
+            );
+            yield areaStore.loadStatistics(
+                center,
+                scale,
+                filterStore.startDate,
+                filterStore.endDate,
+            );
+        });
+
+        const onTrafficAccidentsLoaded = (accidents: any) => {
+            self.mapStore.drawObjects(accidents);
+        };
+
+        return {
+            onBoundsChanged,
+            onTrafficAccidentsLoaded,
+        };
+    });
 
 export const rootStore = RootModel.create({
-    area: {},
-    filters: {},
+    filterStore: {},
     mapStore: {},
+    areaStore: {},
+    trafficAccidentStore: {},
 });
 
 makeInspectable(rootStore);
 
-export const RootStoreContext = React.createContext<typeof rootStore>(
-    rootStore,
-);
+export const RootStoreContext = React.createContext<typeof rootStore>(rootStore);
 
 export function useStore() {
     const store = React.useContext(RootStoreContext);

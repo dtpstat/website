@@ -9,19 +9,16 @@ import {
     FilterResponse,
 } from 'types';
 
-export function fetchArea(
-    center: Coordinate,
-    scale: Scale,
-): Promise<ShortStatisticsResponse> {
+export function fetchArea(center: Coordinate, scale: Scale): Promise<ShortStatisticsResponse> {
     return fetch(
         `${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${scale}`,
     ).then((response) => response.json());
 }
 
 export function fetchFilters(id: string): Promise<FilterResponse[]> {
-    return fetch(
-        `${config.API_URL}/filters/?region_slug=${id}`,
-    ).then((response) => response.json());
+    return fetch(`${config.API_URL}/filters/?region_slug=${id}`).then((response) =>
+        response.json(),
+    );
 }
 
 export function fetchStatistics(

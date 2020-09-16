@@ -5,8 +5,9 @@ import { useStore } from 'models/RootStore';
 // import InfoPanelStat from './InfoPanelStat';
 
 const InfoPanelObservable = observer(function InfoPanel() {
-    const { area } = useStore();
-    if (!area.id) {
+    const { areaStore } = useStore();
+    const { area, statistics } = areaStore;
+    if (!area) {
         return null;
     }
 
@@ -26,7 +27,7 @@ const InfoPanelObservable = observer(function InfoPanel() {
                         ДТП
                     </p>
                     <h3 className="h3" style={{ color: Colors.$greyDark }}>
-                        {area?.count}
+                        {statistics?.count}
                     </h3>
                 </div>
                 <div>
@@ -34,7 +35,7 @@ const InfoPanelObservable = observer(function InfoPanel() {
                         Пострадали
                     </p>
                     <h3 className="h3" style={{ color: Colors.$yellow }}>
-                        {area?.injured}
+                        {statistics?.injured}
                     </h3>
                 </div>
                 <div>
@@ -42,7 +43,7 @@ const InfoPanelObservable = observer(function InfoPanel() {
                         Погибли
                     </p>
                     <h3 className="h3" style={{ color: Colors.$red }}>
-                        {area?.dead}
+                        {statistics?.dead}
                     </h3>
                 </div>
                 <button className="btn btn-light">

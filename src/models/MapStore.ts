@@ -1,4 +1,4 @@
-import { cast, flow, types, getParent } from 'mobx-state-tree';
+import { cast, types, getParent } from 'mobx-state-tree';
 import { Coordinate, Bounds, Scale } from 'types';
 
 const supportedIconsBySeverity = {
@@ -31,17 +31,13 @@ export const MapStore = types
             self.zoom = zoom;
         }
 
-        const updateBounds = flow(function* updateBounds(
-            center: Coordinate,
-            zoom: Scale,
-            bounds: Bounds,
-        ) {
+        function updateBounds(center: Coordinate, zoom: Scale, bounds: Bounds) {
             setCenter(center);
             setBounds(bounds);
             setZoom(zoom);
             // @ts-ignore
-            yield getParent(self).area.fetchAreaAction(center, zoom, bounds);
-        });
+            getParent(self).onBoundsChanged(center, zoom, bounds);
+        }
 
         function setMap(mapInstance: any) {
             map = mapInstance;
