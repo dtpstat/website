@@ -1,4 +1,5 @@
 import React from 'react';
+import SvgIcon from '../SvgIcon';
 
 const LayersFilter = () => {
     return (
@@ -8,19 +9,11 @@ const LayersFilter = () => {
                 <ul style={{ padding: 0, margin: 0 }}>
                     <li style={{ marginBottom: '8px' }}>
                         <label className="toggle-layer" tabIndex={0}>
-                            <input
-                                type="checkbox"
-                                checked={true}
-                                onChange={() => {}}
-                            />
+                            <input type="checkbox" checked={true} onChange={() => {}} />
                             <div className="checkmark">
-                                <svg className="icon icon-location">
-                                    <use xlinkHref="svg/sprite.svg#location"></use>
-                                </svg>
+                                <SvgIcon name="location" />
                                 <p className="subtitle3">Точки ДТП</p>
-                                <svg className="icon icon-block">
-                                    <use xlinkHref="svg/sprite.svg#block"></use>
-                                </svg>
+                                <SvgIcon name="block" />
                             </div>
                         </label>
                     </li>
@@ -33,13 +26,9 @@ const LayersFilter = () => {
                                 onChange={() => {}}
                             />
                             <div className="checkmark">
-                                <svg className="icon icon-heat">
-                                    <use xlinkHref="svg/sprite.svg#heat"></use>
-                                </svg>
+                                <SvgIcon name="heat" />
                                 <p className="subtitle3">Тепловая карта</p>
-                                <svg className="icon icon-block">
-                                    <use xlinkHref="svg/sprite.svg#block"></use>
-                                </svg>
+                                <SvgIcon name="block" />
                             </div>
                             <p className="tooltip" style={{ width: '121px' }}>
                                 <span className="subtitle3">
@@ -61,13 +50,8 @@ const LayersFilter = () => {
                     <h4 className="subtitle2" style={{ marginBottom: 0 }}>
                         Дополнительные слои
                     </h4>
-                    <button
-                        className="btn-question"
-                        style={{ marginLeft: 'auto' }}
-                    >
-                        <svg className="icon icon-question">
-                            <use xlinkHref="svg/sprite.svg#question"></use>
-                        </svg>
+                    <button className="btn-question" style={{ marginLeft: 'auto' }}>
+                        <SvgIcon name="question" />
                         <p className="tooltip" style={{ width: '121px' }}>
                             <span className="subtitle3">
                                 Недоступно <br /> на этом масштабе

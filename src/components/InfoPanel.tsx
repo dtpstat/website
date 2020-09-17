@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import { Colors } from './ui/Colors';
 import { useStore } from 'models/RootStore';
 // import InfoPanelStat from './InfoPanelStat';
+import SvgIcon from './SvgIcon';
 
 const InfoPanelObservable = observer(function InfoPanel() {
     const { areaStore } = useStore();
@@ -48,9 +49,7 @@ const InfoPanelObservable = observer(function InfoPanel() {
                 </div>
                 <button className="btn btn-light">
                     <span>Подробнее</span>
-                    <svg className="icon icon-decline">
-                        <use xlinkHref="svg/sprite.svg#decline"></use>
-                    </svg>
+                    <SvgIcon name="decline"/>
                 </button>
             </div>
             {/* {InfoPanelStat()} */}

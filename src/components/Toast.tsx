@@ -1,4 +1,5 @@
 import React from 'react';
+import SvgIcon from './SvgIcon';
 
 const Toast = () => {
     return (
@@ -18,9 +19,7 @@ const Toast = () => {
                 </div>
                 <p className="body3">35 576 ₽ из 50 000 ₽</p>
                 <button>
-                    <svg className="icon icon-decline">
-                        <use xlinkHref="svg/sprite.svg#decline"></use>
-                    </svg>
+                    <SvgIcon name="decline"/>
                 </button>
             </div>
 
@@ -31,9 +30,7 @@ const Toast = () => {
                     Eum, in.
                 </p>
                 <button>
-                    <svg className="icon icon-decline">
-                        <use xlinkHref="svg/sprite.svg#decline"></use>
-                    </svg>
+                    <SvgIcon name="decline"/>
                 </button>
             </div>
         </div>

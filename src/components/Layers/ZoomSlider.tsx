@@ -1,4 +1,5 @@
 import React from 'react';
+import SvgIcon from '../SvgIcon';
 
 const ZoomSlider = () => {
     return (
@@ -21,10 +22,7 @@ const ZoomSlider = () => {
                   <button className="hint subtitle3" aria-label="Выбрать маштаб уровня всего мира">Мир</button>
                 </div>
             </div>
-
-            <svg className="icon icon-zones">
-                <use xlinkHref="svg/sprite.svg#zones"></use>
-            </svg>
+            <SvgIcon name="zones"/>
             <button className="btn-minus" aria-label="Отдалить"></button>
         </div>
     );

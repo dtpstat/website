@@ -1,5 +1,6 @@
 import React from 'react';
 import { Colors } from './ui/Colors';
+import SvgIcon from './SvgIcon';
 
 const InfoBaloon = () => {
     return (
@@ -20,9 +21,7 @@ const InfoBaloon = () => {
             <div className="baloon-footer">
                 <button className="btn-light">Подробности ДТП</button>
             </div>
-            <svg className="icon icon-pointer">
-                <use xlinkHref="svg/sprite.svg#pointer"></use>
-            </svg>
+            <SvgIcon name="pointer"/>
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import LayersFilter from './LayersFilter';
 import ZoomSlider from './ZoomSlider';
+import SvgIcon from '../SvgIcon';
 
 const Layers = () => {
     return (
@@ -10,18 +11,14 @@ const Layers = () => {
                 aria-label="Настроить слои отображения"
                 style={{ marginBottom: '16px' }}
             >
-                <svg className="icon icon-layers">
-                    <use xlinkHref="svg/sprite.svg#layers"></use>
-                </svg>
+                <SvgIcon name="layers"/>
             </button>
 
             <LayersFilter />
             <ZoomSlider />
 
             <button className="btn-location" aria-label="Мое местоположение">
-                <svg className="icon icon-location-arrow">
-                    <use xlinkHref="svg/sprite.svg#location-arrow"></use>
-                </svg>
+                <SvgIcon name="location-arrow"/>
             </button>
         </div>
     );
