@@ -1,12 +1,38 @@
 .event-layer {
-  background-color: $white;
-  min-height: 100vh;
-  z-index: 100;
-  margin-top: 280px;
+    background-color: $white;
+    min-height: 100vh;
+    z-index: 100;
+    margin-top: 280px;
 }
 
 .event-header {
-  display: flex;
-  margin-top: -80px;
-  width: 100%;
+    display: flex;
+    width: 100%;
+}
+
+.header-info {
+    display: grid;
+    gap: 4px 10px;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+
+    .icon {
+        grid-row: 1 / -1;
+        align-self: center;
+    }
+
+    .icon-car {
+        height: 18px;
+        width: 24px;
+    }
+
+    .icon-profile-circle {
+        height: 22px;
+        width: 22px;
+    }
+
+    .icon-profile {
+        height: 19px;
+        width: 16px;
+    }
 }

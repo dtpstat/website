@@ -224,6 +224,7 @@
     overflow: hidden;
     padding: 0;
     width: 240px;
+    margin-top: -80px;
 
     .gallery-count {
         align-items: center;
@@ -253,6 +254,7 @@
     font-weight: 500;
     padding: 8px 16px;
     transition: background-color 0.3s ease;
+    margin-top: -74px;
 
     &:hover {
         background-color: $white;
