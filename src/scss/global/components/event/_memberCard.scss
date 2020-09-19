@@ -2,11 +2,11 @@
     background-color: $white;
     border-radius: 20px;
     border: 1px solid #ebedf0;
+    flex-shrink: 0;
     margin-bottom: 20px;
     margin-right: 12px;
     padding: 10px 16px 2px;
     width: 300px;
-
     .card-header {
         display: grid;
         gap: 2px 12px;
@@ -44,15 +44,11 @@
         align-items: center;
         display: flex;
 
-        .warning-container {
-            align-items: center;
-            background-color: $greyDark;
-            border-radius: 50%;
-            display: flex;
+        .icon-warning {
             height: 22px;
-            justify-content: center;
             margin-right: 11px;
             width: 22px;
+            flex-shrink: 0;
         }
     }
 

@@ -48,3 +48,27 @@
         }
     }
 }
+
+.dtp-info {
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid $greyMiddle;
+    display: flex;
+    margin: 0 auto 32px;
+    padding: 12px 20px;
+    width: fit-content;
+
+    img {
+        margin-right: 12px;
+    }
+
+    .subtitle1 {
+        margin-right: 12px;
+    }
+
+    .icon-warning {
+        height: 18px;
+        margin-right: 9px;
+        width: 18px;
+    }
+}

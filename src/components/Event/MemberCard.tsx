@@ -37,9 +37,7 @@ const EventMembers = ({ icon, color, name, gender, exp, descr, add }: Props) => 
             </div>
             {add ? (
                 <div className="card-add" style={{ backgroundColor: Colors.$greyLight }}>
-                    <div className="warning-container">
-                        <SvgIcon name="warning-sign" color={Colors.$white} />
-                    </div>
+                    <SvgIcon name="warning" color={Colors.$greyDark} />
                     <p className="subtitle2">{add}</p>
                 </div>
             ) : (

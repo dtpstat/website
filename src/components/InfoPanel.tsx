@@ -47,9 +47,9 @@ const InfoPanelObservable = observer(function InfoPanel() {
                         {statistics?.dead}
                     </h3>
                 </div>
-                <button className="btn btn-light">
+                <button className="btn-light">
                     <span>Подробнее</span>
-                    <SvgIcon name="decline"/>
+                    <SvgIcon name="decline" />
                 </button>
             </div>
             {/* {InfoPanelStat()} */}
