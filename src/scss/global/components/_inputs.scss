@@ -172,3 +172,23 @@
         width: 20px;
     }
 }
+
+.input-comment {
+    @extend .inputWrap;
+    margin-bottom: 32px;
+    .ava {
+        left: 12px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .input {
+        padding: 15px 140px 15px 52px;
+    }
+    .btn-dark {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}

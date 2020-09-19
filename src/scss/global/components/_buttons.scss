@@ -20,6 +20,17 @@
     }
 }
 
+.btn-dark {
+    @extend .btn;
+    background: $greyDark;
+    color: $white;
+    &:hover,
+    &:focus {
+        background: $grey70;
+        box-shadow: none;
+    }
+}
+
 .btn-hideFilter {
     @extend .btn;
     align-items: center;
