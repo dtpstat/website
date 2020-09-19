@@ -5,6 +5,7 @@ import EventMembers from './EventMembers';
 import SvgIcon from '../SvgIcon';
 import { Colors } from 'components/ui/Colors';
 import EventComments from './EventComments';
+import NewsItem from '../News/NewsItem';
 
 const Event = () => {
     return (
@@ -12,9 +13,9 @@ const Event = () => {
             <div className="container">
                 <EventHeader />
                 <EventTags />
-                <h1 className="h1" style={{ marginBottom: '10px' }}>
+                <h2 className="h2" style={{ marginBottom: '12px' }}>
                     Участники ДТП
-                </h1>
+                </h2>
                 <EventMembers />
                 <div className="dtp-info">
                     <img src="svg/gibdd.svg" alt="Лого ГИБДД"></img>
@@ -25,6 +26,32 @@ const Event = () => {
                     </button>
                 </div>
                 <EventComments />
+                <h2 className="h2" style={{ marginBottom: '16px' }}>
+                    Новости по теме
+                </h2>
+                <div
+                    className="news-container"
+                    style={{ gap: '50px 0', margin: '0 -10px 0 -10px ' }}
+                >
+                    <NewsItem
+                        size="small"
+                        title="Велополоса на Лесной улице"
+                        img="https://img.thedailybeast.com/image/upload/v1531451526/180712-Weill--The-Creator-of-Pepe-hero_uionjj.jpg"
+                        link="#"
+                    />
+                    <NewsItem
+                        size="small"
+                        title="Белгород выбирает наземный переход"
+                        img="https://img.thedailybeast.com/image/upload/v1531451526/180712-Weill--The-Creator-of-Pepe-hero_uionjj.jpg"
+                        link="#"
+                    />
+                    <NewsItem
+                        size="small"
+                        title="Как депутат из Академии запустил проект по мониторингу воздуха"
+                        img="https://img.thedailybeast.com/image/upload/v1531451526/180712-Weill--The-Creator-of-Pepe-hero_uionjj.jpg"
+                        link="#"
+                    />
+                </div>
             </div>
         </div>
     );
