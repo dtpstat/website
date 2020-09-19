@@ -17,7 +17,7 @@ const CategoryHeader = () => {
                 <span>Нарушения ПДД</span>
             </button>
             <div className="tags-wrap">
-                <div className="category-item-light" tabIndex="0">
+                <div className="category-tag-light" tabIndex={0}>
                     <button className="btn-light">
                         <span>Превышение скорости</span>
                         <svg className="icon icon-decline">
@@ -25,7 +25,7 @@ const CategoryHeader = () => {
                         </svg>
                     </button>
                 </div>
-                <div className="category-item-light" tabIndex="0">
+                <div className="category-tag-light" tabIndex={0}>
                     <button className="btn-light">
                         <span>Нет прав</span>
                         <svg className="icon icon-decline">
@@ -33,7 +33,7 @@ const CategoryHeader = () => {
                         </svg>
                     </button>
                 </div>
-                <div className="category-item-light" tabIndex="0">
+                <div className="category-tag-light" tabIndex={0}>
                     <button className="btn-light">
                         <span>Превышение скорости</span>
                         <svg className="icon icon-decline">
@@ -147,7 +147,7 @@ const SeverityFilter = (props) => {
 
 const CategoryFilterItem = (props) => {
     return (
-        <div className="category-item" tabIndex="0">
+        <div className="category-tag" tabIndex="0">
             <button className="btn-rect">
                 <span>{props.preview}</span>
             </button>

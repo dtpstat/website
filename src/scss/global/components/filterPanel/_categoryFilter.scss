@@ -3,7 +3,7 @@
     flex-wrap: wrap;
 }
 
-.category-item {
+.category-tag {
     align-items: center;
     display: flex;
     margin-bottom: 12px;
@@ -21,7 +21,8 @@
         }
     }
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
         outline: none;
         .btn-rect {
             color: $white;
@@ -33,7 +34,8 @@
     }
 
     button {
-        &:focus, &:hover {
+        &:focus,
+        &:hover {
             box-shadow: none;
         }
     }
@@ -58,13 +60,13 @@
         stroke-linejoin: round;
         stroke-width: 2px;
         stroke: $white;
-        transition: opacity .3s ease, stroke .3s ease;
+        transition: opacity 0.3s ease, stroke 0.3s ease;
         width: 12px;
     }
 }
 
 .category-item__draw {
-    @extend .category-item;
+    @extend .category-tag;
     position: relative;
     .icon-edit {
         fill: $greyDark;
@@ -75,10 +77,9 @@
         top: 50%;
         transform: translateY(-50%);
         transition: fill 0.3s ease;
-        width: 17px; 
+        width: 17px;
     }
     .btn-rect {
         padding-left: 36px;
     }
 }
-

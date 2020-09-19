@@ -7,6 +7,7 @@
 
 .event-header {
     display: flex;
+    margin-bottom: 32px;
     width: 100%;
 }
 
@@ -34,5 +35,16 @@
     .icon-profile {
         height: 19px;
         width: 16px;
+    }
+}
+
+.category-tag-middle {
+    @extend .category-tag;
+
+    .btn-rect {
+        background-color: $greyMiddle;
+        &:hover {
+            background-color: $grey50;
+        }
     }
 }
