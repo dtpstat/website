@@ -6,6 +6,7 @@ import SvgIcon from '../SvgIcon';
 import { Colors } from 'components/ui/Colors';
 import EventComments from './EventComments';
 import NewsItem from '../News/NewsItem';
+import Footer from '../Footer/Footer';
 
 const Event = () => {
     return (
@@ -31,7 +32,7 @@ const Event = () => {
                 </h2>
                 <div
                     className="news-container"
-                    style={{ gap: '50px 0', margin: '0 -10px 0 -10px ' }}
+                    style={{ gap: '50px 0', margin: '0 -10px 22px -10px ' }}
                 >
                     <NewsItem
                         size="small"
@@ -53,6 +54,7 @@ const Event = () => {
                     />
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };
