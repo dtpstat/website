@@ -27,12 +27,12 @@ const Event = () => {
                     </button>
                 </div>
                 <EventComments />
-                <h2 className="h2" style={{ marginBottom: '16px' }}>
+                <h2 className="h2" style={{ marginBottom: '8px' }}>
                     Новости по теме
                 </h2>
                 <div
                     className="news-container"
-                    style={{ gap: '50px 0', margin: '0 -10px 22px -10px ' }}
+                    style={{ gap: '50px 0', margin: '0 -10px 14px -10px ' }}
                 >
                     <NewsItem
                         size="small"

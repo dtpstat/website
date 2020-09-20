@@ -5,15 +5,12 @@ import SvgIcon from '../SvgIcon';
 const Footer = () => {
     return (
         <div className="footer">
-            <div className="container" style={{ overflow: 'hidden' }}>
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        margin: '0 -20px 40px',
-                    }}
-                >
-                    <div style={{ maxWidth: 'calc(50% - 40px)' }}>
+            <div
+                className="container"
+                style={{ overflow: 'hidden', borderBottom: `1px solid rgba(24,51,74,0.1)` }}
+            >
+                <div className="footer-wrap">
+                    <div>
                         <img src="svg/logo.svg" alt="Лого сайта" />
                         <p className="body1" style={{ marginTop: '18px' }}>
                             Проект посвящен проблеме дорожно-транспортных происшествий в России.
@@ -21,10 +18,98 @@ const Footer = () => {
                             смертности в ДТП.
                         </p>
                     </div>
+
                     <div>
-                        <h3 className="h3" style={{ marginBottom: '16px' }}>
+                        <h3 className="h3" style={{ marginBottom: '14px' }}>
                             Сбор регулярных пожертвований на проект
                         </h3>
+                        <div
+                            className="progress-wrap"
+                            style={{ height: '16px', borderRadius: '8px', marginBottom: '8px' }}
+                        >
+                            <div className="progress-bar"></div>
+                        </div>
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                marginBottom: '16px',
+                            }}
+                        >
+                            <p className="body1">Собрано: 35 576 ₽ из 50 000 ₽</p>
+                            <p className="body1" style={{ color: Colors.$grey50 }}>
+                                Осталось 12 дней
+                            </p>
+                        </div>
+                        <a
+                            href="#"
+                            className="btn-dark"
+                            style={{ marginLeft: 'auto', width: 'fit-content' }}
+                        >
+                            Поддержать проект
+                        </a>
+                    </div>
+
+                    <div>
+                        <h3 className="h3" style={{ marginBottom: '14px' }}>
+                            Мы в социальных сетях
+                        </h3>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <a href="#" className="social-tg">
+                                <SvgIcon name="telegram" color={Colors.$white} />
+                                <span className="body2">Карта ДТП в Телеграме</span>
+                            </a>
+                            <a href="#" className="social-tw">
+                                <SvgIcon name="twitter" color={Colors.$white} />
+                                <span className="body2">Карта ДТП в Твиттере</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 className="h3" style={{ marginBottom: '14px' }}>
+                            Наши партнёры
+                        </h3>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <a href="#">
+                                <SvgIcon name="cityprojects" />
+                            </a>
+                            <a href="#">
+                                <SvgIcon name="hq" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="container">
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '12px 0',
+                    }}
+                >
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <SvgIcon name="cc" color={Colors.$grey50} />
+                        <SvgIcon name="man" color={Colors.$grey50} />
+                        <p
+                            className="subtitle2"
+                            style={{ color: Colors.$grey50, maxWidth: '270px', marginLeft: '15px' }}
+                        >
+                            Использование материалов возможно с указанием активной ссылки на сайт.
+                        </p>
+                    </div>
+                    <div>
+                        <a href="#" className="link">
+                            Исследования
+                        </a>
+                        <a href="#" className="link">
+                            Скачать данные
+                        </a>
+                        <a href="#" className="link">
+                            О проекте
+                        </a>
                     </div>
                 </div>
             </div>

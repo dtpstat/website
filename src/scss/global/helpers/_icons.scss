@@ -12,13 +12,13 @@
 	font-size:(9/10)*1rem;
 	width:(14/9)*1em;
 }
-.icon-block {
-	font-size:(20/10)*1rem;
-	width:(20/20)*1em;
-}
 .icon-bike {
 	font-size:(15/10)*1rem;
 	width:(24/15)*1em;
+}
+.icon-block {
+	font-size:(20/10)*1rem;
+	width:(20/20)*1em;
 }
 .icon-calendar {
 	font-size:(20/10)*1rem;
@@ -28,9 +28,18 @@
 	font-size:(20/10)*1rem;
 	width:(24/20)*1em;
 }
+.icon-cc {
+	width: 32px;
+	height: 32px;
+	margin-right: 8px;
+}
 .icon-check {
 	font-size:(10/10)*1rem;
 	width:(12/10)*1em;
+}
+.icon-cityprojects {
+	font-size:(60/10)*1rem;
+	width:(193/60)*1em;
 }
 .icon-decline {
 	font-size:(12/10)*1rem;
@@ -44,6 +53,10 @@
 	font-size:(28/10)*1rem;
 	width:(28/28)*1em;
 }
+.icon-hq {
+	font-size:(32/10)*1rem;
+	width:(176/32)*1em;
+}
 .icon-layers {
 	font-size:(18/10)*1rem;
 	width:(18/18)*1em;
@@ -56,13 +69,21 @@
 	font-size:(19/10)*1rem;
 	width:(18/19)*1em;
 }
+.icon-man {
+	width: 32px;
+	height: 32px;
+}
 .icon-map {
 	font-size:(20/10)*1rem;
 	width:(20/20)*1em;
 }
-.icon-motobike {
+.icon-motorbike {
 	font-size:(14/10)*1rem;
 	width:(24/14)*1em;
+}
+.icon-pedestrian {
+	font-size:(22/10)*1rem;
+	width:(11/22)*1em;
 }
 .icon-photo {
 	font-size:(12/10)*1rem;
@@ -88,13 +109,17 @@
 	font-size:(31.36/10)*1rem;
 	width:(31.36/31.36)*1em;
 }
-.icon-pedestrian {
-	font-size:(22/10)*1rem;
-	width:(11/22)*1em;
-}
 .icon-search {
 	font-size:(20/10)*1rem;
 	width:(20/20)*1em;
+}
+.icon-telegram {
+	font-size:(20/10)*1rem;
+	width:(24/20)*1em;
+}
+.icon-twitter {
+	font-size:(18/10)*1rem;
+	width:(22/18)*1em;
 }
 .icon-videocamera {
 	font-size:(20/10)*1rem;
