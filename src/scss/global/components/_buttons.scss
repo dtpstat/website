@@ -86,6 +86,12 @@
     outline: none;
     padding: 7px 8px;
     transition: color 0.3s ease, background-color 0.3s ease;
+
+    &:hover,
+    &:focus {
+        color: $white;
+        background-color: $grey70;
+    }
 }
 
 .btn-layers {

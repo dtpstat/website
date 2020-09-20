@@ -1,30 +1,29 @@
 .news-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 }
 .news-item {
     border-radius: 16px;
     display: block;
     overflow: hidden;
     padding: 12px;
-    transition: background-color .3s ease;
+    transition: background-color 0.3s ease;
     width: fit-content;
 
     &:hover {
-      background-color: $greyMiddle;
+        background-color: $greyMiddle;
     }
 
     .h3 {
-      transition: color .3s ease;
+        transition: color 0.3s ease;
     }
 
     .img-wrap {
-
         border-radius: 12px;
         border: 1px solid #f4f8fa;
         display: block;
         height: 250px;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
         overflow: hidden;
         width: 100%;
         img {
@@ -34,14 +33,18 @@
             width: 100%;
         }
     }
+
+    .body2 {
+        margin-top: 4px;
+    }
 }
 
 .news-item-small {
-  @extend .news-item;
-  padding: 10px;
+    @extend .news-item;
+    padding: 10px;
 
-  .img-wrap {
-    height: 200px;
-  }
-
+    .img-wrap {
+        height: 200px;
+        margin-bottom: 12px;
+    }
 }
