@@ -21,7 +21,7 @@ const NewsItem = ({ title, img, link, size, text, tags }: Props) => {
                     {tags.map((tag) => (
                         <button
                             className="btn-rect"
-                            style={{ borderRadius: '4px', marginRight: '8px' }}
+                            style={{ borderRadius: '4px', marginRight: '8px', marginBottom: '8px' }}
                         >
                             <span className="subtitle3">{tag}</span>
                         </button>
