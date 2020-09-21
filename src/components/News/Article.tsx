@@ -23,16 +23,7 @@ const Articles = () => {
                     Негативная реакция — хороший знак для велосипедистов
                 </h1>
 
-                <p
-                    className="body1"
-                    style={{
-                        display: 'flex',
-                        marginBottom: '12px',
-                        color: Colors.$grey70,
-                        margin: '0 auto 40px',
-                        width: 'fit-content',
-                    }}
-                >
+                <p className="body1">
                     29 апреля 2020
                     <span style={{ color: Colors.$grey20, margin: '0 8px' }}>|</span>
                     Варвара Васильева
@@ -47,7 +38,7 @@ const Articles = () => {
 
                 <div className="article">
                     <aside>{/* Here will be social buttons */}</aside>
-                    <div style={{ marginBottom: '32px', paddingRight: '72px' }}>
+                    <div className="article-body">
                         <p className="bodySerif">
                             Не прошло и недели с появления временной велодорожки на Лесной улице,
                             как у нее появился противник в лице муниципального депутата Тверского
@@ -79,10 +70,7 @@ const Articles = () => {
                 <h2 className="h2" style={{ marginBottom: '8px' }}>
                     Новости по теме
                 </h2>
-                <div
-                    className="news-container"
-                    style={{ gap: '50px 0', margin: '0 -10px 50px -10px ' }}
-                >
+                <div className="news-container" style={{ margin: '0 -10px 50px -10px ' }}>
                     <NewsItem
                         size="small"
                         title="Велополоса на Лесной улице"

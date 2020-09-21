@@ -1,5 +1,4 @@
 import React from 'react';
-import { Colors } from 'components/ui/Colors';
 import Footer from 'components/Footer/Footer';
 import NewsItem from './NewsItem';
 

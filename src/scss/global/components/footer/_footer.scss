@@ -1,18 +1,32 @@
 .footer {
     background-color: $greyLight;
-    padding-top: 50px;
+    padding-top: 30px;
     margin-top: auto;
+
+    @include mq('768') {
+        padding-top: 50px;
+    }
 
     .footer-wrap {
         display: grid;
         gap: 44px 70px;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         grid-template-rows: auto auto;
-        margin: 0 -20px 50px;
+        margin: 0 0 20px;
+
+        @include mq('768') {
+            grid-template-columns: repeat(2, 1fr);
+            margin: 0 -20px 50px;
+        }
     }
 
     .progress-wrap {
+        width: 100%;
+
+        @include mq('768') {
         width: 480px;
+
+        }
     }
 }
 
@@ -72,7 +86,11 @@
     height: 60px;
     margin-right: 40px;
     transition: opacity 0.3s ease;
-    width: 193px;
+    width: calc(100% - 20px;
+
+    @include mq('768') {
+        width: 193px;
+    }
 
     &:hover {
         opacity: 0.9;
@@ -82,7 +100,11 @@
 .icon-hq {
     height: 32px;
     transition: opacity 0.3s ease;
-    width: 175px;
+    width: 100%;
+
+    @include mq('768') {
+        width: 175px;
+    }
 
     &:hover {
         opacity: 0.9;

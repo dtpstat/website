@@ -30,10 +30,7 @@ const Event = () => {
                 <h2 className="h2" style={{ marginBottom: '8px' }}>
                     Новости по теме
                 </h2>
-                <div
-                    className="news-container"
-                    style={{ gap: '50px 0', margin: '0 -10px 14px -10px ' }}
-                >
+                <div className="news-container" style={{ margin: '0 -10px 14px -10px ' }}>
                     <NewsItem
                         size="small"
                         title="Велополоса на Лесной улице"

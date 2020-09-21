@@ -1,5 +1,4 @@
 import React from 'react';
-import { Colors } from 'components/ui/Colors';
 
 type Props = {
     title: string;
