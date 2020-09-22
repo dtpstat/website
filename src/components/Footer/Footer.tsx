@@ -54,7 +54,7 @@ const Footer = () => {
                         <h3 className="h3" style={{ marginBottom: '14px' }}>
                             Мы в социальных сетях
                         </h3>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex'}}>
                             <a href="#" className="social-tg">
                                 <SvgIcon name="telegram" color={Colors.$white} />
                                 <span className="body2">Карта ДТП в Телеграме</span>
