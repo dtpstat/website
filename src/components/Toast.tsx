@@ -18,7 +18,7 @@ const Toast = () => {
                     <div className="progress-bar"></div>
                 </div>
                 <p className="body3">35 576 ₽ из 50 000 ₽</p>
-                <button>
+                <button aria-label="Закрыть">
                     <SvgIcon name="decline" />
                 </button>
             </div>
@@ -28,7 +28,7 @@ const Toast = () => {
                 <p className="body3">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eum, in.
                 </p>
-                <button>
+                <button aria-label="Закрыть">
                     <SvgIcon name="decline" />
                 </button>
             </div>

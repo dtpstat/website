@@ -8,7 +8,7 @@ const NewsItem = () => {
             <div className="modal">
                 <div className="modal-header">
                     <h3 className="h3">Заголовок модального окна</h3>
-                    <button>
+                    <button aria-label="Закрыть модальное окно">
                         <SvgIcon name="decline" />
                     </button>
                 </div>

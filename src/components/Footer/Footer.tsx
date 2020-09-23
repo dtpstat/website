@@ -54,7 +54,7 @@ const Footer = () => {
                         <h3 className="h3" style={{ marginBottom: '14px' }}>
                             Мы в социальных сетях
                         </h3>
-                        <div style={{ display: 'flex'}}>
+                        <div style={{ display: 'flex' }}>
                             <a href="#" className="social-tg">
                                 <SvgIcon name="telegram" color={Colors.$white} />
                                 <span className="body2">Карта ДТП в Телеграме</span>
@@ -70,10 +70,13 @@ const Footer = () => {
                             Наши партнёры
                         </h3>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <a href="#">
+                            <a
+                                href="#"
+                                aria-label="Городские проекты Ильи Варламова и Максима Каца"
+                            >
                                 <SvgIcon name="cityprojects" />
                             </a>
-                            <a href="#">
+                            <a href="#" aria-label="Штаб (центр городских проектов)">
                                 <SvgIcon name="hq" />
                             </a>
                         </div>

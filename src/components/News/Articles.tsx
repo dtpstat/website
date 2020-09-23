@@ -4,10 +4,8 @@ import NewsItem from './NewsItem';
 
 const Articles = () => {
     return (
-        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-            <h1 className="h1" style={{ margin: '48px auto 40px' }}>
-                Статьи и исследования
-            </h1>
+        <div className="articles-container">
+            <h1 className="h1">Статьи и исследования</h1>
             <div className="articles">
                 <NewsItem
                     title="Великая автомобилизация в Великих Луках"

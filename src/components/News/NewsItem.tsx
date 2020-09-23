@@ -29,7 +29,9 @@ const NewsItem = ({ title, img, link, size, text, tags }: Props) => {
             ) : (
                 ''
             )}
-            <span className="h3">{title}</span>
+            <span className="h3" role="heading" aria-level={3}>
+                {title}
+            </span>
             {text ? <p className="body2">{text}</p> : ''}
         </a>
     );

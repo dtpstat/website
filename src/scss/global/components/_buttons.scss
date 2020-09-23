@@ -236,12 +236,17 @@
     border-radius: 8px;
     display: flex;
     flex-shrink: 0;
-    height: 240px;
+    height: 100px;
     justify-content: flex-end;
     overflow: hidden;
     padding: 0;
-    width: 240px;
+    width: 100px;
     margin-top: -80px;
+
+    @include mq('768') {
+        width: 240px;
+        height: 240px;
+    }
 
     .gallery-count {
         align-items: center;
@@ -269,9 +274,16 @@
     display: flex;
     flex-shrink: 0;
     font-weight: 500;
-    padding: 8px 16px;
-    transition: background-color 0.3s ease;
     margin-top: -74px;
+    padding: 10px 16px;
+    position: absolute;
+    right: 10px;
+    transition: background-color 0.3s ease;
+
+    @include mq('768') {
+        position: relative;
+        right: initial;
+    }
 
     &:hover {
         background-color: $white;

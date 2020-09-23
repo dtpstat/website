@@ -68,13 +68,17 @@
 
 .hints-wrap {
     align-items: flex-end;
-    display: flex;
+    display: none;
     flex-direction: column;
     height: 182px;
     justify-content: space-between;
     left: -150%;
     position: absolute;
     top: 30px;
+
+    @include mq('768') {
+        display: flex;
+    }
 
     .hint {
         background: rgba($greyDark, 0.2);

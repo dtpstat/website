@@ -1,10 +1,33 @@
+.articles-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    .h1 {
+        margin: 28px auto 20px;
+
+        @include mq('768') {
+            margin: 48px auto 40px;
+        }
+    }
+}
+
 .articles {
     display: grid;
     gap: 40px 20px;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
     margin: 0 auto 60px;
     max-width: 1440px;
-    padding: 0 130px;
+    padding: 0 10px;
+
+    @include mq('768') {
+        grid-template-columns: repeat(3, 1fr);
+        padding: 0 30px;
+    }
+
+    @include mq('1440') {
+        padding: 0 130px;
+    }
 }
 
 .article-container {

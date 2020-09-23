@@ -11,14 +11,7 @@ const EventHeader = () => {
                 </span>
             </button>
             <div style={{ width: '100%' }}>
-                <div
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        marginBottom: '16px',
-                    }}
-                >
+                <div className="btns-container">
                     <button className="btn-viewmap">
                         <SvgIcon name="map" />
                         <span className="caption">Перейти на карту</span>
@@ -48,14 +41,7 @@ const EventHeader = () => {
                     Выезд на полосу встречного движения
                 </h1>
 
-                <div
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        maxWidth: '90%',
-                    }}
-                >
+                <div className="header-info-container">
                     <div className="header-info">
                         <SvgIcon name="car" color={'rgba(24, 51, 74, 0.5)'} />
                         <p style={{ color: Colors.$grey50 }}>Повреждено</p>
