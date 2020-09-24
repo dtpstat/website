@@ -45,6 +45,8 @@ const Footer = () => {
                             href="#"
                             className="btn-dark"
                             style={{ marginLeft: 'auto', width: 'fit-content' }}
+                            rel="nofollow noopener"
+                            target="_blank"
                         >
                             Поддержать проект
                         </a>
@@ -55,11 +57,21 @@ const Footer = () => {
                             Мы в социальных сетях
                         </h3>
                         <div style={{ display: 'flex' }}>
-                            <a href="#" className="social-tg">
+                            <a
+                                href="#"
+                                className="social-tg"
+                                rel="nofollow noopener"
+                                target="_blank"
+                            >
                                 <SvgIcon name="telegram" color={Colors.$white} />
                                 <span className="body2">Карта ДТП в Телеграме</span>
                             </a>
-                            <a href="#" className="social-tw">
+                            <a
+                                href="#"
+                                className="social-tw"
+                                rel="nofollow noopener"
+                                target="_blank"
+                            >
                                 <SvgIcon name="twitter" color={Colors.$white} />
                                 <span className="body2">Карта ДТП в Твиттере</span>
                             </a>
@@ -73,10 +85,17 @@ const Footer = () => {
                             <a
                                 href="#"
                                 aria-label="Городские проекты Ильи Варламова и Максима Каца"
+                                rel="nofollow noopener"
+                                target="_blank"
                             >
                                 <SvgIcon name="cityprojects" />
                             </a>
-                            <a href="#" aria-label="Штаб (центр городских проектов)">
+                            <a
+                                href="#"
+                                aria-label="Штаб (центр городских проектов)"
+                                rel="nofollow noopener"
+                                target="_blank"
+                            >
                                 <SvgIcon name="hq" />
                             </a>
                         </div>

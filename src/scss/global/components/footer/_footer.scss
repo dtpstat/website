@@ -61,8 +61,8 @@
     background-color: #0088cc;
     margin-right: 10px;
 
-    &:hover {
-        background-color: rgba(#0088cc, 0.9);
+    &:hover, &:focus {
+        background-color: rgba(#0088cc, 0.8);
     }
 
     .icon-telegram {
@@ -86,8 +86,8 @@
     @extend .social-link;
     background-color: #1da1f2;
 
-    &:hover {
-        background-color: rgba(#1da1f2, 0.9);
+    &:hover, &:focus {
+        background-color: rgba(#1da1f2, 0.8);
     }
 
     .icon-twitter {

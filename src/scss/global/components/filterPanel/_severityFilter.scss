@@ -1,12 +1,11 @@
 .severity-item {
-    display: flex;
-    flex-direction: row;
     align-items: center;
     cursor: pointer;
-    user-select: none;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
     position: relative;
-    margin-bottom: 14px;
-
+    user-select: none;
 
     input {
         position: absolute;

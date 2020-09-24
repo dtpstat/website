@@ -16,7 +16,7 @@ const EventHeader = () => {
                         <SvgIcon name="map" />
                         <span className="caption">Перейти на карту</span>
                     </button>
-                    <label className="viewSwitch">
+                    <label className="viewSwitch" tabIndex={0}>
                         <input type="checkbox" />
                         <span className="viewSwitch-slider"></span>
                         <span className="viewSwitch-btn">

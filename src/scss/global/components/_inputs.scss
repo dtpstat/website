@@ -101,6 +101,11 @@
         margin-top: -74px;
     }
 
+    &:focus {
+        outline: 0;
+        box-shadow: 0 0 0 1px $greyDark;
+    }
+
     input {
         opacity: 0;
         width: 0;

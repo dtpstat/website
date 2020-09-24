@@ -7,6 +7,9 @@ import { rootStore, RootStoreContext } from './models/RootStore';
 //import Toast from 'components/Toast';
 //import Layers from './components/Layers/Layers';
 //import Event from './components/Event/Event';
+//import Modal from './components/Modal';
+//import Articles from './components/News/Articles';
+//import Article from './components/News/Article';
 
 export const App: React.FC = () => {
     return (
@@ -19,7 +22,10 @@ export const App: React.FC = () => {
                 {/* <Toast /> */}
                 {/* <Layers /> */}
             </div>
-            {/* <Event /> */}
+            {/* <Event />*/}
+            {/*<Modal />*/}
+            {/*<Article />*/}
+            {/*<Articles />*/}
         </RootStoreContext.Provider>
     );
 };
