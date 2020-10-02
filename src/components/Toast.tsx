@@ -15,7 +15,7 @@ const Toast = () => {
             >
                 <p className="body3">Сбор пожертвований на проект</p>
                 <div className="progress-wrap" style={{ margin: '8px 0 4px' }}>
-                    <div className="progress-bar"></div>
+                    <div className="progress-bar" style={{ width: '45%' }}></div>
                 </div>
                 <p className="body3">35 576 ₽ из 50 000 ₽</p>
                 <button aria-label="Закрыть">
