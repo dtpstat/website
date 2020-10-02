@@ -22,14 +22,33 @@
     }
 
     .progress-wrap {
+        border-radius: 8px;
+        height: 16px;
+        max-width: 300px;
+        overflow: hidden;
         width: 100%;
 
         @include mq('768') {
+            max-width: initial;
             width: 440px;
         }
 
         @include mq('1440') {
             width: 480px;
+        }
+
+        .progress-bar {
+            background-size: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+
+            @include mq('768') {
+                background-size: 440px;
+            }
+
+            @include mq('1440') {
+                background-size: 480px;
+            }
         }
     }
 }

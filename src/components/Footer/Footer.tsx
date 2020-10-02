@@ -25,9 +25,9 @@ const Footer = () => {
                         </h3>
                         <div
                             className="progress-wrap"
-                            style={{ height: '16px', borderRadius: '8px', marginBottom: '8px' }}
+                            style={{ marginBottom: '8px' }}
                         >
-                            <div className="progress-bar"></div>
+                            <div className="progress-bar" style={{ width: '65%'}}></div>
                         </div>
                         <div
                             style={{
