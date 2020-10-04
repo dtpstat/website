@@ -1,15 +1,15 @@
-import { Instance, types } from 'mobx-state-tree';
+import { Instance, types } from 'mobx-state-tree'
 
 const DateValue = types.model('DateValue', {
-    start_date: types.string,
-    end_date: types.string,
-});
+  start_date: types.string,
+  end_date: types.string,
+})
 
 export const DateFilter = types.model('DateFilter', {
-    label: types.string,
-    name: types.string,
-    default_value: DateValue,
-    values: types.array(types.string)
-});
+  label: types.string,
+  name: types.literal('date'),
+  default_value: DateValue,
+  values: types.array(types.string),
+})
 
-export type DateFilterType = Instance<typeof DateFilter>;
+export type DateFilterType = Instance<typeof DateFilter>
