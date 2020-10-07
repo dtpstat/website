@@ -100,12 +100,16 @@ button {
     cursor: pointer;
     &:focus {
         outline: 0;
-        box-shadow: 0 0 0 2px #e4f1fd7a;
+        box-shadow: 0 0 0 1px $grey70;
     }
 }
 
 ::selection {
     background-color: #e4f1fd;
+}
+
+.d-none {
+    display: none !important;
 }
 
 // media for users with vestibular disorders

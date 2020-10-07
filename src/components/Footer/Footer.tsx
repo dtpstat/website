@@ -23,11 +23,8 @@ const Footer = () => {
                         <h3 className="h3" style={{ marginBottom: '14px' }}>
                             Сбор регулярных пожертвований на проект
                         </h3>
-                        <div
-                            className="progress-wrap"
-                            style={{ marginBottom: '8px' }}
-                        >
-                            <div className="progress-bar" style={{ width: '65%'}}></div>
+                        <div className="progress-wrap" style={{ marginBottom: '8px' }}>
+                            <div className="progress-bar" style={{ width: '65%' }}></div>
                         </div>
                         <div
                             style={{
@@ -42,7 +39,7 @@ const Footer = () => {
                             </p>
                         </div>
                         <a
-                            href="#"
+                            href="/donate/"
                             className="btn-dark"
                             style={{ marginLeft: 'auto', width: 'fit-content' }}
                         >
@@ -55,11 +52,11 @@ const Footer = () => {
                             Мы в социальных сетях
                         </h3>
                         <div style={{ display: 'flex' }}>
-                            <a href="#" className="social-tg">
+                            <a href="https://t.me/dtp_stat" className="social-tg">
                                 <SvgIcon name="telegram" color={Colors.$white} />
                                 <span className="body2">Карта ДТП в Телеграме</span>
                             </a>
-                            <a href="#" className="social-tw">
+                            <a href="https://twitter.com/dtp_stat" className="social-tw">
                                 <SvgIcon name="twitter" color={Colors.$white} />
                                 <span className="body2">Карта ДТП в Твиттере</span>
                             </a>
@@ -71,12 +68,19 @@ const Footer = () => {
                         </h3>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <a
-                                href="#"
+                                href="https://city4people.ru/"
                                 aria-label="Городские проекты Ильи Варламова и Максима Каца"
+                                rel="nofollow noopener"
+                                target="_blank"
                             >
                                 <SvgIcon name="cityprojects" />
                             </a>
-                            <a href="#" aria-label="Штаб (центр городских проектов)">
+                            <a
+                                href="http://shtab.co/"
+                                aria-label="Штаб (центр городских проектов)"
+                                rel="nofollow noopener"
+                                target="_blank"
+                            >
                                 <SvgIcon name="hq" />
                             </a>
                         </div>
@@ -104,13 +108,13 @@ const Footer = () => {
                         </p>
                     </div>
                     <div>
-                        <a href="#" className="link">
-                            Исследования
+                        <a href="/blog/" className="link">
+                            Что почитать
                         </a>
-                        <a href="#" className="link">
+                        <a href="/opendata/" className="link">
                             Скачать данные
                         </a>
-                        <a href="#" className="link">
+                        <a href="/pages/about/" className="link">
                             О проекте
                         </a>
                     </div>
