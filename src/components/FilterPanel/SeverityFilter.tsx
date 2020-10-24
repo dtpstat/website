@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import { observer } from 'mobx-react'
 
-import { SeverityFilter } from 'types'
+import { SeverityFilterType } from 'models/filters/SeverityFilter'
 import { Colors } from 'components/ui/Colors'
 
-const SeverityFilterSection: FC<SeverityFilter> = ({ values }) => (
+const SeverityFilterSection: FC<SeverityFilterType> = ({ values }) => (
   <ul>
     {values.map((item) => (
       <li key={item.value}>

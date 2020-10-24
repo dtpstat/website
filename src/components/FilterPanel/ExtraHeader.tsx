@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import React from 'react'
 
-export const CategoryHeader = () => (
+const CategoryHeader = () => (
   <div className='filter-header'>
     <button className='btn-back'>
       <svg className='icon icon-arrow-back'>

@@ -1,4 +1,6 @@
-import { types } from 'mobx-state-tree'
+import { types, Instance, getRoot } from 'mobx-state-tree'
+
+import { RootStoreType } from '../RootStore'
 
 const SeverityItem = types
   .model('SeverityItem', {
@@ -7,13 +9,18 @@ const SeverityItem = types
     color: types.string,
     disabled: types.boolean,
     default: types.boolean,
-    selected: types.optional(types.boolean, false),
+    selected: false,
   })
   .actions((self) => {
+    const afterCreate = () => {
+      self.selected = self.default
+    }
     function changeSelection() {
       self.selected = !self.selected
+      getRoot<RootStoreType>(self).onFiltersChanged()
     }
     return {
+      afterCreate,
       changeSelection,
     }
   })
@@ -24,3 +31,5 @@ export const SeverityFilter = types.model('SeverityFilter', {
   multiple: types.boolean,
   values: types.array(SeverityItem),
 })
+
+export type SeverityFilterType = Instance<typeof SeverityFilter>

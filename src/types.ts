@@ -17,12 +17,12 @@ export type BoundsChangedEvent = {
   }
 }
 
-export enum FilterType {
-  CATEGORY = 'category',
-  SEVERITY = 'severity',
-  PARTICIPANT_CATEGORIES = 'participant_categories',
-  DATE = 'date',
-}
+// export enum FilterType {
+//   CATEGORY = 'category',
+//   SEVERITY = 'severity',
+//   PARTICIPANT_CATEGORIES = 'participant_categories',
+//   DATE = 'date',
+// }
 
 export type ShortStatisticsResponse = {
   parent_region_name: string
@@ -39,6 +39,12 @@ export type DetailedStatisticsResponse = {
   dead: number
 }
 
+export type FilterResponse =
+  | DateFilterResponse
+  | SeverityFilterResponse
+  | ParticipantsFilterResponse
+  | ExtraFilterResponse
+
 export type DateFilterResponse = {
   name: 'date'
   label: string
@@ -48,39 +54,37 @@ export type DateFilterResponse = {
     end_date: string
   }
 }
-interface ParticipantsFilterBase {
+
+export type ParticipantsFilterResponse = {
   name: 'participant_categories'
   label: string
   multiple: boolean
+  values: ParticipantFilterResponseValue[]
 }
 
-export interface ParticipantFilterResponseValue {
+export type SeverityFilterResponse = {
+  name: 'severity'
+  label: string
+  multiple: boolean
+  values: SeverityFilterResponseValue[]
+}
+
+export type ExtraFilterResponse = {
+  name: 'extra'
+  key: string
+  label: string
+  multiple: boolean
+  values: ExtraFilterResponseValue[]
+}
+
+export type ParticipantFilterResponseValue = {
   preview: string
   value: number
   icon: string
   default: boolean
 }
 
-export type ParticipantFilterResponse = ParticipantsFilterBase & {
-  values: ParticipantFilterResponseValue[]
-}
-
-export type ParticipantFilterValue = ParticipantFilterResponseValue & {
-  selected: boolean
-  changeSelection(): void
-}
-
-export type ParticipantFilter = ParticipantsFilterBase & {
-  values: ParticipantFilterValue[]
-}
-
-interface SeverityFilterBase {
-  name: 'severity'
-  label: string
-  multiple: boolean
-}
-
-export interface SeverityFilterResponseValue {
+export type SeverityFilterResponseValue = {
   preview: string
   value: number
   color: string
@@ -88,33 +92,8 @@ export interface SeverityFilterResponseValue {
   default: boolean
 }
 
-export type SeverityFilterValue = SeverityFilterResponseValue & {
-  selected: boolean
-  changeSelection(): void
-}
-//
-// export type SeverityFilterResponse = SeverityFilterBase & {
-//   values: SeverityFilterResponseValue[]
-// }
-
-export type SeverityFilter = SeverityFilterBase & {
-  values: SeverityFilterValue[]
-}
-
-export type CategoryFilterValue = {
+export interface ExtraFilterResponseValue {
   preview: string
   value: number
+  default: boolean
 }
-
-export type CategoryFilterResponse = {
-  name: 'category'
-  label: string
-  multiple: boolean
-  values: CategoryFilterValue[]
-}
-
-export type FilterResponse =
-  | DateFilterResponse
-  | SeverityFilter
-  | ParticipantFilter
-  | CategoryFilterResponse

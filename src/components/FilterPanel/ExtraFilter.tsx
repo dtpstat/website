@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react'
-import React from 'react'
+import React, { FC } from 'react'
 
-import { ExtraFilterResponse } from '../../types'
+import { ExtraFilterType } from 'models/filters/ExtraFilter'
 
-const CategoryFilter = ({ values }: ExtraFilterResponse) => (
+const ExtraFilter: FC<ExtraFilterType> = ({ values }) => (
   <div className='category-filter'>
     <div className='category-item__draw' tabIndex={0}>
       <svg className='icon icon-edit'>
@@ -26,4 +26,4 @@ const CategoryFilter = ({ values }: ExtraFilterResponse) => (
   </div>
 )
 
-export default observer(CategoryFilter)
+export default observer(ExtraFilter)

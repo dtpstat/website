@@ -4,31 +4,34 @@ import 'react-date-range/dist/theme/default.css' // theme css file
 import { observer } from 'mobx-react'
 
 import { useStore } from 'models/RootStore'
-import { FilterResponse } from 'types'
 
+import DateFilter from './DateFilter'
 import ParticipantsFilter from './ParticipantsFilter'
 import SeverityFilter from './SeverityFilter'
-import CategoryFilter from './CategoryFilter'
-import DateFilter from './DateFilter'
+import ExtraFilter from './ExtraFilter'
+// import { CategoryHeader } from './CategoryHeader'
+import { FilterType } from '../../models/FilterStore'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
-const FilterComponent = ({ filter }: { filter: FilterResponse }) => {
+const FilterComponent = ({ filter }: { filter: FilterType }) => {
   switch (filter.name) {
-    case 'category':
-      return <CategoryFilter {...filter} />
     case 'date':
-      return <DateFilter {...filter} />
-    case 'severity':
-      return <SeverityFilter {...filter} />
+      return <DateFilter filter={filter} />
     case 'participant_categories':
       return <ParticipantsFilter {...filter} />
+    case 'severity':
+      return <SeverityFilter {...filter} />
+    case 'extra':
+      return <ExtraFilter {...filter} />
     default:
       return null
   }
 }
 
 const FilterPanel = () => {
+  React.useEffect(() => {}, [])
+
   const { filterStore } = useStore()
   const { filters } = filterStore
 
@@ -38,12 +41,12 @@ const FilterPanel = () => {
 
   return (
     <div className='filter-panel'>
-      {/* {CategoryHeader()} */}
+      {/* <CategoryHeader /> */}
       <div className='filter-content'>
-        {filters.map((filter) => (
-          <div key={filter.name} className='filter-item'>
+        {filters.map((filter: any) => (
+          <div key={filter.key || filter.name} className='filter-item'>
             <p className='subtitle2'>{filter.label}</p>
-            <FilterComponent {...{ filter }} />
+            <FilterComponent filter={filter} />
           </div>
         ))}
       </div>

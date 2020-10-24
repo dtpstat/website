@@ -1,18 +1,19 @@
 import { observer } from 'mobx-react'
 import React, { FC } from 'react'
 
-import config from '../../config'
-import { ParticipantFilter } from '../../types'
+import { ParticipantsFilterType } from 'models/filters/ParticipantsFilter'
 
-const ParticipantsFilterSection: FC<ParticipantFilter> = ({ values }) => (
+import config from '../../config'
+
+const ParticipantsFilter: FC<ParticipantsFilterType> = (filter) => (
   <div className='participant-filter'>
-    {values.map((item) => (
+    {filter.values.map((item) => (
       <button
         key={item.value}
         className={item.selected ? 'participant-item active' : 'participant-item'}
         // selected={item.selected}
         tabIndex={0}
-        onClick={item.changeSelection}
+        onClick={item.selectOne}
       >
         {
           <object
@@ -27,4 +28,4 @@ const ParticipantsFilterSection: FC<ParticipantFilter> = ({ values }) => (
   </div>
 )
 
-export default observer(ParticipantsFilterSection)
+export default observer(ParticipantsFilter)
