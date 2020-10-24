@@ -1,6 +1,4 @@
 import React from 'react'
-import 'react-date-range/dist/styles.css' // main style file
-import 'react-date-range/dist/theme/default.css' // theme css file
 import { observer } from 'mobx-react'
 
 import { useStore } from 'models/RootStore'

@@ -3,7 +3,7 @@ import React from 'react'
 import { Map } from './components/Map'
 import { FilterPanel } from './components/FilterPanel'
 import { InfoPanel } from './components/InfoPanel'
-//import InfoBaloon from './components/InfoBaloon';
+// import InfoBaloon from './components/InfoBaloon'
 import { rootStore, RootStoreContext } from './models/RootStore'
 //import Toast from 'components/Toast';
 //import Layers from './components/Layers/Layers';

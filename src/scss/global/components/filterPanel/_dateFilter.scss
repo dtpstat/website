@@ -1,0 +1,18 @@
+.date-wrap {
+  position: absolute;
+  z-index: 1;
+  margin-top: 8px;
+  box-shadow: 0px 5px 15px #d4dadd;
+  background: $white;
+}
+
+.date-bottom {
+  border-top: 1px solid $grey10;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.date-bottom > * {
+  margin-left: 12px;
+}

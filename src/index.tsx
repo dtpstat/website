@@ -2,9 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import * as Sentry from '@sentry/browser'
 
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-daterangepicker/daterangepicker.css'
-
 import './scss/style.scss'
 import config from 'config'
 
