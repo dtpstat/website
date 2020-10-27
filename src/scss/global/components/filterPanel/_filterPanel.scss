@@ -28,7 +28,7 @@
 
 .filter-panel-category {
   @extend .filter-panel;
-  
+
   display: flex;
   flex-direction: column;
   height: calc(100vh - 40px);

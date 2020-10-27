@@ -1,56 +1,56 @@
 .modal-overlay {
-    align-items: center;
-    background-color: rgba($greyDark, 0.5);
-    display: flex;
-    height: 100vh;
-    justify-content: center;
-    position: fixed;
-    width: 100vw;
-    z-index: 101;
+  align-items: center;
+  background-color: rgba($greyDark, 0.5);
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  position: fixed;
+  width: 100vw;
+  z-index: 101;
 }
 
 .modal {
-    background-color: $white;
-    border-radius: 8px;
-    box-shadow: 0px 5px 15px #d4dadd;
-    max-width: 460px;
-    overflow: hidden;
-    width: 100%;
+  background-color: $white;
+  border-radius: 8px;
+  box-shadow: 0px 5px 15px #d4dadd;
+  max-width: 460px;
+  overflow: hidden;
+  width: 100%;
 }
 
 .modal-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+
+  button {
+    align-items: center;
+    background-color: transparent;
     display: flex;
-    justify-content: space-between;
-    padding: 20px;
 
-    button {
-        align-items: center;
-        background-color: transparent;
-        display: flex;
-
-        &:hover {
-            .icon-decline {
-                transform: rotate(180deg);
-            }
-        }
-        .icon-decline {
-            stroke: $greyDark;
-            transition: transform 0.5s ease;
-        }
+    &:hover {
+      .icon-decline {
+        transform: rotate(180deg);
+      }
     }
+    .icon-decline {
+      stroke: $greyDark;
+      transition: transform 0.5s ease;
+    }
+  }
 }
 
 .modal-footer {
-    background-color: $greyLight;
-    display: flex;
-    justify-content: flex-end;
-    padding: 12px 20px;
+  background-color: $greyLight;
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 20px;
 
-    button {
-        padding: 8px 16px;
-    }
+  button {
+    padding: 8px 16px;
+  }
 
-    .btn-dark {
-        margin-left: 12px;
-    }
+  .btn-dark {
+    margin-left: 12px;
+  }
 }

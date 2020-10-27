@@ -1,86 +1,86 @@
 .category-filter {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .category-tag {
-    align-items: center;
-    display: flex;
-    margin-bottom: 12px;
-    margin-right: 8px;
-    transition: background-color 0.3s ease;
+  align-items: center;
+  display: flex;
+  margin-bottom: 12px;
+  margin-right: 8px;
+  transition: background-color 0.3s ease;
 
-    &.active {
-        .btn-rect {
-            color: $white;
-            background-color: $grey70;
-        }
-        .btn-decline {
-            display: block;
-            background-color: $grey70;
-        }
-    }
-
-    &:hover,
-    &:focus {
-        outline: none;
-        .btn-rect {
-            color: $white;
-            background-color: $grey70;
-        }
-        .icon-edit {
-            fill: $white;
-        }
-    }
-
-    button {
-        &:focus,
-        &:hover {
-            box-shadow: none;
-        }
-    }
-
+  &.active {
     .btn-rect {
-        align-self: stretch;
-        border-radius: 4px 0 0 4px;
+      color: $white;
+      background-color: $grey70;
     }
-
     .btn-decline {
-        align-self: stretch;
-        display: none;
-        padding: 7px 10px 7px 2px;
-        background-color: $greyLight;
-        border-radius: 0 4px 4px 0;
+      display: block;
+      background-color: $grey70;
     }
+  }
 
-    .icon-decline {
-        height: 12px;
-        opacity: 0.5;
-        pointer-events: none;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-width: 2px;
-        stroke: $white;
-        transition: opacity 0.3s ease, stroke 0.3s ease;
-        width: 12px;
+  &:hover,
+  &:focus {
+    outline: none;
+    .btn-rect {
+      color: $white;
+      background-color: $grey70;
     }
+    .icon-edit {
+      fill: $white;
+    }
+  }
+
+  button {
+    &:focus,
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
+  .btn-rect {
+    align-self: stretch;
+    border-radius: 4px 0 0 4px;
+  }
+
+  .btn-decline {
+    align-self: stretch;
+    display: none;
+    padding: 7px 10px 7px 2px;
+    background-color: $greyLight;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .icon-decline {
+    height: 12px;
+    opacity: 0.5;
+    pointer-events: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2px;
+    stroke: $white;
+    transition: opacity 0.3s ease, stroke 0.3s ease;
+    width: 12px;
+  }
 }
 
 .category-item__draw {
-    @extend .category-tag;
-    position: relative;
-    .icon-edit {
-        fill: $greyDark;
-        height: 17px;
-        left: 10px;
-        pointer-events: none;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        transition: fill 0.3s ease;
-        width: 17px;
-    }
-    .btn-rect {
-        padding-left: 36px;
-    }
+  @extend .category-tag;
+  position: relative;
+  .icon-edit {
+    fill: $greyDark;
+    height: 17px;
+    left: 10px;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: fill 0.3s ease;
+    width: 17px;
+  }
+  .btn-rect {
+    padding-left: 36px;
+  }
 }

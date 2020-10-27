@@ -1,89 +1,89 @@
 .info-panel-wrap {
-    align-self: flex-start;
-    background: $white;
-    box-shadow: 0px 5px 15px #d4dadd;
-    margin: 10px;
-    pointer-events: all;
-    border-radius: 8px;
-    overflow: hidden;
-    max-width: 100%;
+  align-self: flex-start;
+  background: $white;
+  box-shadow: 0px 5px 15px #d4dadd;
+  margin: 10px;
+  pointer-events: all;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 100%;
 
-    @include mq('768') {
-        margin: 20px 16px 20px 0;
-    }
+  @include mq('768') {
+    margin: 20px 16px 20px 0;
+  }
 }
 
 .info-panel {
-    display: grid;
-    gap: 10px 10px;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
-    padding: 10px 16px;
+  display: grid;
+  gap: 10px 10px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  padding: 10px 16px;
+
+  @include mq('768') {
+    grid-template-columns: repeat(5, auto);
+    padding: 14px 20px;
+    gap: 10px 20px;
+  }
+
+  @include mq('1440') {
+    gap: 10px 40px;
+  }
+
+  > div {
+    &:nth-of-type(1) {
+      grid-column: 1/-1;
+      grid-row: 1/2;
+      text-align: center;
+
+      @include mq('768') {
+        grid-column: 1 / 2;
+        grid-row: 1 / -1;
+      }
+    }
+    &:nth-of-type(2) {
+      grid-row: 2 / 3;
+      @include mq('768') {
+        grid-row: 1 / -1;
+      }
+    }
+    &:nth-of-type(3) {
+      grid-row: 2 / 3;
+      @include mq('768') {
+        grid-row: 1 / -1;
+      }
+    }
+    &:nth-of-type(4) {
+      grid-row: 2 / 3;
+      @include mq('768') {
+        grid-row: 1 / -1;
+      }
+    }
+  }
+
+  .btn {
+    grid-column: 1 / -1;
+    grid-row: 3 / 4;
+    align-self: center;
+    margin: 0 auto;
 
     @include mq('768') {
-        grid-template-columns: repeat(5, auto);
-        padding: 14px 20px;
-        gap: 10px 20px;
+      grid-row: 1 / -1;
+      grid-column: 5 / 6;
     }
 
-    @include mq('1440') {
-        gap: 10px 40px;
+    &.active {
+      .icon-decline {
+        display: block;
+      }
     }
 
-    > div {
-        &:nth-of-type(1) {
-            grid-column: 1/-1;
-            grid-row: 1/2;
-            text-align: center;
-
-            @include mq('768') {
-                grid-column: 1 / 2;
-                grid-row: 1 / -1;
-            }
-        }
-        &:nth-of-type(2) {
-            grid-row: 2 / 3;
-            @include mq('768') {
-                grid-row: 1 / -1;
-            }
-        }
-        &:nth-of-type(3) {
-            grid-row: 2 / 3;
-            @include mq('768') {
-                grid-row: 1 / -1;
-            }
-        }
-        &:nth-of-type(4) {
-            grid-row: 2 / 3;
-            @include mq('768') {
-                grid-row: 1 / -1;
-            }
-        }
+    .icon-decline {
+      display: none;
+      stroke: $greyDark;
+      width: 15px;
+      height: 15px;
+      margin-left: 12px;
     }
-
-    .btn {
-        grid-column: 1 / -1;
-        grid-row: 3 / 4;
-        align-self: center;
-        margin: 0 auto;
-
-        @include mq('768') {
-            grid-row: 1 / -1;
-            grid-column: 5 / 6;
-        }
-
-        &.active {
-            .icon-decline {
-                display: block;
-            }
-        }
-
-        .icon-decline {
-            display: none;
-            stroke: $greyDark;
-            width: 15px;
-            height: 15px;
-            margin-left: 12px;
-        }
-    }
+  }
 }

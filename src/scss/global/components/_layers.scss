@@ -1,142 +1,142 @@
 .layers-wrap {
-    pointer-events: all;
-    position: absolute;
-    right: 20px;
-    top: 40%;
+  pointer-events: all;
+  position: absolute;
+  right: 20px;
+  top: 40%;
 }
 
 .layers-filter {
-    background-color: $white;
-    border-radius: 20px;
-    box-shadow: 0px 3px 7px #d4dadd;
-    padding: 12px;
-    position: absolute;
-    right: 48px;
-    top: 0;
-    width: 220px;
+  background-color: $white;
+  border-radius: 20px;
+  box-shadow: 0px 3px 7px #d4dadd;
+  padding: 12px;
+  position: absolute;
+  right: 48px;
+  top: 0;
+  width: 220px;
 
-    .subtitle2 {
-        margin-bottom: 8px;
-    }
+  .subtitle2 {
+    margin-bottom: 8px;
+  }
 }
 
 .toggle-layer {
-    display: flex;
-    position: relative;
+  display: flex;
+  position: relative;
 
-    input {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-        height: 0;
-        width: 0;
-        &:checked {
-            ~ .checkmark {
-                background-color: $grey70;
-                .icon-location {
-                    fill: $white;
-                }
-                .subtitle3 {
-                    color: $white;
-                }
-            }
-        }
-        &:disabled {
-            ~ .checkmark {
-                cursor: not-allowed;
-                background-color: $greyLight !important;
-                .icon-block {
-                    display: block;
-                }
-                .icon-location {
-                    fill: $grey70;
-                }
-                .icon-heat {
-                    fill: $greyDark;
-                }
-                .subtitle3 {
-                    color: $greyDark;
-                }
-            }
-            &:hover {
-                ~ .tooltip {
-                    opacity: 1;
-                }
-            }
-        }
-    }
-
-    &:focus {
-        outline: none;
-    }
-
-    &:hover,
-    &:focus {
-        input ~ .checkmark {
-            background-color: $grey70;
-        }
-        .icon-location,
-        .icon-heat {
-            fill: $white;
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    &:checked {
+      ~ .checkmark {
+        background-color: $grey70;
+        .icon-location {
+          fill: $white;
         }
         .subtitle3 {
-            color: $white;
+          color: $white;
         }
+      }
     }
-
-    .checkmark {
-        align-items: center;
-        background-color: $greyLight;
-        border-radius: 8px;
-        cursor: pointer;
-        display: flex;
-        height: 40px;
-        padding: 6px 12px 6px 16px;
-        position: relative;
-        transition: background-color 0.3s ease;
-        width: 100%;
+    &:disabled {
+      ~ .checkmark {
+        cursor: not-allowed;
+        background-color: $greyLight !important;
+        .icon-block {
+          display: block;
+        }
+        .icon-location {
+          fill: $grey70;
+        }
+        .icon-heat {
+          fill: $greyDark;
+        }
+        .subtitle3 {
+          color: $greyDark;
+        }
+      }
+      &:hover {
+        ~ .tooltip {
+          opacity: 1;
+        }
+      }
     }
+  }
 
-    .icon-location {
-        pointer-events: none;
-        fill: $grey70;
-        height: 24px;
-        margin-right: 19px;
-        transition: fill 0.3s ease;
-        width: 20px;
+  &:focus {
+    outline: none;
+  }
+
+  &:hover,
+  &:focus {
+    input ~ .checkmark {
+      background-color: $grey70;
     }
-
+    .icon-location,
     .icon-heat {
-        pointer-events: none;
-        width: 28px;
-        height: 28px;
-        margin-right: 12px;
-        transition: fill 0.3s ease;
-        fill: $greyDark;
+      fill: $white;
     }
+    .subtitle3 {
+      color: $white;
+    }
+  }
 
-    .icon-block {
-        pointer-events: none;
-        width: 18px;
-        height: 18px;
-        fill: $red;
-        margin-left: auto;
-        opacity: 0.5;
-        display: none;
-    }
+  .checkmark {
+    align-items: center;
+    background-color: $greyLight;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    height: 40px;
+    padding: 6px 12px 6px 16px;
+    position: relative;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+
+  .icon-location {
+    pointer-events: none;
+    fill: $grey70;
+    height: 24px;
+    margin-right: 19px;
+    transition: fill 0.3s ease;
+    width: 20px;
+  }
+
+  .icon-heat {
+    pointer-events: none;
+    width: 28px;
+    height: 28px;
+    margin-right: 12px;
+    transition: fill 0.3s ease;
+    fill: $greyDark;
+  }
+
+  .icon-block {
+    pointer-events: none;
+    width: 18px;
+    height: 18px;
+    fill: $red;
+    margin-left: auto;
+    opacity: 0.5;
+    display: none;
+  }
 }
 
 .tooltip {
-    background-color: $white;
-    background: rgba(24, 51, 74, 0.72);
-    border-radius: 8px;
-    color: $white;
-    padding: 4px 8px 8px;
-    position: absolute;
-    right: calc(100% + 4px);
-    text-align: center;
-    top: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    opacity: 0;
+  background-color: $white;
+  background: rgba(24, 51, 74, 0.72);
+  border-radius: 8px;
+  color: $white;
+  padding: 4px 8px 8px;
+  position: absolute;
+  right: calc(100% + 4px);
+  text-align: center;
+  top: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  opacity: 0;
 }
