@@ -96,7 +96,7 @@ export const MapStore = types
       }
       objectManager.removeAll()
 
-      const selection = buildSelection(filters)
+      const selection = buildSelection(filters)      
 
       const data = items.map((item) => {
         var icon = supportedIconsBySeverity.default

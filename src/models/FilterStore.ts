@@ -5,9 +5,16 @@ import { fetchFilters } from 'api'
 import { DateFilter, DateFilterType } from './filters/DateFilter'
 import { ParticipantsFilter } from './filters/ParticipantsFilter'
 import { SeverityFilter } from './filters/SeverityFilter'
-import { ExtraFilter, ExtraFilterType, ExtraFilterValue } from './filters/ExtraFilter'
+import { RegionFilter } from './filters/RegionFilter'
+import { CategoryFilter } from './filters/CategoryFilter'
 
-const Filter = types.union(ParticipantsFilter, DateFilter, SeverityFilter, ExtraFilter)
+const Filter = types.union(
+  ParticipantsFilter,
+  DateFilter,
+  SeverityFilter,
+  RegionFilter,
+  CategoryFilter
+)
 
 export type FilterType = Instance<typeof Filter>
 
@@ -19,41 +26,60 @@ function convertFilter(filter: any): any {
       return ParticipantsFilter.create(filter)
     case 'severity':
       return SeverityFilter.create(filter)
-    default:
-      return ExtraFilter.create(filter)
+    case 'region':
+      return RegionFilter.create(filter)
+    case 'category':
+      return CategoryFilter.create(filter)
   }
 }
 
 export const FilterStore = types
   .model('FilterStore', {
-    filters: types.array(types.union(ParticipantsFilter, DateFilter, SeverityFilter, ExtraFilter)),
+    filters: types.array(
+      types.union(ParticipantsFilter, DateFilter, SeverityFilter, RegionFilter, CategoryFilter)
+    ),
+    visible: true,
+    search: '',
+    currentKey: types.maybeNull(types.string),
   })
   .actions((self) => {
     function setFilters(filters: any[]) {
       self.filters.clear()
       self.filters = cast(filters.map(convertFilter)) || []
     }
-    const updateStreets = (accidents: any[]) => {
-      if (accidents) {
-        const streetFilter = self.filters.find((f: any) => f.key === 'street') as ExtraFilterType
-        if (streetFilter) {
-          const streets = accidents
-            .filter((a) => a.address)
-            .map((a) => a.address.split(',')[1].trim())
-          streetFilter.values = cast(
-            streets.map((s, i) => ExtraFilterValue.create({ preview: s, value: i }))
-          )
-        }
-      }
-    }
+    // const updateStreets = (accidents: any[]) => {
+    //   if (accidents) {
+    //     const streetFilter = self.filters.find((f: any) => f.key === 'street') as CategoryFilterType
+    //     if (streetFilter) {
+    //       const streets = accidents
+    //         .filter((a) => a.address)
+    //         .map((a) => a.address.split(',')[1].trim())
+    //       streetFilter.values = cast(
+    //         streets.map((s, i) => CategoryFilterValue.create({ preview: s, value: i }))
+    //       )
+    //     }
+    //   }
+    // }
     const loadFiltersForArea = flow(function* loadFiltersForArea(id: string) {
       const response = yield fetchFilters(id)
       setFilters(response)
     })
+    const setCurrentKey = (key: string) => {
+      self.currentKey = key
+    }
+    const setVisible = (visible: boolean) => {
+      self.visible = visible
+    }
+    const setSearch = (s: string) => {
+      self.search = s
+    }
     return {
       setFilters,
-      updateStreets,
+      // updateStreets,
       loadFiltersForArea,
+      setCurrentKey,
+      setVisible,
+      setSearch,
     }
   })
   .views((self) => ({

@@ -42,14 +42,15 @@
 
     .btn-rect {
         align-self: stretch;
-        border-radius: 4px;
+        border-radius: 4px 0 0 4px;
     }
 
     .btn-decline {
         align-self: stretch;
         display: none;
-        padding: 7px 10px;
+        padding: 7px 10px 7px 2px;
         background-color: $greyLight;
+        border-radius: 0 4px 4px 0;
     }
 
     .icon-decline {

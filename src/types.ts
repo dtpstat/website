@@ -43,7 +43,7 @@ export type FilterResponse =
   | DateFilterResponse
   | SeverityFilterResponse
   | ParticipantsFilterResponse
-  | ExtraFilterResponse
+  | CategoryFilterResponse
 
 export type DateFilterResponse = {
   name: 'date'
@@ -69,12 +69,12 @@ export type SeverityFilterResponse = {
   values: SeverityFilterResponseValue[]
 }
 
-export type ExtraFilterResponse = {
-  name: 'extra'
+export type CategoryFilterResponse = {
+  name: 'category'
   key: string
   label: string
   multiple: boolean
-  values: ExtraFilterResponseValue[]
+  values: CategoryFilterResponseValue[]
 }
 
 export type ParticipantFilterResponseValue = {
@@ -92,7 +92,7 @@ export type SeverityFilterResponseValue = {
   default: boolean
 }
 
-export interface ExtraFilterResponseValue {
+export interface CategoryFilterResponseValue {
   preview: string
   value: number
   default: boolean

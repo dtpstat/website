@@ -36,10 +36,10 @@
         background-color: transparent;
         border-radius: 3px;
         border: 1px solid $greyMiddle;
-        height: 18px;
+        min-height: 18px;
         position: relative;
         transition: background-color 0.3s ease;
-        width: 18px;
+        min-width: 18px;
 
         .icon-check {
             display: none;
