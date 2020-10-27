@@ -6,7 +6,7 @@ import { useStore } from 'models/RootStore'
 import CategoryHeader from './CategoryHeader'
 
 const CategoryValue = observer(({ value }) => (
-  <label key={value.value} className='category-value severity-item' tabIndex={0}>
+  <label className='category-value severity-item' tabIndex={0}>
     <input type='checkbox' checked={value.selected} onChange={(e) => value.toggle()} />
     <span className='checkmark'>
       <svg className='icon icon-check'>
@@ -29,7 +29,7 @@ export const FilterPanelCategory = observer(() => {
         {filter.values
           .filter((v) => v.preview.toLowerCase().includes(q))
           .map((v) => (
-            <CategoryValue value={v} />
+            <CategoryValue key={v.value} value={v} />
           ))}
       </div>
     </div>

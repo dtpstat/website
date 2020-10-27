@@ -63,7 +63,7 @@ export const MapStore = types
 
     const passFilters = (item: any, selection: any[]): boolean => {
       for (let filter of selection) {
-        const value = item[filter.name]
+        const value = item[filter.id]
         const selectedValues = filter.values
         if (selectedValues.length === 0) {
           continue
@@ -85,7 +85,7 @@ export const MapStore = types
       const selection: any[] = []
       for (let filter of filters.filter((f) => f.name !== 'date')) {
         const values = filter.values.filter((v: any) => v.selected).map((v: any) => v.value)
-        selection.push({ name: filter.name, values })
+        selection.push({ id: filter.key || filter.name, values })
       }
       return selection
     }

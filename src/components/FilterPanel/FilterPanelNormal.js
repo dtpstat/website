@@ -24,7 +24,7 @@ const FilterSection = ({ filter }) => {
 }
 
 const CategoryTag = observer(({ filter }) => (
-  <div key={filter.key} className='category-tag' tabIndex={0}>
+  <div className='category-tag' tabIndex={0}>
     <button className='btn-rect' onClick={(e) => filter.navigate()}>
       <span>{filter.label}</span>
     </button>
@@ -32,7 +32,7 @@ const CategoryTag = observer(({ filter }) => (
 ))
 
 const CategoryActiveTag = observer(({ filter }) => (
-  <div key={filter.key} className='category-tag active' tabIndex={0}>
+  <div className='category-tag active' tabIndex={0}>
     <button className='btn-rect' onClick={(e) => filter.reset()}>
       <span>{filter.label}</span>
     </button>
@@ -65,12 +65,12 @@ export const FilterPanelNormal = observer(() => {
           <p className='subtitle2'>Фильтры</p>
           <div className='category-filter'>
             {activeFilters.map((f) => (
-              <CategoryActiveTag filter={f} />
+              <CategoryActiveTag key={f.key} filter={f} />
             ))}
           </div>
           <div className='category-filter'>
             {categoryFilters.map((f) => (
-              <CategoryTag filter={f} />
+              <CategoryTag key={f.key} filter={f} />
             ))}
           </div>
         </div>

@@ -34,7 +34,10 @@ const RootStore = types
       yield areaStore.loadStatistics(center, zoom, filterStore.startDate, filterStore.endDate)
     })
     const drawObjects = () => {
-      self.mapStore.drawObjects(self.trafficAccidentStore.accidents, self.filterStore.filters)
+      self.mapStore.drawObjects(
+        self.trafficAccidentStore.accidents,
+        self.filterStore.filters.slice() // Array.isArray should be true
+      )
     }
     const onBoundsChanged = () => {
       load()
