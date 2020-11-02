@@ -12,11 +12,16 @@ export const TrafficAccidentStore = types
     const loadTrafficAccidents = flow(function* loadTrafficAccidents(
       startDate: string,
       endDate: string,
-      bounds: Bounds
+      bounds: Bounds,
+      zoom: number
     ) {
       try {
-        const response = yield fetchDtp(startDate, endDate, bounds)
-        self.accidents = response
+        if (zoom >= 11) {
+          const response = yield fetchDtp(startDate, endDate, bounds)
+          self.accidents = response
+        } else {
+          self.accidents = []
+        }
         // @ts-ignore
         getParent(self).onTrafficAccidentsLoaded()
       } catch (error) {

@@ -26,7 +26,8 @@ const RootStore = types
       yield trafficAccidentStore.loadTrafficAccidents(
         filterStore.startDate,
         filterStore.endDate,
-        bounds
+        bounds,
+        zoom
       )
       yield areaStore.loadStatistics(center, zoom, filterStore.startDate, filterStore.endDate)
     })
