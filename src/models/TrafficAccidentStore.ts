@@ -5,7 +5,7 @@ import { Bounds } from 'types'
 
 export const TrafficAccidentStore = types
   .model('TrafficAccidentStore', {
-    accidents: types.frozen(),
+    accidents: types.frozen([]),
   })
   .actions((self) => {
     // @ts-ignore

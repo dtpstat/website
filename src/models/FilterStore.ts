@@ -60,8 +60,8 @@ export const FilterStore = types
     //     }
     //   }
     // }
-    const loadFiltersForArea = flow(function* loadFiltersForArea(id: string) {
-      const response = yield fetchFilters(id)
+    const loadFilters = flow(function* loadFiltersForArea() {
+      const response = yield fetchFilters()
       setFilters(response)
     })
     const setCurrentKey = (key: string) => {
@@ -76,7 +76,7 @@ export const FilterStore = types
     return {
       setFilters,
       // updateStreets,
-      loadFiltersForArea,
+      loadFilters,
       setCurrentKey,
       setVisible,
       setSearch,

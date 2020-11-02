@@ -36,7 +36,7 @@ const ParticipantItem = types
 export const ParticipantsFilter = types.model('ParticipantsFilter', {
   name: types.literal('participant_categories'),
   label: types.string,
-  // multiple: types.boolean,
+  multiple: types.boolean,
   values: types.array(ParticipantItem),
 })
 

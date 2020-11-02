@@ -14,8 +14,8 @@ export const fetchArea = (center: Coordinate, scale: Scale): Promise<ShortStatis
     `${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${scale}`
   ).then((response) => response.json())
 
-export const fetchFilters = (id: string): Promise<FilterResponse[]> =>
-  fetch(`${config.API_URL}/filters/?region_slug=${id}`).then((response) => response.json())
+export const fetchFilters = (): Promise<FilterResponse[]> =>
+  fetch(`${config.API_URL}/filters`).then((response) => response.json())
 
 export const fetchStatistics = (
   center: Coordinate,

@@ -28,7 +28,6 @@ export const CategoryFilter = types
     name: types.literal('category'),
     key: types.string,
     label: types.string,
-    multiple: types.boolean,
     values: types.array(CategoryFilterValue),
   })
   .actions((self) => ({
