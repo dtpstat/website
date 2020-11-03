@@ -37,6 +37,9 @@ const RootStore = types
         self.filterStore.filters.slice() // Array.isArray should be true
       )
     }
+    const updateStreets = () => {
+      self.filterStore.updateStreets(self.trafficAccidentStore.accidents)
+    }
     const onBoundsChanged = () => {
       load()
     }
@@ -44,6 +47,7 @@ const RootStore = types
       load()
     }
     const onTrafficAccidentsLoaded = () => {
+      updateStreets()
       drawObjects()
     }
     const onFiltersChanged = () => {
@@ -54,6 +58,7 @@ const RootStore = types
       onTrafficAccidentsLoaded,
       onDatesChanged,
       onFiltersChanged,
+      updateStreets,
     }
   })
 

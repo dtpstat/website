@@ -29,7 +29,7 @@ export const FilterPanelCategory = observer(() => {
         {filter.values
           .filter((v) => v.preview.toLowerCase().includes(q))
           .map((v) => (
-            <CategoryValue key={v.value} value={v} />
+            <CategoryValue key={v.value === -1 ? v.preview : v.value} value={v} />
           ))}
       </div>
     </div>

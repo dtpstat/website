@@ -5,7 +5,7 @@ import { RootStoreType } from '../RootStore'
 export const CategoryFilterValue = types
   .model('CategoryFilterValue', {
     preview: types.string,
-    value: types.number,
+    value: types.number, // -1 for street
     default: false,
     selected: false,
   })
@@ -33,6 +33,9 @@ export const CategoryFilter = types
   .actions((self) => ({
     reset() {
       self.values.forEach((v) => v.reset())
+      if (self.key === 'street') {
+        getRoot<RootStoreType>(self).updateStreets() // clear previously selected streets from another region
+      }
       getRoot<RootStoreType>(self).onFiltersChanged()
     },
     navigate() {
@@ -40,4 +43,4 @@ export const CategoryFilter = types
     },
   }))
 
-export type ExtraFilterType = Instance<typeof CategoryFilter>
+export type CategoryFilterType = Instance<typeof CategoryFilter>

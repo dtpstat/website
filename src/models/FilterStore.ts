@@ -6,7 +6,7 @@ import { DateFilter, DateFilterType } from './filters/DateFilter'
 import { ParticipantsFilter } from './filters/ParticipantsFilter'
 import { SeverityFilter } from './filters/SeverityFilter'
 import { RegionFilter } from './filters/RegionFilter'
-import { CategoryFilter } from './filters/CategoryFilter'
+import { CategoryFilter, CategoryFilterType, CategoryFilterValue } from './filters/CategoryFilter'
 
 const Filter = types.union(
   ParticipantsFilter,
@@ -47,19 +47,26 @@ export const FilterStore = types
       self.filters.clear()
       self.filters = cast(filters.map(convertFilter)) || []
     }
-    // const updateStreets = (accidents: any[]) => {
-    //   if (accidents) {
-    //     const streetFilter = self.filters.find((f: any) => f.key === 'street') as CategoryFilterType
-    //     if (streetFilter) {
-    //       const streets = accidents
-    //         .filter((a) => a.address)
-    //         .map((a) => a.address.split(',')[1].trim())
-    //       streetFilter.values = cast(
-    //         streets.map((s, i) => CategoryFilterValue.create({ preview: s, value: i }))
-    //       )
-    //     }
-    //   }
-    // }
+    const updateStreets = (accidents: any[]) => {
+      if (accidents) {
+        const streetFilter = self.filters.find((f: any) => f.key === 'street') as CategoryFilterType
+        if (streetFilter) {
+          const streets = new Set(accidents.filter((a) => a.street).map((a) => a.street))
+          const selectedStreets = new Set(
+            streetFilter.values.filter((v) => v.selected).map((s) => s.preview)
+          )
+          selectedStreets.forEach((s) => {
+            streets.add(s)
+          })
+          const sortedStreets = Array.from(streets)
+          sortedStreets.sort()
+          const streetValues = sortedStreets.map((s) =>
+            CategoryFilterValue.create({ preview: s, value: -1, selected: selectedStreets.has(s) })
+          )
+          streetFilter.values = cast(streetValues)
+        }
+      }
+    }
     const loadFilters = flow(function* loadFiltersForArea() {
       const response = yield fetchFilters()
       setFilters(response)
@@ -75,7 +82,7 @@ export const FilterStore = types
     }
     return {
       setFilters,
-      // updateStreets,
+      updateStreets,
       loadFilters,
       setCurrentKey,
       setVisible,

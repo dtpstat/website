@@ -19,7 +19,7 @@ const CategoryHeader = () => {
         </svg>
         <span>{filter.label}</span>
       </button>
-      {selectedValues && (
+      {/* {selectedValues && (
         <div className='tags-wrap'>
           {filter.values
             .filter((v) => v.selected)
@@ -34,7 +34,7 @@ const CategoryHeader = () => {
               </div>
             ))}
         </div>
-      )}
+      )} */}
       <div className='inputWrap'>
         <input
           type='text'

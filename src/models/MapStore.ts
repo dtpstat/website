@@ -84,7 +84,9 @@ export const MapStore = types
     const buildSelection = (filters: any[]) => {
       const selection: any[] = []
       for (let filter of filters.filter((f) => f.name !== 'date')) {
-        const values = filter.values.filter((v: any) => v.selected).map((v: any) => v.value)
+        const values = filter.values
+          .filter((v: any) => v.selected)
+          .map((v: any) => (v.value === -1 ? v.preview : v.value))
         selection.push({ id: filter.key || filter.name, values })
       }
       return selection
