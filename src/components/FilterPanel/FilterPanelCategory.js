@@ -13,7 +13,7 @@ const CategoryValue = observer(({ value }) => (
         <use xlinkHref='svg/sprite.svg#check' />
       </svg>
     </span>
-    <span className='value-preview'>{value.preview}</span>
+    <span className='value-preview body1'>{value.preview}</span>
   </label>
 ))
 

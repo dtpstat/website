@@ -38,8 +38,10 @@
     margin-bottom: 16px; // bottom 36
   }
   .value-preview {
-    margin-top: 2px;
     margin-left: 7px;
+    @include mq('768') {
+      margin-top: -2px;
+    }
   }
   .panel-content {
     flex: 1;
