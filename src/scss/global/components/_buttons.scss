@@ -36,13 +36,10 @@
 
 .btn-hideFilter {
   @extend .btn;
+  margin: auto auto 0 auto;
   align-items: center;
   background: $greyMiddle;
-  bottom: -15px;
   display: flex;
-  left: 50%;
-  position: absolute;
-  transform: translateX(-50%);
   &:hover,
   &:focus {
     background-color: $grey20;

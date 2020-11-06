@@ -5,39 +5,37 @@ import { SeverityFilterType } from 'models/filters/SeverityFilter'
 import { Colors } from 'components/ui/Colors'
 
 const SeverityFilterSection: FC<SeverityFilterType> = ({ values }) => (
-  <ul>
+  <div>
     {values.map((item) => (
-      <li key={item.value}>
-        <label className='severity-item' tabIndex={0}>
-          <input
-            type='checkbox'
-            checked={item.selected}
-            disabled={item.disabled}
-            onChange={item.changeSelection}
-          />
-          <span className='checkmark'>
-            <svg className='icon icon-check'>
-              <use xlinkHref='svg/sprite.svg#check' />
-            </svg>
-          </span>
-          <div
-            className='severity-color'
-            style={{
-              background: item.disabled ? Colors.$grey50 : item.color,
-            }}
-          />
-          <p
-            className='body1'
-            style={{
-              color: item.disabled ? Colors.$grey50 : Colors.$greyDark,
-            }}
-          >
-            {item.preview}
-          </p>
-        </label>
-      </li>
+      <label key={item.value} className='severity-item' tabIndex={0}>
+        <input
+          type='checkbox'
+          checked={item.selected}
+          disabled={item.disabled}
+          onChange={item.changeSelection}
+        />
+        <span className='checkmark'>
+          <svg className='icon icon-check'>
+            <use xlinkHref='svg/sprite.svg#check' />
+          </svg>
+        </span>
+        <div
+          className='severity-color'
+          style={{
+            background: item.disabled ? Colors.$grey50 : item.color,
+          }}
+        />
+        <p
+          className='body1'
+          style={{
+            color: item.disabled ? Colors.$grey50 : Colors.$greyDark,
+          }}
+        >
+          {item.preview}
+        </p>
+      </label>
     ))}
-  </ul>
+  </div>
 )
 
 export default observer(SeverityFilterSection)

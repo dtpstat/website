@@ -1,28 +1,23 @@
 .filter-panel {
+  display: flex;
+  flex-direction: column;
   width: 400px;
   background: $white;
   box-shadow: 0px 5px 15px #d4dadd;
   border-radius: 8px;
-  padding: 20px 20px 0px 20px;
   pointer-events: all;
   position: relative;
-  margin: 10px;
-  @include mq('1440') {
-    margin: 20px;
-  }
-  .panel-content {
-    // height: 700px; TODO
-    overflow: auto;
-    padding-bottom: 24px; // bottom 36
-  }
+  margin: 20px;
+  overflow: auto;
+  padding: 20px;
 }
 
 .filter-panel-hidden {
   @extend .filter-panel;
 
-  .panel-content {
-    overflow: auto;
-    padding-bottom: 36px;
+  align-self: flex-start;
+  .btn-hideFilter {
+    margin-top: 20px;
   }
 }
 
@@ -31,11 +26,10 @@
 
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 40px);
+
   .category-value {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 16px; // bottom 36
   }
   .value-preview {
     margin-left: 7px;
@@ -44,38 +38,25 @@
     }
   }
   .panel-content {
-    flex: 1;
     padding: 0 8px 0 0;
     overflow: auto;
-    margin: 20px 0;
+    margin-top: 20px;
   }
 }
 
-.filter-item:not(:last-child) {
-  margin-bottom: 20px;
+.filter-item:not(:first-child) {
+  margin-top: 20px;
+}
+
+.category-value:not(:first-child) {
+  margin-top: 16px;
+}
+
+.severity-item:not(:first-child) {
+  margin-top: 10px;
 }
 
 .filter-item {
-  ul {
-    margin: 0;
-    padding: 0;
-    // inner ul
-    > li ul {
-      padding-left: 24px;
-      position: relative;
-      &:after {
-        background-color: $greyMiddle;
-        content: '';
-        display: block;
-        height: 100%;
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 1px;
-      }
-    }
-  }
-
   .subtitle2 {
     margin-bottom: 12px;
     color: $greyDark;

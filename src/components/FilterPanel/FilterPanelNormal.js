@@ -54,25 +54,23 @@ export const FilterPanelNormal = observer(() => {
 
   return (
     <div className='filter-panel'>
-      <div className='panel-content'>
-        {mainFilters.map((f) => (
-          <div key={f.name} className='filter-item'>
-            <p className='subtitle2'>{f.label}</p>
-            <FilterSection filter={f} />
-          </div>
-        ))}
-        <div className='filter-item'>
-          <p className='subtitle2'>Фильтры</p>
-          <div className='category-filter'>
-            {activeFilters.map((f) => (
-              <CategoryActiveTag key={f.key} filter={f} />
-            ))}
-          </div>
-          <div className='category-filter'>
-            {categoryFilters.map((f) => (
-              <CategoryTag key={f.key} filter={f} />
-            ))}
-          </div>
+      {mainFilters.map((f) => (
+        <div key={f.name} className='filter-item'>
+          <p className='subtitle2'>{f.label}</p>
+          <FilterSection filter={f} />
+        </div>
+      ))}
+      <div className='filter-item'>
+        <p className='subtitle2'>Фильтры</p>
+        <div className='category-filter'>
+          {activeFilters.map((f) => (
+            <CategoryActiveTag key={f.key} filter={f} />
+          ))}
+        </div>
+        <div className='category-filter'>
+          {categoryFilters.map((f) => (
+            <CategoryTag key={f.key} filter={f} />
+          ))}
         </div>
       </div>
 

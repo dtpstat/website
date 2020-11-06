@@ -13,18 +13,16 @@ export const FilterPanelHidden = observer(() => {
   const text = activeFilters.map((f) => f.label).join(', ')
   return (
     <div className='filter-panel-hidden'>
-      <div className='panel-content'>
-        <div className='filter-item'>
-          <p className='subtitle2'>{dateFilter.label}</p>
-          <DateFilter filter={dateFilter} />
-        </div>
-        {activeFilters && (
-          <div className='filter-item'>
-            <p className='subtitle2'>Активные фильтры</p>
-            <div className='category-filter'>{text}</div>
-          </div>
-        )}
+      <div className='filter-item'>
+        <p className='subtitle2'>{dateFilter.label}</p>
+        <DateFilter filter={dateFilter} />
       </div>
+      {activeFilters && (
+        <div className='filter-item'>
+          <p className='subtitle2'>Активные фильтры</p>
+          <div className='category-filter'>{text}</div>
+        </div>
+      )}
 
       <button className='btn-hideFilter' onClick={(e) => filterStore.setVisible(true)}>
         <svg className='icon icon-arrow-up'>
