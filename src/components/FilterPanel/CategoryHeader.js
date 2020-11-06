@@ -6,7 +6,6 @@ import { useStore } from 'models/RootStore'
 const CategoryHeader = () => {
   const { filterStore } = useStore()
   const filter = filterStore.filters.find((f) => f.key === filterStore.currentKey)
-  const selectedValues = filter.values.filter((v) => v.selected)
   const handleBack = (e) => {
     filterStore.setCurrentKey(null)
     filterStore.setSearch('')

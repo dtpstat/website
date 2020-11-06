@@ -102,15 +102,17 @@ export const MapStore = types
 
       const data = items.map((item) => {
         var icon = supportedIconsBySeverity.default
+        var id = `${item.id}_0`
         if (passFilters(item, selection)) {
           if (item.severity in supportedIconsBySeverity) {
             // @ts-ignore
             icon = supportedIconsBySeverity[item.severity]
+            id = `${item.id}`
           }
         }
         return {
           type: 'Feature',
-          id: Math.random(), // TODO item.id
+          id: id,
           geometry: {
             type: 'Point',
             coordinates: [item.point.latitude, item.point.longitude],
