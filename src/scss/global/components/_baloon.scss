@@ -1,4 +1,4 @@
-.baloon {
+.balloon {
   background-color: $white;
   border-radius: 8px;
   box-shadow: 0px 5px 15px #d4dadd;
@@ -25,9 +25,13 @@
 
 .balloon-header {
   margin-bottom: 4px;
+
+  .subtitle1 {
+    font-weight: bold;
+  }
 }
 
-.baloon-body {
+.balloon-body {
   padding-bottom: 4px;
 
   p {
@@ -35,11 +39,13 @@
   }
 }
 
-.baloon-footer {
+.balloon-footer {
   display: flex;
   position: relative;
 
   .btn-light {
     margin: 0 auto;
+    font-weight: bold;
+    font-size: 16px;
   }
 }
