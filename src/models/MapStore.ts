@@ -145,10 +145,12 @@ export const MapStore = types
       const data = items.map((item) => {
         const { point, severity, ...rest } = item
         var icon = supportedIconsBySeverity.default
+        var id = `${item.id}_0`
         if (passFilters(item, selection)) {
           if (severity in supportedIconsBySeverity) {
             // @ts-ignore
-            icon = supportedIconsBySeverity[severity]
+            icon = supportedIconsBySeverity[item.severity]
+            id = `${item.id}`
           }
         }
 
@@ -158,7 +160,7 @@ export const MapStore = types
 
         return {
           type: 'Feature',
-          id: item.id,
+          id: id,
           geometry: {
             type: 'Point',
             coordinates: [point.latitude, point.longitude],

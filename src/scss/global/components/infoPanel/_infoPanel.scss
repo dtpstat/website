@@ -2,15 +2,11 @@
   align-self: flex-start;
   background: $white;
   box-shadow: 0px 5px 15px #d4dadd;
-  margin: 10px;
+  margin: 20px 20px 20px 0;
   pointer-events: all;
   border-radius: 8px;
   overflow: hidden;
   max-width: 100%;
-
-  @include mq('768') {
-    margin: 20px 16px 20px 0;
-  }
 }
 
 .info-panel {
