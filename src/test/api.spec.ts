@@ -22,5 +22,5 @@ test('fetchDtp', async () => {
     { signal: expect.any(window.AbortSignal) }
   )
 
-  expect(response).toBe(result);
+  expect(response).toBe(result)
 })

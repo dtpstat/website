@@ -1,10 +1,17 @@
 import config from 'config'
 import { buildGeoFrameFromBounds, expandBounds } from 'geo'
-import { Bounds, Coordinate, DetailedStatisticsResponse, FilterResponse, Scale, ShortStatisticsResponse } from 'types'
+import {
+  Bounds,
+  Coordinate,
+  DetailedStatisticsResponse,
+  FilterResponse,
+  Scale,
+  ShortStatisticsResponse,
+} from 'types'
 
 export const fetchArea = (center: Coordinate, scale: Scale): Promise<ShortStatisticsResponse> =>
   fetch(
-    `${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${scale}`,
+    `${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${scale}`
   ).then((response) => response.json())
 
 export const fetchFilters = (): Promise<FilterResponse[]> =>
@@ -14,10 +21,10 @@ export const fetchStatistics = (
   center: Coordinate,
   scale: Scale,
   startDate: string,
-  endDate: string,
+  endDate: string
 ): Promise<DetailedStatisticsResponse> =>
   fetch(
-    `${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${scale}&start_date=${startDate}&end_date=${endDate}`,
+    `${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${scale}&start_date=${startDate}&end_date=${endDate}`
   ).then((response) => response.json())
 
 let dtpController: AbortController | null = null
