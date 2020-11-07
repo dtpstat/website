@@ -20,7 +20,12 @@ const RootStore = types
   .actions((self) => {
     const load = flow(function* () {
       const { center, zoom, bounds } = self.mapStore
-      window.history.pushState(null, '', `?center=${center[0]}:${center[1]}&scale=${zoom}`)
+
+      const currentParams = new URLSearchParams(document.location.search)
+      currentParams.set('center', `${center[0]}:${center[1]}`)
+      currentParams.set('scale', zoom + '')
+      window.history.pushState(null, '', `?${currentParams.toString()}`)
+
       const { areaStore, filterStore, trafficAccidentStore } = self
       yield areaStore.loadArea(center, zoom)
       yield trafficAccidentStore.loadTrafficAccidents(

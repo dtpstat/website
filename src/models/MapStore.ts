@@ -1,6 +1,7 @@
 import { cast, types, getParent } from 'mobx-state-tree'
-
+import ReactDOMServer from 'react-dom/server'
 import { Coordinate, Bounds, Scale } from 'types'
+import InfoBalloon from '../components/InfoBalloon'
 
 const supportedIconsBySeverity = {
   0: 'svg/circle-0.svg',
@@ -45,6 +46,17 @@ export const MapStore = types
 
       // @ts-ignore
       objectManager = new window.ymaps.ObjectManager({})
+
+      objectManager.objects.events.add('click', (ev: { get: (arg0: string) => string }) => {
+        handlerClickToObj(ev.get('objectId'))
+      })
+      objectManager.objects.balloon.events.add('userclose', () => {
+        handlerCloseBalloon()
+      })
+      objectManager.objects.balloon.events.add('open', (ev: { get: (arg0: string) => string }) => {
+        handlerOpenBalloon(ev.get('objectId'))
+      })
+
       // @ts-ignore
       heatmap = new window.ymaps.Heatmap([], {
         radius: 15,
@@ -81,6 +93,33 @@ export const MapStore = types
       return true
     }
 
+    const handlerClickToObj = (objectId: string) => {
+      const obj = objectManager.objects.getById(objectId)
+      obj.properties.balloonContentBody = ReactDOMServer.renderToStaticMarkup(
+        InfoBalloon({
+          address: obj.properties.address,
+          categoryName: obj.properties.category_name,
+          dead: obj.properties.dead,
+          datetime: new Date(obj.properties.datetime),
+          injured: obj.properties.injured,
+        })
+      )
+
+      objectManager.objects.balloon.open(objectId)
+    }
+
+    const handlerOpenBalloon = (objectId: string) => {
+      const currentParams = new URLSearchParams(document.location.search)
+      currentParams.set('active-obj', objectId)
+      window.history.pushState(null, '', `?${currentParams.toString()}`)
+    }
+
+    const handlerCloseBalloon = () => {
+      const currentParams = new URLSearchParams(document.location.search)
+      currentParams.delete('active-obj')
+      window.history.pushState(null, '', `?${currentParams.toString()}`)
+    }
+
     const buildSelection = (filters: any[]) => {
       const selection: any[] = []
       for (let filter of filters.filter((f) => f.name !== 'date')) {
@@ -96,25 +135,35 @@ export const MapStore = types
       if (objectManager === null) {
         return
       }
-      objectManager.removeAll()
+
+      const params = new URLSearchParams(window.location.search)
+      const activeObject = params.get('active-obj')
+      let isOpenBalloon = false
 
       const selection = buildSelection(filters)
 
       const data = items.map((item) => {
+        const { point, severity, ...rest } = item
         var icon = supportedIconsBySeverity.default
         if (passFilters(item, selection)) {
-          if (item.severity in supportedIconsBySeverity) {
+          if (severity in supportedIconsBySeverity) {
             // @ts-ignore
-            icon = supportedIconsBySeverity[item.severity]
+            icon = supportedIconsBySeverity[severity]
           }
         }
+
+        if (activeObject && activeObject === item.id) {
+          isOpenBalloon = true
+        }
+
         return {
           type: 'Feature',
-          id: Math.random(), // TODO item.id
+          id: item.id,
           geometry: {
             type: 'Point',
-            coordinates: [item.point.latitude, item.point.longitude],
+            coordinates: [point.latitude, point.longitude],
           },
+          properties: { ...rest, severity },
           options: {
             iconLayout: 'default#image',
             iconImageHref: icon,
@@ -133,6 +182,9 @@ export const MapStore = types
           heatmap.setData([])
         }
         objectManager.add(data)
+      }
+      if (activeObject && isOpenBalloon) {
+        handlerClickToObj(activeObject)
       }
     }
 
