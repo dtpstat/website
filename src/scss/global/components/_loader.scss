@@ -1,0 +1,29 @@
+.loader {
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  position: absolute;
+  height: 4px;
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent 20px,
+    $grey50 20px,
+    $grey50 25px
+  );
+  background-size: 200% 100%;
+  animation: change 12s linear infinite;
+  transition: opacity 1s;
+  opacity: 0;
+}
+
+.visible {
+  opacity: 1;
+}
+
+@keyframes change {
+  to {
+    background-position: right;
+  }
+}

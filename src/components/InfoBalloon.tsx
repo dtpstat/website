@@ -4,6 +4,7 @@ import { Colors } from './ui/Colors'
 import SvgIcon from './SvgIcon'
 
 interface Props {
+  id: string
   address: string
   categoryName: string
   datetime: Date
@@ -11,7 +12,14 @@ interface Props {
   injured: number
 }
 
-const InfoBalloon = (props: Props) => {
+export const InfoBalloon = (props: Props) => (
+  <div className='balloon'>
+    <InfoBalloonContent {...props} />
+    <SvgIcon name='pointer' />
+  </div>
+)
+
+export const InfoBalloonContent = (props: Props) => {
   const dateTime = props.datetime.toLocaleString('ru', {
     year: 'numeric',
     month: 'numeric',
@@ -31,7 +39,7 @@ const InfoBalloon = (props: Props) => {
   }
 
   return (
-    <div className='balloon'>
+    <React.Fragment>
       <div className='balloon-header'>
         <h4 className='subtitle1'>{props.categoryName}</h4>
       </div>
@@ -50,11 +58,10 @@ const InfoBalloon = (props: Props) => {
         )}
       </div>
       <div className='balloon-footer'>
-        <button className='btn-light'>Подробности ДТП</button>
+        <a className='btn-light' href={`https://beta.dtp-stat.ru/dtp/${props.id}`} target='_blank'>
+          Подробности ДТП
+        </a>
       </div>
-      <SvgIcon name='pointer' />
-    </div>
+    </React.Fragment>
   )
 }
-
-export default InfoBalloon

@@ -1,14 +1,23 @@
-import { cast, types, getParent } from 'mobx-state-tree'
+import { cast, types, getRoot } from 'mobx-state-tree'
 import ReactDOMServer from 'react-dom/server'
-import { Coordinate, Bounds, Scale } from 'types'
-import InfoBalloon from '../components/InfoBalloon'
 
-const supportedIconsBySeverity = {
-  0: 'svg/circle-0.svg',
-  1: 'svg/circle-1.svg',
-  3: 'svg/circle-3.svg',
-  4: 'svg/circle-4.svg',
-  default: 'svg/circle-default.svg',
+import { Coordinate, Bounds, Scale } from 'types'
+
+import { RootStoreType } from './RootStore'
+import { InfoBalloon, InfoBalloonContent } from '../components/InfoBalloon'
+
+// const supportedIconsBySeverity = {
+//   0: 'svg/circle-0.svg',
+//   1: 'svg/circle-1.svg',
+//   3: 'svg/circle-3.svg',
+//   4: 'svg/circle-4.svg',
+//   default: 'svg/circle-default.svg',
+// }
+
+const colorBySeverity = {
+  1: '#FFB81F',
+  3: '#FF7F24',
+  4: '#FF001A',
 }
 
 export const MapStore = types
@@ -37,15 +46,16 @@ export const MapStore = types
       setCenter(center)
       setBounds(bounds)
       setZoom(zoom)
-      // @ts-ignore
-      getParent(self).onBoundsChanged(center, zoom, bounds)
+      getRoot<RootStoreType>(self).onBoundsChanged()
     }
 
     function setMap(mapInstance: any) {
       map = mapInstance
 
       // @ts-ignore
-      objectManager = new window.ymaps.ObjectManager({})
+      objectManager = new window.ymaps.ObjectManager({
+        clusterize: true,
+      })
 
       objectManager.objects.events.add('click', (ev: { get: (arg0: string) => string }) => {
         handlerClickToObj(ev.get('objectId'))
@@ -55,6 +65,15 @@ export const MapStore = types
       })
       objectManager.objects.balloon.events.add('open', (ev: { get: (arg0: string) => string }) => {
         handlerOpenBalloon(ev.get('objectId'))
+      })
+      objectManager.clusters.balloon.events.add('close', () => {
+        handlerCloseBalloon()
+      })
+      objectManager.clusters.state.events.add('change', () => {
+        handlerActiveChanged(objectManager.clusters.state.get('activeObject'))
+      })
+      objectManager.clusters.balloon.events.add('close', () => {
+        handlerCloseBalloon()
       })
 
       // @ts-ignore
@@ -97,6 +116,7 @@ export const MapStore = types
       const obj = objectManager.objects.getById(objectId)
       obj.properties.balloonContentBody = ReactDOMServer.renderToStaticMarkup(
         InfoBalloon({
+          id: obj.properties.id,
           address: obj.properties.address,
           categoryName: obj.properties.category_name,
           dead: obj.properties.dead,
@@ -104,8 +124,21 @@ export const MapStore = types
           injured: obj.properties.injured,
         })
       )
-
       objectManager.objects.balloon.open(objectId)
+    }
+
+    const handlerActiveChanged = (obj: any) => {
+      obj.properties.balloonContentBody = ReactDOMServer.renderToStaticMarkup(
+        InfoBalloonContent({
+          id: obj.properties.id,
+          address: obj.properties.address,
+          categoryName: obj.properties.category_name,
+          dead: obj.properties.dead,
+          datetime: new Date(obj.properties.datetime),
+          injured: obj.properties.injured,
+        })
+      )
+      handlerOpenBalloon(obj.id)
     }
 
     const handlerOpenBalloon = (objectId: string) => {
@@ -131,7 +164,12 @@ export const MapStore = types
       return selection
     }
 
-    function drawObjects(items: any[], filters: any[]) {
+    const updateFilter = (filters: any[]) => {
+      const selection = buildSelection(filters)
+      objectManager.setFilter((obj: any) => passFilters(obj.properties, selection))
+    }
+
+    const addObjects = (items: any[]) => {
       if (objectManager === null) {
         return
       }
@@ -140,54 +178,59 @@ export const MapStore = types
       const activeObject = params.get('active-obj')
       let isOpenBalloon = false
 
-      const selection = buildSelection(filters)
+      const data = items
+        .filter((item) => objectManager.objects.getById(item.id) === null)
+        .map((item) => {
+          const { point, severity } = item
 
-      const data = items.map((item) => {
-        const { point, severity, ...rest } = item
-        var icon = supportedIconsBySeverity.default
-        var id = `${item.id}_0`
-        if (passFilters(item, selection)) {
-          if (severity in supportedIconsBySeverity) {
-            // @ts-ignore
-            icon = supportedIconsBySeverity[item.severity]
-            id = `${item.id}`
+          if (activeObject && activeObject === item.id) {
+            isOpenBalloon = true
           }
-        }
 
-        if (activeObject && activeObject === item.id) {
-          isOpenBalloon = true
-        }
+          return {
+            type: 'Feature',
+            id: item.id,
+            geometry: {
+              type: 'Point',
+              coordinates: [point.latitude, point.longitude],
+            },
+            properties: {
+              ...item,
+              clusterCaption: item.id,
+            },
+            options: {
+              // iconLayout: 'default#image',
+              // // @ts-ignore
+              // iconImageHref: supportedIconsBySeverity[severity],
+              // iconImageSize: [10, 10],
+              // iconImageOffset: [-5, -5],
+              preset: 'islands#circleIcon',
+              // @ts-ignore
+              iconColor: colorBySeverity[severity],
+            },
+          }
+        })
 
-        return {
-          type: 'Feature',
-          id: id,
-          geometry: {
-            type: 'Point',
-            coordinates: [point.latitude, point.longitude],
-          },
-          properties: { ...rest, severity },
-          options: {
-            iconLayout: 'default#image',
-            iconImageHref: icon,
-            iconImageSize: [10, 10],
-            iconImageOffset: [-5, -5],
-          },
-        }
-      })
+      // if (self.zoom !== null && self.zoom <= 12) {
+      //   heatmap?.setData(
+      //     data.filter((p: any) => p.options.iconImageHref !== supportedIconsBySeverity.default)
+      //   )
+      // } else {
+      //   if (heatmap !== null) {
+      //     heatmap.setData([])
+      //   }
+      //   objectManager.add(data)
+      // }
 
-      if (self.zoom !== null && self.zoom <= 12) {
-        heatmap?.setData(
-          data.filter((p: any) => p.options.iconImageHref !== supportedIconsBySeverity.default)
-        )
-      } else {
-        if (heatmap !== null) {
-          heatmap.setData([])
-        }
-        objectManager.add(data)
-      }
+      objectManager.add(data)
+
       if (activeObject && isOpenBalloon) {
         handlerClickToObj(activeObject)
       }
+    }
+
+    const clearObjects = () => {
+      objectManager.removeAll()
     }
 
     return {
@@ -197,6 +240,8 @@ export const MapStore = types
       setMap,
       getMap,
       updateBounds,
-      drawObjects,
+      addObjects,
+      updateFilter,
+      clearObjects,
     }
   })

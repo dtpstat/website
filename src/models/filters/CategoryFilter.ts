@@ -33,9 +33,9 @@ export const CategoryFilter = types
   .actions((self) => ({
     reset() {
       self.values.forEach((v) => v.reset())
-      if (self.key === 'street') {
-        getRoot<RootStoreType>(self).updateStreets() // clear previously selected streets from another region
-      }
+      // if (self.key === 'street') {
+      //   getRoot<RootStoreType>(self).updateStreets() TODO // clear previously selected streets from another region
+      // }
       getRoot<RootStoreType>(self).onFiltersChanged()
     },
     navigate() {

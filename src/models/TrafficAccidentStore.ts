@@ -1,36 +1,34 @@
-import { flow, types, getParent } from 'mobx-state-tree'
+import { flow, types, getRoot } from 'mobx-state-tree'
 
 import { fetchDtp } from 'api'
 import { Bounds } from 'types'
 
-export const TrafficAccidentStore = types
-  .model('TrafficAccidentStore', {
-    accidents: types.frozen([]),
-  })
-  .actions((self) => {
-    // @ts-ignore
-    const loadTrafficAccidents = flow(function* loadTrafficAccidents(
-      startDate: string,
-      endDate: string,
-      bounds: Bounds,
-      zoom: number
-    ) {
+import { RootStoreType } from './RootStore'
+
+export const TrafficAccidentStore = types.model('TrafficAccidentStore', {}).actions((self) => {
+  // @ts-ignore
+  const loadTrafficAccidents = flow(function* loadTrafficAccidents(
+    startDate: string,
+    endDate: string,
+    bounds: Bounds,
+    zoom: number
+  ) {
+    if (zoom >= 11) {
+      const root = getRoot<RootStoreType>(self)
       try {
-        if (zoom >= 11) {
-          const response = yield fetchDtp(startDate, endDate, bounds)
-          self.accidents = response
-        } else {
-          self.accidents = []
-        }
-        // @ts-ignore
-        getParent(self).onTrafficAccidentsLoaded()
+        root.incLoading()
+        const response = yield fetchDtp(startDate, endDate, bounds)
+        root.onTrafficAccidentsLoaded(response)
       } catch (error) {
         if (error.name !== 'AbortError') {
           throw error
         }
+      } finally {
+        root.decLoading()
       }
-    })
-    return {
-      loadTrafficAccidents,
     }
   })
+  return {
+    loadTrafficAccidents,
+  }
+})

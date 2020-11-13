@@ -16,14 +16,15 @@ const RootStore = types
     mapStore: MapStore,
     areaStore: AreaStore,
     trafficAccidentStore: TrafficAccidentStore,
+    loadingCount: 0,
   })
   .actions((self) => {
-    const load = flow(function* () {
+    const loadData = flow(function* () {
       const { center, zoom, bounds } = self.mapStore
 
       const currentParams = new URLSearchParams(document.location.search)
       currentParams.set('center', `${center[0]}:${center[1]}`)
-      currentParams.set('scale', zoom + '')
+      currentParams.set('scale', String(zoom))
       window.history.pushState(null, '', `?${currentParams.toString()}`)
 
       const { areaStore, filterStore, trafficAccidentStore } = self
@@ -36,34 +37,33 @@ const RootStore = types
       )
       yield areaStore.loadStatistics(center, zoom, filterStore.startDate, filterStore.endDate)
     })
-    const drawObjects = () => {
-      self.mapStore.drawObjects(
-        self.trafficAccidentStore.accidents,
-        self.filterStore.filters.slice() // Array.isArray should be true
-      )
-    }
-    const updateStreets = () => {
-      self.filterStore.updateStreets(self.trafficAccidentStore.accidents)
-    }
     const onBoundsChanged = () => {
-      load()
+      loadData()
     }
     const onDatesChanged = () => {
-      load()
+      self.mapStore.clearObjects()
+      loadData()
     }
-    const onTrafficAccidentsLoaded = () => {
-      updateStreets()
-      drawObjects()
+    const onTrafficAccidentsLoaded = (accidents: any[]) => {
+      self.mapStore.addObjects(accidents)
+      self.filterStore.updateStreets(accidents)
     }
     const onFiltersChanged = () => {
-      drawObjects()
+      self.mapStore.updateFilter(self.filterStore.filters.slice()) // Array.isArray should be true
+    }
+    const incLoading = () => {
+      self.loadingCount += 1
+    }
+    const decLoading = () => {
+      self.loadingCount -= 1
     }
     return {
       onBoundsChanged,
       onTrafficAccidentsLoaded,
       onDatesChanged,
       onFiltersChanged,
-      updateStreets,
+      incLoading,
+      decLoading,
     }
   })
 

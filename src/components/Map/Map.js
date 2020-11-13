@@ -1,7 +1,9 @@
 import React, { useCallback } from 'react'
+
 import './Map.css'
-import { useStore } from 'models/RootStore'
 import { observer } from 'mobx-react'
+
+import { useStore } from 'models/RootStore'
 import { debounce } from 'functions'
 
 export function getPositionFromURL(url) {
@@ -39,5 +41,5 @@ export const Map = observer(function Map() {
     })
   }, [mapStore, boundsChangeHandler])
 
-  return <div id='map' />
+  return <div id='map' className={mapStore.zoom >= 11 ? 'with-loading' : ''} />
 })

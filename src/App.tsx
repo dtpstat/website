@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Loader } from 'components/Loader'
+
 import { Map } from './components/Map'
 import { FilterPanel } from './components/FilterPanel'
 import { InfoPanel } from './components/InfoPanel'
@@ -13,6 +15,7 @@ import { rootStore, RootStoreContext } from './models/RootStore'
 
 export const App: React.FC = () => (
   <RootStoreContext.Provider value={rootStore}>
+    <Loader />
     <Map />
     <div className='ui-layer'>
       <FilterPanel />
