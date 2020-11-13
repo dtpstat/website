@@ -7,7 +7,7 @@ export type CoordinateObject = {
   latitude: number
 }
 
-export type Bounds = [Coordinate, Coordinate]
+export type Bounds = Coordinate[] // note: types.array(...)
 
 export type BoundsChangedEvent = {
   originalEvent: {

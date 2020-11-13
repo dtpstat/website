@@ -42,6 +42,7 @@ const RootStore = types
     }
     const onDatesChanged = () => {
       self.mapStore.clearObjects()
+      self.trafficAccidentStore.clearLoadedArea()
       loadData()
     }
     const onTrafficAccidentsLoaded = (accidents: any[]) => {

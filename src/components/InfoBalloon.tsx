@@ -1,5 +1,7 @@
 import React from 'react'
 
+import config from 'config'
+
 import { Colors } from './ui/Colors'
 import SvgIcon from './SvgIcon'
 
@@ -58,7 +60,12 @@ export const InfoBalloonContent = (props: Props) => {
         )}
       </div>
       <div className='balloon-footer'>
-        <a className='btn-light' href={`https://beta.dtp-stat.ru/dtp/${props.id}`} target='_blank'>
+        <a
+          className='btn-light'
+          href={`${config.STATIC_URL}/dtp/${props.id}`}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
           Подробности ДТП
         </a>
       </div>

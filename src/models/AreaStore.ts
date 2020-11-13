@@ -2,7 +2,7 @@ import { flow, types } from 'mobx-state-tree'
 
 import { fetchArea, fetchStatistics } from 'api'
 import { Coordinate, Scale } from 'types'
-import { isEmpty } from 'functions'
+import { isEmpty } from 'utils'
 
 const Area = types.model('Area', {
   id: types.string,

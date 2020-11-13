@@ -1,7 +1,5 @@
 import config from 'config'
-import { buildGeoFrameFromBounds, expandBounds } from 'geo'
 import {
-  Bounds,
   Coordinate,
   DetailedStatisticsResponse,
   FilterResponse,
@@ -27,20 +25,24 @@ export const fetchStatistics = (
     `${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${scale}&start_date=${startDate}&end_date=${endDate}`
   ).then((response) => response.json())
 
-let dtpController: AbortController | null = null
-
-export function fetchDtp(startDate: string, endDate: string, bounds: Bounds) {
-  dtpController?.abort()
-  const frame = buildGeoFrameFromBounds(expandBounds(bounds))
-
-  if (!frame) {
-    // TODO log error
-    return null
-  }
-  const boundsStr = frame.map((coord) => `${coord[1]} ${coord[0]}`).join(',')
-  dtpController = new window.AbortController()
+export const fetchDtp = (
+  signal: AbortSignal,
+  startDate: string,
+  endDate: string,
+  geoFrame: Coordinate[]
+) => {
+  const s = geoFrame.map((coord) => `${coord[1]} ${coord[0]}`).join(',')
   return fetch(
-    `${config.API_URL}/dtp/?start_date=${startDate}&end_date=${endDate}&geo_frame=${boundsStr}`,
-    { signal: dtpController.signal }
-  ).then((response) => response.json())
+    `${config.API_URL}/dtp/?start_date=${startDate}&end_date=${endDate}&geo_frame=${s}`,
+    {
+      signal,
+    }
+  ).then((response) =>
+    response.json().then((json) => {
+      if (response.ok) {
+        return Promise.resolve(json)
+      }
+      return Promise.reject(json)
+    })
+  )
 }
