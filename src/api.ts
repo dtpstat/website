@@ -1,12 +1,12 @@
 import config from 'config'
-import { buildGeoFrameFromTwoPoints } from 'geo'
+import { buildGeoFrameFromBounds, expandBounds } from 'geo'
 import {
-  Coordinate,
-  Scale,
   Bounds,
-  ShortStatisticsResponse,
+  Coordinate,
   DetailedStatisticsResponse,
   FilterResponse,
+  Scale,
+  ShortStatisticsResponse,
 } from 'types'
 
 export const fetchArea = (center: Coordinate, scale: Scale): Promise<ShortStatisticsResponse> =>
@@ -31,13 +31,14 @@ let dtpController: AbortController | null = null
 
 export function fetchDtp(startDate: string, endDate: string, bounds: Bounds) {
   dtpController?.abort()
-  const frame = buildGeoFrameFromTwoPoints(bounds)
+  const frame = buildGeoFrameFromBounds(expandBounds(bounds))
+
   if (!frame) {
     // TODO log error
     return null
   }
   const boundsStr = frame.map((coord) => `${coord[1]} ${coord[0]}`).join(',')
-  dtpController = new AbortController()
+  dtpController = new window.AbortController()
   return fetch(
     `${config.API_URL}/dtp/?start_date=${startDate}&end_date=${endDate}&geo_frame=${boundsStr}`,
     { signal: dtpController.signal }

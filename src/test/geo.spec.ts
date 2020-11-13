@@ -1,7 +1,8 @@
-import { buildGeoFrameFromTwoPoints, expandBounds } from 'geo'
+import { buildGeoFrameFromBounds, expandBounds } from 'geo'
+import { Bounds } from '../types'
 
-test('buildGeoFrameFromTwoPoints should return valid frame for two points array', () => {
-  const bounds = [
+test('buildGeoFrameFromBounds should return valid frame for two points array', () => {
+  const bounds: Bounds = [
     [36.51, 50.55],
     [36.65, 50.63],
   ]
@@ -12,11 +13,11 @@ test('buildGeoFrameFromTwoPoints should return valid frame for two points array'
     [36.51, 50.63],
     [36.51, 50.55],
   ]
-  expect(buildGeoFrameFromTwoPoints(bounds)).toEqual(frame)
+  expect(buildGeoFrameFromBounds(bounds)).toEqual(frame)
 })
 
 test('expandBounds', () => {
-  const bounds = [
+  const bounds: Bounds = [
     [10, 10],
     [20, 15],
   ]
