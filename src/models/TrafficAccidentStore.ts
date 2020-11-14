@@ -6,7 +6,7 @@ import transformScale from '@turf/transform-scale'
 import { BBox, Feature, Polygon, MultiPolygon, polygon } from '@turf/helpers'
 
 import { fetchDtp } from 'api'
-import { LOADING_ZOOM } from 'utils'
+// import { LOADING_ZOOM } from 'utils'
 import { Bounds } from 'types'
 
 import { RootStoreType } from './RootStore'
@@ -34,6 +34,7 @@ const featureContains = (f1: Feature<MultiPolygon | Polygon>, f2: Feature<Polygo
 
 export const TrafficAccidentStore = types.model({}).actions((self) => {
   let loadedArea: Feature<MultiPolygon | Polygon> | null = null
+  // eslint-disable-next-line no-undef
   let abortController: AbortController | null = null
 
   // @ts-ignore
@@ -43,10 +44,10 @@ export const TrafficAccidentStore = types.model({}).actions((self) => {
     bounds: Bounds,
     zoom: number
   ) {
-    if (zoom < LOADING_ZOOM) {
-      abortController?.abort()
-      return
-    }
+    // if (zoom < LOADING_ZOOM) {
+    //   abortController?.abort()
+    //   return
+    // }
     const boundsPolygon = bboxPolygon(bboxFromBounds(bounds))
     if (loadedArea && featureContains(loadedArea, boundsPolygon)) {
       return

@@ -6,19 +6,19 @@ import { Coordinate, Bounds, Scale } from 'types'
 import { RootStoreType } from './RootStore'
 import { InfoBalloon, InfoBalloonContent } from '../components/InfoBalloon'
 
-// const supportedIconsBySeverity = {
-//   0: 'svg/circle-0.svg',
-//   1: 'svg/circle-1.svg',
-//   3: 'svg/circle-3.svg',
-//   4: 'svg/circle-4.svg',
-//   default: 'svg/circle-default.svg',
-// }
-
-const colorBySeverity = {
-  1: '#FFB81F',
-  3: '#FF7F24',
-  4: '#FF001A',
+const supportedIconsBySeverity = {
+  0: 'svg/circle-0.svg',
+  1: 'svg/circle-1.svg',
+  3: 'svg/circle-3.svg',
+  4: 'svg/circle-4.svg',
+  default: 'svg/circle-default.svg',
 }
+
+// const colorBySeverity = {
+//   1: '#FFB81F',
+//   3: '#FF7F24',
+//   4: '#FF001A',
+// }
 
 export const MapStore = types
   .model('MapStore', {
@@ -54,7 +54,7 @@ export const MapStore = types
 
       // @ts-ignore
       objectManager = new window.ymaps.ObjectManager({
-        clusterize: true,
+        // clusterize: true,
       })
 
       objectManager.objects.events.add('click', (ev: { get: (arg0: string) => string }) => {
@@ -85,6 +85,8 @@ export const MapStore = types
       })
       heatmap.setMap(map, {})
 
+      objectManager.setFilter(initialFilter)
+
       map.geoObjects.add(objectManager)
 
       updateBounds(map.getCenter(), map.getZoom(), map.getBounds())
@@ -110,6 +112,27 @@ export const MapStore = types
         }
       }
       return true
+    }
+
+    const buildSelection = (filters: any[]) => {
+      const selection: any[] = []
+      for (let filter of filters.filter((f) => f.name !== 'date')) {
+        const values = filter.values
+          .filter((v: any) => v.selected)
+          .map((v: any) => (v.value === -1 ? v.preview : v.value))
+        selection.push({ id: filter.key || filter.name, values })
+      }
+      return selection
+    }
+
+    const initialFilter = (item: any) => !item.id.startsWith('_')
+
+    const passFilters2 = (item: any, selection: any[]): boolean =>
+      passFilters(item, selection) === item.visible
+
+    const updateFilter = (filters: any[]) => {
+      const selection = buildSelection(filters)
+      objectManager.setFilter((obj: any) => passFilters2(obj.properties, selection))
     }
 
     const handlerClickToObj = (objectId: string) => {
@@ -153,21 +176,30 @@ export const MapStore = types
       window.history.pushState(null, '', `?${currentParams.toString()}`)
     }
 
-    const buildSelection = (filters: any[]) => {
-      const selection: any[] = []
-      for (let filter of filters.filter((f) => f.name !== 'date')) {
-        const values = filter.values
-          .filter((v: any) => v.selected)
-          .map((v: any) => (v.value === -1 ? v.preview : v.value))
-        selection.push({ id: filter.key || filter.name, values })
-      }
-      return selection
-    }
+    const createFeature = (item: any) => ({
+      type: 'Feature',
+      id: item.id,
+      geometry: {
+        type: 'Point',
+        coordinates: [item.point.latitude, item.point.longitude],
+      },
+      properties: {
+        ...item,
+        clusterCaption: item.id,
+        visible: true,
+      },
+      options: {
+        iconLayout: 'default#image',
+        // @ts-ignore
+        iconImageHref: supportedIconsBySeverity[item.severity],
+        iconImageSize: [10, 10],
+        iconImageOffset: [-5, -5],
 
-    const updateFilter = (filters: any[]) => {
-      const selection = buildSelection(filters)
-      objectManager.setFilter((obj: any) => passFilters(obj.properties, selection))
-    }
+        // preset: 'islands#circleIcon',
+        // @ts-ignore
+        // iconColor: colorBySeverity[severity],
+      },
+    })
 
     const addObjects = (items: any[]) => {
       if (objectManager === null) {
@@ -178,49 +210,20 @@ export const MapStore = types
       const activeObject = params.get('active-obj')
       let isOpenBalloon = false
 
-      const data = items
-        .filter((item) => objectManager.objects.getById(item.id) === null)
-        .map((item) => {
-          const { point, severity } = item
-
+      const data: any[] = []
+      items.forEach((item: any) => {
+        if (objectManager.objects.getById(item.id) === null) {
           if (activeObject && activeObject === item.id) {
             isOpenBalloon = true
           }
-
-          return {
-            type: 'Feature',
-            id: item.id,
-            geometry: {
-              type: 'Point',
-              coordinates: [point.latitude, point.longitude],
-            },
-            properties: {
-              ...item,
-              clusterCaption: item.id,
-            },
-            options: {
-              // iconLayout: 'default#image',
-              // // @ts-ignore
-              // iconImageHref: supportedIconsBySeverity[severity],
-              // iconImageSize: [10, 10],
-              // iconImageOffset: [-5, -5],
-              preset: 'islands#circleIcon',
-              // @ts-ignore
-              iconColor: colorBySeverity[severity],
-            },
-          }
-        })
-
-      // if (self.zoom !== null && self.zoom <= 12) {
-      //   heatmap?.setData(
-      //     data.filter((p: any) => p.options.iconImageHref !== supportedIconsBySeverity.default)
-      //   )
-      // } else {
-      //   if (heatmap !== null) {
-      //     heatmap.setData([])
-      //   }
-      //   objectManager.add(data)
-      // }
+          data.push(createFeature(item))
+          const grey = createFeature(item)
+          grey.id = '_' + grey.id
+          grey.properties.visible = false
+          grey.options.iconImageHref = supportedIconsBySeverity.default
+          data.push(grey)
+        }
+      })
 
       objectManager.add(data)
 

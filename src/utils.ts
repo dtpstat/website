@@ -1,4 +1,5 @@
-export const LOADING_ZOOM = 11
+// export const LOADING_ZOOM = 11
+export const MIN_ZOOM = 12
 
 export function debounce(func: Function, wait: number, immediate: boolean = false) {
   let timeout: any = null

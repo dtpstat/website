@@ -1,7 +1,7 @@
 [class*='ground-pane'] ymaps:first-child {
-  filter: grayscale(1);
+  filter: grayscale(0.8);
 }
 
-.with-loading ymaps [class*='ground-pane'] ymaps:first-child {
-  filter: grayscale(0.7);
-}
+// .with-loading ymaps [class*='ground-pane'] ymaps:first-child {
+//   filter: grayscale(0.7);
+// }

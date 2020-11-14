@@ -26,6 +26,7 @@ export const fetchStatistics = (
   ).then((response) => response.json())
 
 export const fetchDtp = (
+  // eslint-disable-next-line no-undef
   signal: AbortSignal,
   startDate: string,
   endDate: string,

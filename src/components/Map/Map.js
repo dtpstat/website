@@ -3,7 +3,7 @@ import './Map.css'
 import { observer } from 'mobx-react'
 
 import { useStore } from 'models/RootStore'
-import { debounce, LOADING_ZOOM } from 'utils'
+import { debounce, MIN_ZOOM } from 'utils'
 
 export function getPositionFromURL(url) {
   const params = new URLSearchParams(url)
@@ -29,16 +29,24 @@ export const Map = observer(function Map() {
     window.ymaps.ready(['Heatmap']).then(() => {
       const { center, zoom } = getPositionFromURL(window.location.search)
       mapStore.setMap(
-        new window.ymaps.Map('map', {
-          center: center ?? [55.76, 37.64],
-          zoom: zoom ?? 9,
-          controls: [],
-        })
+        new window.ymaps.Map(
+          'map',
+          {
+            center: center ?? [55.76, 37.64],
+            zoom: zoom ?? 9,
+            controls: [],
+          },
+          {
+            minZoom: MIN_ZOOM,
+            avoidFractionalZoom: true,
+          }
+        )
       )
 
       mapStore.getMap().events.add('boundschange', boundsChangeHandler)
     })
   }, [mapStore, boundsChangeHandler])
 
-  return <div id='map' className={mapStore.zoom >= LOADING_ZOOM ? 'with-loading' : ''} />
+  // return <div id='map' className={mapStore.zoom >= LOADING_ZOOM ? 'with-loading' : ''} />
+  return <div id='map' />
 })
