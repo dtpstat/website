@@ -45,7 +45,7 @@ const DateFilterSection = ({ filter }) => {
           className='input'
           onFocus={(e) => setShow(true)}
           readOnly
-          value={formatRange(range)}
+          value={formatRange(defaultRange)}
         />
         <svg className='icon icon-calendar'>
           <use xlinkHref='svg/sprite.svg#calendar' />

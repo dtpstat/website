@@ -85,8 +85,6 @@ export const MapStore = types
       })
       heatmap.setMap(map, {})
 
-      objectManager.setFilter(initialFilter)
-
       map.geoObjects.add(objectManager)
 
       updateBounds(map.getCenter(), map.getZoom(), map.getBounds())
@@ -124,8 +122,6 @@ export const MapStore = types
       }
       return selection
     }
-
-    const initialFilter = (item: any) => !item.id.startsWith('_')
 
     const passFilters2 = (item: any, selection: any[]): boolean =>
       passFilters(item, selection) === item.visible
