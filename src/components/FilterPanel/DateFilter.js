@@ -3,17 +3,10 @@ import { observer } from 'mobx-react'
 import 'react-date-range/dist/styles.css' // main style file
 import 'react-date-range/dist/theme/default.css' // theme css file
 import { DateRangePicker, createStaticRanges } from 'react-date-range'
-import { parseISO, format } from 'date-fns'
+import { parseISO, format, subMonths, lastDayOfMonth, startOfMonth } from 'date-fns'
 import ruLocale from 'date-fns/locale/ru'
 
 import { Colors } from 'components/ui/Colors'
-
-const formatRange = (range) => {
-  const f = 'dd.MM.yyyy'
-  return `${format(range.startDate, f)} - ${format(range.endDate, f)}`
-}
-
-const formatDate = (date) => format(date, 'yyyy-MM-dd')
 
 const DateFilterSection = ({ filter }) => {
   const defaultRange = {
@@ -25,17 +18,16 @@ const DateFilterSection = ({ filter }) => {
   const [range, setRange] = React.useState(defaultRange)
   const handleChange = (e) => {
     setRange(e.selection)
-  }
-  const handleApply = (e) => {
-    filter.setValue({
-      start_date: formatDate(range.startDate),
-      end_date: formatDate(range.endDate),
-    })
-    setShow(false)
+    if (e.selection.endDate > e.selection.startDate) {
+      filter.setValue({
+        start_date: formatDate(e.selection.startDate),
+        end_date: formatDate(e.selection.endDate),
+      })
+      setShow(false)
+    }
   }
   const handleCancel = (e) => {
     setShow(false)
-    setRange(defaultRange)
   }
   return (
     <div>
@@ -62,7 +54,6 @@ const DateFilterSection = ({ filter }) => {
             rangeColors={[Colors.$grey70]}
             inputRanges={[]}
             staticRanges={staticRanges}
-            showSelectionPreview={false}
             fixedHeight={true}
             direction='horizontal'
           />
@@ -70,9 +61,9 @@ const DateFilterSection = ({ filter }) => {
             <button className='btn-light' onClick={handleCancel}>
               Отмена
             </button>
-            <button className='btn-dark' onClick={handleApply}>
+            {/* <button className='btn-dark' onClick={handleApply}>
               Применить
-            </button>
+            </button> */}
           </div>
         </div>
       )}
@@ -80,9 +71,25 @@ const DateFilterSection = ({ filter }) => {
   )
 }
 
+const formatDate = (date) => format(date, 'yyyy-MM-dd')
+
+const formatRange = (range) => {
+  const f = 'dd.MM.yyyy'
+  return `${format(range.startDate, f)} - ${format(range.endDate, f)}`
+}
+
+const getLastMonth = () => {
+  const p = subMonths(new Date(), 1)
+  return { startDate: startOfMonth(p), endDate: lastDayOfMonth(p) }
+}
+
 const getStaticRanges = () => {
   const result = []
   const year = new Date().getFullYear()
+  result.push({
+    label: 'Прошлый месяц',
+    range: () => getLastMonth(),
+  })
   for (let i = year; i >= year - 5; i--) {
     result.push({
       label: i.toString(),

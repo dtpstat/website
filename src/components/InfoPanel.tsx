@@ -5,7 +5,7 @@ import { useStore } from 'models/RootStore'
 
 import { Colors } from './ui/Colors'
 // import InfoPanelStat from './InfoPanelStat';
-import SvgIcon from './SvgIcon'
+// import SvgIcon from './SvgIcon'
 
 const InfoPanelObservable = observer(function InfoPanel() {
   const { areaStore } = useStore()
