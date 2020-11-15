@@ -9,27 +9,18 @@
   margin-bottom: 12px;
   margin-right: 8px;
   transition: background-color 0.3s ease;
+  outline: none;
 
   &.active {
     .btn-rect {
       color: $white;
       background-color: $grey70;
+      border-radius: 4px 0 0 4px;
     }
     .btn-decline {
       display: block;
       background-color: $grey70;
-    }
-  }
-
-  &:hover,
-  &:focus {
-    outline: none;
-    .btn-rect {
-      color: $white;
-      background-color: $grey70;
-    }
-    .icon-edit {
-      fill: $white;
+      border-radius: 0 4px 4px 0;
     }
   }
 
@@ -42,15 +33,22 @@
 
   .btn-rect {
     align-self: stretch;
-    border-radius: 4px 0 0 4px;
+    border-radius: 4px;
+    &:hover,
+    &:focus {
+      color: $white;
+      background-color: $grey50;
+    }
   }
 
   .btn-decline {
     align-self: stretch;
     display: none;
-    padding: 7px 10px 7px 2px;
-    background-color: $greyLight;
-    border-radius: 0 4px 4px 0;
+    padding: 7px 10px 7px 10px;
+    &:hover,
+    &:focus {
+      background-color: $grey50;
+    }
   }
 
   .icon-decline {

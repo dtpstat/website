@@ -23,26 +23,29 @@ const FilterSection = ({ filter }) => {
   }
 }
 
-const CategoryTag = observer(({ filter }) => (
-  <div className='category-tag' tabIndex={0}>
-    <button className='btn-rect' onClick={(e) => filter.navigate()}>
-      <span>{filter.label}</span>
-    </button>
-  </div>
-))
-
-const CategoryActiveTag = observer(({ filter }) => (
-  <div className='category-tag active' tabIndex={0}>
-    <button className='btn-rect' onClick={(e) => filter.reset()}>
-      <span>{filter.label}</span>
-    </button>
-    <button className='btn-decline'>
-      <svg className='icon icon-decline'>
-        <use xlinkHref='svg/sprite.svg#decline' />
-      </svg>
-    </button>
-  </div>
-))
+const CategoryTag = observer(({ filter }) => {
+  if (filter.values.some((v) => v.selected)) {
+    return (
+      <div className='category-tag active'>
+        <button className='btn-rect' onClick={(e) => filter.navigate()}>
+          <span>{filter.label}</span>
+        </button>
+        <button className='btn-decline' onClick={(e) => filter.reset()}>
+          <svg className='icon icon-decline'>
+            <use xlinkHref='svg/sprite.svg#decline' />
+          </svg>
+        </button>
+      </div>
+    )
+  }
+  return (
+    <div className='category-tag'>
+      <button className='btn-rect' onClick={(e) => filter.navigate()}>
+        <span>{filter.label}</span>
+      </button>
+    </div>
+  )
+})
 
 export const FilterPanelNormal = observer(() => {
   const { filterStore } = useStore()
@@ -50,7 +53,6 @@ export const FilterPanelNormal = observer(() => {
 
   const mainFilters = filters.filter((f) => f.name !== 'category')
   const categoryFilters = filters.filter((f) => f.name === 'category')
-  const activeFilters = categoryFilters.filter((f) => f.values.some((v) => v.selected))
 
   return (
     <div className='filter-panel'>
@@ -62,11 +64,6 @@ export const FilterPanelNormal = observer(() => {
       ))}
       <div className='filter-item'>
         <p className='subtitle2'>Фильтры</p>
-        <div className='category-filter'>
-          {activeFilters.map((f) => (
-            <CategoryActiveTag key={f.key} filter={f} />
-          ))}
-        </div>
         <div className='category-filter'>
           {categoryFilters.map((f) => (
             <CategoryTag key={f.key} filter={f} />
