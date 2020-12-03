@@ -1,7 +1,7 @@
 import { cast, types, getRoot } from 'mobx-state-tree'
 import ReactDOMServer from 'react-dom/server'
 
-import { Coordinate, Bounds, Scale } from 'types'
+import { Coordinate } from 'types'
 
 import { RootStoreType } from './RootStore'
 import { InfoBalloon, InfoBalloonContent } from '../components/InfoBalloon'
@@ -14,17 +14,47 @@ const supportedIconsBySeverity = {
   default: 'svg/circle-default.svg',
 }
 
-// const colorBySeverity = {
-//   1: '#FFB81F',
-//   3: '#FF7F24',
-//   4: '#FF001A',
-// }
+const colorBySeverity = {
+  1: '#FFB81F',
+  3: '#FF7F24',
+  4: '#FF001A',
+}
+
+export const buildSelection = (filters: any[]) => {
+  const selection: any[] = []
+  for (let filter of filters.filter((f) => f.name !== 'date')) {
+    const values = filter.values
+      .filter((v: any) => v.selected)
+      .map((v: any) => (v.value === -1 ? v.preview : v.value))
+    selection.push({ id: filter.key || filter.name, values })
+  }
+  return selection
+}
+
+export const passFilters = (item: any, selection: any[]): boolean => {
+  for (let filter of selection) {
+    const value = item[filter.id]
+    const selectedValues = filter.values
+    if (selectedValues.length === 0) {
+      continue
+    }
+    if (Array.isArray(value)) {
+      if (!value.some((v) => selectedValues.includes(v))) {
+        return false
+      }
+    } else {
+      if (!selectedValues.includes(value)) {
+        return false
+      }
+    }
+  }
+  return true
+}
 
 export const MapStore = types
   .model('MapStore', {
     center: types.array(types.number),
     zoom: 1,
-    bounds: types.array(types.array(types.number)),
   })
   .actions((self) => {
     // TODO: improve types
@@ -32,29 +62,25 @@ export const MapStore = types
     let objectManager: any = null
     let heatmap: any = null
 
-    function setCenter(center: Coordinate) {
+    function updateBounds(center: Coordinate, zoom: number) {
+      const prevZoom = self.zoom
       self.center = cast(center)
-    }
-    function setBounds(bounds: Bounds) {
-      self.bounds = cast(bounds)
-    }
-    function setZoom(zoom: Scale) {
       self.zoom = zoom
+      getRoot<RootStoreType>(self).onBoundsChanged(zoom, prevZoom)
     }
 
-    function updateBounds(center: Coordinate, zoom: Scale, bounds: Bounds) {
-      setCenter(center)
-      setBounds(bounds)
-      setZoom(zoom)
-      getRoot<RootStoreType>(self).onBoundsChanged()
-    }
+    const getMap = () => map
 
     function setMap(mapInstance: any) {
       map = mapInstance
 
       // @ts-ignore
       objectManager = new window.ymaps.ObjectManager({
-        // clusterize: true,
+        clusterize: true,
+        groupByCoordinates: true,
+        showInAlphabeticalOrder: true,
+        clusterDisableClickZoom: true,
+        clusterIconLayout: 'default#pieChart',
       })
 
       objectManager.objects.events.add('click', (ev: { get: (arg0: string) => string }) => {
@@ -80,70 +106,45 @@ export const MapStore = types
       heatmap = new window.ymaps.Heatmap([], {
         radius: 15,
         dissipating: false,
-        opacity: 0.8,
+        opacity: 0.5,
         intensityOfMidpoint: 0.5,
+        // gradient: {
+        //   0.1: 'rgba(128, 255, 0, 0.7)',
+        //   0.2: 'rgba(255, 255, 0, 0.8)',
+        //   0.7: 'rgba(234, 72, 58, 0.9)',
+        //   1.0: 'rgba(162, 36, 25, 1)',
+        // },
+        gradient: {
+          0.0: 'rgba(126, 171, 85, 0.0)',
+          0.2: 'rgba(126, 171, 85, 0.6)',
+          0.4: 'rgba(255, 254, 85, 0.7)',
+          0.6: 'rgba(245, 193, 66, 0.8)',
+          0.8: 'rgba(223, 130, 68, 0.9)',
+          1.0: 'rgba(176, 36, 24, 1)',
+        },
       })
       heatmap.setMap(map, {})
 
       map.geoObjects.add(objectManager)
 
-      updateBounds(map.getCenter(), map.getZoom(), map.getBounds())
-    }
-
-    const getMap = (): any => map
-
-    const passFilters = (item: any, selection: any[]): boolean => {
-      for (let filter of selection) {
-        const value = item[filter.id]
-        const selectedValues = filter.values
-        if (selectedValues.length === 0) {
-          continue
-        }
-        if (Array.isArray(value)) {
-          if (!value.some((v) => selectedValues.includes(v))) {
-            return false
-          }
-        } else {
-          if (!selectedValues.includes(value)) {
-            return false
-          }
-        }
-      }
-      return true
-    }
-
-    const buildSelection = (filters: any[]) => {
-      const selection: any[] = []
-      for (let filter of filters.filter((f) => f.name !== 'date')) {
-        const values = filter.values
-          .filter((v: any) => v.selected)
-          .map((v: any) => (v.value === -1 ? v.preview : v.value))
-        selection.push({ id: filter.key || filter.name, values })
-      }
-      return selection
-    }
-
-    const passFilters2 = (item: any, selection: any[]): boolean =>
-      passFilters(item, selection) === item.visible
-
-    const updateFilter = (filters: any[]) => {
-      const selection = buildSelection(filters)
-      objectManager.setFilter((obj: any) => passFilters2(obj.properties, selection))
+      updateBounds(map.getCenter(), map.getZoom())
     }
 
     const handlerClickToObj = (objectId: string) => {
       const obj = objectManager.objects.getById(objectId)
-      obj.properties.balloonContentBody = ReactDOMServer.renderToStaticMarkup(
-        InfoBalloon({
-          id: obj.properties.id,
-          address: obj.properties.address,
-          categoryName: obj.properties.category_name,
-          dead: obj.properties.dead,
-          datetime: new Date(obj.properties.datetime),
-          injured: obj.properties.injured,
-        })
-      )
-      objectManager.objects.balloon.open(objectId)
+      if (obj) {
+        obj.properties.balloonContentBody = ReactDOMServer.renderToStaticMarkup(
+          InfoBalloon({
+            id: obj.properties.id,
+            address: obj.properties.address,
+            categoryName: obj.properties.category_name,
+            dead: obj.properties.dead,
+            datetime: new Date(obj.properties.datetime),
+            injured: obj.properties.injured,
+          })
+        )
+        objectManager.objects.balloon.open(objectId)
+      }
     }
 
     const handlerActiveChanged = (obj: any) => {
@@ -172,75 +173,72 @@ export const MapStore = types
       window.history.pushState(null, '', `?${currentParams.toString()}`)
     }
 
-    const createFeature = (item: any) => ({
+    const createFeature = (acc: any) => ({
       type: 'Feature',
-      id: item.id,
+      id: acc.id,
       geometry: {
         type: 'Point',
-        coordinates: [item.point.latitude, item.point.longitude],
+        coordinates: [acc.point.latitude, acc.point.longitude],
       },
       properties: {
-        ...item,
-        clusterCaption: item.id,
+        ...acc,
+        clusterCaption: acc.datetime.split('T')[0],
         visible: true,
       },
       options: {
         iconLayout: 'default#image',
         // @ts-ignore
-        iconImageHref: supportedIconsBySeverity[item.severity],
+        iconImageHref: supportedIconsBySeverity[acc.severity],
         iconImageSize: [10, 10],
         iconImageOffset: [-5, -5],
 
         // preset: 'islands#circleIcon',
         // @ts-ignore
-        // iconColor: colorBySeverity[severity],
+        iconColor: colorBySeverity[acc.severity],
       },
     })
 
-    const addObjects = (items: any[]) => {
-      if (objectManager === null) {
-        return
-      }
+    const createHeatFeature = (acc: any) => ({
+      id: acc.id,
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [acc.point.latitude, acc.point.longitude],
+      },
+      properties: {
+        weight: acc.severity,
+      },
+    })
+
+    const drawPoints = (accs: any[]) => {
+      objectManager.removeAll()
+      heatmap.setData([])
+      const data = accs.map((a) => createFeature(a))
+      objectManager.add(data)
 
       const params = new URLSearchParams(window.location.search)
       const activeObject = params.get('active-obj')
-      let isOpenBalloon = false
-
-      const data: any[] = []
-      items.forEach((item: any) => {
-        if (objectManager.objects.getById(item.id) === null) {
-          if (activeObject && activeObject === item.id) {
-            isOpenBalloon = true
-          }
-          data.push(createFeature(item))
-          const grey = createFeature(item)
-          grey.id = '_' + grey.id
-          grey.properties.visible = false
-          grey.options.iconImageHref = supportedIconsBySeverity.default
-          data.push(grey)
-        }
-      })
-
-      objectManager.add(data)
-
-      if (activeObject && isOpenBalloon) {
+      if (activeObject) {
         handlerClickToObj(activeObject)
       }
     }
 
-    const clearObjects = () => {
+    const drawHeat = (accs: any[]) => {
       objectManager.removeAll()
+      const data = accs.map((a) => createHeatFeature(a))
+      heatmap.setData(data)
+    }
+
+    const setFilter = (filter: any) => {
+      objectManager.setFilter((f: any) => filter(f.properties))
     }
 
     return {
-      setCenter,
-      setBounds,
-      setZoom,
       setMap,
       getMap,
       updateBounds,
-      addObjects,
-      updateFilter,
-      clearObjects,
+      drawPoints,
+      drawHeat,
+      setFilter,
     }
   })

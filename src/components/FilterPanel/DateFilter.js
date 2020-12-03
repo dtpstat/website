@@ -78,19 +78,22 @@ const formatRange = (range) => {
   return `${format(range.startDate, f)} - ${format(range.endDate, f)}`
 }
 
-const getLastMonth = () => {
-  const p = subMonths(new Date(), 1)
-  return { startDate: startOfMonth(p), endDate: lastDayOfMonth(p) }
+const getPrevMonth = (n) => {
+  const p = subMonths(new Date(), n)
+  const s = format(p, 'LLLL', { locale: ruLocale })
+  return {
+    label: s[0].toLocaleUpperCase('ru') + s.substring(1),
+    range: () => ({ startDate: startOfMonth(p), endDate: lastDayOfMonth(p) }),
+  }
 }
 
 const getStaticRanges = () => {
   const result = []
   const year = new Date().getFullYear()
-  result.push({
-    label: 'Прошлый месяц',
-    range: () => getLastMonth(),
-  })
-  for (let i = year; i >= year - 5; i--) {
+  for (let i = 1; i <= 2; i++) {
+    result.push(getPrevMonth(i))
+  }
+  for (let i = year; i > year - 6; i--) {
     result.push({
       label: i.toString(),
       range: () => ({ startDate: new Date(i, 0, 1), endDate: new Date(i, 11, 31) }),

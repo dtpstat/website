@@ -1,31 +1,8 @@
 export type Coordinate = number[]
 
-export type Scale = number
-
-export type CoordinateObject = {
-  longitude: number
-  latitude: number
-}
-
-export type Bounds = Coordinate[] // note: types.array(...)
-
-export type BoundsChangedEvent = {
-  originalEvent: {
-    newCenter: Coordinate
-    newZoom: Scale
-    newBounds: Bounds
-  }
-}
-
-// export enum FilterType {
-//   CATEGORY = 'category',
-//   SEVERITY = 'severity',
-//   PARTICIPANT_CATEGORIES = 'participant_categories',
-//   DATE = 'date',
-// }
-
 export type ShortStatisticsResponse = {
   parent_region_name: string
+  parent_region_slug: string
   region_name: string
   region_slug: string
 }

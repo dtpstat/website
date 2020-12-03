@@ -3,50 +3,43 @@ import './Map.css'
 import { observer } from 'mobx-react'
 
 import { useStore } from 'models/RootStore'
-import { debounce, MIN_ZOOM } from 'utils'
-
-export function getPositionFromURL(url) {
-  const params = new URLSearchParams(url)
-  const center = params.get('center')?.split(':')
-  const zoom = params.get('scale')
-  return {
-    center,
-    zoom,
-  }
-}
+// import { debounce } from 'utils'
 
 export const Map = observer(function Map() {
   const { mapStore } = useStore()
+  // const boundsChangeHandler = useCallback( // TODO
+  //   debounce((e) => {
+  //     const { newCenter, newZoom, newBounds } = e.originalEvent
+  //     mapStore.updateBounds(newCenter, newZoom, newBounds)
+  //   }, 1000),
+  //   [mapStore]
+  // )
   const boundsChangeHandler = useCallback(
-    debounce((e) => {
+    (e) => {
       const { newCenter, newZoom, newBounds } = e.originalEvent
       mapStore.updateBounds(newCenter, newZoom, newBounds)
-    }, 1000),
+    },
     [mapStore]
   )
-
   React.useEffect(() => {
     window.ymaps.ready(['Heatmap']).then(() => {
-      const { center, zoom } = getPositionFromURL(window.location.search)
+      const { center, zoom } = mapStore
       mapStore.setMap(
         new window.ymaps.Map(
           'map',
           {
-            center: center ?? [55.76, 37.64],
-            zoom: zoom ?? 9,
+            center,
+            zoom,
             controls: [],
           },
           {
-            minZoom: MIN_ZOOM,
             avoidFractionalZoom: true,
           }
         )
       )
-
       mapStore.getMap().events.add('boundschange', boundsChangeHandler)
     })
   }, [mapStore, boundsChangeHandler])
 
-  // return <div id='map' className={mapStore.zoom >= LOADING_ZOOM ? 'with-loading' : ''} />
   return <div id='map' />
 })

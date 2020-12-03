@@ -4,10 +4,11 @@ import { types, flow, Instance } from 'mobx-state-tree'
 import makeInspectable from 'mobx-devtools-mst'
 
 import { FilterStore } from './FilterStore'
-import { MapStore } from './MapStore'
+import { MapStore, buildSelection, passFilters } from './MapStore'
 import { AreaStore } from './AreaStore'
 import { TrafficAccidentStore } from './TrafficAccidentStore'
 import { DateFilterType } from './filters/DateFilter'
+import { POINTS_ZOOM } from 'utils'
 
 export type RootStoreType = Instance<typeof RootStore>
 
@@ -20,42 +21,102 @@ const RootStore = types
     loadingCount: 0,
   })
   .actions((self) => {
+    var inited = false // disable all on* methods
     const afterCreate = flow(function* () {
+      setMapFromUrl()
       yield self.filterStore.loadFilters()
       setDatesFromUrl()
       setFiltersFromUrl()
+      inited = true
     })
-    const loadData = flow(function* () {
-      const { center, zoom, bounds } = self.mapStore
+    const loadArea = () => {
+      const { center, zoom } = self.mapStore
+      self.areaStore.loadArea(center, zoom)
+    }
+    const loadAccs = () => {
       const { areaStore, filterStore, trafficAccidentStore } = self
-      yield areaStore.loadArea(center, zoom)
-      yield trafficAccidentStore.loadTrafficAccidents(
-        filterStore.startDate,
-        filterStore.endDate,
-        bounds,
-        zoom
-      )
-      yield areaStore.loadStatistics(center, zoom, filterStore.startDate, filterStore.endDate)
-    })
-    const onBoundsChanged = () => {
-      updateUrlMap()
-      loadData()
+      if (areaStore.area) {
+        trafficAccidentStore.loadTrafficAccidents(
+          filterStore.startDate,
+          filterStore.endDate,
+          areaStore.area.parentId
+        )
+      }
+    }
+    const updateStat = () => {
+      const accs = self.trafficAccidentStore.accs
+      const area = self.areaStore.area
+      if (area) {
+        const top = area.id === area.parentId
+        const allAreaAccs = top ? accs : accs.filter((a: any) => a.region_slug === area.id)
+        const areaAccs = allAreaAccs.filter(prepareFilter())
+        self.areaStore.setStatistics({
+          count: areaAccs.length,
+          injured: areaAccs.reduce((s, v: any) => s + v.injured, 0),
+          dead: areaAccs.reduce((s, v: any) => s + v.dead, 0),
+        })
+      }
+    }
+    const prepareFilter = () => {
+      const selection = buildSelection(self.filterStore.filters.slice())
+      return (a: any) => passFilters(a, selection)
+    }
+    const redraw = () => {
+      if (self.mapStore.zoom >= POINTS_ZOOM) {
+        self.mapStore.setFilter(prepareFilter())
+        self.mapStore.drawPoints(self.trafficAccidentStore.accs)
+      } else {
+        const accs = self.trafficAccidentStore.accs.filter(prepareFilter())
+        self.mapStore.drawHeat(accs)
+      }
+    }
+    const onTrafficAccidentsLoaded = () => {
+      if (inited) {
+        const accs = self.trafficAccidentStore.accs
+        self.filterStore.updateStreets(accs)
+        setStreetsFromUrl()
+        updateStat()
+        redraw()
+      }
+    }
+    const onBoundsChanged = (zoom: number, prevZoom: number) => {
+      if (inited) {
+        updateUrl()
+        loadArea()
+        if (
+          (zoom >= POINTS_ZOOM && prevZoom < POINTS_ZOOM) ||
+          (zoom < POINTS_ZOOM && prevZoom >= POINTS_ZOOM)
+        ) {
+          redraw()
+        }
+      }
     }
     const onDatesChanged = () => {
-      updateUrlDates()
-      self.mapStore.clearObjects()
-      self.trafficAccidentStore.clearLoadedArea()
-      loadData()
+      if (inited) {
+        updateUrl()
+        loadAccs()
+      }
     }
-    const onTrafficAccidentsLoaded = (accidents: any[]) => {
-      self.filterStore.updateStreets(accidents)
-      setStreetsFromUrl()
-      self.mapStore.updateFilter(self.filterStore.filters.slice()) // for first load
-      self.mapStore.addObjects(accidents)
+    const onAreaChanged = () => {
+      if (inited) {
+        updateStat()
+      }
+    }
+    const onParentAreaChanged = () => {
+      if (inited) {
+        loadAccs()
+      }
     }
     const onFiltersChanged = () => {
-      updateUrlFilters()
-      self.mapStore.updateFilter(self.filterStore.filters.slice()) // Array.isArray should be true
+      if (inited) {
+        updateUrl()
+        updateStat()
+        if (self.mapStore.zoom >= POINTS_ZOOM) {
+          self.mapStore.setFilter(prepareFilter())
+        } else {
+          redraw()
+        }
+      }
     }
     const incLoading = () => {
       self.loadingCount += 1
@@ -63,23 +124,27 @@ const RootStore = types
     const decLoading = () => {
       self.loadingCount -= 1
     }
-    const updateUrlMap = () => {
-      const { center, zoom } = self.mapStore
-      const currentParams = new URLSearchParams(document.location.search)
-      currentParams.set('center', `${center[0]}:${center[1]}`)
-      currentParams.set('scale', String(zoom))
-      window.history.pushState(null, '', `?${currentParams.toString()}`)
+    const updateUrl = () => {
+      if (inited) {
+        const currentParams = new URLSearchParams(document.location.search)
+        updateUrlMap(currentParams)
+        updateUrlDates(currentParams)
+        updateUrlFilters(currentParams)
+        window.history.pushState(null, '', `?${currentParams.toString()}`)
+      }
     }
-    const updateUrlDates = () => {
+    const updateUrlMap = (currentParams: URLSearchParams) => {
+      const { center, zoom } = self.mapStore
+      currentParams.set('center', `${center[0]}:${center[1]}`)
+      currentParams.set('zoom', String(zoom))
+    }
+    const updateUrlDates = (currentParams: URLSearchParams) => {
       const value = (self.filterStore.filters.find((f) => f.name === 'date') as DateFilterType)
         .value
-      const currentParams = new URLSearchParams(document.location.search)
       currentParams.set('start_date', value.start_date)
       currentParams.set('end_date', value.end_date)
-      window.history.pushState(null, '', `?${currentParams.toString()}`)
     }
-    const updateUrlFilters = () => {
-      const currentParams = new URLSearchParams(document.location.search)
+    const updateUrlFilters = (currentParams: URLSearchParams) => {
       self.filterStore.filters
         .filter((f) => f.name !== 'date')
         .forEach((f: any) => {
@@ -93,7 +158,16 @@ const RootStore = types
             )
           }
         })
-      window.history.pushState(null, '', `?${currentParams.toString()}`)
+    }
+    const setMapFromUrl = () => {
+      const params = new URLSearchParams(document.location.search)
+      const centerStr = params.get('center')?.split(':')
+      const center = centerStr
+        ? [parseFloat(centerStr[0]), parseFloat(centerStr[1])]
+        : [55.76, 37.64]
+      const zoomStr = params.get('zoom')
+      const zoom = zoomStr ? parseInt(zoomStr) : 9
+      self.mapStore.updateBounds(center, zoom)
     }
     const setDatesFromUrl = () => {
       const currentParams = new URLSearchParams(document.location.search)
@@ -134,6 +208,8 @@ const RootStore = types
     return {
       afterCreate,
       onBoundsChanged,
+      onAreaChanged,
+      onParentAreaChanged,
       onTrafficAccidentsLoaded,
       onDatesChanged,
       onFiltersChanged,

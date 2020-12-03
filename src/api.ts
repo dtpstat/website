@@ -1,49 +1,43 @@
 import config from 'config'
-import {
-  Coordinate,
-  DetailedStatisticsResponse,
-  FilterResponse,
-  Scale,
-  ShortStatisticsResponse,
-} from 'types'
-
-export const fetchArea = (center: Coordinate, scale: Scale): Promise<ShortStatisticsResponse> =>
-  fetch(
-    `${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${scale}`
-  ).then((response) => response.json())
+import { Coordinate, FilterResponse, ShortStatisticsResponse } from 'types'
 
 export const fetchFilters = (): Promise<FilterResponse[]> =>
   fetch(`${config.API_URL}/filters`).then((response) => response.json())
 
-export const fetchStatistics = (
-  center: Coordinate,
-  scale: Scale,
-  startDate: string,
-  endDate: string
-): Promise<DetailedStatisticsResponse> =>
-  fetch(
-    `${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${scale}&start_date=${startDate}&end_date=${endDate}`
-  ).then((response) => response.json())
+var areaController: AbortController | null
 
-export const fetchDtp = (
-  // eslint-disable-next-line no-undef
-  signal: AbortSignal,
-  startDate: string,
-  endDate: string,
-  geoFrame: Coordinate[]
-) => {
-  const s = geoFrame.map((coord) => `${coord[1]} ${coord[0]}`).join(',')
-  return fetch(
-    `${config.API_URL}/dtp/?start_date=${startDate}&end_date=${endDate}&geo_frame=${s}`,
-    {
-      signal,
-    }
-  ).then((response) =>
-    response.json().then((json) => {
-      if (response.ok) {
-        return Promise.resolve(json)
+export const fetchArea = (center: Coordinate, zoom: number): Promise<ShortStatisticsResponse> => {
+  areaController?.abort()
+  areaController = new AbortController()
+  return fetch(`${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${zoom}`, {
+    signal: areaController.signal,
+  }).then((response) => response.json())
+}
+
+const cache: any = {}
+
+const fetchDtpYear = (signal: AbortSignal, year: number, region: string) => {
+  const result = cache[region]?.[year]
+  if (result) {
+    return Promise.resolve(result)
+  }
+  return fetch(`${config.API_URL}/dtp_load/?year=${year}&region_slug=${region}&format=json`, {
+    signal,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (!cache[region]) {
+        cache[region] = {}
       }
-      return Promise.reject(json)
+      cache[region][year] = data
+      return data
     })
-  )
+}
+
+var dtpController: AbortController | null
+
+export const fetchDtp = (years: number[], region: string) => {
+  dtpController?.abort()
+  dtpController = new AbortController()
+  return Promise.all(years.map((y) => fetchDtpYear(dtpController!.signal, y, region)))
 }
