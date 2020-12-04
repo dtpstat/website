@@ -1,14 +1,15 @@
 import React from 'react'
-import { types, flow, Instance } from 'mobx-state-tree'
+import { types, flow, Instance, cast } from 'mobx-state-tree'
 // @ts-ignore
 import makeInspectable from 'mobx-devtools-mst'
+
+import { POINTS_ZOOM } from 'utils'
 
 import { FilterStore } from './FilterStore'
 import { MapStore, buildSelection, passFilters } from './MapStore'
 import { AreaStore } from './AreaStore'
 import { TrafficAccidentStore } from './TrafficAccidentStore'
 import { DateFilterType } from './filters/DateFilter'
-import { POINTS_ZOOM } from 'utils'
 
 export type RootStoreType = Instance<typeof RootStore>
 
@@ -21,13 +22,19 @@ const RootStore = types
     loadingCount: 0,
   })
   .actions((self) => {
-    var inited = false // disable all on* methods
+    var initBoundsChanged = false
+    var initFiltersLoaded = false
+
     const afterCreate = flow(function* () {
       setMapFromUrl()
       yield self.filterStore.loadFilters()
       setDatesFromUrl()
       setFiltersFromUrl()
-      inited = true
+      initFiltersLoaded = true
+      if (initBoundsChanged) {
+        updateUrl()
+        loadArea()
+      }
     })
     const loadArea = () => {
       const { center, zoom } = self.mapStore
@@ -71,16 +78,15 @@ const RootStore = types
       }
     }
     const onTrafficAccidentsLoaded = () => {
-      if (inited) {
-        const accs = self.trafficAccidentStore.accs
-        self.filterStore.updateStreets(accs)
-        setStreetsFromUrl()
-        updateStat()
-        redraw()
-      }
+      const accs = self.trafficAccidentStore.accs
+      self.filterStore.updateStreets(accs)
+      setStreetsFromUrl()
+      updateStat()
+      redraw()
     }
     const onBoundsChanged = (zoom: number, prevZoom: number) => {
-      if (inited) {
+      initBoundsChanged = true
+      if (initFiltersLoaded) {
         updateUrl()
         loadArea()
         if (
@@ -92,30 +98,22 @@ const RootStore = types
       }
     }
     const onDatesChanged = () => {
-      if (inited) {
-        updateUrl()
-        loadAccs()
-      }
+      updateUrl()
+      loadAccs()
     }
     const onAreaChanged = () => {
-      if (inited) {
-        updateStat()
-      }
+      updateStat()
     }
     const onParentAreaChanged = () => {
-      if (inited) {
-        loadAccs()
-      }
+      loadAccs()
     }
     const onFiltersChanged = () => {
-      if (inited) {
-        updateUrl()
-        updateStat()
-        if (self.mapStore.zoom >= POINTS_ZOOM) {
-          self.mapStore.setFilter(prepareFilter())
-        } else {
-          redraw()
-        }
+      updateUrl()
+      updateStat()
+      if (self.mapStore.zoom >= POINTS_ZOOM) {
+        self.mapStore.setFilter(prepareFilter())
+      } else {
+        redraw()
       }
     }
     const incLoading = () => {
@@ -125,13 +123,11 @@ const RootStore = types
       self.loadingCount -= 1
     }
     const updateUrl = () => {
-      if (inited) {
-        const currentParams = new URLSearchParams(document.location.search)
-        updateUrlMap(currentParams)
-        updateUrlDates(currentParams)
-        updateUrlFilters(currentParams)
-        window.history.pushState(null, '', `?${currentParams.toString()}`)
-      }
+      const currentParams = new URLSearchParams(document.location.search)
+      updateUrlMap(currentParams)
+      updateUrlDates(currentParams)
+      updateUrlFilters(currentParams)
+      window.history.pushState(null, '', `?${currentParams.toString()}`)
     }
     const updateUrlMap = (currentParams: URLSearchParams) => {
       const { center, zoom } = self.mapStore
@@ -166,8 +162,9 @@ const RootStore = types
         ? [parseFloat(centerStr[0]), parseFloat(centerStr[1])]
         : [55.76, 37.64]
       const zoomStr = params.get('zoom')
-      const zoom = zoomStr ? parseInt(zoomStr) : 9
-      self.mapStore.updateBounds(center, zoom)
+      const zoom = zoomStr ? parseInt(zoomStr, 10) : 9
+      self.mapStore.center = cast(center)
+      self.mapStore.zoom = zoom
     }
     const setDatesFromUrl = () => {
       const currentParams = new URLSearchParams(document.location.search)
