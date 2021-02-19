@@ -69,11 +69,12 @@ const RootStore = types
       return (a: any) => passFilters(a, selection)
     }
     const redraw = () => {
+      const visibleAccs = self.trafficAccidentStore.accs.filter((a: any) => a.point)
       if (self.mapStore.zoom >= POINTS_ZOOM) {
         self.mapStore.setFilter(prepareFilter())
-        self.mapStore.drawPoints(self.trafficAccidentStore.accs)
+        self.mapStore.drawPoints(visibleAccs)
       } else {
-        const accs = self.trafficAccidentStore.accs.filter(prepareFilter())
+        const accs = visibleAccs.filter(prepareFilter())
         self.mapStore.drawHeat(accs)
       }
     }

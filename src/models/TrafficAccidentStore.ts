@@ -30,7 +30,7 @@ export const TrafficAccidentStore = types
         const data = yield fetchDtp(getYears(startDate, endDate), region)
         self.accs = data
           .flat()
-          .filter((a: any) => a.point && a.datetime >= startDate && a.datetime <= endDate) // TODO point
+          .filter((a: any) => a.datetime >= startDate && a.datetime <= endDate + 'Z')
         root.onTrafficAccidentsLoaded()
       } catch (error) {
         if (error.name !== 'AbortError') {
