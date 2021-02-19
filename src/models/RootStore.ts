@@ -163,7 +163,7 @@ const RootStore = types
         ? [parseFloat(centerStr[0]), parseFloat(centerStr[1])]
         : [55.76, 37.64]
       const zoomStr = params.get('zoom')
-      const zoom = zoomStr ? parseInt(zoomStr, 10) : 9
+      const zoom = zoomStr ? parseInt(zoomStr, 10) : 12
       self.mapStore.center = cast(center)
       self.mapStore.zoom = zoom
     }
