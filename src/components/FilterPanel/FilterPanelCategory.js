@@ -23,14 +23,16 @@ export const FilterPanelCategory = observer(() => {
   const filter = filters.find((f) => f.key === filterStore.currentKey)
   const q = filterStore.search.toLowerCase()
   return (
-    <div className='filter-panel-category'>
-      <CategoryHeader />
-      <div className='panel-content'>
-        {filter.values
-          .filter((v) => v.preview.toLowerCase().includes(q))
-          .map((v) => (
-            <CategoryValue key={v.value === -1 ? v.preview : v.value} value={v} />
-          ))}
+    <div className='filter-panel'>
+      <div className='filter-panel-category'>
+        <CategoryHeader />
+        <div className='panel-content'>
+          {filter.values
+            .filter((v) => v.preview.toLowerCase().includes(q))
+            .map((v) => (
+              <CategoryValue key={v.value === -1 ? v.preview : v.value} value={v} />
+            ))}
+        </div>
       </div>
     </div>
   )

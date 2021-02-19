@@ -1,30 +1,45 @@
 .filter-panel {
-  display: flex;
-  flex-direction: column;
   width: 400px;
   background: $white;
   box-shadow: 0px 5px 15px #d4dadd;
   border-radius: 8px;
   pointer-events: all;
   margin: 20px;
-  overflow: auto;
-  padding: 20px;
-}
+  position: relative;
+  max-height: calc(100% - 76px);
+  display: flex;
+  flex-direction: column;
 
-.filter-panel-hidden {
-  @extend .filter-panel;
-
-  align-self: flex-start;
   .btn-hideFilter {
-    margin-top: 20px;
+    position: absolute;
+    bottom: -16px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    box-shadow: 0px 3px 8px #d4dadd;
   }
 }
 
-.filter-panel-category {
-  @extend .filter-panel;
-
+.filter-panel-normal {
   display: flex;
   flex-direction: column;
+  padding: 20px;
+  padding-bottom: 26px;
+  overflow: auto;
+}
+
+.filter-panel-hidden {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  padding-bottom: 38px;
+}
+
+.filter-panel-category {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 
   .category-value {
     display: flex;

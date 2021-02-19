@@ -56,21 +56,22 @@ export const FilterPanelNormal = observer(() => {
 
   return (
     <div className='filter-panel'>
-      {mainFilters.map((f) => (
-        <div key={f.name} className='filter-item'>
-          <p className='subtitle2'>{f.label}</p>
-          <FilterSection filter={f} />
-        </div>
-      ))}
-      <div className='filter-item'>
-        <p className='subtitle2'>Фильтры</p>
-        <div className='category-filter'>
-          {categoryFilters.map((f) => (
-            <CategoryTag key={f.key} filter={f} />
-          ))}
+      <div className='filter-panel-normal'>
+        {mainFilters.map((f) => (
+          <div key={f.name} className='filter-item'>
+            <p className='subtitle2'>{f.label}</p>
+            <FilterSection filter={f} />
+          </div>
+        ))}
+        <div className='filter-item'>
+          <p className='subtitle2'>Фильтры</p>
+          <div className='category-filter'>
+            {categoryFilters.map((f) => (
+              <CategoryTag key={f.key} filter={f} />
+            ))}
+          </div>
         </div>
       </div>
-
       <button className='btn-hideFilter' onClick={(e) => filterStore.setVisible(false)}>
         <svg className='icon icon-arrow-up'>
           <use xlinkHref='svg/sprite.svg#arrow-up' />
