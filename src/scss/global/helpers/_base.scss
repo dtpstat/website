@@ -33,6 +33,9 @@ body {
   scroll-behavior: smooth;
   text-rendering: auto;
 
+  display: flex;
+  flex-direction: column;
+
   /*&::-webkit-scrollbar {
     background-color: $gray-dark;
   }
