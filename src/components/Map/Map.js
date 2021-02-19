@@ -24,22 +24,46 @@ export const Map = observer(function Map() {
   React.useEffect(() => {
     window.ymaps.ready(['Heatmap']).then(() => {
       const { center, zoom } = mapStore
-      mapStore.setMap(
-        new window.ymaps.Map(
-          'map',
-          {
-            center,
-            zoom,
-            controls: [],
-          },
-          {
-            avoidFractionalZoom: true,
-          }
-        )
+      const map = new window.ymaps.Map(
+        'map',
+        {
+          center,
+          zoom,
+          controls: [],
+        },
+        {
+          avoidFractionalZoom: true,
+        }
       )
-      mapStore.getMap().events.add('boundschange', boundsChangeHandler)
+      mapStore.setMap(map)
+      map.events.add('boundschange', boundsChangeHandler)
+      map.controls
+        .add('zoomControl', {
+          float: 'none',
+          size: 'large', // 206
+          // position: { right: 20, top: 20 },
+        })
+        .add('geolocationControl', {
+          float: 'none',
+          // position: { right: 20, top: 20 + 206 + 16 },
+        })
+
+      // move to center
+      const updatePos = (h) => {
+        const top = (h - (206 + 16 + 28)) / 2
+        map.controls.get('zoomControl').options.set('position', { top, right: 20 })
+        map.controls
+          .get('geolocationControl')
+          .options.set('position', { top: top + 206 + 16, right: 20 })
+      }
+      updatePos(mapRef.current.offsetHeight)
+      map.events.add('sizechange', (e) => {
+        updatePos(mapRef.current.offsetHeight)
+      })
     })
   }, [mapStore, boundsChangeHandler])
 
-  return <div id='map' />
+  const mapRef = React.useRef()
+
+  return <div id='map' ref={mapRef} />
 })
