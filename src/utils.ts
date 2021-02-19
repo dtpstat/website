@@ -1,4 +1,4 @@
-export const POINTS_ZOOM = 14
+export const POINTS_ZOOM = 12
 
 export function debounce(func: Function, wait: number, immediate: boolean = false) {
   let timeout: any = null
