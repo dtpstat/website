@@ -101,7 +101,7 @@ const getStaticRanges = () => {
   }
   result.push({
     label: 'За всё время',
-    range: () => ({ startDate: new Date(year - 5, 0, 1), endDate: new Date() }),
+    range: () => ({ startDate: new Date(2015, 0, 1), endDate: new Date() }),
   })
   return createStaticRanges(result)
 }
