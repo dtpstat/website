@@ -23,29 +23,31 @@
   }
 }
 
-.balloon-header {
-  margin-bottom: 4px;
-
-  .subtitle1 {
-    font-weight: bold;
-  }
-}
-
-.balloon-body {
-  padding-bottom: 4px;
-
-  p {
-    margin-bottom: 4px;
-  }
-}
-
-.balloon-footer {
+.balloon-content {
   display: flex;
-  position: relative;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 2px;
+}
 
-  .btn-light {
-    margin: 0 auto;
-    font-weight: bold;
-    font-size: 16px;
+.balloon-time {
+  margin-top: 4px;
+}
+
+.balloon-address {
+  margin-top: 4px;
+}
+
+.balloon-injured {
+  margin-top: 8px;
+}
+
+#balloon-button {
+  margin-top: 8px;
+  font-size: 1rem;
+  text-decoration: none;
+  &:focus {
+    outline: 0;
+    box-shadow: none;
   }
 }

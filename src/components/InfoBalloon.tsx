@@ -41,13 +41,11 @@ export const InfoBalloonContent = (props: Props) => {
   }
 
   return (
-    <React.Fragment>
-      <div className='balloon-header'>
-        <h4 className='subtitle1'>{props.categoryName}</h4>
-      </div>
-      <div className='balloon-body'>
-        <p className='body3'>{dateTime}</p>
-        <p className='body3'>{props.address}</p>
+    <div className='balloon-content'>
+      <h4 className='subtitle1'>{props.categoryName}</h4>
+      <p className='balloon-time body3'>{dateTime}</p>
+      {props.address && <p className='balloon-address body3'>{props.address}</p>}
+      <div className='balloon-injured'>
         {props.injured > 0 && (
           <p className='subtitle3' style={{ color: Colors.$yellow }}>
             {injuredMessage}
@@ -61,6 +59,7 @@ export const InfoBalloonContent = (props: Props) => {
       </div>
       <div className='balloon-footer'>
         <a
+          id='balloon-button'
           className='btn-light'
           href={`${config.STATIC_URL}/dtp/${props.id}`}
           target='_blank'
@@ -69,6 +68,6 @@ export const InfoBalloonContent = (props: Props) => {
           Подробности ДТП
         </a>
       </div>
-    </React.Fragment>
+    </div>
   )
 }

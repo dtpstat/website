@@ -4,7 +4,7 @@ import ReactDOMServer from 'react-dom/server'
 import { Coordinate } from 'types'
 
 import { RootStoreType } from './RootStore'
-import { InfoBalloon, InfoBalloonContent } from '../components/InfoBalloon'
+import { InfoBalloonContent } from '../components/InfoBalloon'
 
 const supportedIconsBySeverity = {
   0: 'svg/circle-0.svg',
@@ -134,7 +134,7 @@ export const MapStore = types
       const obj = objectManager.objects.getById(objectId)
       if (obj) {
         obj.properties.balloonContentBody = ReactDOMServer.renderToStaticMarkup(
-          InfoBalloon({
+          InfoBalloonContent({
             id: obj.properties.id,
             address: obj.properties.address,
             categoryName: obj.properties.category_name,
