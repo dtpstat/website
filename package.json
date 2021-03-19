@@ -16,7 +16,6 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "@types/react-date-range": "^0.95.1",
     "date-fns": "^2.16.1",
     "mobx": "^5.15.6",
     "mobx-devtools-mst": "^0.9.22",
@@ -24,7 +23,6 @@
     "mobx-state-tree": "^3.17.2",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
-    "react-date-range": "^1.0.3",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
     "typescript": "^4.0.2"

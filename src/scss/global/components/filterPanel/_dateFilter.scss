@@ -1,18 +1,71 @@
-.date-wrap {
-  position: absolute;
-  z-index: 1;
-  margin-top: 8px;
-  box-shadow: 0px 5px 15px #d4dadd;
-  background: $white;
-}
-
-.date-bottom {
-  border-top: 1px solid $grey10;
-  padding: 12px 20px;
+.date-main {
   display: flex;
-  justify-content: flex-end;
+  .inputWrap {
+    flex: 1;
+  }
 }
 
-.date-bottom > * {
-  margin-left: 12px;
+.inputWrap .date-input {
+  border-radius: 4px 0 0 4px;
+  // &::selection {
+  //   color: $white;
+  //   background: $greyDark;
+  // }
+}
+
+.date-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  border-radius: 0 4px 4px 0;
+  transition: color 0.3s ease-in-out, background 0.3s ease-in-out;
+  background: $greyMiddle;
+  // background-color: aliceblue;  
+  color: $greyDark;
+  &:hover,
+  &:focus {
+    background: $grey20;
+    // background: $grey70;
+    box-shadow: none;
+  }
+
+  .icon-down {
+    height: 16px;
+    width: 16px;
+  }
+}
+
+.date-dropdown {
+  position: relative;
+  display: flex;
+}
+
+.date-menu {
+  z-index: 1;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 150px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 5px 15px #d4dadd;
+  padding: 8px 0;
+}
+
+.date-value {
+  padding: 10px;
+  cursor: pointer;
+  &:hover {
+    color: $white;
+    background: $grey70;
+  }
+}
+
+.date-error {
+  color: $red;
+}
+
+.date-error-wrap {
+  margin-top: 4px;
 }
