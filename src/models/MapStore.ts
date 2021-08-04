@@ -77,7 +77,11 @@ export const MapStore = types
       // @ts-ignore
       objectManager = new window.ymaps.ObjectManager({
         clusterize: true,
-        groupByCoordinates: true,
+        gridSize: 256,
+        clusterIconPieChartRadius: (node: any) => {
+          for (var radius = 0, i = 0, r = node.length; i < r; i++) radius += node[i].weight
+          return 10 + (10 * Math.log(radius)) / 0.69314718056
+        },
         showInAlphabeticalOrder: true,
         clusterDisableClickZoom: true,
         clusterIconLayout: 'default#pieChart',
