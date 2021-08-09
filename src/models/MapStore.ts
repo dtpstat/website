@@ -6,13 +6,13 @@ import { Coordinate } from 'types'
 import { RootStoreType } from './RootStore'
 import { InfoBalloonContent } from '../components/InfoBalloon'
 
-const supportedIconsBySeverity = {
-  0: 'svg/circle-0.svg',
-  1: 'svg/circle-1.svg',
-  3: 'svg/circle-3.svg',
-  4: 'svg/circle-4.svg',
-  default: 'svg/circle-default.svg',
-}
+// const supportedIconsBySeverity = {
+//   0: 'svg/circle-0.svg',
+//   1: 'svg/circle-1.svg',
+//   3: 'svg/circle-3.svg',
+//   4: 'svg/circle-4.svg',
+//   default: 'svg/circle-default.svg',
+// }
 
 const colorBySeverity = {
   1: '#FFB81F',
@@ -80,7 +80,9 @@ export const MapStore = types
         gridSize: 256,
         clusterIconPieChartRadius: (node: any) => {
           for (var radius = 0, i = 0, r = node.length; i < r; i++) radius += node[i].weight
-          return 10 + (10 * Math.log(radius)) / 0.69314718056
+          // return 10 + (10 * Math.log(radius)) / 0.69314718056 // PR
+          // return 25 + 2 * Math.floor(Math.log(radius)) // Yandex
+          return 15 + 4 * Math.floor(Math.log(radius))
         },
         showInAlphabeticalOrder: true,
         clusterDisableClickZoom: true,
@@ -190,13 +192,13 @@ export const MapStore = types
         visible: true,
       },
       options: {
-        iconLayout: 'default#image',
-        // @ts-ignore
-        iconImageHref: supportedIconsBySeverity[acc.severity],
-        iconImageSize: [10, 10],
-        iconImageOffset: [-5, -5],
+        // iconLayout: 'default#image',
+        // // @ts-ignore
+        // iconImageHref: supportedIconsBySeverity[acc.severity],
+        // iconImageSize: [10, 10],
+        // iconImageOffset: [-5, -5],
 
-        // preset: 'islands#circleIcon',
+        preset: 'islands#circleIcon',
         // @ts-ignore
         iconColor: colorBySeverity[acc.severity],
       },
