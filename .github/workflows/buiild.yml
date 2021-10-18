@@ -1,0 +1,24 @@
+name: Build client bunfle
+
+on:
+  - push
+  - workflow_dispatch
+
+jobs:
+  build:
+    name:  Build client bundle
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install packages
+        run: yarn install --frozen-lockfile
+
+      - name: Test
+        run: yarn test
+
