@@ -112,6 +112,9 @@ const Footer = () => {
             <a href='/blog/' className='link'>
               Что почитать
             </a>
+            <a href='/pages/dashboard/' className='link'>
+              Статистика
+            </a>
             <a href='/opendata/' className='link'>
               Скачать данные
             </a>
