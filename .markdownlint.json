@@ -1,0 +1,6 @@
+{
+  "extends": "@kachkaev/markdownlint-config",
+  "first-line-heading": false,
+  "no-inline-html": false,
+  "no-bare-urls": false
+}
