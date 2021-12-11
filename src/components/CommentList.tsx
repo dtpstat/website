@@ -1,10 +1,6 @@
-import { CommentItem } from "./comment_item";
+import * as React from "react";
 
-// interface Comment {
-//   id: number;
-//   text: string;
-//   user?: string;
-// }
+import { CommentItem } from "./CommentItem";
 
 const comments = [
   {
@@ -17,13 +13,13 @@ const comments = [
   { id: 2, text: "Comment 2", user: "Kolya" },
 ];
 
-export function CommentList() {
+export const CommentList: React.VoidFunctionComponent = () => {
   return (
     <div>
       <h2>Комментарии - {comments.length}</h2>
       {comments.map((comment) => {
-        return <CommentItem key={comment.id} comment={comment}></CommentItem>;
+        return <CommentItem key={comment.id} comment={comment} />;
       })}
     </div>
   );
-}
+};
