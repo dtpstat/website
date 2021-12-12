@@ -1819,6 +1819,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dayjs@npm:^1.10.7":
+  version: 1.10.7
+  resolution: "dayjs@npm:1.10.7"
+  checksum: a0a4ca95abaa03d0702161dc2c35d16121188e342f5052b9c61cdf784dab68af766f477c04f87f71c6af666fd4d13db9b9853b87265850d6093b7b04e1bb1cd7
+  languageName: node
+  linkType: hard
+
 "debug@npm:2, debug@npm:^2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -4254,13 +4261,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment@npm:^2.29.1":
-  version: 2.29.1
-  resolution: "moment@npm:2.29.1"
-  checksum: 1e14d5f422a2687996be11dd2d50c8de3bd577c4a4ca79ba5d02c397242a933e5b941655de6c8cb90ac18f01cc4127e55b4a12ae3c527a6c0a274e455979345e
-  languageName: node
-  linkType: hard
-
 "mri@npm:^1.1.6":
   version: 1.2.0
   resolution: "mri@npm:1.2.0"
@@ -5535,11 +5535,11 @@ __metadata:
     "@types/node": ^16.11.11
     "@types/react": ^17.0.37
     "@types/styled-components": ^5.1.16
+    dayjs: ^1.10.7
     eslint: ^8.4.0
     husky: ^7.0.4
     lint-staged: ^12.1.2
     markdownlint-cli: ^0.30.0
-    moment: ^2.29.1
     next: ^12.0.7
     npm-run-all: ^4.1.5
     prettier: ^2.5.0
