@@ -29,7 +29,7 @@ const CommentText = styled.div`
   letter-spacing: 0em;
   text-align: left;
   color: #18334a;
-  padding: 8px 0 18px;
+  margin: 4px 0 16px;
   display: block;
 `;
 
