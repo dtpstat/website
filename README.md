@@ -1,4 +1,22 @@
+# About
+
+Front-end React application for [DTP-MAP](https://dtp-stat.ru) project.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Configuration
+
+There are 2 ways for configure development environment:
+
+1. React front-end only:
+
+```
+echo "REACT_APP_BASE_URL=https://dtp-stat.ru" > .env.development.local
+```
+
+2. React front-end and Django python backend:
+
+Use repo [dtp-stat](https://github.com/dtpstat/dtp-stat).
 
 ## Available Scripts
 
