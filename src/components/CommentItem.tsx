@@ -15,7 +15,10 @@ export const CommentItem: React.VoidFunctionComponent<CommentItemProps> = ({
   return (
     <div>
       <img width={50} height={50} src={comment.avatarUrl ?? defaultAvatarImg} />
-      <span>{comment.user}</span>:<span>{comment.text}</span>
+      <div>
+        <span>{comment.user}</span>: <span>{comment.date}</span>
+      </div>
+      <p>{comment.text}</p>
     </div>
   );
 };

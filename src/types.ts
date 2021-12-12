@@ -3,4 +3,5 @@ export interface Comment {
   text: string;
   user?: string;
   avatarUrl?: string;
+  date: string;
 }

@@ -8,6 +8,7 @@ const comments: Comment[] = [
     id: 1,
     text: "Myaw-myaw",
     user: "Kitty",
+    date: Date.now().toString(),
     avatarUrl:
       "https://robohash.org/6ae852fa3a8b1c79dba3f7dc883c1760?set=set4&bgset=&size=200x200",
   },
@@ -15,6 +16,7 @@ const comments: Comment[] = [
     id: 2,
     text: "Comment 2",
     user: "Kolya",
+    date: Date.now().toString(),
   },
 ];
 
