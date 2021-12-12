@@ -1,7 +1,10 @@
+import moment from "moment";
 import * as React from "react";
 import styled from "styled-components";
 
 import { Comment } from "../types";
+
+moment.locale("ru");
 
 const defaultAvatarImg =
   "https://gravatar.com/avatar/6ae852fa3a8b1c79dba3f7dc883c1760?s=200&d=mp&r=x";
@@ -53,13 +56,15 @@ const CommentContainer = styled.div`
 export const CommentItem: React.VoidFunctionComponent<CommentItemProps> = ({
   comment,
 }) => {
+  const formattedDate = moment(comment.date).format("LL");
+
   return (
     <CommentContainer>
       <AvatarImg src={comment.avatarUrl ?? defaultAvatarImg} />
       <div>
         <div>
           <CommentAuthor>{comment.user}</CommentAuthor>:{" "}
-          <CommentDate>{comment.date}</CommentDate>
+          <CommentDate>{formattedDate}</CommentDate>
         </div>
         <CommentText>{comment.text}</CommentText>
       </div>
