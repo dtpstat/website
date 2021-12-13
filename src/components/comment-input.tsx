@@ -1,6 +1,8 @@
+import { inject, observer } from "mobx-react";
 import React from "react";
 import styled from "styled-components";
 
+import { RootStore } from "../stores";
 import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";
 import { TextInput } from "./text-input";
@@ -19,12 +21,24 @@ const InputContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const CommentInput: React.VoidFunctionComponent = () => {
+export interface RootStoreProps {
+  rootStore?: RootStore;
+}
+
+const CommentInputComponent: React.VoidFunctionComponent<RootStoreProps> = ({
+  rootStore,
+}) => {
   return (
     <InputContainer>
       <AvatarImage />
       <TextInput placeholder="Добавить комментарий..." />
-      <Button>Отправить</Button>
+      <Button onClick={() => rootStore!.commentStore!.addComment()}>
+        Отправить
+      </Button>
     </InputContainer>
   );
 };
+
+export const CommentInput = inject(RootStore.storeName)(
+  observer(CommentInputComponent),
+);

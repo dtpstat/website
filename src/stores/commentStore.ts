@@ -7,4 +7,6 @@ export class CommentStore {
   }
 
   newComment = "";
+
+  addComment() {}
 }

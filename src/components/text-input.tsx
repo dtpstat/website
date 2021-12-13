@@ -1,5 +1,8 @@
-import React from "react";
+import { inject, observer } from "mobx-react";
+import React, { ChangeEvent, ChangeEventHandler } from "react";
 import styled from "styled-components";
+
+import { RootStore } from "../stores";
 
 const StyledInput = styled.input`
   font-family: Roboto;
@@ -17,10 +20,18 @@ const StyledInput = styled.input`
 
 interface TextInputProps {
   placeholder: string;
+  rootStore?: RootStore;
 }
 
-export const TextInput: React.VoidFunctionComponent<TextInputProps> = ({
-  placeholder,
-}) => {
-  return <StyledInput placeholder={placeholder} />;
+export const TextInputComponent: React.VoidFunctionComponent<
+  TextInputProps
+> = ({ placeholder, rootStore }) => {
+  const onChange: ChangeEventHandler<HTMLInputElement> = (event: ChangeEvent) =>
+    (rootStore!.commentStore.newComment = event.target.textContent ?? "");
+
+  return <StyledInput placeholder={placeholder} onChange={onChange} />;
 };
+
+export const TextInput = inject(RootStore.storeName)(
+  observer(TextInputComponent),
+);
