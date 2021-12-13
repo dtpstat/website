@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from "next";
 import Error from "next/error";
 import * as React from "react";
 
+import { CommentList } from "../../../components/сomment-list";
 import { commentsArePaused } from "../../../shared/helpersForComments";
 
 export interface CommentsIframePageProps {
@@ -19,8 +20,7 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
 
   return (
     <div>
-      <h1>Комментарии для ДТП #{dtpId}</h1>
-      <p>всего: {comments.length}</p>
+      <CommentList />
       <p>
         {commentsArePaused ? (
           "Добавление новых комментариев приостановлено"
