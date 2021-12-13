@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";
 import { TextInput } from "./text-input";
 
@@ -13,6 +14,7 @@ const InputContainer = styled.div`
   order: 3;
   flex-grow: 0;
   margin: 16px 0px;
+  padding: 12px;
   align-items: center;
   justify-content: space-between;
 `;
@@ -20,6 +22,7 @@ const InputContainer = styled.div`
 export const CommentInput: React.VoidFunctionComponent = () => {
   return (
     <InputContainer>
+      <AvatarImage />
       <TextInput placeholder="Добавить комментарий..." />
       <Button>Отправить</Button>
     </InputContainer>
