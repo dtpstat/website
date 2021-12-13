@@ -13,7 +13,7 @@ const InputContainer = styled.div`
   flex: none;
   order: 3;
   flex-grow: 0;
-  margin: 16px 0px;
+  margin: 0 0 16px;
   padding: 12px;
   align-items: center;
   justify-content: space-between;
