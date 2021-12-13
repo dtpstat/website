@@ -32,7 +32,7 @@ const CommentInputComponent: React.VoidFunctionComponent<RootStoreProps> = ({
     <InputContainer>
       <AvatarImage />
       <TextInput placeholder="Добавить комментарий..." />
-      <Button onClick={() => rootStore!.commentStore!.addComment()}>
+      <Button onClick={() => rootStore!.commentStore.addComment()}>
         Отправить
       </Button>
     </InputContainer>
