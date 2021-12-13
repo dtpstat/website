@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 
 import { Comment } from "../types";
-import { CommentItem } from "./CommentItem";
+import { CommentItem } from "./comment-item";
 
 const comments: Comment[] = [
   {

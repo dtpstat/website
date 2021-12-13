@@ -1,7 +1,7 @@
 import Head from "next/head";
 import * as React from "react";
 
-import { CommentList } from "../components/CommentList";
+import { CommentList } from "../components/сomment-list";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {

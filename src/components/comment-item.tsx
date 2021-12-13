@@ -1,8 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
 
+import { formatDate } from "../shared/date-helpers";
 import { Comment } from "../types";
-import { formatDate } from "../utils/date_utils";
 
 const defaultAvatarImg =
   "https://gravatar.com/avatar/6ae852fa3a8b1c79dba3f7dc883c1760?s=200&d=mp&r=x";
