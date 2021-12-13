@@ -34,13 +34,12 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
     <div>
       <CommentsHeader>Комментарии - {comments.length}</CommentsHeader>
       <CommentList comments={comments} />
-      <p>
-        {commentsArePaused ? (
-          "Добавление новых комментариев приостановлено"
-        ) : (
-          <CommentInput />
-        )}
-      </p>
+
+      {commentsArePaused ? (
+        <p>Добавление новых комментариев приостановлено</p>
+      ) : (
+        <CommentInput />
+      )}
     </div>
   );
 };
