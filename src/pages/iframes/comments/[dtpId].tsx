@@ -3,6 +3,7 @@ import Error from "next/error";
 import * as React from "react";
 import styled from "styled-components";
 
+import { CommentInput } from "../../../components/comment-input";
 import { CommentList } from "../../../components/сomment-list";
 import { commentsArePaused } from "../../../shared/helpersForComments";
 import { Comment } from "../../../types";
@@ -33,13 +34,12 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
     <div>
       <CommentsHeader>Комментарии - {comments.length}</CommentsHeader>
       <CommentList comments={comments} />
-      <p>
-        {commentsArePaused ? (
-          "Добавление новых комментариев приостановлено"
-        ) : (
-          <button>добавить комментарий (пока не работает)</button>
-        )}
-      </p>
+
+      {commentsArePaused ? (
+        <p>Добавление новых комментариев приостановлено</p>
+      ) : (
+        <CommentInput />
+      )}
     </div>
   );
 };
