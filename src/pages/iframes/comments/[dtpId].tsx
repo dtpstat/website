@@ -33,7 +33,7 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
   return (
     <div>
       <CommentsHeader>Комментарии - {comments.length}</CommentsHeader>
-      <CommentList comments={comments} />
+      <CommentList />
 
       {commentsArePaused ? (
         <p>Добавление новых комментариев приостановлено</p>
@@ -43,23 +43,6 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
     </div>
   );
 };
-
-const comments: Comment[] = [
-  {
-    id: 1,
-    text: "информация о верификации данных, если координаты изменены при обработке (координаты отличаются от заявленных ГИБДД, но прошли подтверждение модератором).",
-    user: "Павел Кучерягин",
-    date: new Date().toUTCString(),
-    avatarUrl:
-      "https://robohash.org/6ae852fa3a8b1c79dba3f7dc883c1760?set=set4&bgset=&size=200x200",
-  },
-  {
-    id: 2,
-    text: "Оставленная пользователями дополнительная/уточняющая информация",
-    user: "Anna Kravtz",
-    date: new Date().toUTCString(),
-  },
-];
 
 export const getServerSideProps: GetServerSideProps<
   CommentsIframePageProps
@@ -73,7 +56,7 @@ export const getServerSideProps: GetServerSideProps<
     return {
       props: {
         dtpId,
-        comments, // TODO: Replace sample with fetched data
+        comments: [], // TODO: Replace sample with fetched data
       },
     };
   }
