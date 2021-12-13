@@ -3,20 +3,11 @@ import styled from "styled-components";
 
 import { formatDate } from "../shared/date-helpers";
 import { Comment } from "../types";
-
-const defaultAvatarImg =
-  "https://gravatar.com/avatar/6ae852fa3a8b1c79dba3f7dc883c1760?s=200&d=mp&r=x";
+import { AvatarImage } from "./avatar-image";
 
 export interface CommentItemProps {
   comment: Comment;
 }
-
-const AvatarImg = styled.img`
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  margin-right: 12px;
-`;
 
 const CommentText = styled.div`
   font-family: Roboto;
@@ -56,7 +47,7 @@ export const CommentItem: React.VoidFunctionComponent<CommentItemProps> = ({
 }) => {
   return (
     <CommentContainer>
-      <AvatarImg src={comment.avatarUrl ?? defaultAvatarImg} />
+      <AvatarImage src={comment.avatarUrl} />
       <div>
         <div>
           <CommentAuthor>{comment.user}</CommentAuthor>:{" "}
