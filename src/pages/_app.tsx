@@ -6,12 +6,14 @@ import * as React from "react";
 
 import { RootStore } from "../stores";
 
+const rootStore = new RootStore();
+
 const App: React.VoidFunctionComponent<AppProps> = ({
   Component,
   pageProps,
 }) => {
   return (
-    <Provider rootStore={RootStore}>
+    <Provider rootStore={rootStore}>
       <Component {...pageProps} />
     </Provider>
   );
