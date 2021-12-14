@@ -18,5 +18,5 @@ interface AvatarImageProps {
 export const AvatarImage: React.VoidFunctionComponent<AvatarImageProps> = ({
   src,
 }) => {
-  return <StyledImg src={src ?? defaultAvatarImg} />;
+  return <StyledImg src={src ? src : defaultAvatarImg} />;
 };
