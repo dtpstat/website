@@ -36,17 +36,18 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     setNewCommentText("");
   };
 
+  const handleTextChange = (event: ChangeEvent<HTMLInputElement>) =>
+    setNewCommentText(event.target.value);
+
   return (
     <InputContainer>
       <AvatarImage />
       <TextInput
         placeholder="Добавить комментарий..."
         value={newCommentText}
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          setNewCommentText(event.target.value)
-        }
+        onChange={handleTextChange}
       />
-      <Button onClick={() => handleSend()}>Отправить</Button>
+      <Button onClick={handleSend}>Отправить</Button>
     </InputContainer>
   );
 };
