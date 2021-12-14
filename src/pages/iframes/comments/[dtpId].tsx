@@ -4,7 +4,7 @@ import * as React from "react";
 import styled from "styled-components";
 
 import { CommentInput } from "../../../components/comment-input";
-import { CommentList } from "../../../components/comment-list";
+import { CommentList } from "../../../components/comment-list42";
 import { commentsArePaused } from "../../../shared/helpersForComments";
 import { Comment } from "../../../types";
 
