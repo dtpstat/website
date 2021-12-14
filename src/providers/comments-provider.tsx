@@ -13,8 +13,15 @@ const CommentsContext = React.createContext<CommentsContextValue | undefined>(
   undefined,
 );
 
-export const CommentsProvider: React.FunctionComponent = ({ children }) => {
-  const [comments, setComments] = React.useState<Comment[]>([]);
+export interface CommentsListProps {
+  comments: Comment[];
+}
+
+export const CommentsProvider: React.FunctionComponent<CommentsListProps> = ({
+  comments: initComments,
+  children,
+}) => {
+  const [comments, setComments] = React.useState<Comment[]>(initComments);
   const [newCommentText, setNewCommentText] = React.useState<string>("");
 
   const providerValue = React.useMemo<CommentsContextValue>(

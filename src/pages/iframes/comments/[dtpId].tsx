@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import { CommentInput } from "../../../components/comment-input";
 import { CommentList } from "../../../components/сomment-list";
+import { CommentsProvider } from "../../../providers/comments-provider";
 import { commentsArePaused } from "../../../shared/helpersForComments";
 import { Comment } from "../../../types";
 
@@ -31,16 +32,16 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
   }
 
   return (
-    <div>
+    <CommentsProvider comments={comments}>
       <CommentsHeader>Комментарии - {comments.length}</CommentsHeader>
-      <CommentList comments={comments} />
+      <CommentList />
 
       {commentsArePaused ? (
         <p>Добавление новых комментариев приостановлено</p>
       ) : (
         <CommentInput />
       )}
-    </div>
+    </CommentsProvider>
   );
 };
 
