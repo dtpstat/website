@@ -1,5 +1,5 @@
 import { GetServerSideProps, NextPage } from "next";
-// import Error from "next/error";
+import Error from "next/error";
 import * as React from "react";
 import styled from "styled-components";
 
@@ -26,45 +26,40 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
   dtpId,
   comments,
 }) => {
+  if (!dtpId || !comments) {
+    return <Error statusCode={404} />;
+  }
+
   return (
-    <CommentsHeader>
-      hello {dtpId}, {comments?.length}
-    </CommentsHeader>
+    <div>
+      <CommentsHeader>Комментарии - {comments.length}</CommentsHeader>
+      {/* <CommentList comments={comments} />
+
+      {commentsArePaused ? (
+        <p>Добавление новых комментариев приостановлено</p>
+      ) : (
+        <CommentInput />
+      )} */}
+    </div>
   );
-  // if (!dtpId || !comments) {
-  //   return <Error statusCode={404} />;
-  // }
-
-  // return (
-  //   <div>
-  //     <CommentsHeader>Комментарии - {comments.length}</CommentsHeader>
-  //     <CommentList comments={comments} />
-
-  //     {commentsArePaused ? (
-  //       <p>Добавление новых комментариев приостановлено</p>
-  //     ) : (
-  //       <CommentInput />
-  //     )}
-  //   </div>
-  // );
 };
 
-// const comments: Comment[] = [
-//   {
-//     id: 1,
-//     text: "информация о верификации данных, если координаты изменены при обработке (координаты отличаются от заявленных ГИБДД, но прошли подтверждение модератором).",
-//     user: "Павел Кучерягин",
-//     date: new Date().toUTCString(),
-//     avatarUrl:
-//       "https://robohash.org/6ae852fa3a8b1c79dba3f7dc883c1760?set=set4&bgset=&size=200x200",
-//   },
-//   {
-//     id: 2,
-//     text: "Оставленная пользователями дополнительная/уточняющая информация",
-//     user: "Anna Kravtz",
-//     date: new Date().toUTCString(),
-//   },
-// ];
+const comments: Comment[] = [
+  {
+    id: 1,
+    text: "информация о верификации данных, если координаты изменены при обработке (координаты отличаются от заявленных ГИБДД, но прошли подтверждение модератором).",
+    user: "Павел Кучерягин",
+    date: new Date().toUTCString(),
+    avatarUrl:
+      "https://robohash.org/6ae852fa3a8b1c79dba3f7dc883c1760?set=set4&bgset=&size=200x200",
+  },
+  {
+    id: 2,
+    text: "Оставленная пользователями дополнительная/уточняющая информация",
+    user: "Anna Kravtz",
+    date: new Date().toUTCString(),
+  },
+];
 
 export const getServerSideProps: GetServerSideProps<
   CommentsIframePageProps
@@ -78,7 +73,7 @@ export const getServerSideProps: GetServerSideProps<
     return {
       props: {
         dtpId,
-        comments: [],
+        comments,
       },
     };
   }
