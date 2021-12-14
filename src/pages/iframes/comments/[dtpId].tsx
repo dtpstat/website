@@ -1,10 +1,10 @@
 import { GetServerSideProps, NextPage } from "next";
 import Error from "next/error";
 import * as React from "react";
-import styled from "styled-components";
 
 import { CommentInput } from "../../../components/comment-input";
-import { CommentList } from "../../../components/сomment-list";
+import { CommentList } from "../../../components/comment-list";
+import { CommentsProvider } from "../../../providers/comments-provider";
 import { commentsArePaused } from "../../../shared/helpersForComments";
 import { Comment } from "../../../types";
 
@@ -12,15 +12,6 @@ export interface CommentsIframePageProps {
   dtpId?: number;
   comments?: Comment[];
 }
-
-const CommentsHeader = styled.h2`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 26px;
-  line-height: 40px;
-  color: #18334a;
-`;
 
 const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
   dtpId,
@@ -31,16 +22,15 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
   }
 
   return (
-    <div>
-      <CommentsHeader>Комментарии - {comments.length}</CommentsHeader>
-      <CommentList comments={comments} />
+    <CommentsProvider initComments={comments}>
+      <CommentList />
 
       {commentsArePaused ? (
         <p>Добавление новых комментариев приостановлено</p>
       ) : (
         <CommentInput />
       )}
-    </div>
+    </CommentsProvider>
   );
 };
 
