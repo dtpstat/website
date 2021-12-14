@@ -3,7 +3,7 @@ import Error from "next/error";
 import * as React from "react";
 
 import { CommentInput } from "../../../components/comment-input";
-import { CommentList } from "../../../components/сomment-list";
+import { CommentList } from "../../../components/comment-list";
 import { CommentsProvider } from "../../../providers/comments-provider";
 import { commentsArePaused } from "../../../shared/helpersForComments";
 import { Comment } from "../../../types";
