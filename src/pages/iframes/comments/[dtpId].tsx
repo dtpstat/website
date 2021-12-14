@@ -73,7 +73,7 @@ export const getServerSideProps: GetServerSideProps<
     return {
       props: {
         dtpId,
-        comments,
+        comments, // TODO: Replace sample with fetched data
       },
     };
   }

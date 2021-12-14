@@ -1,11 +1,7 @@
-// import "dayjs/locale/ru";
+import "dayjs/locale/ru";
 
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 
-// dayjs.locale("ru");
+dayjs.locale("ru");
 
-export const formatDate = (date: string) => {
-  void date;
-
-  return "tmp";
-};
+export const formatDate = (date: string) => dayjs(date).format("D MMMM YYYY");
