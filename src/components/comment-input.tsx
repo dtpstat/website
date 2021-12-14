@@ -25,7 +25,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
   const { setNewCommentText, newCommentText, comments, setComments } =
     useComments();
 
-  const onSend = () => {
+  const handleSend = () => {
     const comment: Comment = {
       id: comments.length,
       user: "anon",
@@ -42,11 +42,11 @@ export const CommentInput: React.VoidFunctionComponent = () => {
       <TextInput
         placeholder="Добавить комментарий..."
         value={newCommentText}
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setNewCommentText(e.target.value)
+        onChange={(event: ChangeEvent<HTMLInputElement>) =>
+          setNewCommentText(event.target.value)
         }
       />
-      <Button onClick={() => onSend()}>Отправить</Button>
+      <Button onClick={() => handleSend()}>Отправить</Button>
     </InputContainer>
   );
 };
