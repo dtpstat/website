@@ -3,9 +3,9 @@ import Error from "next/error";
 import * as React from "react";
 import styled from "styled-components";
 
-// import { CommentInput } from "../../../components/comment-input";
-import { CommentList } from "../../../components/сomment-list";
-// import { commentsArePaused } from "../../../shared/helpersForComments";
+import { CommentInput } from "../../../components/comment-input";
+import { CommentList } from "../../../components/comment-list";
+import { commentsArePaused } from "../../../shared/helpersForComments";
 import { Comment } from "../../../types";
 
 export interface CommentsIframePageProps {
@@ -35,11 +35,11 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
       <CommentsHeader>Комментарии - {comments.length}</CommentsHeader>
       <CommentList comments={comments} />
 
-      {/* {commentsArePaused ? (
+      {commentsArePaused ? (
         <p>Добавление новых комментариев приостановлено</p>
       ) : (
         <CommentInput />
-      )} */}
+      )}
     </div>
   );
 };
