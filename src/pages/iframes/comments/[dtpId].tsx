@@ -1,6 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import Error from "next/error";
 import * as React from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import styled from "styled-components";
 
 import { CommentInput } from "../../../components/comment-input";
@@ -33,7 +34,15 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
   return (
     <div>
       <CommentsHeader>Комментарии - {comments.length}</CommentsHeader>
-      <CommentList comments={comments} />
+      <ErrorBoundary
+        FallbackComponent={() => <>😵</>}
+        onError={(...args) => {
+          // eslint-disable-next-line no-console
+          console.log(args);
+        }}
+      >
+        <CommentList comments={comments} />
+      </ErrorBoundary>
 
       {commentsArePaused ? (
         <p>Добавление новых комментариев приостановлено</p>
