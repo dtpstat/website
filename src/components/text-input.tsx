@@ -16,13 +16,17 @@ const StyledInput = styled.input`
 `;
 
 interface TextInputProps {
-  placeholder: string;
+  placeholder?: string;
+  value?: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
 export const TextInput: React.VoidFunctionComponent<TextInputProps> = ({
   placeholder,
+  value,
   onChange,
 }) => {
-  return <StyledInput placeholder={placeholder} onChange={onChange} />;
+  return (
+    <StyledInput placeholder={placeholder} onChange={onChange} value={value} />
+  );
 };

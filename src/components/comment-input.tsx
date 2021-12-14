@@ -33,6 +33,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
       date: new Date().toUTCString(),
     };
     setComments([...comments, comment]);
+    setNewCommentText("");
   };
 
   return (
@@ -40,6 +41,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
       <AvatarImage />
       <TextInput
         placeholder="Добавить комментарий..."
+        value={newCommentText}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           setNewCommentText(e.target.value)
         }
