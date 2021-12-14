@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { Comment } from "../types";
-import { CommentItem } from "./comment-item";
+// import { CommentItem } from "./comment-item";
 
 export interface CommentsListProps {
   comments: Comment[];
@@ -13,9 +13,9 @@ export const CommentList: React.VoidFunctionComponent<CommentsListProps> = ({
   return (
     <div>
       hello {comments?.length}
-      {comments.map((comment: Comment) => {
+      {/* {comments.map((comment: Comment) => {
         return <CommentItem key={comment.id} comment={comment} />;
-      })}
+      })} */}
     </div>
   );
 };
