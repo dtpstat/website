@@ -14,11 +14,11 @@ const CommentsContext = React.createContext<CommentsContextValue | undefined>(
 );
 
 export interface CommentsListProps {
-  comments: Comment[];
+  initComments: Comment[];
 }
 
 export const CommentsProvider: React.FunctionComponent<CommentsListProps> = ({
-  comments: initComments,
+  initComments,
   children,
 }) => {
   const [comments, setComments] = React.useState<Comment[]>(initComments);

@@ -1,7 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import Error from "next/error";
 import * as React from "react";
-import styled from "styled-components";
 
 import { CommentInput } from "../../../components/comment-input";
 import { CommentList } from "../../../components/сomment-list";
@@ -14,15 +13,6 @@ export interface CommentsIframePageProps {
   comments?: Comment[];
 }
 
-const CommentsHeader = styled.h2`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 26px;
-  line-height: 40px;
-  color: #18334a;
-`;
-
 const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
   dtpId,
   comments,
@@ -32,8 +22,7 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
   }
 
   return (
-    <CommentsProvider comments={comments}>
-      <CommentsHeader>Комментарии - {comments.length}</CommentsHeader>
+    <CommentsProvider initComments={comments}>
       <CommentList />
 
       {commentsArePaused ? (
