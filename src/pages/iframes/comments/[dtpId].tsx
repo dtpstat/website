@@ -4,7 +4,7 @@ import * as React from "react";
 import styled from "styled-components";
 
 // import { CommentInput } from "../../../components/comment-input";
-// import { CommentList } from "../../../components/сomment-list";
+import { CommentList } from "../../../components/сomment-list";
 // import { commentsArePaused } from "../../../shared/helpersForComments";
 import { Comment } from "../../../types";
 
@@ -33,9 +33,9 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
   return (
     <div>
       <CommentsHeader>Комментарии - {comments.length}</CommentsHeader>
-      {/* <CommentList comments={comments} />
+      <CommentList comments={comments} />
 
-      {commentsArePaused ? (
+      {/* {commentsArePaused ? (
         <p>Добавление новых комментариев приостановлено</p>
       ) : (
         <CommentInput />
