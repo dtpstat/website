@@ -1,4 +1,5 @@
 import { useUser } from "@auth0/nextjs-auth0";
+import Link from "next/link";
 import * as React from "react";
 
 export const UserProfile: React.VoidFunctionComponent = () => {
@@ -14,10 +15,13 @@ export const UserProfile: React.VoidFunctionComponent = () => {
   return user ? (
     <div>
       <img src={user.picture || ""} alt={user.name || ""} />
-      <h2>{user.name}</h2>
+      <h4>{user.name}</h4>
       <p>{user.email}</p>
+      <Link href="/api/auth/logout">Logout</Link>
     </div>
   ) : (
-    <div>No user</div>
+    <div>
+      No user <Link href="/api/auth/login">Login</Link>
+    </div>
   );
 };

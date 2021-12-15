@@ -1,12 +1,10 @@
 import { UserProvider } from "@auth0/nextjs-auth0";
 import { GetServerSideProps, NextPage } from "next";
 import Error from "next/error";
-import Link from "next/link";
 import * as React from "react";
 
 import { CommentInput } from "../../../components/comment-input";
 import { CommentList } from "../../../components/comment-list";
-import { UserProfile } from "../../../components/user-profile";
 import { CommentsProvider } from "../../../providers/comments-provider";
 import { commentsArePaused } from "../../../shared/helpersForComments";
 import { Comment } from "../../../types";
@@ -26,9 +24,6 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
 
   return (
     <UserProvider>
-      <Link href="/api/auth/login">Login</Link>
-      <Link href="/api/auth/logout">Logout</Link>
-      <UserProfile />
       <CommentsProvider initComments={comments}>
         <CommentList />
 
