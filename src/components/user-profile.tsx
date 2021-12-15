@@ -1,6 +1,7 @@
 import { useUser } from "@auth0/nextjs-auth0";
-import Link from "next/link";
 import * as React from "react";
+
+import { Link } from "./link";
 
 export const UserProfile: React.VoidFunctionComponent = () => {
   const { user, error, isLoading } = useUser();
@@ -21,7 +22,7 @@ export const UserProfile: React.VoidFunctionComponent = () => {
     </div>
   ) : (
     <div>
-      No user <Link href="/api/auth/login">Login</Link>
+      <Link href="/api/auth/login">Login</Link>
     </div>
   );
 };
