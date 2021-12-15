@@ -1,13 +1,22 @@
 import NextLink from "next/link";
+import React from "react";
 import styled from "styled-components";
 
-export const Link = styled(NextLink)`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 24px;
-  text-align: center;
-  letter-spacing: 0.15px;
+const StyledLink = styled.a`
   text-decoration: underline;
 `;
+
+interface LinkProps {
+  href: string;
+}
+
+export const Link: React.FunctionComponent<LinkProps> = ({
+  href,
+  children,
+}) => {
+  return (
+    <NextLink href={href} passHref={true}>
+      <StyledLink>{children}</StyledLink>
+    </NextLink>
+  );
+};
