@@ -1,10 +1,12 @@
-import { UserProvider, useUser } from "@auth0/nextjs-auth0";
+import { UserProvider } from "@auth0/nextjs-auth0";
 import { GetServerSideProps, NextPage } from "next";
 import Error from "next/error";
+import Link from "next/link";
 import * as React from "react";
 
 import { CommentInput } from "../../../components/comment-input";
 import { CommentList } from "../../../components/comment-list";
+import { UserProfile } from "../../../components/user-profile";
 import { CommentsProvider } from "../../../providers/comments-provider";
 import { commentsArePaused } from "../../../shared/helpersForComments";
 import { Comment } from "../../../types";
@@ -13,27 +15,6 @@ export interface CommentsIframePageProps {
   dtpId?: number;
   comments?: Comment[];
 }
-
-const Profile: React.VoidFunctionComponent = () => {
-  const { user, error, isLoading } = useUser();
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    return <div>{error.message}</div>;
-  }
-
-  return user ? (
-    <div>
-      <img src={user.picture || ""} alt={user.name || ""} />
-      <h2>{user.name}</h2>
-      <p>{user.email}</p>
-    </div>
-  ) : (
-    <div>No user</div>
-  );
-};
 
 const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
   dtpId,
@@ -45,9 +26,9 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
 
   return (
     <UserProvider>
-      <a href="/api/auth/login">Login</a>
-      <a href="/api/auth/logout">Logout</a>
-      <Profile />
+      <Link href="/api/auth/login">Login</Link>
+      <Link href="/api/auth/logout">Logout</Link>
+      <UserProfile />
       <CommentsProvider initComments={comments}>
         <CommentList />
 
