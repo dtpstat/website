@@ -1,8 +1,8 @@
 import { UserProvider } from "@auth0/nextjs-auth0";
 import Head from "next/head";
-import Link from "next/link";
 import * as React from "react";
 
+import { Link } from "../components/link";
 import { UserProfile } from "../components/user-profile";
 import styles from "../styles/Home.module.css";
 
