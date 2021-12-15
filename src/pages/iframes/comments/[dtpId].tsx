@@ -1,3 +1,4 @@
+import { UserProvider, useUser } from "@auth0/nextjs-auth0";
 import { GetServerSideProps, NextPage } from "next";
 import Error from "next/error";
 import * as React from "react";
@@ -13,6 +14,27 @@ export interface CommentsIframePageProps {
   comments?: Comment[];
 }
 
+const Profile: React.VoidFunctionComponent = () => {
+  const { user, error, isLoading } = useUser();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
+  return user ? (
+    <div>
+      <img src={user.picture || ""} alt={user.name || ""} />
+      <h2>{user.name}</h2>
+      <p>{user.email}</p>
+    </div>
+  ) : (
+    <div>No user</div>
+  );
+};
+
 const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
   dtpId,
   comments,
@@ -22,15 +44,20 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
   }
 
   return (
-    <CommentsProvider initComments={comments}>
-      <CommentList />
+    <UserProvider>
+      <a href="/api/auth/login">Login</a>
+      <a href="/api/auth/logout">Logout</a>
+      <Profile />
+      <CommentsProvider initComments={comments}>
+        <CommentList />
 
-      {commentsArePaused ? (
-        <p>Добавление новых комментариев приостановлено</p>
-      ) : (
-        <CommentInput />
-      )}
-    </CommentsProvider>
+        {commentsArePaused ? (
+          <p>Добавление новых комментариев приостановлено</p>
+        ) : (
+          <CommentInput />
+        )}
+      </CommentsProvider>
+    </UserProvider>
   );
 };
 
