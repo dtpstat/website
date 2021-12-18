@@ -1,4 +1,3 @@
-import { UserProvider } from "@auth0/nextjs-auth0";
 import { GetServerSideProps, NextPage } from "next";
 import Error from "next/error";
 import * as React from "react";
@@ -23,17 +22,15 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
   }
 
   return (
-    <UserProvider>
-      <CommentsProvider initComments={comments}>
-        <CommentList />
+    <CommentsProvider initComments={comments}>
+      <CommentList />
 
-        {commentsArePaused ? (
-          <p>Добавление новых комментариев приостановлено</p>
-        ) : (
-          <CommentInput />
-        )}
-      </CommentsProvider>
-    </UserProvider>
+      {commentsArePaused ? (
+        <p>Добавление новых комментариев приостановлено</p>
+      ) : (
+        <CommentInput />
+      )}
+    </CommentsProvider>
   );
 };
 
