@@ -5,6 +5,7 @@ import * as React from "react";
 import { CommentInput } from "../../../components/comment-input";
 import { CommentList } from "../../../components/comment-list";
 import { CommentsProvider } from "../../../providers/comments-provider";
+import { getComments } from "../../../providers/prisma-provider";
 import { commentsArePaused } from "../../../shared/helpersForComments";
 import { Comment } from "../../../types";
 
@@ -57,6 +58,8 @@ export const getServerSideProps: GetServerSideProps<
   const rawDtpId = `${params?.dtpId}`;
   const parsedDtpId = parseInt(rawDtpId);
   const dtpId = `${parsedDtpId}` === rawDtpId ? parsedDtpId : 0;
+
+  await getComments();
 
   if (dtpId > 0) {
     // TODO: Check dtp id presence and return { notFound: true } on failure
