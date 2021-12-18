@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { NextApiHandler } from "next";
 
 let prisma: PrismaClient;
 
@@ -11,7 +12,7 @@ if (process.env.NODE_ENV === "production") {
   prisma = global.prisma;
 }
 
-export const getComments = async () => {
+const getComments = async () => {
   const comments = await prisma.comments.findMany({});
   const commentOne = comments[0];
   const users = await prisma.users.findMany({
@@ -22,3 +23,9 @@ export const getComments = async () => {
 
   return [commentOne];
 };
+
+const handler: NextApiHandler = async (req, res) => {
+  res.status(200).json({ comments: await getComments() });
+};
+
+export default handler;

@@ -7,7 +7,6 @@ import { CommentList } from "../../../components/comment-list";
 import { CommentsProvider } from "../../../providers/comments-provider";
 import { commentsArePaused } from "../../../shared/helpersForComments";
 import { Comment } from "../../../types";
-import { getComments } from "../../api/comments";
 
 export interface CommentsIframePageProps {
   dtpId?: number;
@@ -42,7 +41,8 @@ export const getServerSideProps: GetServerSideProps<
   const parsedDtpId = parseInt(rawDtpId);
   const dtpId = `${parsedDtpId}` === rawDtpId ? parsedDtpId : 0;
 
-  const comments = await getComments();
+  const res = await fetch(`${process.env.AUTH0_BASE_URL}/api/comments`);
+  const { comments } = await res.json();
 
   if (dtpId > 0) {
     // TODO: Check dtp id presence and return { notFound: true } on failure
