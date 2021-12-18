@@ -34,6 +34,7 @@
     "eslint-plugin-testing-library": "^5.0.0"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^1.6.1",
     "dayjs": "^1.10.7",
     "next": "^12.0.7",
     "react": "^17.0.2",
