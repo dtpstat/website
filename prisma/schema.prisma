@@ -9,14 +9,14 @@ datasource db {
 
 model comments {
   id          Int       @id @default(autoincrement())
-  user_id     Int?
+  userId     Int?
   text        String?
-  create_date DateTime? @db.Date
+  createDate DateTime? @db.Date
 }
 
 model users {
   id         Int     @id @default(autoincrement())
   name       String?
   email      String?
-  avatar_url String?
+  avatarUrl String?
 }

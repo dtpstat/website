@@ -1,7 +1,13 @@
 export interface Comment {
   id: number;
   text: string;
-  user?: string;
+  user: User;
+  createDate: string;
+}
+
+export interface User {
+  id: number;
+  name: string;
+  email: string;
   avatarUrl?: string;
-  date: string;
 }
