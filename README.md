@@ -30,19 +30,19 @@ Example for local development on the host **http://localhost:3000** and staging 
 
     ***
 
-Allowed Callback URLs:
+    Allowed Callback URLs:
 
-`http://localhost:3000/api/auth/callback, https://*--dtp-map.netlify.app/api/auth/callback`
+    `http://localhost:3000/api/auth/callback, https://*--dtp-map.netlify.app/api/auth/callback`
 
-Allowed Logout URLs:
+    Allowed Logout URLs:
 
-`http://localhost:3000, https://*--dtp-map.netlify.app/`
+    `http://localhost:3000, https://*--dtp-map.netlify.app/`
 
-Allowed Web Origins:
+    Allowed Web Origins:
 
-`http://localhost:3000, https://*--dtp-map.netlify.app/`
+    `http://localhost:3000, https://*--dtp-map.netlify.app/`
 
----
+    ***
 
 1.  Get the auth0 application values: **DOMAIN, CLIENT_ID, CLIENT_SECRET**
 
