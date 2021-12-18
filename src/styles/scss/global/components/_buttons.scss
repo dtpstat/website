@@ -1,0 +1,300 @@
+.btn {
+  align-items: center;
+  border-radius: 20px;
+  display: flex;
+  font-weight: 500;
+  line-height: 1.5rem;
+  padding: 4px 12px;
+  position: relative;
+  transition: color 0.3s ease-in-out, background 0.3s ease-in-out;
+  @include mq('768') {
+    padding: 6px 16px;
+  }
+}
+
+.btn-light {
+  @extend .btn;
+  background: $greyMiddle;
+  color: $greyDark;
+  &:hover,
+  &:focus {
+    background: $grey20;
+    box-shadow: none;
+  }
+}
+
+.btn-dark {
+  @extend .btn;
+  background: $greyDark;
+  color: $white;
+  &:hover,
+  &:focus {
+    background: $grey70;
+    box-shadow: none;
+  }
+}
+
+.btn-hideFilter {
+  @extend .btn;
+  margin: auto auto 0 auto;
+  align-items: center;
+  background: $greyMiddle;
+  display: flex;
+  &:hover,
+  &:focus {
+    background-color: $grey20;
+    box-shadow: none;
+  }
+  .icon-arrow-up {
+    width: 12px;
+    height: 8px;
+    margin-right: 12px;
+    pointer-events: none;
+  }
+}
+
+.btn-search {
+  border-radius: 50%;
+  position: relative;
+  padding: 0;
+  padding: 9px 10px 8px 10px;
+  background-color: transparent;
+
+  &:hover,
+  &:focus {
+    box-shadow: none;
+    .icon-search {
+      stroke: $black;
+    }
+  }
+
+  .icon-search {
+    fill: none;
+    stroke: $greyDark;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.btn-rect {
+  align-items: center;
+  background-color: $greyLight;
+  border-radius: 8px;
+  color: $greyDark;
+  display: flex;
+  font-weight: normal;
+  outline: none;
+  padding: 7px 8px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+
+  &:hover {
+    color: $white;
+    background-color: $grey70;
+  }
+}
+
+.btn-layers {
+  align-items: center;
+  background-color: $white;
+  border-radius: 50%;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  width: 40px;
+
+  &:hover,
+  &:focus {
+    background-color: $greyDark;
+    .icon-layers {
+      fill: $white;
+    }
+  }
+
+  .icon-layers {
+    fill: $grey70;
+    height: 17px;
+    pointer-events: none;
+    transition: fill 0.3s ease;
+    width: 17px;
+  }
+}
+
+.btn-question {
+  align-items: center;
+  background: $grey20;
+  border-radius: 50%;
+  display: flex;
+  height: 18px;
+  justify-content: center;
+  padding: 0;
+  position: relative;
+  transition: background 0.3s ease;
+  width: 18px;
+
+  &:hover,
+  &:focus {
+    background: $grey50;
+    .icon-question {
+      fill: $greyLight;
+    }
+    .tooltip {
+      opacity: 1;
+    }
+  }
+
+  .icon-question {
+    fill: $white;
+    height: 60%;
+    pointer-events: none;
+    transition: fill 0.3s ease;
+    width: 60%;
+  }
+}
+
+.btn-location {
+  align-items: center;
+  background-color: $white;
+  border-radius: 50%;
+  box-shadow: 0px 3px 7px #d4dadd;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  pointer-events: all;
+  transition: background 0.3s ease;
+  width: 40px;
+
+  &:hover,
+  &:focus {
+    background-color: $greyDark;
+    .icon-location-arrow {
+      fill: $white;
+    }
+  }
+
+  .icon-location-arrow {
+    fill: $grey70;
+    height: 19px;
+    margin-right: 2px;
+    transition: fill 0.3s ease;
+    width: 19px;
+  }
+}
+
+.btn-minus {
+  background-color: $white;
+  border-radius: 50%;
+  border-radius: 6px;
+  height: 24px;
+  padding: 0;
+  position: relative;
+  transition: box-shadow 0.3s ease;
+  width: 24px;
+
+  &:hover,
+  &:focus {
+    outline: 0;
+    box-shadow: 0 0 0 1px #ccd2d7;
+  }
+
+  &:before {
+    background-color: $greyDark;
+    border-radius: 6px;
+    content: '';
+    display: inline-block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 67%;
+  }
+}
+
+.btn-plus {
+  @extend .btn-minus;
+  &:after {
+    background-color: $greyDark;
+    border-radius: 6px;
+    content: '';
+    display: inline-block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+    width: 67%;
+  }
+}
+
+.btn-gallery {
+  align-items: flex-end;
+  background-color: $greyLight;
+  border-radius: 8px;
+  display: flex;
+  flex-shrink: 0;
+  height: 100px;
+  justify-content: flex-end;
+  overflow: hidden;
+  padding: 0;
+  width: 100px;
+  margin-top: -80px;
+  box-shadow: 0px 0px 54px rgba(9, 42, 70, 0.11), 0px 0px 16.28px rgba(9, 42, 70, 0.0716748),
+    0px 0px 6.76164px rgba(9, 42, 70, 0.055), 0px 0px 2.45px rgba(9, 42, 70, 0.038);
+
+  @include mq('768') {
+    width: 240px;
+    height: 240px;
+  }
+
+  .gallery-count {
+    align-items: center;
+    background: rgba($greyDark, 0.7);
+    border-radius: 8px 0px;
+    color: $white;
+    display: flex;
+    padding: 6px 8px;
+
+    .icon-photo {
+      fill: $white;
+      height: 12px;
+      margin-right: 9px;
+      width: 15px;
+    }
+  }
+}
+
+.btn-viewmap {
+  align-items: center;
+  background-color: rgba($white, 0.85);
+  border-radius: 20px;
+  box-shadow: 0px -0.83px 3.3px rgba(0, 0, 0, 0.04), 0px 5px 11.67px rgba(0, 0, 0, 0.2);
+  color: $greyDark;
+  display: flex;
+  flex-shrink: 0;
+  font-weight: 500;
+  margin-top: -74px;
+  padding: 10px 16px;
+  position: absolute;
+  right: 10px;
+  transition: background-color 0.3s ease;
+
+  @include mq('768') {
+    position: relative;
+    right: initial;
+  }
+
+  &:hover {
+    background-color: $white;
+  }
+
+  .icon-map {
+    height: 17px;
+    margin-right: 8px;
+    stroke-width: 2;
+    stroke: $greyDark;
+    width: 18px;
+  }
+}

@@ -1,0 +1,84 @@
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.category-tag {
+  align-items: center;
+  display: flex;
+  margin-bottom: 12px;
+  margin-right: 8px;
+  transition: background-color 0.3s ease;
+  outline: none;
+
+  &.active {
+    .btn-rect {
+      color: $white;
+      background-color: $grey70;
+      border-radius: 4px 0 0 4px;
+    }
+    .btn-decline {
+      display: block;
+      background-color: $grey70;
+      border-radius: 0 4px 4px 0;
+    }
+  }
+
+  button {
+    &:focus,
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
+  .btn-rect {
+    align-self: stretch;
+    border-radius: 4px;
+    &:hover,
+    &:focus {
+      color: $white;
+      background-color: $grey50;
+    }
+  }
+
+  .btn-decline {
+    align-self: stretch;
+    display: none;
+    padding: 7px 10px 7px 10px;
+    &:hover,
+    &:focus {
+      background-color: $grey50;
+    }
+  }
+
+  .icon-decline {
+    height: 12px;
+    opacity: 0.5;
+    pointer-events: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2px;
+    stroke: $white;
+    transition: opacity 0.3s ease, stroke 0.3s ease;
+    width: 12px;
+  }
+}
+
+.category-item__draw {
+  @extend .category-tag;
+  position: relative;
+  .icon-edit {
+    fill: $greyDark;
+    height: 17px;
+    left: 10px;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: fill 0.3s ease;
+    width: 17px;
+  }
+  .btn-rect {
+    padding-left: 36px;
+  }
+}
