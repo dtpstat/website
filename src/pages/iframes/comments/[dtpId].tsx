@@ -5,6 +5,7 @@ import * as React from "react";
 import { CommentInput } from "../../../components/comment-input";
 import { CommentList } from "../../../components/comment-list";
 import { CommentsProvider } from "../../../providers/comments-provider";
+import { commentsApiUrl } from "../../../shared/api-helpers";
 import { commentsArePaused } from "../../../shared/helpersForComments";
 import { Comment } from "../../../types";
 
@@ -41,7 +42,7 @@ export const getServerSideProps: GetServerSideProps<
   const parsedDtpId = parseInt(rawDtpId);
   const dtpId = `${parsedDtpId}` === rawDtpId ? parsedDtpId : 0;
 
-  const res = await fetch(`${process.env.AUTH0_BASE_URL}/api/comments`);
+  const res = await fetch(commentsApiUrl);
   const { comments } = await res.json();
 
   if (dtpId > 0) {
