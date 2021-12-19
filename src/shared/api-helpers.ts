@@ -1,9 +1,10 @@
 export const apiEndPoints = {
-  COMMENT: "comments",
+  COMMENTS: "comments",
 };
 
-export const apiUrl = (endpoint: string): string => {
-  return `${process.env.AUTH0_BASE_URL}/api/${endpoint}`;
+export const getApiUrl = (baseUrl: string, endpoint: string): string => {
+  return `${baseUrl}/api/${endpoint}`;
 };
 
-export const commentsApiUrl = apiUrl(apiEndPoints.COMMENT);
+export const getCommentsApiUrl = (baseUrl: string) =>
+  getApiUrl(baseUrl, apiEndPoints.COMMENTS);
