@@ -2,6 +2,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 import React, { ChangeEvent } from "react";
 import styled from "styled-components";
 
+import { postComment } from "../fetch/comments";
 import { useComments } from "../providers/comments-provider";
 import { Comment } from "../types";
 import { AvatarImage } from "./avatar-image";
@@ -25,22 +26,30 @@ const InputContainer = styled.div`
 
 export const CommentInput: React.VoidFunctionComponent = () => {
   const { user } = useUser();
-  const { setNewCommentText, newCommentText, comments, setComments } =
-    useComments();
+  const {
+    setNewCommentText,
+    newCommentText,
+    comments,
+    setComments,
+    commentsApiUrl,
+  } = useComments();
 
   const userPicture = (user && user.picture) || undefined;
-  const userName = (user && user.name) || "Anonymous";
 
-  const handleSend = () => {
-    const comment: Comment = {
-      id: comments.length + 1,
-      user: userName,
+  const handleSend = async () => {
+    const newComment: Comment = {
+      auth0userSub: user!.sub as string,
       text: newCommentText,
-      date: new Date().toUTCString(),
-      avatarUrl: userPicture,
     };
-    setComments([...comments, comment]);
-    setNewCommentText("");
+
+    try {
+      const comment = await postComment(commentsApiUrl, newComment);
+      setComments([...comments, comment]);
+
+      setNewCommentText("");
+    } catch (error) {
+      // TODO: handleError(error);
+    }
   };
 
   const handleTextChange = (event: ChangeEvent<HTMLInputElement>) =>
