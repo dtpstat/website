@@ -4,26 +4,32 @@ import * as React from "react";
 
 import { CommentInput } from "../../../components/comment-input";
 import { CommentList } from "../../../components/comment-list";
+import { fetchComments } from "../../../fetch/comments";
 import { CommentsProvider } from "../../../providers/comments-provider";
-import { commentsApiUrl } from "../../../shared/api-helpers";
+import { getCommentsApiUrl } from "../../../shared/api-helpers";
 import { commentsArePaused } from "../../../shared/helpersForComments";
 import { Comment } from "../../../types";
 
 export interface CommentsIframePageProps {
   dtpId?: number;
   comments?: Comment[];
+  baseUrl: any;
 }
 
 const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
   dtpId,
   comments,
+  baseUrl,
 }) => {
   if (!dtpId || !comments) {
     return <Error statusCode={404} />;
   }
 
   return (
-    <CommentsProvider initComments={comments}>
+    <CommentsProvider
+      initComments={comments}
+      initCommentsApiUrl={getCommentsApiUrl(baseUrl)}
+    >
       <CommentList />
 
       {commentsArePaused ? (
@@ -42,8 +48,8 @@ export const getServerSideProps: GetServerSideProps<
   const parsedDtpId = parseInt(rawDtpId);
   const dtpId = `${parsedDtpId}` === rawDtpId ? parsedDtpId : 0;
 
-  const res = await fetch(commentsApiUrl);
-  const { comments } = await res.json();
+  const baseUrl = global.process.env.AUTH0_BASE_URL as string;
+  const comments = await fetchComments(baseUrl);
 
   if (dtpId > 0) {
     // TODO: Check dtp id presence and return { notFound: true } on failure
@@ -51,6 +57,7 @@ export const getServerSideProps: GetServerSideProps<
       props: {
         dtpId,
         comments,
+        baseUrl,
       },
     };
   }
