@@ -8,15 +8,16 @@ datasource db {
 }
 
 model comments {
-  id          Int       @id @default(autoincrement())
-  userId     Int?
-  text        String?
-  createDate DateTime? @db.Date
+  id           Int       @id @default(autoincrement())
+  text         String?
+  createDate   DateTime? @db.Date
+  auth0userSub String? @db.VarChar
 }
 
 model users {
-  id         Int     @id @default(autoincrement())
-  name       String?
-  email      String?
-  avatarUrl String?
+  id           Int     @id @default(autoincrement())
+  name         String?
+  email        String?
+  avatarUrl    String?
+  auth0userSub String? @db.VarChar
 }
