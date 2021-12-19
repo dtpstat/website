@@ -7,6 +7,8 @@ interface CommentsContextValue {
   setNewCommentText: React.Dispatch<React.SetStateAction<string>>;
   comments: Comment[];
   setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
+  commentsApiUrl: string;
+  setCommentsApiUrl: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const CommentsContext = React.createContext<CommentsContextValue | undefined>(
@@ -15,14 +17,18 @@ const CommentsContext = React.createContext<CommentsContextValue | undefined>(
 
 export interface CommentsListProps {
   initComments: Comment[];
+  initCommentsApiUrl: string;
 }
 
 export const CommentsProvider: React.FunctionComponent<CommentsListProps> = ({
   initComments,
+  initCommentsApiUrl,
   children,
 }) => {
   const [comments, setComments] = React.useState<Comment[]>(initComments);
   const [newCommentText, setNewCommentText] = React.useState<string>("");
+  const [commentsApiUrl, setCommentsApiUrl] =
+    React.useState<string>(initCommentsApiUrl);
 
   const providerValue = React.useMemo<CommentsContextValue>(
     () => ({
@@ -30,8 +36,17 @@ export const CommentsProvider: React.FunctionComponent<CommentsListProps> = ({
       setNewCommentText,
       comments,
       setComments,
+      commentsApiUrl,
+      setCommentsApiUrl,
     }),
-    [newCommentText, setNewCommentText, comments, setComments],
+    [
+      newCommentText,
+      setNewCommentText,
+      comments,
+      setComments,
+      commentsApiUrl,
+      setCommentsApiUrl,
+    ],
   );
 
   return (
