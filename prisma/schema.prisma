@@ -7,17 +7,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model comments {
-  id           Int       @id @default(autoincrement())
+model Comment {
+  id           Int        @id @default(autoincrement())
   text         String?
-  createDate   DateTime? @db.Date
-  auth0userSub String? @db.VarChar
+  createDate   DateTime?  @db.Date
+  authorId     String     @db.VarChar
+  author       User       @relation(fields: [authorId], references: [auth0userSub])
 }
 
-model users {
-  id           Int     @id @default(autoincrement())
+model User {
+  @@id([auth0userSub])
   name         String?
   email        String?
   avatarUrl    String?
-  auth0userSub String? @db.VarChar
+  auth0userSub String     @db.VarChar
+  comments     Comment[]
 }

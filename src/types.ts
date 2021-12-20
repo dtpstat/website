@@ -1,8 +1,8 @@
 export interface Comment {
   id?: number;
   text?: string;
-  auth0userSub?: string;
-  user?: User;
+  authorId?: string;
+  author?: User;
   createDate?: string;
 }
 
