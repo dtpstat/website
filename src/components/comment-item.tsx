@@ -47,11 +47,13 @@ export const CommentItem: React.VoidFunctionComponent<CommentItemProps> = ({
 }) => {
   return (
     <CommentContainer>
-      <AvatarImage src={comment.user && comment.user!.avatarUrl} />
+      <AvatarImage src={comment.author && comment.author!.avatarUrl} />
       <div>
         <div>
-          <CommentAuthor>{comment.user && comment.user!.name}</CommentAuthor>:{" "}
-          <CommentDate>{formatDate(comment.createDate)}</CommentDate>
+          <CommentAuthor>
+            {comment.author && comment.author!.name}
+          </CommentAuthor>
+          : <CommentDate>{formatDate(comment.createDate)}</CommentDate>
         </div>
         <CommentText>{comment.text}</CommentText>
       </div>

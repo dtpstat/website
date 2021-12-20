@@ -37,8 +37,12 @@ export const CommentInput: React.VoidFunctionComponent = () => {
   const userPicture = (user && user.picture) || undefined;
 
   const handleSend = async () => {
+    if (!user) {
+      throw Error("no user");
+    }
+
     const newComment: Comment = {
-      auth0userSub: user!.sub as string,
+      authorId: user.sub as string,
       text: newCommentText,
     };
 
