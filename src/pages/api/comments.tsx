@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { randomInt } from "crypto";
 import { NextApiHandler } from "next";
 
 import { Comment, User } from "../../types";
@@ -39,13 +38,13 @@ const getUser = async (auth0userSub?: string): Promise<User> => {
 };
 
 const addComment = async (newComment: Comment) => {
+  const comment: Comment = await prisma.comments.create({
+    data: {
+      ...newComment,
+    } as Comment,
+  });
   const user = await getUser(newComment.auth0userSub);
-  const comment: Comment = {
-    ...newComment,
-    id: randomInt(100000),
-    createDate: new Date().toUTCString(),
-    user,
-  };
+  comment.user = user;
 
   return comment;
 };
