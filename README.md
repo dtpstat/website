@@ -18,7 +18,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 NEXT_PUBLIC_COMMENTS_ARE_PAUSED=true
 ```
 
-## Authorization configuration
+## Configuration
+
+### Authorization with auth0
 
 Example for local development on the host **http://localhost:3000** and staging server **https://1--dtp-map.netlify.app**.
 
@@ -46,7 +48,7 @@ Example for local development on the host **http://localhost:3000** and staging 
 
 1.  Get the auth0 application values: **DOMAIN, CLIENT_ID, CLIENT_SECRET**
 
-1.  Create file **.env.local** and fill it with information:
+1.  Create file **.env** using template **.env.example** and fill it with auth0 information:
 
 ```ini
 AUTH0_SECRET='replace-with-your-own-secret-generated-with-openssl'
@@ -56,4 +58,22 @@ AUTH0_CLIENT_ID='{CLIENT_ID}'
 AUTH0_CLIENT_SECRET='{CLIENT_SECRET}'
 AUTH0_AUDIENCE=
 AUTH0_SCOPE='openid profile'
+```
+
+### Database
+
+1.  Create any [prisma-supported database](https://www.prisma.io/docs/concepts/overview) any localhost or online (tested with [Heroku/PostgreSQL](https://www.heroku.com/postgres)).
+
+1.  Update file **.env** with database url information:
+
+```ini
+DATABASE_URL="postgres://user:password@host:5432/db"
+...
+```
+
+1.  Apply the db schema:
+
+```sh
+yarn prisma generate
+yarn prisma db push
 ```
