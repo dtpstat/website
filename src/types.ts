@@ -1,7 +1,7 @@
 import { Comment as PrismaComment, User } from "@prisma/client";
 
 export interface NewComment {
-  id: number | undefined;
+  id?: number;
   text?: string;
   authorId: string;
 }
