@@ -50,6 +50,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
       // }
     }
     const newComment: NewComment = {
+      id: undefined,
       authorId: user.sub as string,
       text: newCommentText,
     };
