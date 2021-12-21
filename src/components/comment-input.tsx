@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { postComment } from "../fetch/comments";
 import { useComments } from "../providers/comments-provider";
-import { Comment } from "../types";
+import { NewComment } from "../types";
 import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";
 import { Link } from "./link";
@@ -49,8 +49,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
       //   await postUser(userProfileToUser(user));
       // }
     }
-
-    const newComment: Comment = {
+    const newComment: NewComment = {
       authorId: user.sub as string,
       text: newCommentText,
     };
