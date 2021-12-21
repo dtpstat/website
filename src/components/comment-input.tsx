@@ -25,7 +25,6 @@ const InputContainer = styled.div`
 `;
 
 export const CommentInput: React.VoidFunctionComponent = () => {
-  const { user } = useUser();
   const {
     setNewCommentText,
     newCommentText,
@@ -34,11 +33,21 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     commentsApiUrl,
   } = useComments();
 
+  const { user } = useUser();
+
   const userPicture = (user && user.picture) || undefined;
 
   const handleSend = async () => {
     if (!user) {
       throw Error("no user");
+    } else {
+      // TODO: If user exists create it or update in the db
+      // const { user } = await getUser(user.sub as string);
+      // if (user) {
+      //   await patchUser(userProfileToUser(user));
+      // } else {
+      //   await postUser(userProfileToUser(user));
+      // }
     }
 
     const newComment: Comment = {
