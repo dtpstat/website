@@ -2,11 +2,16 @@ import { Comment as PrismaComment, User } from "@prisma/client";
 
 export interface NewComment {
   text?: string;
-  authorId?: string;
+  authorId: string;
+}
+
+export interface CommentUser {
+  avatarUrl?: string | null;
+  name?: string | null;
 }
 
 interface Comment extends PrismaComment {
-  author?: User;
+  author?: CommentUser;
 }
 
 export type { Comment, User };

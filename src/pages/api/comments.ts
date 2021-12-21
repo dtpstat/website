@@ -1,7 +1,7 @@
 import { NextApiHandler } from "next";
 
 import { prisma } from "../../shared/prisma-helper";
-import { Comment } from "../../types";
+import { Comment, NewComment } from "../../types";
 import { getUser } from "./users";
 
 const getComments = async () => {
@@ -22,7 +22,7 @@ const getComments = async () => {
   return comments;
 };
 
-const createComment = async (newComment: Comment) => {
+const createComment = async (newComment: NewComment) => {
   const user = await getUser(newComment.authorId);
 
   if (!user) {
