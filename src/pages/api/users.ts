@@ -29,10 +29,10 @@ const updateUser = async (updatedUser: User): Promise<User> => {
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method === "POST") {
-    const user = await createUser(JSON.parse(req.body) as User);
+    const user = await createUser(JSON.parse(req.body));
     res.status(200).json({ user });
   } else if (req.method === "PATCH") {
-    const user = await updateUser(JSON.parse(req.body) as User);
+    const user = await updateUser(JSON.parse(req.body));
     res.status(200).json({ user });
   } else {
     res.status(200).json({ user: await getUser() });

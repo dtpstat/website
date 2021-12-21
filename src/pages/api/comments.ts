@@ -32,7 +32,7 @@ const createComment = async (newComment: Comment) => {
   const comment: Comment = await prisma.comment.create({
     data: {
       ...newComment,
-    } as Comment,
+    },
     include: {
       author: {
         select: {
@@ -48,7 +48,7 @@ const createComment = async (newComment: Comment) => {
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method === "POST") {
-    const comment = await createComment(JSON.parse(req.body) as Comment);
+    const comment = await createComment(JSON.parse(req.body));
     res.status(200).json({ comment });
   } else {
     res.status(200).json({ comments: await getComments() });
