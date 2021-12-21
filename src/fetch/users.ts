@@ -1,8 +1,8 @@
-import { getUsersApiUrl } from "../shared/api-helpers";
+import { buildUsersApiUrl } from "../shared/api-helpers";
 import { User } from "../types";
 
 export const fetchUsers = async (baseUrl: string) => {
-  const usersApiUrl = getUsersApiUrl(baseUrl);
+  const usersApiUrl = buildUsersApiUrl(baseUrl);
   const res = await fetch(usersApiUrl);
   const { users } = await res.json();
 
@@ -10,9 +10,10 @@ export const fetchUsers = async (baseUrl: string) => {
 };
 
 export const postUser = async (
-  usersApiUrl: string,
+  baseUrl: string,
   newUser: User,
 ): Promise<Comment> => {
+  const usersApiUrl = buildUsersApiUrl(baseUrl);
   const res = await fetch(usersApiUrl, {
     body: JSON.stringify(newUser),
     method: "POST",
@@ -23,9 +24,10 @@ export const postUser = async (
 };
 
 export const patchUser = async (
-  usersApiUrl: string,
+  baseUrl: string,
   updatedUser: User,
 ): Promise<Comment> => {
+  const usersApiUrl = buildUsersApiUrl(baseUrl);
   const res = await fetch(usersApiUrl, {
     body: JSON.stringify(updatedUser),
     method: "PATCH",

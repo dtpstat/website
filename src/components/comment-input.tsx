@@ -3,7 +3,10 @@ import React, { ChangeEvent } from "react";
 import styled from "styled-components";
 
 import { postComment } from "../fetch/comments";
+import { patchUser, postUser } from "../fetch/users";
+import { getUser } from "../pages/api/users";
 import { useComments } from "../providers/comments-provider";
+import { userProfileToUser } from "../shared/user-helpers";
 import { NewComment } from "../types";
 import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";
@@ -25,37 +28,41 @@ const InputContainer = styled.div`
 `;
 
 export const CommentInput: React.VoidFunctionComponent = () => {
-  const {
-    setNewCommentText,
-    newCommentText,
-    comments,
-    setComments,
-    commentsApiUrl,
-  } = useComments();
+  const { setNewCommentText, newCommentText, comments, setComments, baseUrl } =
+    useComments();
 
   const { user } = useUser();
 
   const userPicture = (user && user.picture) || undefined;
 
+  const createOrUpdateUser = async () => {
+    if (!user) {
+      throw Error("no user");
+    }
+
+    // Check if the user exists
+    const dbUser = await getUser(user!.sub as string);
+    if (dbUser) {
+      await patchUser(baseUrl, userProfileToUser(user));
+    } else {
+      await postUser(baseUrl, userProfileToUser(user));
+    }
+  };
+
   const handleSend = async () => {
     if (!user) {
       throw Error("no user");
-    } else {
-      // TODO: If user exists create it or update in the db
-      // const { user } = await getUser(user.sub as string);
-      // if (user) {
-      //   await patchUser(userProfileToUser(user));
-      // } else {
-      //   await postUser(userProfileToUser(user));
-      // }
     }
+
+    createOrUpdateUser();
+
     const newComment: NewComment = {
       authorId: user.sub as string,
       text: newCommentText,
     };
 
     try {
-      const comment = await postComment(commentsApiUrl, newComment);
+      const comment = await postComment(baseUrl, newComment);
 
       setComments([...comments, comment]);
 

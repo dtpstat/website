@@ -6,7 +6,6 @@ import { CommentInput } from "../../../components/comment-input";
 import { CommentList } from "../../../components/comment-list";
 import { fetchComments } from "../../../fetch/comments";
 import { CommentsProvider } from "../../../providers/comments-provider";
-import { getCommentsApiUrl } from "../../../shared/api-helpers";
 import { commentsArePaused } from "../../../shared/helpersForComments";
 import { Comment } from "../../../types";
 
@@ -26,10 +25,7 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
   }
 
   return (
-    <CommentsProvider
-      initComments={comments}
-      initCommentsApiUrl={getCommentsApiUrl(baseUrl)}
-    >
+    <CommentsProvider initComments={comments} initBaseUrl={baseUrl}>
       <CommentList />
 
       {commentsArePaused ? (

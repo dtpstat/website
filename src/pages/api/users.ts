@@ -3,7 +3,13 @@ import { NextApiHandler } from "next";
 import { prisma } from "../../shared/prisma-helper";
 import { User } from "../../types";
 
-export const getUser = async (auth0userSub?: string): Promise<User | null> => {
+const getComments = async () => {
+  const comments = await prisma.user.findMany({});
+
+  return comments;
+};
+
+export const getUser = async (auth0userSub: string): Promise<User | null> => {
   const user = await prisma.user.findUnique({
     where: { auth0userSub },
   });
@@ -38,7 +44,7 @@ const handler: NextApiHandler = async (req, res) => {
     const user = await updateUser(JSON.parse(req.body));
     res.status(200).json({ user });
   } else {
-    res.status(200).json({ user: await getUser() });
+    res.status(200).json({ user: await getComments() });
   }
 };
 
