@@ -4,6 +4,7 @@ export interface Comment {
   authorId?: string;
   author?: User;
   createDate?: string;
+  isPublished?: boolean;
 }
 
 export interface User {

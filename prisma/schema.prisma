@@ -10,7 +10,7 @@ datasource db {
 model Comment {
   id          Int       @id @default(autoincrement())
   text        String?
-  createDate  DateTime? @db.Date
+  createDate  DateTime? @db.Date @default(now())
   authorId    String    @db.VarChar
   isPublished Boolean   @default(false)
   author      User      @relation(fields: [authorId], references: [auth0userSub])
