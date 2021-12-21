@@ -6,6 +6,9 @@ import { getUser } from "./users";
 
 const getComments = async () => {
   const comments = await prisma.comment.findMany({
+    where: {
+      isPublished: true,
+    },
     include: {
       author: {
         select: {
