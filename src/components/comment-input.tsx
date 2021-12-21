@@ -57,7 +57,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
 
     try {
       const comment = await postComment(commentsApiUrl, newComment);
-      comment.text = `Ожидает модерации: ${comment.text}`;
+
       setComments([...comments, comment]);
 
       setNewCommentText("");
