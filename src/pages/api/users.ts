@@ -3,12 +3,12 @@ import { NextApiHandler } from "next";
 import { prisma } from "../../shared/prisma-helper";
 import { User } from "../../types";
 
-const getUser = async (auth0userSub?: string): Promise<User> => {
-  const users = await prisma.user.findMany({
+export const getUser = async (auth0userSub?: string): Promise<User> => {
+  const user = await prisma.user.findUnique({
     where: { auth0userSub },
   });
 
-  return users[0] ?? {};
+  return user;
 };
 
 const createUser = async (newUser: User): Promise<User> => {

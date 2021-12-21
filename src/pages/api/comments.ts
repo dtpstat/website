@@ -2,6 +2,7 @@ import { NextApiHandler } from "next";
 
 import { prisma } from "../../shared/prisma-helper";
 import { Comment } from "../../types";
+import { getUser } from "./users";
 
 const getComments = async () => {
   const comments = await prisma.comment.findMany({
@@ -19,6 +20,12 @@ const getComments = async () => {
 };
 
 const createComment = async (newComment: Comment) => {
+  const user = await getUser(newComment.authorId);
+
+  if (!user) {
+    throw Error(`User id ${newComment.authorId} does not exists`);
+  }
+
   const comment: Comment = await prisma.comment.create({
     data: {
       ...newComment,
