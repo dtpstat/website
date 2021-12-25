@@ -1,4 +1,4 @@
-# website
+# DTP-STAT
 
 Future frontend of https://dtp-stat.ru written in Next.js.
 
@@ -13,12 +13,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Environment variables
 
+All secrets should never be committed to the git repo, but saved in the environment variables.
+
+### Content management
+
 ```ini
 ## (optional) Pausing comments
 NEXT_PUBLIC_COMMENTS_ARE_PAUSED=true
 ```
-
-## Configuration
 
 ### Authorization with auth0
 
@@ -60,7 +62,7 @@ AUTH0_AUDIENCE=
 AUTH0_SCOPE='openid profile'
 ```
 
-### Database
+### Database Configuration
 
 1.  Create any [prisma-supported database](https://www.prisma.io/docs/concepts/overview) any localhost or online (tested with [Heroku/PostgreSQL](https://www.heroku.com/postgres)).
 
@@ -71,9 +73,35 @@ DATABASE_URL="postgres://user:password@host:5432/db"
 ...
 ```
 
-1.  Apply the db schema:
+## Database Schema Update
+
+Initial apply of the db schema:
 
 ```sh
 yarn prisma generate
 yarn prisma db push
 ```
+
+On every change of the file **schema.prisma** please run:
+
+```sh
+yarn prisma db push
+```
+
+On every change of the raw database schema please run:
+
+```sh
+yarn prisma db pull
+```
+
+## Contributing
+
+Please refer to style and contribution guidelines for submitting patches and additions.
+
+1.  **Fork** the repo on GitHub
+1.  **Clone** the project to your own machine
+1.  **Commit** changes to your own branch
+1.  **Push** your work back up to your fork
+1.  Submit a **Pull request** so that we can review your changes
+
+NOTE: Be sure to merge the latest from "upstream" before making a pull request!
