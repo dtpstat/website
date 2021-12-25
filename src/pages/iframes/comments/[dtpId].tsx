@@ -12,20 +12,18 @@ import { Comment } from "../../../types";
 export interface CommentsIframePageProps {
   dtpId?: number;
   comments?: Comment[];
-  baseUrl: any;
 }
 
 const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
   dtpId,
   comments,
-  baseUrl,
 }) => {
   if (!dtpId || !comments) {
     return <Error statusCode={404} />;
   }
 
   return (
-    <CommentsProvider initComments={comments} initBaseUrl={baseUrl}>
+    <CommentsProvider initComments={comments}>
       <CommentList />
 
       {commentsArePaused ? (
@@ -53,7 +51,6 @@ export const getServerSideProps: GetServerSideProps<
       props: {
         dtpId,
         comments,
-        baseUrl,
       },
     };
   }
