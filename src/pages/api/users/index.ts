@@ -19,9 +19,9 @@ export const getUsers = async (): Promise<User[]> => {
   return users as User[];
 };
 
-const createUser = async (newUser: User): Promise<User> => {
+const createUser = async (userData: User): Promise<User> => {
   const user: User = await prisma.user.create({
-    data: newUser,
+    data: userData,
   });
 
   return user;
