@@ -1,7 +1,7 @@
 import { buildCommentsApiUrl } from "../shared/api-helpers";
 import { Comment, NewComment } from "../types";
 
-export const fetchComments = async (baseUrl: string) => {
+export const fetchComments = async (baseUrl: string): Promise<Comment[]> => {
   const commentsApiUrl = buildCommentsApiUrl(baseUrl);
   const res = await fetch(commentsApiUrl);
   const { comments } = await res.json();

@@ -4,7 +4,7 @@ import { prisma } from "../../shared/prisma-helper";
 import { Comment, NewComment } from "../../types";
 import { getUser } from "./users/[userId]";
 
-const getComments = async () => {
+const getComments = async (): Promise<Comment[]> => {
   const comments = await prisma.comment.findMany({
     where: {
       isPublished: true,
@@ -22,7 +22,7 @@ const getComments = async () => {
   return comments;
 };
 
-const createComment = async (newComment: NewComment) => {
+const createComment = async (newComment: NewComment): Promise<Comment> => {
   const user = await getUser(newComment.authorId);
 
   if (!user) {

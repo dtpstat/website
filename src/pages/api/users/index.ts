@@ -3,7 +3,7 @@ import { NextApiHandler } from "next";
 import { prisma } from "../../../shared/prisma-helper";
 import { User } from "../../../types";
 
-export const getUsers = async (): Promise<User[] | null> => {
+export const getUsers = async (): Promise<User[]> => {
   const users = await prisma.user.findMany({
     select: {
       name: true,
@@ -29,7 +29,7 @@ const handler: NextApiHandler = async (req, res) => {
     const user = await createUser(JSON.parse(req.body));
     res.status(200).json({ user });
   } else if (req.method === "GET") {
-    res.status(200).json({ user: await getUsers() });
+    res.status(200).json({ users: await getUsers() });
   }
 };
 
