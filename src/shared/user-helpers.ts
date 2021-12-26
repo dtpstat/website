@@ -4,9 +4,11 @@ import { User } from "../types";
 
 export const userProfileToUser = (userProfile: UserProfile): User => {
   return {
+    id: userProfile.sub,
     name: userProfile.name,
+    nickname: userProfile.nickname,
     email: userProfile.email,
     avatarUrl: userProfile.picture,
-    id: userProfile.sub,
+    updateDate: userProfile.updated_at,
   } as unknown as User;
 };

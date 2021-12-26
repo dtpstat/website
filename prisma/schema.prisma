@@ -20,6 +20,7 @@ model Comment {
 model User {
   id           String    @id @db.VarChar
   name         String?
+  nickname     String?
   email        String?
   avatarUrl    String?
   createDate   DateTime? @db.Date @default(now())

@@ -8,8 +8,11 @@ export const getUsers = async (): Promise<User[]> => {
     select: {
       id: true,
       name: true,
+      nickname: true,
       avatarUrl: true,
       email: false,
+      createDate: true,
+      updateDate: true,
     },
   });
 
