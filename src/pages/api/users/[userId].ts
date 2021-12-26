@@ -11,14 +11,6 @@ export const getUser = async (auth0userSub: string): Promise<User | null> => {
   return user;
 };
 
-const createUser = async (newUser: User): Promise<User> => {
-  const user: User = await prisma.user.create({
-    data: newUser,
-  });
-
-  return user;
-};
-
 const updateUser = async (
   auth0userSub: string,
   updatedUser: User,
@@ -34,10 +26,7 @@ const updateUser = async (
 };
 
 const handler: NextApiHandler = async (req, res) => {
-  if (req.method === "POST") {
-    const user = await createUser(JSON.parse(req.body));
-    res.status(200).json({ user });
-  } else if (req.method === "PATCH" && req.query["userId"]) {
+  if (req.method === "PATCH" && req.query["userId"]) {
     const user = await updateUser(
       req.query["userId"] as string,
       JSON.parse(req.body),
