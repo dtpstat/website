@@ -3,21 +3,21 @@ import { NextApiHandler } from "next";
 import { prisma } from "../../../shared/prisma-helper";
 import { User } from "../../../types";
 
-export const getUser = async (auth0userSub: string): Promise<User | null> => {
+export const getUser = async (userId: string): Promise<User | null> => {
   const user = await prisma.user.findUnique({
-    where: { auth0userSub },
+    where: { userId },
   });
 
   return user;
 };
 
 const updateUser = async (
-  auth0userSub: string,
+  userId: string,
   updatedUser: User,
 ): Promise<User | null> => {
   const user: User = await prisma.user.update({
     where: {
-      auth0userSub,
+      userId,
     },
     data: updatedUser,
   });
