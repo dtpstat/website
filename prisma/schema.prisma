@@ -10,16 +10,19 @@ datasource db {
 model Comment {
   id          Int       @id @default(autoincrement())
   text        String?
-  createDate  DateTime? @db.Date @default(now())
   authorId    String    @db.VarChar
   isPublished Boolean   @default(false)
-  author      User      @relation(fields: [authorId], references: [userId])
+  createDate  DateTime? @db.Date @default(now())
+  updateDate  DateTime? @db.Date @default(now())
+  author      User      @relation(fields: [authorId], references: [id])
 }
 
 model User {
+  id           String    @id @db.VarChar
   name         String?
   email        String?
   avatarUrl    String?
-  userId       String    @id @db.VarChar
+  createDate   DateTime? @db.Date @default(now())
+  updateDate   DateTime? @db.Date @default(now())
   comments     Comment[]
 }

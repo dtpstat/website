@@ -7,6 +7,6 @@ export const userProfileToUser = (userProfile: UserProfile): User => {
     name: userProfile.name,
     email: userProfile.email,
     avatarUrl: userProfile.picture,
-    userId: userProfile.sub,
+    id: userProfile.sub,
   } as unknown as User;
 };

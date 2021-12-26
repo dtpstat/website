@@ -37,7 +37,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     }
 
     const newComment: NewComment = {
-      authorId: user.userId,
+      authorId: user.id,
       text: newCommentText,
     };
 

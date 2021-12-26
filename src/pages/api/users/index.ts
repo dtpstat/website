@@ -6,9 +6,9 @@ import { User } from "../../../types";
 export const getUsers = async (): Promise<User[]> => {
   const users = await prisma.user.findMany({
     select: {
+      id: true,
       name: true,
       avatarUrl: true,
-      userId: true,
       email: false,
     },
   });
