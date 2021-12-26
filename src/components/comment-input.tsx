@@ -1,9 +1,9 @@
 import React, { ChangeEvent } from "react";
 import styled from "styled-components";
 
-import { postComment } from "../fetch/comments";
 import { useComments } from "../providers/comments-provider";
 import { useUser } from "../providers/user-profile-provider";
+import { postComment } from "../requests/comments";
 import { NewComment } from "../types";
 import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";

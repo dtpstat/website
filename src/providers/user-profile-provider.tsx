@@ -1,7 +1,7 @@
 import { useUser as useAuth0UserProfile } from "@auth0/nextjs-auth0";
 import React from "react";
 
-import { fetchUser, patchUser, postUser } from "../fetch/users";
+import { fetchUser, patchUser, postUser } from "../requests/users";
 import { userProfileToUser } from "../shared/user-helpers";
 import { User } from "../types";
 

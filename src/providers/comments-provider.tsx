@@ -1,6 +1,6 @@
 import React from "react";
 
-import { fetchComments } from "../fetch/comments";
+import { fetchComments } from "../requests/comments";
 import { Comment } from "../types";
 
 interface CommentsContextValue {
