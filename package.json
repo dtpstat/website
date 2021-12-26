@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.6.1",
-    "@prisma/client": "^3.6.0",
+    "@prisma/client": "latest",
     "dayjs": "^1.10.7",
     "next": "^12.0.7",
     "react": "^17.0.2",
@@ -58,7 +58,7 @@
     "prettier": "^2.5.1",
     "prettier-plugin-packagejson": "^2.2.15",
     "prettier-plugin-sh": "^0.8.1",
-    "prisma": "^3.6.0",
+    "prisma": "latest",
     "typescript": "^4.5.4"
   },
   "engines": {
