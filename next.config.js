@@ -1,4 +1,6 @@
-module.exports = {
+const withOptimizedImages = require("next-optimized-images");
+
+module.exports = withOptimizedImages({
   experimental: {
     styledComponents: true,
   },
@@ -11,4 +13,4 @@ module.exports = {
   // For local checks, run `yarn lint`.
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
-};
+});
