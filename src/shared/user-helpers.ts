@@ -10,5 +10,5 @@ export const userProfileToUser = (userProfile: UserProfile): User => {
     email: userProfile.email,
     avatarUrl: userProfile.picture,
     updateDate: userProfile.updated_at,
-  } as unknown as User;
+  } as User;
 };
