@@ -12,7 +12,7 @@ export const fetchUsers = async (baseUrl: string) => {
 export const postUser = async (
   baseUrl: string,
   newUser: User,
-): Promise<Comment> => {
+): Promise<User> => {
   const usersApiUrl = buildUsersApiUrl(baseUrl);
   const res = await fetch(usersApiUrl, {
     body: JSON.stringify(newUser),
@@ -26,7 +26,7 @@ export const postUser = async (
 export const patchUser = async (
   baseUrl: string,
   updatedUser: User,
-): Promise<Comment> => {
+): Promise<User> => {
   const usersApiUrl = buildUsersApiUrl(baseUrl);
   const res = await fetch(usersApiUrl, {
     body: JSON.stringify(updatedUser),

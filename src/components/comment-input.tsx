@@ -1,12 +1,9 @@
-import { useUser } from "@auth0/nextjs-auth0";
 import React, { ChangeEvent } from "react";
 import styled from "styled-components";
 
 import { postComment } from "../fetch/comments";
-import { patchUser, postUser } from "../fetch/users";
-import { getUser } from "../pages/api/users";
 import { useComments } from "../providers/comments-provider";
-import { userProfileToUser } from "../shared/user-helpers";
+import { useUser } from "../providers/user-profile-provider";
 import { NewComment } from "../types";
 import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";
@@ -28,41 +25,24 @@ const InputContainer = styled.div`
 `;
 
 export const CommentInput: React.VoidFunctionComponent = () => {
-  const { setNewCommentText, newCommentText, comments, setComments, baseUrl } =
+  const { setNewCommentText, newCommentText, comments, setComments } =
     useComments();
-
   const { user } = useUser();
 
-  const userPicture = (user && user.picture) || undefined;
-
-  const createOrUpdateUser = async () => {
-    if (!user) {
-      throw Error("no user");
-    }
-
-    // Check if the user exists
-    const dbUser = await getUser(user!.sub as string);
-    if (dbUser) {
-      await patchUser(baseUrl, userProfileToUser(user));
-    } else {
-      await postUser(baseUrl, userProfileToUser(user));
-    }
-  };
+  const userPicture = (user && user.avatarUrl) || undefined;
 
   const handleSend = async () => {
     if (!user) {
       throw Error("no user");
     }
 
-    createOrUpdateUser();
-
     const newComment: NewComment = {
-      authorId: user.sub as string,
+      authorId: user.auth0userSub,
       text: newCommentText,
     };
 
     try {
-      const comment = await postComment(baseUrl, newComment);
+      const comment = await postComment(window.location.origin, newComment);
 
       setComments([...comments, comment]);
 
