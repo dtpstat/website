@@ -1,8 +1,7 @@
 import { useUser as useAuth0UserProfile } from "@auth0/nextjs-auth0";
 import React from "react";
 
-import { patchUser, postUser } from "../fetch/users";
-import { getUser } from "../pages/api/users";
+import { fetchUser, patchUser, postUser } from "../fetch/users";
 import { userProfileToUser } from "../shared/user-helpers";
 import { User } from "../types";
 
@@ -30,10 +29,12 @@ export const UserProfileProvider: React.FunctionComponent = ({ children }) => {
           return;
         }
 
+        const userId = auth0User!.sub as string;
+
         // Check if the user exists in the DB
-        const dbUser = await getUser(auth0User!.sub as string);
+        const dbUser = await fetchUser(window.location.origin, userId);
         if (dbUser) {
-          return await patchUser(window.location.origin, userData!);
+          return await patchUser(window.location.origin, userId, userData!);
         } else {
           return await postUser(window.location.origin, userData!);
         }

@@ -1,13 +1,7 @@
 import { NextApiHandler } from "next";
 
-import { prisma } from "../../shared/prisma-helper";
-import { User } from "../../types";
-
-const getComments = async () => {
-  const comments = await prisma.user.findMany({});
-
-  return comments;
-};
+import { prisma } from "../../../shared/prisma-helper";
+import { User } from "../../../types";
 
 export const getUser = async (auth0userSub: string): Promise<User | null> => {
   const user = await prisma.user.findUnique({
@@ -25,10 +19,13 @@ const createUser = async (newUser: User): Promise<User> => {
   return user;
 };
 
-const updateUser = async (updatedUser: User): Promise<User | null> => {
+const updateUser = async (
+  auth0userSub: string,
+  updatedUser: User,
+): Promise<User | null> => {
   const user: User = await prisma.user.update({
     where: {
-      auth0userSub: updatedUser.auth0userSub,
+      auth0userSub,
     },
     data: updatedUser,
   });
@@ -40,11 +37,16 @@ const handler: NextApiHandler = async (req, res) => {
   if (req.method === "POST") {
     const user = await createUser(JSON.parse(req.body));
     res.status(200).json({ user });
-  } else if (req.method === "PATCH") {
-    const user = await updateUser(JSON.parse(req.body));
+  } else if (req.method === "PATCH" && req.query["userId"]) {
+    const user = await updateUser(
+      req.query["userId"] as string,
+      JSON.parse(req.body),
+    );
     res.status(200).json({ user });
-  } else {
-    res.status(200).json({ user: await getComments() });
+  } else if (req.method === "GET" && req.query["userId"]) {
+    res
+      .status(200)
+      .json({ user: await getUser(req.query["userId"] as string) });
   }
 };
 

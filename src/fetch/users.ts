@@ -1,7 +1,18 @@
 import { buildUsersApiUrl } from "../shared/api-helpers";
 import { User } from "../types";
 
-export const fetchUsers = async (baseUrl: string) => {
+export const fetchUser = async (
+  baseUrl: string,
+  userId: string,
+): Promise<User> => {
+  const userApiUrl = buildUsersApiUrl(baseUrl, userId);
+  const res = await fetch(userApiUrl);
+  const { user } = await res.json();
+
+  return user;
+};
+
+export const fetchUsers = async (baseUrl: string): Promise<User[]> => {
   const usersApiUrl = buildUsersApiUrl(baseUrl);
   const res = await fetch(usersApiUrl);
   const { users } = await res.json();
@@ -25,10 +36,11 @@ export const postUser = async (
 
 export const patchUser = async (
   baseUrl: string,
+  userId: string,
   updatedUser: User,
 ): Promise<User> => {
-  const usersApiUrl = buildUsersApiUrl(baseUrl);
-  const res = await fetch(usersApiUrl, {
+  const userApiUrl = buildUsersApiUrl(baseUrl, userId);
+  const res = await fetch(userApiUrl, {
     body: JSON.stringify(updatedUser),
     method: "PATCH",
   });

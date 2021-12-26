@@ -2,7 +2,7 @@ import { NextApiHandler } from "next";
 
 import { prisma } from "../../shared/prisma-helper";
 import { Comment, NewComment } from "../../types";
-import { getUser } from "./users";
+import { getUser } from "./users/[userId]";
 
 const getComments = async () => {
   const comments = await prisma.comment.findMany({
