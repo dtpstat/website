@@ -1,4 +1,4 @@
-import { useUser as useAuth0UserProfile } from "@auth0/nextjs-auth0";
+import { useUser as useAuth0User } from "@auth0/nextjs-auth0";
 import React from "react";
 
 import { fetchUser, patchUser, postUser } from "../requests/users";
@@ -17,7 +17,7 @@ const UserProfileContext = React.createContext<
 >(undefined);
 
 export const UserProfileProvider: React.FunctionComponent = ({ children }) => {
-  const { user: auth0User, isLoading, error } = useAuth0UserProfile();
+  const { user: auth0User, isLoading, error } = useAuth0User();
   const [user, setUser] = React.useState<User>();
 
   React.useEffect(() => {
