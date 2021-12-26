@@ -34,11 +34,15 @@ export const UserProfileProvider: React.FunctionComponent = ({ children }) => {
         // Check if the user exists in the DB
         const dbUser = await fetchUser(window.location.origin, userId);
         if (dbUser) {
-          return await patchUser(window.location.origin, userId, userData);
+          return await patchUser(window.location.origin, userId, {
+            ...userData,
+            email: auth0User.email as string,
+          });
         } else {
           return await postUser(window.location.origin, {
             ...userData,
             createDate: userData.updateDate,
+            email: auth0User.email as string,
           });
         }
       };
