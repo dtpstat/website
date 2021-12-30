@@ -3,7 +3,7 @@ import { NextApiHandler } from "next";
 import { getUser, updateUser } from "../../../services/user";
 
 const handler: NextApiHandler = async (req, res) => {
-  const userId = req.query["userId"] as string;
+  const userId = req.query["user-id"] as string;
 
   if (req.method === "PATCH" && userId) {
     const user = await updateUser(userId, JSON.parse(req.body));
