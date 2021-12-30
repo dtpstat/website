@@ -1,3 +1,4 @@
+import { NextPage } from "next";
 import Head from "next/head";
 import * as React from "react";
 
@@ -5,7 +6,7 @@ import { Link } from "../components/link";
 import { UserProfile } from "../components/user-profile";
 import styles from "../styles/Home.module.css";
 
-export default function Home() {
+export const HomePage: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
@@ -23,4 +24,6 @@ export default function Home() {
       </main>
     </div>
   );
-}
+};
+
+export default HomePage;

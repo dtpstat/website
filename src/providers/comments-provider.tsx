@@ -1,5 +1,6 @@
 import React from "react";
 
+import { fetchComments } from "../requests/comments";
 import { Comment } from "../types";
 
 interface CommentsContextValue {
@@ -13,16 +14,17 @@ const CommentsContext = React.createContext<CommentsContextValue | undefined>(
   undefined,
 );
 
-export interface CommentsListProps {
-  initComments: Comment[];
-}
-
-export const CommentsProvider: React.FunctionComponent<CommentsListProps> = ({
-  initComments,
-  children,
-}) => {
-  const [comments, setComments] = React.useState<Comment[]>(initComments);
+export const CommentsProvider: React.FunctionComponent = ({ children }) => {
+  const [comments, setComments] = React.useState<Comment[]>([]);
   const [newCommentText, setNewCommentText] = React.useState<string>("");
+
+  React.useEffect(() => {
+    const initFetchComments = async () => {
+      const initComments = await fetchComments(window.location.origin);
+      setComments(initComments);
+    };
+    initFetchComments();
+  }, []);
 
   const providerValue = React.useMemo<CommentsContextValue>(
     () => ({

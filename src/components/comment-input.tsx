@@ -1,9 +1,10 @@
-import { useUser } from "@auth0/nextjs-auth0";
 import React, { ChangeEvent } from "react";
 import styled from "styled-components";
 
 import { useComments } from "../providers/comments-provider";
-import { Comment } from "../types";
+import { useUser } from "../providers/user-profile-provider";
+import { postComment } from "../requests/comments";
+import { NewComment } from "../types";
 import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";
 import { Link } from "./link";
@@ -24,23 +25,31 @@ const InputContainer = styled.div`
 `;
 
 export const CommentInput: React.VoidFunctionComponent = () => {
-  const { user } = useUser();
   const { setNewCommentText, newCommentText, comments, setComments } =
     useComments();
+  const { user } = useUser();
 
-  const userPicture = (user && user.picture) || undefined;
-  const userName = (user && user.name) || "Anonymous";
+  const userPicture = (user && user.avatarUrl) || undefined;
 
-  const handleSend = () => {
-    const comment: Comment = {
-      id: comments.length + 1,
-      user: userName,
+  const handleSend = async () => {
+    if (!user) {
+      throw Error("no user");
+    }
+
+    const newComment: NewComment = {
+      authorId: user.id,
       text: newCommentText,
-      date: new Date().toUTCString(),
-      avatarUrl: userPicture,
     };
-    setComments([...comments, comment]);
-    setNewCommentText("");
+
+    try {
+      const comment = await postComment(window.location.origin, newComment);
+
+      setComments([...comments, comment]);
+
+      setNewCommentText("");
+    } catch (error) {
+      // TODO: handleError(error);
+    }
   };
 
   const handleTextChange = (event: ChangeEvent<HTMLInputElement>) =>
