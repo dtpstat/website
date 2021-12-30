@@ -32,7 +32,7 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({ dtpId }) => {
 export const getServerSideProps: GetServerSideProps<
   CommentsIframePageProps
 > = async ({ params }) => {
-  const rawDtpId = `${params?.dtpId}`;
+  const rawDtpId = params ? `${params["dtp-id"]}` : "";
   const parsedDtpId = parseInt(rawDtpId);
   const dtpId = `${parsedDtpId}` === rawDtpId ? parsedDtpId : 0;
 
