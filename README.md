@@ -66,7 +66,7 @@ AUTH0_SCOPE='openid profile'
 
 1.  Create any [prisma-supported database](https://www.prisma.io/docs/concepts/overview) any localhost or online (tested with [Heroku/PostgreSQL](https://www.heroku.com/postgres)).
 
-1.  Update file **.env** with database url information:
+1.  Update file **.env.local** with database url information:
 
 ```ini
 DATABASE_URL="postgres://user:password@host:5432/db"
