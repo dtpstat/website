@@ -50,7 +50,7 @@ Example for local development on the host **http://localhost:3000** and staging 
 
 1.  Get the auth0 application values: **DOMAIN, CLIENT_ID, CLIENT_SECRET**
 
-1.  Create file **.env** using template **.env.example** and fill it with auth0 information:
+1.  Create file **.env.local** using template **env.example** and fill it with auth0 information:
 
 ```ini
 AUTH0_SECRET='replace-with-your-own-secret-generated-with-openssl'
@@ -66,7 +66,7 @@ AUTH0_SCOPE='openid profile'
 
 1.  Create any [prisma-supported database](https://www.prisma.io/docs/concepts/overview) any localhost or online (tested with [Heroku/PostgreSQL](https://www.heroku.com/postgres)).
 
-1.  Update file **.env** with database url information:
+1.  Update file **.env.local** with database url information:
 
 ```ini
 DATABASE_URL="postgres://user:password@host:5432/db"
@@ -96,12 +96,4 @@ yarn prisma db pull
 
 ## Contributing
 
-Please refer to style and contribution guidelines for submitting patches and additions.
-
-1.  **Fork** the repo on GitHub
-1.  **Clone** the project to your own machine
-1.  **Commit** changes to your own branch
-1.  **Push** your work back up to your fork
-1.  Submit a **Pull request** so that we can review your changes
-
-NOTE: Be sure to merge the latest from "upstream" before making a pull request!
+[How to contribute](https://github.com/github/docs/blob/main/CONTRIBUTING.md)
