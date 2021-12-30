@@ -2,7 +2,9 @@ module.exports = {
   experimental: {
     styledComponents: true,
   },
-
+  images: {
+    domains: ["lh3.googleusercontent.com"],
+  },
   productionBrowserSourceMaps: true,
   reactStrictMode: true,
 
