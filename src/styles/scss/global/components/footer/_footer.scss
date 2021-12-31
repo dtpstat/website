@@ -1,6 +1,5 @@
-.footer {
+footer {
   background-color: $greyLight;
-  padding-top: 30px;
   margin-top: auto;
 
   @include mq('768') {
@@ -16,7 +15,7 @@
 
     @include mq('768') {
       grid-template-columns: repeat(2, 1fr);
-      margin: 0 -20px 50px;
+      margin: 0 0 50px;
       gap: 44px 70px;
     }
   }
@@ -68,6 +67,7 @@
   .body2 {
     color: $white;
     font-size: calc(7rem / 9);
+    margin-left: 5px;
 
     @include mq('768') {
       font-size: calc(7rem / 8);

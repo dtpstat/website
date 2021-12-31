@@ -1,12 +1,13 @@
+import { faTelegram, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React from "react";
 
 import { Colors } from "../../styles/Colors";
-import { SvgIcon } from "../SvgIcon";
 
 export const Footer = () => {
   return (
-    <div className="footer">
+    <footer>
       <div
         className="container"
         style={{
@@ -60,11 +61,11 @@ export const Footer = () => {
             </h3>
             <div style={{ display: "flex" }}>
               <a href="https://t.me/dtp_stat" className="social-tg">
-                <SvgIcon name="telegram" color={Colors.$white} />
+                <FontAwesomeIcon icon={faTelegram} color={Colors.$white} />
                 <span className="body2">Карта ДТП в Телеграме</span>
               </a>
               <a href="https://twitter.com/dtp_stat" className="social-tw">
-                <SvgIcon name="twitter" color={Colors.$white} />
+                <FontAwesomeIcon icon={faTwitter} color={Colors.$white} />
                 <span className="body2">Карта ДТП в Твиттере</span>
               </a>
             </div>
@@ -73,7 +74,14 @@ export const Footer = () => {
             <h3 className="h3" style={{ marginBottom: "14px" }}>
               Наши партнёры
             </h3>
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                width: 320,
+              }}
+            >
               <a
                 href="https://city4people.ru/"
                 aria-label="Городские проекты Ильи Варламова и Максима Каца"
@@ -115,14 +123,11 @@ export const Footer = () => {
           }}
         >
           <div style={{ display: "flex", alignItems: "center" }}>
-            <SvgIcon name="cc" color={Colors.$grey50} />
-            <SvgIcon name="man" color={Colors.$grey50} />
             <p
               className="subtitle2"
               style={{
                 color: Colors.$grey50,
-                maxWidth: "270px",
-                marginLeft: "15px",
+                maxWidth: "430px",
               }}
             >
               Использование материалов возможно с указанием активной ссылки на
@@ -142,6 +147,6 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };

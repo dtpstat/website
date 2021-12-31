@@ -11,6 +11,7 @@
 !*.json
 !*.ts
 !*.tsx
+# !*.scss
 
 ########################
 ## Same as in .gitignore
