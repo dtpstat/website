@@ -1,11 +1,12 @@
-import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 
-import defaultAvatarImg from "/public/icons/avatar_default.svg";
+const defaultAvatarUrl = "/icons/avatar_default.svg";
 
-const StyledImg = styled(Image)`
+const StyledImg = styled.img`
   border-radius: 50%;
+  width: 28px;
+  height: 28px;
 `;
 
 const ImageContainer = styled.div`
@@ -21,7 +22,7 @@ export const AvatarImage: React.VoidFunctionComponent<AvatarImageProps> = ({
 }) => {
   return (
     <ImageContainer>
-      <StyledImg src={src ?? defaultAvatarImg} width={28} height={28} />
+      <StyledImg src={src || defaultAvatarUrl} />
     </ImageContainer>
   );
 };
