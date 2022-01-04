@@ -4605,6 +4605,64 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mobx-devtools-mst@npm:^0.9.30":
+  version: 0.9.30
+  resolution: "mobx-devtools-mst@npm:0.9.30"
+  peerDependencies:
+    mobx: ^2.2.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
+    mobx-state-tree: "*"
+  checksum: f611d31f9ce0d441117d82a6e277306112ab8ec038eddf9fee480dfad6f7ec188e3bbf83b70f9a94772a1982cdcc0a11f9913b7f09ecf961b0eb718180e19ba0
+  languageName: node
+  linkType: hard
+
+"mobx-react-lite@npm:^3.2.0":
+  version: 3.2.3
+  resolution: "mobx-react-lite@npm:3.2.3"
+  peerDependencies:
+    mobx: ^6.1.0
+    react: ^16.8.0 || ^17
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: d645e3c76f29ab22e4125f372531e00a776bd3833d3aab5cab2631e0eb1a90aa6cd36aa78ef1a27b53489eac89335bbdbb3b2c4f0c15248e8d306cd15b555931
+  languageName: node
+  linkType: hard
+
+"mobx-react@npm:^7.2.1":
+  version: 7.2.1
+  resolution: "mobx-react@npm:7.2.1"
+  dependencies:
+    mobx-react-lite: ^3.2.0
+  peerDependencies:
+    mobx: ^6.1.0
+    react: ^16.8.0 || ^17
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: ddcdab16ce0977dd8e0b9d324f43c0ef5d9de491b4ad881eaf18f127a967e88d916fd580597decc2eac6617f30f444bdf620be540e487194e3391738b2c3b7b2
+  languageName: node
+  linkType: hard
+
+"mobx-state-tree@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "mobx-state-tree@npm:5.1.0"
+  peerDependencies:
+    mobx: ^6.3.0
+  checksum: 6f4d17e40108ace6d6660c64fd272e6fed96468b41f992e8cffcac7e772be49f7adc9457aeef011ebf594cd544860e3fb71b4729c59b78bed72d16c277d56abd
+  languageName: node
+  linkType: hard
+
+"mobx@npm:^6.3.10":
+  version: 6.3.10
+  resolution: "mobx@npm:6.3.10"
+  checksum: d632c656f740ce67eef00c4c73be15acfc8fc057ab08492cba58ef904d617a1df465e059edaf4b2c02659c8d286be88a57eef4544b879ed6092faabf08b7e4ac
+  languageName: node
+  linkType: hard
+
 "moize@npm:^6.1.0":
   version: 6.1.0
   resolution: "moize@npm:6.1.0"
@@ -5979,6 +6037,10 @@ __metadata:
     husky: ^7.0.4
     lint-staged: ^12.1.2
     markdownlint-cli: ^0.30.0
+    mobx: ^6.3.10
+    mobx-devtools-mst: ^0.9.30
+    mobx-react: ^7.2.1
+    mobx-state-tree: ^5.1.0
     next: ^12.0.7
     npm-run-all: ^4.1.5
     prettier: ^2.5.1

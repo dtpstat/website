@@ -3,6 +3,7 @@ module.exports = {
   rules: {
     "@next/next/no-img-element": "off",
     "import/no-default-export": "error",
+    "func-style": "off",
   },
   overrides: [
     {

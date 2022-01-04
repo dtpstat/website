@@ -7,7 +7,7 @@
 !*/
 
 # Allow certain file types
-!*.js
+# !*.js
 !*.json
 !*.ts
 !*.tsx
