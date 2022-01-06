@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import * as React from "react";
 import styled from "styled-components";
 
 import { useComments } from "../providers/comments-provider";
@@ -33,7 +33,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
 
   const handleSend = async () => {
     if (!user) {
-      throw Error("no user");
+      throw new Error("no user");
     }
 
     const newComment: NewComment = {
@@ -47,13 +47,14 @@ export const CommentInput: React.VoidFunctionComponent = () => {
       setComments([...comments, comment]);
 
       setNewCommentText("");
-    } catch (error) {
+    } catch {
       // TODO: handleError(error);
     }
   };
 
-  const handleTextChange = (event: ChangeEvent<HTMLInputElement>) =>
+  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewCommentText(event.target.value);
+  };
 
   return user ? (
     <InputContainer>

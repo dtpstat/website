@@ -10,13 +10,13 @@ export const getUsers = async (): Promise<User[]> => {
       name: true,
       nickname: true,
       avatarUrl: true,
-      email: false,
+      email: true,
       createDate: true,
       updateDate: true,
     },
   });
 
-  return users as User[];
+  return users;
 };
 
 const createUser = async (userData: User): Promise<User> => {
@@ -29,7 +29,7 @@ const createUser = async (userData: User): Promise<User> => {
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method === "POST") {
-    const user = await createUser(JSON.parse(req.body));
+    const user = await createUser(JSON.parse(req.body as string) as User);
     res.status(200).json({ user });
   } else if (req.method === "GET") {
     res.status(200).json({ users: await getUsers() });

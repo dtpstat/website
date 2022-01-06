@@ -57,14 +57,12 @@ export const CommentItem: React.VoidFunctionComponent<CommentItemProps> = ({
 }) => {
   return (
     <CommentContainer>
-      <AvatarImage src={comment.author && comment.author!.avatarUrl} />
+      <AvatarImage src={comment.author?.avatarUrl} />
       <div>
         <div>
-          <CommentAuthor>
-            {comment.author && comment.author!.name}
-          </CommentAuthor>
-          : <CommentDate>{formatDate(comment.createDate)}</CommentDate>
-          {comment.isPublished || (
+          <CommentAuthor>{comment.author?.name}</CommentAuthor>:{" "}
+          <CommentDate>{formatDate(comment.createDate)}</CommentDate>
+          {comment.isPublished ? undefined : (
             <Tag title="Комментарий еще не опубликован и виден только вам">
               На модерации
             </Tag>

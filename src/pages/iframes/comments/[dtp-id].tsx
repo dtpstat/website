@@ -5,7 +5,7 @@ import * as React from "react";
 import { CommentInput } from "../../../components/comment-input";
 import { CommentList } from "../../../components/comment-list";
 import { CommentsProvider } from "../../../providers/comments-provider";
-import { commentsArePaused } from "../../../shared/helpersForComments";
+import { commentsArePaused } from "../../../shared/comment-helpers";
 
 export interface CommentsIframePageProps {
   dtpId?: number;
@@ -31,9 +31,11 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({ dtpId }) => {
 
 export const getServerSideProps: GetServerSideProps<
   CommentsIframePageProps
+  // eslint-disable-next-line @typescript-eslint/require-await -- to be removed when we check dtp id
 > = async ({ params }) => {
-  const rawDtpId = params ? `${params["dtp-id"]}` : "";
-  const parsedDtpId = parseInt(rawDtpId);
+  const rawDtpId =
+    typeof params?.["dtp-id"] === "string" ? params["dtp-id"] : "";
+  const parsedDtpId = Number.parseInt(rawDtpId);
   const dtpId = `${parsedDtpId}` === rawDtpId ? parsedDtpId : 0;
 
   if (dtpId > 0) {

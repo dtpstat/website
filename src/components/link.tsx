@@ -1,5 +1,5 @@
 import NextLink from "next/link";
-import React from "react";
+import * as React from "react";
 import styled from "styled-components";
 
 const StyledLink = styled.a`
@@ -8,9 +8,10 @@ const StyledLink = styled.a`
 
 interface LinkProps {
   href: string;
+  children?: React.ReactNode;
 }
 
-export const Link: React.FunctionComponent<LinkProps> = ({
+export const Link: React.VoidFunctionComponent<LinkProps> = ({
   href,
   children,
 }) => {
