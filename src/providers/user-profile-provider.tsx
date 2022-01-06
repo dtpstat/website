@@ -1,5 +1,5 @@
 import { useUser as useAuth0User } from "@auth0/nextjs-auth0";
-import React from "react";
+import * as React from "react";
 
 import { fetchUser, patchUser, postUser } from "../requests/users";
 import { userProfileToUser } from "../shared/user-helpers";
@@ -16,7 +16,9 @@ const UserProfileContext = React.createContext<
   UserProfileContextValue | undefined
 >(undefined);
 
-export const UserProfileProvider: React.FunctionComponent = ({ children }) => {
+export const UserProfileProvider: React.VoidFunctionComponent<{
+  children?: React.ReactNode;
+}> = ({ children }) => {
   const { user: auth0User, isLoading, error } = useAuth0User();
   const [user, setUser] = React.useState<User>();
 
@@ -29,22 +31,21 @@ export const UserProfileProvider: React.FunctionComponent = ({ children }) => {
           return;
         }
 
-        const userId = auth0User!.sub as string;
+        const userId = auth0User.sub as string;
 
         // Check if the user exists in the DB
         const dbUser = await fetchUser(window.location.origin, userId);
-        if (dbUser) {
-          return await patchUser(window.location.origin, userId, {
-            ...userData,
-            email: auth0User.email as string,
-          });
-        } else {
-          return await postUser(window.location.origin, {
-            ...userData,
-            createDate: userData.updateDate,
-            email: auth0User.email as string,
-          });
-        }
+
+        return await (dbUser
+          ? patchUser(window.location.origin, userId, {
+              ...userData,
+              email: auth0User.email as string,
+            })
+          : postUser(window.location.origin, {
+              ...userData,
+              createDate: userData.updateDate,
+              email: auth0User.email as string,
+            }));
       };
 
       if (auth0User) {
@@ -53,7 +54,7 @@ export const UserProfileProvider: React.FunctionComponent = ({ children }) => {
         setUser(updatedUser);
       }
     };
-    syncAuth0UserProfileWithDbUser();
+    void syncAuth0UserProfileWithDbUser();
   }, [auth0User]);
 
   const providerValue = React.useMemo<UserProfileContextValue>(

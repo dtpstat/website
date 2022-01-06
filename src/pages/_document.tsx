@@ -11,6 +11,7 @@ export default class MyDocument extends Document {
     const originalRenderPage = ctx.renderPage;
 
     try {
+      // eslint-disable-next-line no-param-reassign -- expected usage of Next.js
       ctx.renderPage = () =>
         originalRenderPage({
           enhanceApp: (App) => (props) =>

@@ -26,7 +26,7 @@ export const createComment = async (
   const user = await getUser(newComment.authorId);
 
   if (!user) {
-    throw Error(`User id ${newComment.authorId} does not exists`);
+    throw new Error(`User id ${newComment.authorId} does not exists`);
   }
 
   const comment: Comment = await prisma.comment.create({

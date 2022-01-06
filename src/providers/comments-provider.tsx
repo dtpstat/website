@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 import { fetchComments } from "../requests/comments";
 import { Comment } from "../types";
@@ -14,7 +14,9 @@ const CommentsContext = React.createContext<CommentsContextValue | undefined>(
   undefined,
 );
 
-export const CommentsProvider: React.FunctionComponent = ({ children }) => {
+export const CommentsProvider: React.VoidFunctionComponent<{
+  children?: React.ReactNode;
+}> = ({ children }) => {
   const [comments, setComments] = React.useState<Comment[]>([]);
   const [newCommentText, setNewCommentText] = React.useState<string>("");
 
@@ -23,7 +25,7 @@ export const CommentsProvider: React.FunctionComponent = ({ children }) => {
       const initComments = await fetchComments(window.location.origin);
       setComments(initComments);
     };
-    initFetchComments();
+    void initFetchComments();
   }, []);
 
   const providerValue = React.useMemo<CommentsContextValue>(

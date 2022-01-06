@@ -1,4 +1,4 @@
-import { Comment as PrismaComment, User } from "@prisma/client";
+import { Comment as PrismaComment } from "@prisma/client";
 
 export interface NewComment {
   id?: number;
@@ -15,4 +15,6 @@ interface Comment extends PrismaComment {
   author?: CommentUser;
 }
 
-export type { Comment, User };
+export type { Comment };
+
+export type { User } from "@prisma/client";
