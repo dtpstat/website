@@ -4,15 +4,17 @@ import "../styles/scss/style.scss";
 import { UserProvider } from "@auth0/nextjs-auth0";
 import { AppProps } from "next/app";
 import * as React from "react";
+import { Provider } from "react-redux";
 
-const App: React.VoidFunctionComponent<AppProps> = ({
-  Component,
-  pageProps,
-}) => {
+import { store } from "../store/store";
+
+const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <UserProvider>
-      <Component {...pageProps} />
-    </UserProvider>
+    <Provider store={store}>
+      <UserProvider>
+        <Component {...pageProps} />
+      </UserProvider>
+    </Provider>
   );
 };
 

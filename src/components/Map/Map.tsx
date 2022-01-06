@@ -1,54 +1,28 @@
 import { observer } from "mobx-react";
 import Script from "next/script";
 import React, { useEffect, useRef, useState } from "react";
-import { Map as BaseMap, Placemark, YMaps } from "react-yandex-maps";
-import styled from "styled-components";
+import { Placemark, YMaps } from "react-yandex-maps";
 
+import {
+  // useAppDispatch,
+  useAppSelector,
+} from "../../store/hooks";
+import { selectMapState } from "../../store/slices/mapStateSlice";
+import { heatmapConfig } from "./config";
 import { data } from "./data";
+import { StyledMap } from "./styles";
 
 // import { useStore } from "../../models/RootStore";
 // import { debounce } from 'utils'
 
-const StyledMap = styled(BaseMap)`
-  height: calc(100vh - 2px);
-  width: 100%;
-`;
-
-const heatmapConfig = {
-  radius: 15,
-  dissipating: false,
-  opacity: 0.5,
-  intensityOfMidpoint: 0.5,
-  // gradient: {
-  //   0.1: 'rgba(128, 255, 0, 0.7)',
-  //   0.2: 'rgba(255, 255, 0, 0.8)',
-  //   0.7: 'rgba(234, 72, 58, 0.9)',
-  //   1.0: 'rgba(162, 36, 25, 1)',
-  // },
-  gradient: {
-    0.0: "rgba(126, 171, 85, 0.0)",
-    0.2: "rgba(126, 171, 85, 0.6)",
-    0.4: "rgba(255, 254, 85, 0.7)",
-    0.6: "rgba(245, 193, 66, 0.8)",
-    0.8: "rgba(223, 130, 68, 0.9)",
-    1.0: "rgba(176, 36, 24, 1)",
-  },
-};
-
 export const Map = observer(() => {
-  const mapState = { center: [55.76, 37.64], zoom: 10 };
+  // const dispatch = useAppDispatch();
+  const mapState = useAppSelector(selectMapState);
   const [heatmapLoaded, setHeatmapLoaded] = useState(false);
   const mapRef = useRef(null);
 
   useEffect(() => {
     if (heatmapLoaded) {
-      // ymaps.ready(['Heatmap']).then(function init() {
-      //   console.log('ymaps', ymaps)
-
-      //   const heatmap = new ymaps.Heatmap([], heatmapConfig);
-      //   console.log('heatmap', heatmap)
-      // });
-
       window.ymaps.ready(["Heatmap"]).then(() => {
         const hmdata = [];
         for (let i = 0; i < data.length; i++) {
