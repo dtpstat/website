@@ -17,5 +17,14 @@ export const POINTS_ZOOM = 12;
 //   }
 // }
 
-export const isEmpty = (obj: Record<string, unknown>) =>
-  Object.keys(obj).length === 0;
+export type AnyEmptyObject = Record<string, unknown>;
+
+export const isEmpty = (obj: AnyEmptyObject) => Object.keys(obj).length === 0;
+
+export const resultFromApiResult = (
+  apiResult: AnyEmptyObject,
+  keyFromApiKey: AnyEmptyObject,
+) =>
+  Object.fromEntries(
+    Object.entries(apiResult).map(([apiKey, v]) => [keyFromApiKey[apiKey], v]),
+  );

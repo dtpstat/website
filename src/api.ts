@@ -1,15 +1,15 @@
 import { config } from "./config";
-import { Coordinate, FilterResponse, ShortStatisticsResponse } from "./types";
+import { FilterResponse, MapState, ShortStatisticsResponse } from "./types";
 
 export const fetchFilters = (): Promise<FilterResponse[]> =>
   fetch(`${config.API_URL}/filters`).then((response) => response.json());
 
 let areaController: AbortController | null;
 
-export const fetchArea = (
-  center: Coordinate,
-  zoom: number,
-): Promise<ShortStatisticsResponse> => {
+export const fetchRegion = ({
+  center,
+  zoom,
+}: MapState): Promise<ShortStatisticsResponse> => {
   areaController?.abort();
   areaController = new AbortController();
 

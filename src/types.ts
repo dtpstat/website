@@ -1,3 +1,12 @@
+import type { MapState as YMapState } from "react-yandex-maps";
+
+export type Coordinate = NonNullable<YMapState["center"]>;
+
+export type MapState = {
+  center: Coordinate;
+  zoom: NonNullable<YMapState["zoom"]>;
+};
+
 export interface Comment {
   id: number;
   text: string;
@@ -5,8 +14,6 @@ export interface Comment {
   avatarUrl?: string;
   date: string;
 }
-
-export type Coordinate = number[];
 
 export type ShortStatisticsResponse = {
   parentRegionName: string;
