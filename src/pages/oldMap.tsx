@@ -3,10 +3,9 @@ import dynamic from "next/dynamic";
 import Script from "next/script";
 import * as React from "react";
 
-const DynamicComponentWithNoSSR = dynamic(
-  () => import("../components/OldMap"),
-  { ssr: false },
-);
+const DynamicOldMap = dynamic(() => import("../components/OldMap"), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
@@ -16,11 +15,10 @@ export default function Home() {
         strategy="beforeInteractive"
       />
       <Script
-        id="ymaps-heatmap"
         src="https://yastatic.net/s3/mapsapi-jslibs/heatmap/0.0.1/heatmap.min.js"
-        strategy="lazyOnload"
+        strategy="beforeInteractive"
       />
-      <DynamicComponentWithNoSSR />
+      <DynamicOldMap />
     </>
   );
 }

@@ -2,10 +2,12 @@
 import { observer } from "mobx-react";
 import React, { useCallback } from "react";
 
-import { useStore } from "../../models/RootStore";
+import { rootStore, RootStoreContext, useStore } from "../../models/RootStore";
 
 const Map = observer(() => {
+  // console.log('sholud be client only')
   const { mapStore } = useStore();
+  // console.log('mapStoremapStoremapStoremapStore', mapStore)
   // const boundsChangeHandler = useCallback( // TODO
   //   debounce((e) => {
   //     const { newCenter, newZoom, newBounds } = e.originalEvent
@@ -21,6 +23,7 @@ const Map = observer(() => {
     [mapStore],
   );
   React.useEffect(() => {
+    // console.log('window.ymaps', window.ymaps)
     window.ymaps.ready(["Heatmap"]).then(() => {
       const { center, zoom } = mapStore;
       const map = new window.ymaps.Map(
@@ -65,8 +68,15 @@ const Map = observer(() => {
   }, [mapStore, boundsChangeHandler]);
 
   const mapRef = React.useRef();
+  // console.log('mapRef, mapStore', mapRef, mapStore)
 
-  return <div id="map" ref={mapRef} />;
+  return (
+    <>
+      <RootStoreContext.Provider value={rootStore}>
+        <div id="map" ref={mapRef} />
+      </RootStoreContext.Provider>
+    </>
+  );
 });
 
 export default Map;
