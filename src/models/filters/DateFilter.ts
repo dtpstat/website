@@ -3,21 +3,21 @@ import { cast, getRoot, Instance, types } from "mobx-state-tree";
 import { RootStoreType } from "../RootStore";
 
 const DateValue = types.model("DateValue", {
-  startDate: types.string,
-  endDate: types.string,
+  start_date: types.string,
+  end_date: types.string,
 });
 
 export const DateFilter = types
   .model("DateFilter", {
     name: types.literal("date"),
     label: types.string,
-    defaultValue: DateValue,
+    default_value: DateValue,
     // values: types.array(types.string),
-    value: types.optional(DateValue, { startDate: "", endDate: "" }), // TODO?
+    value: types.optional(DateValue, { start_date: "", end_date: "" }), // TODO?
   })
   .actions((self) => {
     const afterCreate = () => {
-      self.value = self.defaultValue;
+      self.value = self.default_value;
     };
     const setValue = (value: any) => {
       self.value = cast(value);

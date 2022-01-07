@@ -28,15 +28,15 @@ export const AreaStore = types
   .actions((self) => {
     const loadArea = flow(function* (center: Coordinate, zoom: number) {
       try {
-        const response = yield fetchRegion(center, zoom);
+        const response = yield fetchRegion({ center, zoom });
         if (isEmpty(response)) {
           return;
         }
         const newArea = Area.create({
-          id: response.regionSlug,
-          name: response.regionName,
-          parentId: response.parentRegionSlug,
-          parentName: response.parentRegionName,
+          id: response.region_slug,
+          name: response.region_name,
+          parentId: response.parent_region_slug,
+          parentName: response.parent_region_name,
         });
         const areaChanged = newArea.id !== self.area?.id;
         const parentChanged = newArea.parentId !== self.area?.parentId;

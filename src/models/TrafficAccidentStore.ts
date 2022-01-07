@@ -3,10 +3,10 @@ import { flow, getRoot, types } from "mobx-state-tree";
 import { fetchDtp } from "../api";
 import { RootStoreType } from "./RootStore";
 
-const getYears = (startDate: string, endDate: string) => {
+const getYears = (start_date: string, end_date: string) => {
   const result = [];
-  const start = parseInt(startDate.split("-")[0]);
-  const end = parseInt(endDate.split("-")[0]);
+  const start = parseInt(start_date.split("-")[0]);
+  const end = parseInt(end_date.split("-")[0]);
   for (let i = start; i <= end; i++) {
     result.push(i);
   }
@@ -20,18 +20,19 @@ export const TrafficAccidentStore = types
   })
   .actions((self) => {
     const loadTrafficAccidents = flow(function* loadTrafficAccidents(
-      startDate: string,
-      endDate: string,
+      start_date: string,
+      end_date: string,
       region: string,
     ) {
       const root = getRoot<RootStoreType>(self);
       root.incLoading();
       try {
-        const data = yield fetchDtp(getYears(startDate, endDate), region);
+        const data = yield fetchDtp(getYears(start_date, end_date), region);
         self.accs = data
           .flat()
           .filter(
-            (a: any) => a.datetime >= startDate && a.datetime <= `${endDate}Z`,
+            (a: any) =>
+              a.datetime >= start_date && a.datetime <= `${end_date}Z`,
           );
         root.onTrafficAccidentsLoaded();
       } catch (error) {

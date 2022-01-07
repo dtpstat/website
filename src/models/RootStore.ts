@@ -44,8 +44,8 @@ const RootStore = types
       const { areaStore, filterStore, trafficAccidentStore } = self;
       if (areaStore.area) {
         trafficAccidentStore.loadTrafficAccidents(
-          filterStore.startDate,
-          filterStore.endDate,
+          filterStore.start_date,
+          filterStore.end_date,
           areaStore.area.parentId,
         );
       }
@@ -146,8 +146,8 @@ const RootStore = types
           (f) => f.name === "date",
         ) as DateFilterType
       ).value;
-      currentParams.set("startDate", value.startDate);
-      currentParams.set("endDate", value.endDate);
+      currentParams.set("start_date", value.start_date);
+      currentParams.set("end_date", value.end_date);
     };
     const updateUrlFilters = (currentParams: URLSearchParams) => {
       self.filterStore.filters
@@ -179,16 +179,18 @@ const RootStore = types
       const zoom = zoomStr ? parseInt(zoomStr, 10) : 12;
       self.mapStore.center = cast(center);
       self.mapStore.zoom = zoom;
+      // self.mapStore.center = [55.76, 37.64]
+      // self.mapStore.zoom = 10;
     };
     const setDatesFromUrl = () => {
       const currentParams = new URLSearchParams(document.location.search);
       const dateFilter = self.filterStore.filters.find(
         (f) => f.name === "date",
       ) as DateFilterType;
-      const startDate = currentParams.get("startDate");
-      const endDate = currentParams.get("endDate");
-      if (startDate && endDate) {
-        dateFilter.value = { startDate, endDate };
+      const start_date = currentParams.get("start_date");
+      const end_date = currentParams.get("end_date");
+      if (start_date && end_date) {
+        dateFilter.value = { start_date, end_date };
       }
     };
     const setFiltersFromUrl = () => {

@@ -41,9 +41,9 @@ export type DateFilterResponse = {
   name: "date";
   label: string;
   values: string[];
-  defaultValue: {
-    startDate: string;
-    endDate: string;
+  default_value: {
+    start_date: string;
+    end_date: string;
   };
 };
 

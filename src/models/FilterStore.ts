@@ -116,11 +116,13 @@ export const FilterStore = types
       return dateFilters?.[0];
     },
 
-    get startDate() {
-      return this.date?.value.startDate;
+    get start_date() {
+      return this.date?.value.start_date;
     },
 
-    get endDate() {
-      return this.date?.value.endDate;
+    get end_date() {
+      return this.date?.value.end_date;
     },
   }));
+
+// const formatdefault_value = ({start_date:, end_date}) => ({start_date: start_date, end_date: end_date})
