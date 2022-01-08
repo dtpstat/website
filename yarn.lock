@@ -2790,7 +2790,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"execa@npm:^5.1.1":
+"execa@npm:^5.0.0, execa@npm:^5.1.1":
   version: 5.1.1
   resolution: "execa@npm:5.1.1"
   dependencies:
@@ -6118,6 +6118,7 @@ __metadata:
     react: ^17.0.2
     react-dom: ^17.0.2
     styled-components: ^5.3.3
+    suppress-exit-code: ^1.0.0
     typescript: ^4.5.4
   languageName: unknown
   linkType: soft
@@ -6887,6 +6888,17 @@ __metadata:
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 53b1e247e68e05db7b3808b99b892bd36fb096e6fba213a06da7fab22045e97597db425c724f2bbd6c99a3c295e1e73f3e4de78592289f38431049e1277ca0ae
+  languageName: node
+  linkType: hard
+
+"suppress-exit-code@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "suppress-exit-code@npm:1.0.0"
+  dependencies:
+    execa: ^5.0.0
+  bin:
+    suppress-exit-code: index.js
+  checksum: ad6c851ab141394d7f475f7f74c26ab4405b8970e159c70c403239cfb0f092c40d0c40fab9937b2f92943c24896da34982ec90928a19b37a15f81095c29990da
   languageName: node
   linkType: hard
 
