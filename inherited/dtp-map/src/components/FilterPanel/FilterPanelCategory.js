@@ -1,7 +1,6 @@
-import React from "react";
 import { observer } from "mobx-react";
-
 import { useStore } from "models/RootStore";
+import React from "react";
 
 import CategoryHeader from "./CategoryHeader";
 
@@ -26,6 +25,7 @@ export const FilterPanelCategory = observer(() => {
   const { filters } = filterStore;
   const filter = filters.find((f) => f.key === filterStore.currentKey);
   const q = filterStore.search.toLowerCase();
+
   return (
     <div className="filter-panel">
       <div className="filter-panel-category">

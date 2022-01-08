@@ -1,14 +1,14 @@
-import React from "react";
-import { observer } from "mobx-react";
 import {
-  parseISO,
-  parse,
   format,
-  subMonths,
   lastDayOfMonth,
+  parse,
+  parseISO,
   startOfMonth,
+  subMonths,
 } from "date-fns";
 import ruLocale from "date-fns/locale/ru";
+import { observer } from "mobx-react";
+import React from "react";
 
 const DateFilterSection = ({ filter }) => {
   const defaultRange = {
@@ -70,6 +70,7 @@ const DateFilterSection = ({ filter }) => {
       dirtyRef.current = false;
     }
   };
+
   return (
     <div>
       <div className="date-main">
@@ -112,6 +113,7 @@ const DateMenu = ({ handleClick, setShow }) => {
   useOutsideClick(menuRef, () => {
     setShow(false);
   });
+
   return (
     <div className="date-menu" ref={menuRef}>
       {defaultRanges.map((r) => (
@@ -136,6 +138,7 @@ const parseRange = (s) => {
       return { start, end };
     }
   }
+
   return null;
 };
 
@@ -145,8 +148,9 @@ const parseDate = (s) => {
     if (isNaN(result)) {
       return null;
     }
+
     return result;
-  } catch (ex) {
+  } catch {
     return null;
   }
 };
@@ -155,14 +159,16 @@ const formatDate = (date) => format(date, "yyyy-MM-dd");
 
 const formatRange = (range) => {
   const f = "dd.MM.yyyy";
+
   return `${format(range.start, f)} - ${format(range.end, f)}`;
 };
 
 const getPrevMonth = (n) => {
   const p = subMonths(new Date(), n);
   const s = format(p, "LLLL", { locale: ruLocale });
+
   return {
-    label: s[0].toLocaleUpperCase("ru") + s.substring(1),
+    label: s[0].toLocaleUpperCase("ru") + s.slice(1),
     start: startOfMonth(p),
     end: lastDayOfMonth(p),
   };
@@ -186,6 +192,7 @@ const getDefaultRanges = () => {
     start: new Date(2015, 0, 1),
     end: new Date(),
   });
+
   return result;
 };
 

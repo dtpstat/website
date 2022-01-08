@@ -1,7 +1,6 @@
-import React from "react";
 import { observer } from "mobx-react";
-
 import { useStore } from "models/RootStore";
+import React from "react";
 
 const CategoryHeader = () => {
   const { filterStore } = useStore();
@@ -12,6 +11,7 @@ const CategoryHeader = () => {
     filterStore.setCurrentKey(null);
     filterStore.setSearch("");
   };
+
   return (
     <div className="filter-header">
       <button className="btn-back" onClick={handleBack}>

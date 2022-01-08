@@ -1,7 +1,6 @@
-import React from "react";
 import { observer } from "mobx-react";
-
 import { useStore } from "models/RootStore";
+import React from "react";
 
 import DateFilter from "./DateFilter";
 
@@ -13,6 +12,7 @@ export const FilterPanelHidden = observer(() => {
     filters.filter((f) => f.values?.some((v) => v.selected !== v.default)) ||
     [];
   const text = activeFilters.map((f) => f.label).join(", ");
+
   return (
     <div className="filter-panel">
       <div className="filter-panel-hidden">

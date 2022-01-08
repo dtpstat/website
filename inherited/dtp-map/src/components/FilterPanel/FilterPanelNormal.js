@@ -1,12 +1,11 @@
-import React from "react";
 import { observer } from "mobx-react";
-
 import { useStore } from "models/RootStore";
+import React from "react";
 
 import DateFilter from "./DateFilter";
 import ParticipantsFilter from "./ParticipantsFilter";
-import SeverityFilter from "./SeverityFilter";
 import RegionFilter from "./RegionFilter";
+import SeverityFilter from "./SeverityFilter";
 
 const FilterSection = ({ filter }) => {
   switch (filter.name) {
@@ -38,6 +37,7 @@ const CategoryTag = observer(({ filter }) => {
       </div>
     );
   }
+
   return (
     <div className="category-tag">
       <button className="btn-rect" onClick={(e) => filter.navigate()}>

@@ -1,11 +1,10 @@
-import React from "react";
 import { observer } from "mobx-react";
-
 import { useStore } from "models/RootStore";
+import React from "react";
 
-import { FilterPanelNormal } from "./FilterPanelNormal";
-import { FilterPanelHidden } from "./FilterPanelHidden";
 import { FilterPanelCategory } from "./FilterPanelCategory";
+import { FilterPanelHidden } from "./FilterPanelHidden";
+import { FilterPanelNormal } from "./FilterPanelNormal";
 
 const FilterPanel = () => {
   const { filterStore } = useStore();
@@ -19,6 +18,7 @@ const FilterPanel = () => {
     if (filterStore.currentKey) {
       return <FilterPanelCategory />;
     }
+
     return <FilterPanelNormal />;
   } else {
     return <FilterPanelHidden />;

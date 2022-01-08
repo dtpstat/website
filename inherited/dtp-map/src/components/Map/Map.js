@@ -1,11 +1,11 @@
-import React, { useCallback } from "react";
 import "./Map.css";
-import { observer } from "mobx-react";
 
+import { observer } from "mobx-react";
 import { useStore } from "models/RootStore";
+import React, { useCallback } from "react";
 // import { debounce } from 'utils'
 
-export const Map = observer(function Map() {
+export const Map = observer(() => {
   const { mapStore } = useStore();
   // const boundsChangeHandler = useCallback( // TODO
   //   debounce((e) => {
