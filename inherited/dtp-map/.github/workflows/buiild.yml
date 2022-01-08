@@ -1,0 +1,35 @@
+name: Build client bunfle
+
+on:
+  - push
+  - workflow_dispatch
+
+jobs:
+  build:
+    name: Build client bundle
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install packages
+        run: yarn install --frozen-lockfile
+
+
+      - name: Build bundle
+        run: yarn build
+        env:
+          REACT_APP_BASE_URL: https://dtp-stat.ru
+
+      - name: Publish
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --dir=build
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+
