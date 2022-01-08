@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
-import { Loader } from 'components/Loader'
+import { Loader } from "components/Loader";
 
-import { Map } from './components/Map'
-import { FilterPanel } from './components/FilterPanel'
-import { InfoPanel } from './components/InfoPanel'
-import { rootStore, RootStoreContext } from './models/RootStore'
+import { Map } from "./components/Map";
+import { FilterPanel } from "./components/FilterPanel";
+import { InfoPanel } from "./components/InfoPanel";
+import { rootStore, RootStoreContext } from "./models/RootStore";
 //import Toast from 'components/Toast';
 //import Layers from './components/Layers/Layers';
 //import Event from './components/Event/Event';
@@ -17,7 +17,7 @@ export const App: React.FC = () => (
   <RootStoreContext.Provider value={rootStore}>
     <Loader />
     <Map />
-    <div className='ui-layer'>
+    <div className="ui-layer">
       <FilterPanel />
       <InfoPanel />
       {/* <Toast /> */}
@@ -28,4 +28,4 @@ export const App: React.FC = () => (
     {/*<Article />*/}
     {/*<Articles />*/}
   </RootStoreContext.Provider>
-)
+);

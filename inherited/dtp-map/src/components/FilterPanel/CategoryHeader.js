@@ -1,20 +1,22 @@
-import React from 'react'
-import { observer } from 'mobx-react'
+import React from "react";
+import { observer } from "mobx-react";
 
-import { useStore } from 'models/RootStore'
+import { useStore } from "models/RootStore";
 
 const CategoryHeader = () => {
-  const { filterStore } = useStore()
-  const filter = filterStore.filters.find((f) => f.key === filterStore.currentKey)
+  const { filterStore } = useStore();
+  const filter = filterStore.filters.find(
+    (f) => f.key === filterStore.currentKey,
+  );
   const handleBack = (e) => {
-    filterStore.setCurrentKey(null)
-    filterStore.setSearch('')
-  }
+    filterStore.setCurrentKey(null);
+    filterStore.setSearch("");
+  };
   return (
-    <div className='filter-header'>
-      <button className='btn-back' onClick={handleBack}>
-        <svg className='icon icon-arrow-back'>
-          <use xlinkHref='svg/sprite.svg#arrow-back' />
+    <div className="filter-header">
+      <button className="btn-back" onClick={handleBack}>
+        <svg className="icon icon-arrow-back">
+          <use xlinkHref="svg/sprite.svg#arrow-back" />
         </svg>
         <span>{filter.label}</span>
       </button>
@@ -34,23 +36,23 @@ const CategoryHeader = () => {
             ))}
         </div>
       )} */}
-      <div className='inputWrap'>
+      <div className="inputWrap">
         <input
-          type='text'
-          className='input'
-          placeholder='Введите название нарушения'
+          type="text"
+          className="input"
+          placeholder="Введите название нарушения"
           value={filterStore.search}
           onChange={(e) => filterStore.setSearch(e.target.value)}
         />
         {/* maybe it should be button not just svg */}
-        <button className='btn-search'>
-          <svg className='icon icon-search'>
-            <use xlinkHref='svg/sprite.svg#search' />
+        <button className="btn-search">
+          <svg className="icon icon-search">
+            <use xlinkHref="svg/sprite.svg#search" />
           </svg>
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default observer(CategoryHeader)
+export default observer(CategoryHeader);

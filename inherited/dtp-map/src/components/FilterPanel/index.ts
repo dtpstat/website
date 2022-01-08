@@ -1,3 +1,3 @@
-import { default as FilterPanel } from './FilterPanel'
+import { default as FilterPanel } from "./FilterPanel";
 
-export { FilterPanel }
+export { FilterPanel };

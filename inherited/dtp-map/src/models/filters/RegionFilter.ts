@@ -1,9 +1,9 @@
-import { types, Instance } from 'mobx-state-tree'
+import { types, Instance } from "mobx-state-tree";
 
-export const RegionFilter = types.model('RegionFilter', {
-  name: types.literal('region'),
+export const RegionFilter = types.model("RegionFilter", {
+  name: types.literal("region"),
   label: types.string,
   values: types.array(types.number),
-})
+});
 
-export type RegionFilterType = Instance<typeof RegionFilter>
+export type RegionFilterType = Instance<typeof RegionFilter>;

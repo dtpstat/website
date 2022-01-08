@@ -1,9 +1,9 @@
-import { types, Instance, getRoot } from 'mobx-state-tree'
+import { types, Instance, getRoot } from "mobx-state-tree";
 
-import { RootStoreType } from '../RootStore'
+import { RootStoreType } from "../RootStore";
 
 const SeverityItem = types
-  .model('SeverityItem', {
+  .model("SeverityItem", {
     preview: types.string,
     value: types.number,
     color: types.string,
@@ -14,23 +14,23 @@ const SeverityItem = types
   })
   .actions((self) => {
     const afterCreate = () => {
-      self.selected = self.default
-    }
+      self.selected = self.default;
+    };
     function changeSelection() {
-      self.selected = !self.selected
-      getRoot<RootStoreType>(self).onFiltersChanged()
+      self.selected = !self.selected;
+      getRoot<RootStoreType>(self).onFiltersChanged();
     }
     return {
       afterCreate,
       changeSelection,
-    }
-  })
+    };
+  });
 
-export const SeverityFilter = types.model('SeverityFilter', {
-  name: types.literal('severity'),
+export const SeverityFilter = types.model("SeverityFilter", {
+  name: types.literal("severity"),
   label: types.string,
   multiple: types.boolean,
   values: types.array(SeverityItem),
-})
+});
 
-export type SeverityFilterType = Instance<typeof SeverityFilter>
+export type SeverityFilterType = Instance<typeof SeverityFilter>;
