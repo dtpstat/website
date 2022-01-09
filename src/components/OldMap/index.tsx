@@ -71,11 +71,7 @@ const Map = observer(() => {
   const mapRef = React.useRef();
   // console.log('mapRef, mapStore', mapRef, mapStore)
 
-  return (
-    <>
-      <StyledMap id="map" ref={mapRef} />
-    </>
-  );
+  return <StyledMap id="map" ref={mapRef} />;
 });
 
 export default Map;
