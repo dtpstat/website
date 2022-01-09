@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import Script from "next/script";
 import * as React from "react";
 
-const DynamicOldMap = dynamic(() => import("../components/OldMap"), {
+const DynamicOldMap = dynamic(() => import("../components/OldProject"), {
   ssr: false,
 });
 

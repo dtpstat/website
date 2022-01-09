@@ -2,7 +2,8 @@
 import { observer } from "mobx-react";
 import React, { useCallback } from "react";
 
-import { rootStore, RootStoreContext, useStore } from "../../models/RootStore";
+import { useStore } from "../../models/RootStore";
+import { StyledMap } from "./styles";
 
 const Map = observer(() => {
   // console.log('sholud be client only')
@@ -72,9 +73,7 @@ const Map = observer(() => {
 
   return (
     <>
-      <RootStoreContext.Provider value={rootStore}>
-        <div id="map" ref={mapRef} />
-      </RootStoreContext.Provider>
+      <StyledMap id="map" ref={mapRef} />
     </>
   );
 });
