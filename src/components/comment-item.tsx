@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 
 import { formatDate } from "../shared/date-helpers";
+import { themeFontFamily } from "../styles/main-theme";
 import { Comment } from "../types";
 import { AvatarImage } from "./avatar-image";
 
@@ -10,7 +11,7 @@ export interface CommentItemProps {
 }
 
 const CommentText = styled.div`
-  font-family: Roboto;
+  font-family: ${themeFontFamily};
   font-size: 16px;
   font-style: normal;
   font-weight: 400;

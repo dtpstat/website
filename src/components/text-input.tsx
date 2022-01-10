@@ -1,8 +1,10 @@
 import React, { ChangeEventHandler } from "react";
 import styled from "styled-components";
 
+import { themeFontFamily } from "../styles/main-theme";
+
 const StyledInput = styled.input`
-  font-family: Roboto;
+  font-family: ${themeFontFamily};
   font-style: normal;
   font-weight: normal;
   font-size: 14px;

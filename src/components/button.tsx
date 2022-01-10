@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
+import { themeFontFamily } from "../styles/main-theme";
+
 export const Button = styled.button`
-  font-family: Roboto;
+  font-family: ${themeFontFamily};
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
