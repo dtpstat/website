@@ -1,7 +1,9 @@
 export interface Theme {
-  theme: {
-    fontFamily: string;
-  };
+  fontFamily: string;
+}
+
+export interface ThemeProps {
+  theme: Theme;
 }
 
 export const mainTheme = {
@@ -9,4 +11,7 @@ export const mainTheme = {
     "Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
 };
 
-export const themeFontFamily = ({ theme }: Theme) => theme.fontFamily;
+export const getTheme = ({ theme: themeProps }: ThemeProps) =>
+  themeProps as Theme;
+export const themeFontFamily = ({ theme: themeProps }: ThemeProps) =>
+  themeProps.fontFamily;
