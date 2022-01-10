@@ -2,6 +2,7 @@ module.exports = {
   experimental: {
     styledComponents: true,
   },
+
   productionBrowserSourceMaps: true,
   reactStrictMode: true,
 
