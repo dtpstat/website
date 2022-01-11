@@ -2,8 +2,8 @@
 import makeInspectable from "mobx-devtools-mst";
 import { cast, flow, Instance, types } from "mobx-state-tree";
 import React from "react";
-import { POINTS_ZOOM } from "utils";
 
+import { POINTS_ZOOM } from "../utils";
 import { AreaStore } from "./AreaStore";
 import { DateFilterType } from "./filters/DateFilter";
 import { FilterStore } from "./FilterStore";

@@ -1,6 +1,6 @@
-import { fetchDtp } from "api";
 import { flow, getRoot, types } from "mobx-state-tree";
 
+import { fetchDtp } from "../api";
 import { RootStoreType } from "./RootStore";
 
 const getYears = (startDate: string, endDate: string) => {

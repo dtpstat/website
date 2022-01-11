@@ -1,6 +1,6 @@
-import { fetchFilters } from "api";
 import { cast, flow, Instance, types } from "mobx-state-tree";
 
+import { fetchFilters } from "../api";
 import {
   CategoryFilter,
   CategoryFilterType,

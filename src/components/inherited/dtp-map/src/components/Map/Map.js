@@ -1,7 +1,6 @@
-import "./Map.css";
-
+import { StyledMap } from "./styles";
 import { observer } from "mobx-react";
-import { useStore } from "models/RootStore";
+import { useStore } from "../../models/RootStore";
 import React, { useCallback } from "react";
 // import { debounce } from 'utils'
 
@@ -67,5 +66,5 @@ export const Map = observer(() => {
 
   const mapRef = React.useRef();
 
-  return <div id="map" ref={mapRef} />;
+  return <StyledMap id="map" ref={mapRef} />;
 });

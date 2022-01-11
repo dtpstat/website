@@ -1,8 +1,8 @@
-import { Loader } from "components/Loader";
 import React from "react";
 
 import { FilterPanel } from "./components/FilterPanel";
 import { InfoPanel } from "./components/InfoPanel";
+import { Loader } from "./components/Loader";
 import { Map } from "./components/Map";
 import { rootStore, RootStoreContext } from "./models/RootStore";
 // import Toast from 'components/Toast';

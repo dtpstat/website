@@ -1,5 +1,5 @@
 import { observer } from "mobx-react";
-import { useStore } from "models/RootStore";
+import { useStore } from "../../models/RootStore";
 import React from "react";
 
 import { FilterPanelCategory } from "./FilterPanelCategory";

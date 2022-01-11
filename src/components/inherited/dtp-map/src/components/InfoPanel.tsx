@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
-import { useStore } from "models/RootStore";
 import React from "react";
 
+import { useStore } from "../models/RootStore";
 import { Colors } from "./ui/Colors";
 
 const InfoPanelObservable = observer(() => {

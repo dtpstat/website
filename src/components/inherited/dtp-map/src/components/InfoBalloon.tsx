@@ -1,6 +1,6 @@
-import config from "config";
 import React from "react";
 
+import config from "../config";
 import SvgIcon from "./SvgIcon";
 import { Colors } from "./ui/Colors";
 

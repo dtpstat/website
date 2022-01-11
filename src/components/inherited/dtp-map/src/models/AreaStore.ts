@@ -1,8 +1,9 @@
-import { fetchArea } from "api";
 import { cast, flow, getRoot, Instance, types } from "mobx-state-tree";
-import { RootStoreType } from "models/RootStore";
-import { Coordinate } from "types";
-import { isEmpty } from "utils";
+
+import { fetchArea } from "../api";
+import { Coordinate } from "../types";
+import { isEmpty } from "../utils";
+import { RootStoreType } from "./RootStore";
 
 const Area = types.model("Area", {
   id: types.string,

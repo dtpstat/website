@@ -1,8 +1,9 @@
-import { Colors } from "components/ui/Colors";
 import { observer } from "mobx-react";
-import { SeverityFilterType } from "models/filters/SeverityFilter";
 import React, { FC } from "react";
 import ReactTooltip from "react-tooltip";
+
+import { SeverityFilterType } from "../../models/filters/SeverityFilter";
+import { Colors } from "../ui/Colors";
 
 const SeverityFilterSection: FC<SeverityFilterType> = ({ values }) => (
   <div>
