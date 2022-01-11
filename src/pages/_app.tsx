@@ -4,15 +4,15 @@ import * as React from "react";
 import { ThemeProvider } from "styled-components";
 
 import { UserProfileProvider } from "../providers/user-profile-provider";
+import { defaultTheme } from "../styles/default-theme";
 import { GlobalStyles } from "../styles/global-styles";
-import { mainTheme } from "../styles/main-theme";
 
 const App: React.VoidFunctionComponent<AppProps> = ({
   Component,
   pageProps,
 }) => {
   return (
-    <ThemeProvider theme={mainTheme}>
+    <ThemeProvider theme={defaultTheme}>
       <GlobalStyles />
       <UserProvider>
         <UserProfileProvider>
