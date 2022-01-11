@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from "react";
+import * as React from "react";
 import styled from "styled-components";
 
 const StyledInput = styled.input`
@@ -18,7 +18,7 @@ const StyledInput = styled.input`
 interface TextInputProps {
   placeholder?: string;
   value?: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 export const TextInput: React.VoidFunctionComponent<TextInputProps> = ({

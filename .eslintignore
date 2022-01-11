@@ -8,10 +8,14 @@
 
 # Allow certain file types
 # !*.js
+!*.cjs
 !*.json
+!*.mjs
 !*.ts
 !*.tsx
 # !*.scss
+
+/inherited/
 
 ########################
 ## Same as in .gitignore

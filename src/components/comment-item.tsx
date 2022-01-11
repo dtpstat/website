@@ -42,16 +42,31 @@ const CommentContainer = styled.div`
   display: flex;
 `;
 
+const Tag = styled.span`
+  border-radius: 10px;
+  background: orange;
+  color: white;
+  font-size: 12px;
+  margin: 0 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+`;
+
 export const CommentItem: React.VoidFunctionComponent<CommentItemProps> = ({
   comment,
 }) => {
   return (
     <CommentContainer>
-      <AvatarImage src={comment.avatarUrl} />
+      <AvatarImage src={comment.author?.avatarUrl} />
       <div>
         <div>
-          <CommentAuthor>{comment.user}</CommentAuthor>:{" "}
-          <CommentDate>{formatDate(comment.date)}</CommentDate>
+          <CommentAuthor>{comment.author?.name}</CommentAuthor>:{" "}
+          <CommentDate>{formatDate(comment.createDate)}</CommentDate>
+          {comment.isPublished ? undefined : (
+            <Tag title="Комментарий еще не опубликован и виден только вам">
+              На модерации
+            </Tag>
+          )}
         </div>
         <CommentText>{comment.text}</CommentText>
       </div>

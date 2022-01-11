@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import styled from "styled-components";
 
 const defaultAvatarImg =
@@ -12,7 +12,7 @@ const StyledImg = styled.img`
 `;
 
 interface AvatarImageProps {
-  src?: string;
+  src?: string | null;
 }
 
 export const AvatarImage: React.VoidFunctionComponent<AvatarImageProps> = ({
