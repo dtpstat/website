@@ -1,10 +1,8 @@
 import React, { ChangeEventHandler } from "react";
 import styled from "styled-components";
 
-import { themeFontFamily } from "../styles/main-theme";
-
 const StyledInput = styled.input`
-  font-family: ${themeFontFamily};
+  font-family: ${(props) => props.theme.fontFamily};
   font-style: normal;
   font-weight: normal;
   font-size: 14px;

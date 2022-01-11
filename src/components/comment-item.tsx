@@ -2,7 +2,6 @@ import * as React from "react";
 import styled from "styled-components";
 
 import { formatDate } from "../shared/date-helpers";
-import { themeFontFamily } from "../styles/main-theme";
 import { Comment } from "../types";
 import { AvatarImage } from "./avatar-image";
 
@@ -11,7 +10,7 @@ export interface CommentItemProps {
 }
 
 const CommentText = styled.div`
-  font-family: ${themeFontFamily};
+  font-family: ${(props) => props.theme.fontFamily};
   font-size: 16px;
   font-style: normal;
   font-weight: 400;

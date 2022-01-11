@@ -1,12 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 
-import { themeFontFamily } from "./main-theme";
-
 export const GlobalStyles = createGlobalStyle`
     html, body {
         padding: 0;
         margin: 0;
-        font-family: ${themeFontFamily};
+        font-family: ${(props) => props.theme.fontFamily};
     }
 
     a {
