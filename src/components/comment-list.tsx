@@ -6,7 +6,7 @@ import { Comment } from "../types";
 import { CommentItem } from "./comment-item";
 
 const CommentsHeader = styled.h2`
-  font-family: Roboto;
+  font-family: ${(props) => props.theme.fontFamily};
   font-style: normal;
   font-weight: bold;
   font-size: 26px;

@@ -10,7 +10,7 @@ export interface CommentItemProps {
 }
 
 const CommentText = styled.div`
-  font-family: Roboto;
+  font-family: ${(props) => props.theme.fontFamily};
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
