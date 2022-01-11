@@ -2,7 +2,7 @@ import React, { ChangeEventHandler } from "react";
 import styled from "styled-components";
 
 const StyledInput = styled.input`
-  font-family: Roboto;
+  font-family: ${(props) => props.theme.fontFamily};
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
