@@ -64,7 +64,9 @@ export const CommentInput: React.VoidFunctionComponent = () => {
         value={newCommentText}
         onChange={handleTextChange}
       />
-      <Button onClick={handleSend}>Отправить</Button>
+      <Button onClick={handleSend} disabled={newCommentText.length === 0}>
+        Отправить
+      </Button>
     </InputContainer>
   ) : (
     <div>
