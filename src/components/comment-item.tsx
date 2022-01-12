@@ -21,6 +21,10 @@ const CommentText = styled.div`
   color: #18334a;
   margin: 4px 0 16px;
   display: block;
+
+  a {
+    text-decoration: underline;
+  }
 `;
 
 const CommentAuthor = styled(CommentText)`
