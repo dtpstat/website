@@ -23,6 +23,14 @@ const InputContainer = styled.div`
   justify-content: space-between;
 `;
 
+const SubmitButtonContainer = styled.div`
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const CommentInput: React.VoidFunctionComponent = () => {
   const { setNewCommentText, newCommentText, comments, setComments } =
     useComments();
@@ -62,11 +70,15 @@ export const CommentInput: React.VoidFunctionComponent = () => {
         placeholder="Добавить комментарий..."
         isMultiline={true}
         value={newCommentText}
+        onSubmit={handleSend}
         onChange={handleTextChange}
       />
-      <Button onClick={handleSend} disabled={newCommentText.length === 0}>
-        Отправить
-      </Button>
+      <SubmitButtonContainer>
+        <Button onClick={handleSend} disabled={newCommentText.length === 0}>
+          Отправить
+        </Button>
+        <span>Ctrl + Enter</span>
+      </SubmitButtonContainer>
     </InputContainer>
   ) : (
     <div>

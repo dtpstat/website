@@ -32,6 +32,7 @@ interface TextInputProps {
   isMultiline?: boolean;
   value?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  onSubmit?: Function;
 }
 
 export const TextInput: React.VoidFunctionComponent<TextInputProps> = ({
@@ -39,11 +40,29 @@ export const TextInput: React.VoidFunctionComponent<TextInputProps> = ({
   isMultiline,
   value,
   onChange,
+  onSubmit,
 }) => {
+  const handleSubmit = (event: React.KeyboardEvent<Element>) => {
+    if (!onSubmit) {
+      return;
+    }
+    if (!event.ctrlKey) {
+      return;
+    }
+    if (event.key !== "Enter") {
+      return;
+    }
+
+    onSubmit();
+  };
+
   return isMultiline ? (
     <StyledTextArea
       placeholder={placeholder}
       onChange={onChange}
+      onKeyDown={(event) => {
+        handleSubmit(event);
+      }}
       value={value}
     />
   ) : (
