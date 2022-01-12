@@ -1,4 +1,5 @@
 import * as React from "react";
+import Linkify from "react-linkify";
 import styled from "styled-components";
 
 import { formatDate } from "../shared/date-helpers";
@@ -68,7 +69,9 @@ export const CommentItem: React.VoidFunctionComponent<CommentItemProps> = ({
             </Tag>
           )}
         </div>
-        <CommentText>{comment.text}</CommentText>
+        <CommentText>
+          <Linkify>{comment.text}</Linkify>
+        </CommentText>
       </div>
     </CommentContainer>
   );
