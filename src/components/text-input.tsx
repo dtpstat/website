@@ -37,7 +37,7 @@ interface TextInputProps {
   isDisabled?: boolean;
   value?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-  onSubmit?: Function;
+  onSubmit?: () => void;
 }
 
 export const TextInput: React.VoidFunctionComponent<TextInputProps> = ({
