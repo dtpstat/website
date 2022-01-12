@@ -13,6 +13,7 @@ import { TextInput } from "./text-input";
 const InputContainer = styled.div`
   background: rgba(24, 51, 74, 0.1);
   border-radius: 4px;
+  color: #18334a;
   display: flex;
   flex: none;
   order: 3;
@@ -35,6 +36,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
   const { setNewCommentText, newCommentText, comments, setComments } =
     useComments();
   const { user } = useUser();
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const userPicture = (user && user.avatarUrl) || undefined;
 
@@ -49,6 +51,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     };
 
     try {
+      setIsLoading(true);
       const comment = await postComment(window.location.origin, newComment);
 
       setComments([...comments, comment]);
@@ -56,6 +59,8 @@ export const CommentInput: React.VoidFunctionComponent = () => {
       setNewCommentText("");
     } catch {
       // TODO: handleError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -69,12 +74,16 @@ export const CommentInput: React.VoidFunctionComponent = () => {
       <TextInput
         placeholder="Добавить комментарий..."
         isMultiline={true}
+        isDisabled={isLoading}
         value={newCommentText}
         onSubmit={handleSend}
         onChange={handleTextChange}
       />
       <SubmitButtonContainer>
-        <Button onClick={handleSend} disabled={newCommentText.length === 0}>
+        <Button
+          onClick={handleSend}
+          disabled={newCommentText.length === 0 || isLoading}
+        >
           Отправить
         </Button>
         <span>Ctrl + Enter</span>
