@@ -11,7 +11,6 @@ import { Link } from "./link";
 import { TextInput } from "./text-input";
 
 const InputContainer = styled.div`
-  height: 54px;
   background: rgba(24, 51, 74, 0.1);
   border-radius: 4px;
   display: flex;
@@ -20,7 +19,7 @@ const InputContainer = styled.div`
   flex-grow: 0;
   margin: 0 0 16px;
   padding: 12px;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
 `;
 
@@ -61,6 +60,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
       <AvatarImage src={userPicture} />
       <TextInput
         placeholder="Добавить комментарий..."
+        isMultiline={true}
         value={newCommentText}
         onChange={handleTextChange}
       />
