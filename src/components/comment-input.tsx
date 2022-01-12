@@ -45,6 +45,10 @@ export const CommentInput: React.VoidFunctionComponent = () => {
       throw new Error("no user");
     }
 
+    if (!newCommentText) {
+      return;
+    }
+
     const newComment: NewComment = {
       authorId: user.id,
       text: newCommentText,
