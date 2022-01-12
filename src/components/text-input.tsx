@@ -13,6 +13,7 @@ const StyledInput = styled.input`
   border: none;
   background: none;
   width: 100%;
+  outline: none;
 `;
 
 interface TextInputProps {
