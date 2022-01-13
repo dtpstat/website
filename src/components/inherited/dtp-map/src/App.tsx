@@ -12,7 +12,7 @@ import { rootStore, RootStoreContext } from "./models/RootStore";
 // import Articles from './components/News/Articles';
 // import Article from './components/News/Article';
 
-export const App: React.FC = () => (
+const App: React.FC = () => (
   <RootStoreContext.Provider value={rootStore}>
     <Loader />
     <Map />
@@ -28,3 +28,5 @@ export const App: React.FC = () => (
     {/* <Articles /> */}
   </RootStoreContext.Provider>
 );
+
+export default App;

@@ -6,7 +6,6 @@ import { FilterPanel } from "../FilterPanel";
 import { InfoPanel } from "../InfoPanel";
 import { App } from "../inherited/dtp-map/src/App";
 import { Loader } from "../Loader";
-import Map from "../OldMap";
 import { UiLayer } from "./styles";
 
 const OldProject = () => (

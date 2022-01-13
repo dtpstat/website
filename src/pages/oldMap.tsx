@@ -3,9 +3,12 @@ import dynamic from "next/dynamic";
 import Script from "next/script";
 import * as React from "react";
 
-const DynamicOldMap = dynamic(() => import("../components/OldProject"), {
-  ssr: false,
-});
+const DynamicOldMap = dynamic(
+  () => import("../components/inherited/dtp-map/src/App"),
+  {
+    ssr: false,
+  },
+);
 
 export default function Home() {
   return (
