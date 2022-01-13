@@ -36,11 +36,11 @@ export const CommentInput: React.VoidFunctionComponent = () => {
   const { setNewCommentText, newCommentText, comments, setComments } =
     useComments();
   const { user } = useUser();
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [submitting, setSubmitting] = React.useState<boolean>(false);
 
   const userPicture = (user && user.avatarUrl) || undefined;
 
-  const handleSend = async () => {
+  const handleSubmit = async () => {
     if (!user) {
       throw new Error("no user");
     }
@@ -55,16 +55,15 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     };
 
     try {
-      setIsLoading(true);
+      setSubmitting(true);
       const comment = await postComment(window.location.origin, newComment);
 
       setComments([...comments, comment]);
-
       setNewCommentText("");
     } catch {
       // TODO: handleError(error);
     } finally {
-      setIsLoading(false);
+      setSubmitting(false);
     }
   };
 
@@ -77,16 +76,16 @@ export const CommentInput: React.VoidFunctionComponent = () => {
       <AvatarImage src={userPicture} />
       <TextInput
         placeholder="Добавить комментарий..."
-        isMultiline={true}
-        isDisabled={isLoading}
+        multiline={true}
+        disabled={submitting}
         value={newCommentText}
-        onSubmit={handleSend}
+        onSubmit={handleSubmit}
         onChange={handleTextChange}
       />
       <SubmitButtonContainer>
         <Button
-          onClick={handleSend}
-          disabled={newCommentText.length === 0 || isLoading}
+          onClick={handleSubmit}
+          disabled={newCommentText.length === 0 || submitting}
         >
           Отправить
         </Button>

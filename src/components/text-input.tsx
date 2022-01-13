@@ -33,8 +33,8 @@ const StyledTextArea = styled.textarea`
 
 interface TextInputProps {
   placeholder?: string;
-  isMultiline?: boolean;
-  isDisabled?: boolean;
+  multiline?: boolean;
+  disabled?: boolean;
   value?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   onSubmit?: () => void;
@@ -42,8 +42,8 @@ interface TextInputProps {
 
 export const TextInput: React.VoidFunctionComponent<TextInputProps> = ({
   placeholder,
-  isMultiline,
-  isDisabled,
+  multiline,
+  disabled,
   value,
   onChange,
   onSubmit,
@@ -55,10 +55,10 @@ export const TextInput: React.VoidFunctionComponent<TextInputProps> = ({
     }
   };
 
-  return isMultiline ? (
+  return multiline ? (
     <StyledTextArea
       placeholder={placeholder}
-      disabled={isDisabled}
+      disabled={disabled}
       onChange={onChange}
       onKeyDown={handleKeyDown}
       value={value}
@@ -66,7 +66,7 @@ export const TextInput: React.VoidFunctionComponent<TextInputProps> = ({
   ) : (
     <StyledTextInput
       placeholder={placeholder}
-      disabled={isDisabled}
+      disabled={disabled}
       onChange={onChange}
       value={value}
     />
