@@ -16,8 +16,15 @@ export const Button = styled.button`
   border-radius: 20px;
   border: none;
   color: #ffffff;
+  cursor: pointer;
 
   &:active {
     background: rgba(24, 51, 74, 0.72);
+  }
+
+  &:disabled {
+    background: rgba(24, 51, 74, 0.5);
+    color: white;
+    cursor: not-allowed;
   }
 `;
