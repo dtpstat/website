@@ -48,18 +48,11 @@ export const TextInput: React.VoidFunctionComponent<TextInputProps> = ({
   onChange,
   onSubmit,
 }) => {
-  const handleSubmit = (event: React.KeyboardEvent<Element>) => {
-    if (!onSubmit) {
-      return;
+  const handleKeyDown = (event: React.KeyboardEvent<Element>) => {
+    if (event.ctrlKey && event.key === "Enter") {
+      event.preventDefault();
+      onSubmit?.();
     }
-    if (!event.ctrlKey) {
-      return;
-    }
-    if (event.key !== "Enter") {
-      return;
-    }
-
-    onSubmit();
   };
 
   return isMultiline ? (
@@ -67,9 +60,7 @@ export const TextInput: React.VoidFunctionComponent<TextInputProps> = ({
       placeholder={placeholder}
       disabled={isDisabled}
       onChange={onChange}
-      onKeyDown={(event) => {
-        handleSubmit(event);
-      }}
+      onKeyDown={handleKeyDown}
       value={value}
     />
   ) : (
