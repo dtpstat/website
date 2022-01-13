@@ -8,7 +8,7 @@ import { NewComment } from "../types";
 import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";
 import { Link } from "./link";
-import { TextInput } from "./text-input";
+import { Textarea } from "./textarea";
 
 const InputContainer = styled.div`
   background: rgba(24, 51, 74, 0.1);
@@ -67,16 +67,15 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     }
   };
 
-  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewCommentText(event.target.value);
   };
 
   return user ? (
     <InputContainer>
       <AvatarImage src={userPicture} />
-      <TextInput
+      <Textarea
         placeholder="Добавить комментарий..."
-        multiline={true}
         disabled={submitting}
         value={newCommentText}
         onSubmit={handleSubmit}
