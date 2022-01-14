@@ -18,7 +18,9 @@ export const fetchArea = (
     {
       signal: areaController.signal,
     },
-  ).then((response) => response.json());
+  ).then((response) => {
+    return response.json();
+  });
 };
 
 const cache: any = {};

@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import "../styles/scss/style.scss";
+import "../components/inherited/dtp-map/src/scss/style.scss";
 
 import { UserProvider } from "@auth0/nextjs-auth0";
 import { AppProps } from "next/app";

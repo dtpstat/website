@@ -46,6 +46,7 @@
     "react-yandex-maps": "^4.6.0",
     "sass": "^1.45.1",
     "scss": "^0.2.4",
+    "sentry": "^0.1.2",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {

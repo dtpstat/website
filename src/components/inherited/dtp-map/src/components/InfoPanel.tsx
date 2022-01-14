@@ -7,6 +7,8 @@ import { Colors } from "./ui/Colors";
 const InfoPanelObservable = observer(() => {
   const { areaStore } = useStore();
   const { area, statistics } = areaStore;
+  console.log("area, statistics", area, statistics);
+
   if (!area) {
     return null;
   }

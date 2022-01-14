@@ -1839,6 +1839,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"coffee-script@npm:*":
+  version: 1.12.7
+  resolution: "coffee-script@npm:1.12.7"
+  bin:
+    cake: ./bin/cake
+    coffee: ./bin/coffee
+  checksum: cce8dd15eda581c4c990aefcb0c8b1973713bae6b905baa5916de60e11bdc497fca68c119df20dff72b77c48e871f1bff200b61053526035a64b993b76a90d71
+  languageName: node
+  linkType: hard
+
 "color-convert@npm:^1.9.0, color-convert@npm:^1.9.3":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
@@ -2964,6 +2974,13 @@ __metadata:
   dependencies:
     flat-cache: ^3.0.4
   checksum: f49701feaa6314c8127c3c2f6173cfefff17612f5ed2daaafc6da13b5c91fd43e3b2a58fd0d63f9f94478a501b167615931e7200e31485e320f74a33885a9c74
+  languageName: node
+  linkType: hard
+
+"file@npm:*":
+  version: 0.2.2
+  resolution: "file@npm:0.2.2"
+  checksum: ea653e91c2ffb3325db28d63aeef6ce35cbc7b65835f21a33dd6baaeb3044cfd426b0c00b5d9f22a1e4489f0790240368229244ab6714584204326cdeb92a9a4
   languageName: node
   linkType: hard
 
@@ -6367,6 +6384,7 @@ __metadata:
     react-yandex-maps: ^4.6.0
     sass: ^1.45.1
     scss: ^0.2.4
+    sentry: ^0.1.2
     styled-components: ^5.3.3
     suppress-exit-code: ^1.0.0
     typescript: ^4.5.4
@@ -6502,6 +6520,17 @@ __metadata:
   bin:
     semver: bin/semver.js
   checksum: 5eafe6102bea2a7439897c1856362e31cc348ccf96efd455c8b5bc2c61e6f7e7b8250dc26b8828c1d76a56f818a7ee907a36ae9fb37a599d3d24609207001d60
+  languageName: node
+  linkType: hard
+
+"sentry@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "sentry@npm:0.1.2"
+  dependencies:
+    coffee-script: "*"
+    file: "*"
+    underscore: "*"
+  checksum: 966ec0f42d9df2e4742379ea70edd99735ee101cb30f11e5fdd7e3c12f6a6cc31cca701e3d620359751746c6e791afec360d468363adb1bbbce3b9e2bb634619
   languageName: node
   linkType: hard
 
@@ -7479,6 +7508,13 @@ __metadata:
     has-symbols: ^1.0.2
     which-boxed-primitive: ^1.0.2
   checksum: 89d950e18fb45672bc6b3c961f1e72c07beb9640c7ceed847b571ba6f7d2af570ae1a2584cfee268b9d9ea1e3293f7e33e0bc29eaeb9f8e8a0bab057ff9e6bba
+  languageName: node
+  linkType: hard
+
+"underscore@npm:*":
+  version: 1.13.2
+  resolution: "underscore@npm:1.13.2"
+  checksum: 6ab156c845ccc757fd01d8b9eb28be18ba89ac68993370dd7397a66a95b124f2ba26947fd53e687c084d334429914fc3dd1620d5123b6e0a7cf112cdcf4e859f
   languageName: node
   linkType: hard
 
