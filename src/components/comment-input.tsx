@@ -33,7 +33,6 @@ const SubmitButtonContainer = styled.div`
 `;
 
 export const CommentInput: React.VoidFunctionComponent = () => {
-  const { user } = useUser();
   const { setNewCommentText, newCommentText, comments, setComments } =
     useComments();
   const { user } = useUser();
