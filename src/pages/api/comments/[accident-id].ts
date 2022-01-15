@@ -9,7 +9,6 @@ const handler: NextApiHandler = async (req, res) => {
 
   if (req.method === "POST" && accidentId) {
     const comment = await createComment(
-      accidentId,
       JSON.parse(req.body as string) as NewComment,
     );
     res.status(200).json({ comment });
