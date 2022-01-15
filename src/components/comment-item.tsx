@@ -1,4 +1,5 @@
 import * as React from "react";
+import Linkify from "react-linkify";
 import styled from "styled-components";
 
 import { formatDate } from "../shared/date-helpers";
@@ -10,7 +11,7 @@ export interface CommentItemProps {
 }
 
 const CommentText = styled.div`
-  font-family: Roboto;
+  font-family: ${(props) => props.theme.fontFamily};
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -20,6 +21,10 @@ const CommentText = styled.div`
   color: #18334a;
   margin: 4px 0 16px;
   display: block;
+
+  a {
+    text-decoration: underline;
+  }
 `;
 
 const CommentAuthor = styled(CommentText)`
@@ -68,7 +73,9 @@ export const CommentItem: React.VoidFunctionComponent<CommentItemProps> = ({
             </Tag>
           )}
         </div>
-        <CommentText>{comment.text}</CommentText>
+        <CommentText>
+          <Linkify>{comment.text}</Linkify>
+        </CommentText>
       </div>
     </CommentContainer>
   );

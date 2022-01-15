@@ -856,6 +856,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-linkify@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@types/react-linkify@npm:1.0.1"
+  dependencies:
+    "@types/react": "*"
+  checksum: e39435c6f261a3b95b71f18cb3728fbbbb3180e5e911e642f344a1ec15005d1d564b5c67d3f475ca3695dc0a2a3b9971cfbf1074a2050549c6c5d250816b4fee
+  languageName: node
+  linkType: hard
+
 "@types/react-redux@npm:^7.1.20":
   version: 7.1.21
   resolution: "@types/react-redux@npm:7.1.21"
@@ -4298,6 +4307,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"linkify-it@npm:^2.0.3":
+  version: 2.2.0
+  resolution: "linkify-it@npm:2.2.0"
+  dependencies:
+    uc.micro: ^1.0.1
+  checksum: d198871d0b3f3cfdb745dae564bfd6743474f20cd0ef1057e6ca29451834749e7f3da52b59b4de44e98f31a1e5c71bdad160490d4ae54de251cbcde57e4d7837
+  languageName: node
+  linkType: hard
+
 "linkify-it@npm:^3.0.1":
   version: 3.0.3
   resolution: "linkify-it@npm:3.0.3"
@@ -6009,6 +6027,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-linkify@npm:^1.0.0-alpha":
+  version: 1.0.0-alpha
+  resolution: "react-linkify@npm:1.0.0-alpha"
+  dependencies:
+    linkify-it: ^2.0.3
+    tlds: ^1.199.0
+  checksum: abff36e1fdd9db822278292379e070d471d96ddda2d199565edd9ecff3d17faa31a3c83bd2be8fa4c0f9589dd97553ba77c553047b94cfd94e0f528b9e91fafa
+  languageName: node
+  linkType: hard
+
 "react-redux@npm:^7.2.6":
   version: 7.2.6
   resolution: "react-redux@npm:7.2.6"
@@ -6360,6 +6388,7 @@ __metadata:
     "@prisma/client": ^3.7.0
     "@types/node": ^16.11.19
     "@types/react": ^17.0.38
+    "@types/react-linkify": ^1.0.1
     "@types/styled-components": ^5.1.19
     date-fns: ^2.28.0
     dayjs: ^1.10.7
@@ -6379,6 +6408,7 @@ __metadata:
     prisma: ^3.7.0
     react: ^17.0.2
     react-dom: ^17.0.2
+    react-linkify: ^1.0.0-alpha
     react-redux: ^7.2.6
     react-tooltip: ^4.2.21
     react-yandex-maps: ^4.6.0
@@ -7279,6 +7309,15 @@ __metadata:
     globalyzer: 0.1.0
     globrex: ^0.1.2
   checksum: aea5801eb6663ddf77ebb74900b8f8bd9dfcfc9b6a1cc8018cb7421590c00bf446109ff45e4b64a98e6c95ddb1255a337a5d488fb6311930e2a95334151ec9c6
+  languageName: node
+  linkType: hard
+
+"tlds@npm:^1.199.0":
+  version: 1.228.0
+  resolution: "tlds@npm:1.228.0"
+  bin:
+    tlds: bin.js
+  checksum: 8879d932940bb8aee11a303b75f7daa6cfdd1d5d6cbf69f296963c6cde48e5fd881ef3e0d14aa7f214aa7207c9132e12b9807b561a8763ab4572078c823c86f7
   languageName: node
   linkType: hard
 
