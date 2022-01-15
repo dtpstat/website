@@ -9,6 +9,7 @@ datasource db {
 
 model Comment {
   id          Int       @id @default(autoincrement())
+  dtpId       Int       @db.Integer
   text        String?
   authorId    String    @db.VarChar
   isPublished Boolean   @default(false)
