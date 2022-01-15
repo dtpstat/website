@@ -25,7 +25,7 @@ export const createComment = async (
   newComment: NewComment,
 ): Promise<Comment> => {
   if (!newComment.accidentId) {
-    throw new Error(`Accident id ${newComment.accidentId} should be set`);
+    throw new Error(`Accident id should be set`);
   }
 
   const user = await getUser(newComment.authorId);
