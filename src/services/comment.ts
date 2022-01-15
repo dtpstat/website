@@ -2,10 +2,11 @@ import { prisma } from "../shared/prisma-helper";
 import { Comment, NewComment } from "../types";
 import { getUser } from "./user";
 
-export const getComments = async (): Promise<Comment[]> => {
+export const getComments = async (accidentId: number): Promise<Comment[]> => {
   const comments = await prisma.comment.findMany({
     where: {
       isPublished: true,
+      accidentId,
     },
     include: {
       author: {
@@ -23,6 +24,10 @@ export const getComments = async (): Promise<Comment[]> => {
 export const createComment = async (
   newComment: NewComment,
 ): Promise<Comment> => {
+  if (!newComment.accidentId) {
+    throw new Error(`Accident id ${newComment.accidentId} should be set`);
+  }
+
   const user = await getUser(newComment.authorId);
 
   if (!user) {
