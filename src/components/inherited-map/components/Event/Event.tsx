@@ -2,7 +2,7 @@ import * as React from "react";
 
 import NewsItem from "../News/NewsItem";
 import SvgIcon from "../SvgIcon";
-import { Colors } from "../ui/Colors";
+import { Colors } from "../ui/colors";
 import EventComments from "./EventComments";
 import EventHeader from "./EventHeader";
 import EventMembers from "./EventMembers";

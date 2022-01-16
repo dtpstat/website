@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import * as React from "react";
 
-import { Colors } from "../styles/colors-tmp";
+import { Colors } from "../styles/colors";
 
 export const Footer = () => {
   return (

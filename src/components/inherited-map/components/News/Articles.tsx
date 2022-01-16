@@ -1,6 +1,6 @@
-import Footer from "components/Footer/Footer";
 import * as React from "react";
 
+import { Footer } from "../../../footer";
 import NewsItem from "./NewsItem";
 
 const Articles = () => {

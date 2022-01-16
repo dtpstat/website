@@ -1,7 +1,7 @@
-import { Colors } from "components/ui/Colors";
 import * as React from "react";
 
 import SvgIcon from "../SvgIcon";
+import { Colors } from "../ui/colors";
 
 const EventHeader = () => {
   return (

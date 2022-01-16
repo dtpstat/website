@@ -80,11 +80,13 @@ export const MapStore = types
         clusterize: true,
         gridSize: 256,
         clusterIconPieChartRadius: (node: any) => {
-          for (let radius = 0, i = 0, r = node.length; i < r; i++) {
+          // eslint-disable-next-line no-var
+          for (var radius = 0, i = 0, r = node.length; i < r; i++) {
             radius += node[i].weight;
           }
           // return 10 + (10 * Math.log(radius)) / 0.69314718056 // PR
           // return 25 + 2 * Math.floor(Math.log(radius)) // Yandex
+
           return 15 + 4 * Math.floor(Math.log(radius));
         },
         showInAlphabeticalOrder: true,
@@ -117,7 +119,7 @@ export const MapStore = types
         handlerCloseBalloon();
       });
 
-      // @ts-ignore
+      // @ts-expect-error -- TODO: add ymaps to window
       heatmap = new window.ymaps.Heatmap([], {
         radius: 15,
         dissipating: false,
@@ -208,7 +210,7 @@ export const MapStore = types
         // iconImageOffset: [-5, -5],
 
         preset: "islands#circleIcon",
-        // @ts-ignore
+        // @ts-expect-error -- TODO: investigate
         iconColor: colorBySeverity[acc.severity],
       },
     });

@@ -145,7 +145,7 @@ const parseRange = (s) => {
 const parseDate = (s) => {
   try {
     const result = parse(s, "d.M.y", new Date());
-    if (isNaN(result)) {
+    if (Number.isNaN(result)) {
       return null;
     }
 

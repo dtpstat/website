@@ -2,7 +2,7 @@ import { observer } from "mobx-react";
 import * as React from "react";
 
 import { useStore } from "../models/RootStore";
-import { Colors } from "./ui/Colors";
+import { Colors } from "./ui/colors";
 
 const InfoPanelObservable = observer(() => {
   const { areaStore } = useStore();
@@ -16,7 +16,7 @@ const InfoPanelObservable = observer(() => {
   return (
     <div className="info-panel-wrap">
       <div className="info-panel">
-        <h3 className="h3">{area.name || "\u00A0"}</h3>
+        <h3 className="h3">{area.name ?? "\u00A0"}</h3>
         <p className="subtitle2" style={{ color: Colors.$grey50 }}>
           ДТП
         </p>

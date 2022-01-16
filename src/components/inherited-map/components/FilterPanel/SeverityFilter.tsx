@@ -3,7 +3,7 @@ import * as React from "react";
 import ReactTooltip from "react-tooltip";
 
 import { SeverityFilterType } from "../../models/filters/SeverityFilter";
-import { Colors } from "../ui/Colors";
+import { Colors } from "../ui/colors";
 
 const SeverityFilterSection: React.VoidFunctionComponent<
   SeverityFilterType

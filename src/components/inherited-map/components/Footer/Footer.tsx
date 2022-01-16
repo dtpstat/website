@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import SvgIcon from "../SvgIcon";
-import { Colors } from "../ui/Colors";
+import { Colors } from "../ui/colors";
 
 const Footer = () => {
   return (

@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import Footer from "../Footer/Footer";
-import { Colors } from "../ui/Colors";
+import { Colors } from "../ui/colors";
 import NewsItem from "./NewsItem";
 
 const Articles = () => {
