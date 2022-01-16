@@ -2,7 +2,7 @@ import { prisma } from "../shared/prisma-helper";
 import { Comment, NewComment } from "../types";
 import { getUser } from "./user";
 
-export const getComments = async (accidentId: number): Promise<Comment[]> => {
+export const getComments = async (accidentId: string): Promise<Comment[]> => {
   const comments = await prisma.comment.findMany({
     where: {
       isPublished: true,

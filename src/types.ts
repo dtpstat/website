@@ -4,7 +4,7 @@ export interface NewComment {
   id?: number;
   text?: string;
   authorId: string;
-  accidentId: number;
+  accidentId: string;
 }
 
 export interface CommentUser {

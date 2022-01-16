@@ -9,7 +9,7 @@ datasource db {
 
 model Comment {
   id          Int       @id @default(autoincrement())
-  accidentId  Int       @db.Integer
+  accidentId  String    @db.VarChar
   text        String?
   authorId    String    @db.VarChar
   isPublished Boolean   @default(false)

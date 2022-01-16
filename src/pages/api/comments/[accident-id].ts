@@ -1,11 +1,10 @@
 import { NextApiHandler } from "next";
 
 import { createComment, getComments } from "../../../services/comment";
-import { getApiParamNumberValue } from "../../../shared/api-helpers";
 import { NewComment } from "../../../types";
 
 const handler: NextApiHandler = async (req, res) => {
-  const accidentId = getApiParamNumberValue(req.query["accident-id"] as string);
+  const accidentId = req.query["accident-id"] as string;
 
   if (req.method === "POST" && accidentId) {
     const comment = await createComment(

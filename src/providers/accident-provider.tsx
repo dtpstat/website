@@ -1,8 +1,8 @@
 import * as React from "react";
 
 interface AccidentContextValue {
-  accidentId: number;
-  setAccidentId: React.Dispatch<React.SetStateAction<number>>;
+  accidentId: string;
+  setAccidentId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const AccidentContext = React.createContext<AccidentContextValue | undefined>(
@@ -10,10 +10,10 @@ const AccidentContext = React.createContext<AccidentContextValue | undefined>(
 );
 
 export const AccidentProvider: React.VoidFunctionComponent<{
-  initAccidentId: number;
+  initAccidentId: string;
   children?: React.ReactNode;
 }> = ({ initAccidentId, children }) => {
-  const [accidentId, setAccidentId] = React.useState<number>(initAccidentId);
+  const [accidentId, setAccidentId] = React.useState<string>(initAccidentId);
 
   const providerValue = React.useMemo<AccidentContextValue>(
     () => ({ accidentId, setAccidentId }),
