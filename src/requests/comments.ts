@@ -3,7 +3,7 @@ import { Comment, NewComment } from "../types";
 
 export const fetchComments = async (
   baseUrl: string,
-  accidentId: number,
+  accidentId: string,
 ): Promise<Comment[]> => {
   const commentsApiUrl = buildCommentsApiUrl(baseUrl, accidentId);
   const res = await fetch(commentsApiUrl);
