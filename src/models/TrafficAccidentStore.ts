@@ -5,8 +5,8 @@ import { RootStoreType } from "./RootStore";
 
 const getYears = (start_date: string, end_date: string) => {
   const result = [];
-  const start = parseInt(start_date.split("-")[0]);
-  const end = parseInt(end_date.split("-")[0]);
+  const start = Number.parseInt(start_date.split("-")[0]);
+  const end = Number.parseInt(end_date.split("-")[0]);
   for (let i = start; i <= end; i++) {
     result.push(i);
   }

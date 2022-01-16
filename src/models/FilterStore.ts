@@ -68,10 +68,10 @@ export const FilterStore = types
           const selectedStreets = new Set(
             streetFilter.values.filter((v) => v.selected).map((s) => s.preview),
           );
-          selectedStreets.forEach((s) => {
+          for (const s of selectedStreets) {
             streets.add(s);
-          });
-          const sortedStreets = Array.from(streets);
+          }
+          const sortedStreets = [...streets];
           sortedStreets.sort();
           const streetValues = sortedStreets.map((s) =>
             CategoryFilterValue.create({
@@ -113,7 +113,7 @@ export const FilterStore = types
         (f) => f.name === "date",
       ) as DateFilterType[];
 
-      return dateFilters?.[0];
+      return dateFilters[0];
     },
 
     get start_date() {

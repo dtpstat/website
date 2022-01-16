@@ -20,9 +20,9 @@ const ParticipantItem = types
     const selectOne = () => {
       if (!self.selected) {
         // @ts-ignore WIP: figure out and fix @ts-ignore
-        getParent(self).forEach((v) => {
+        for (const v of getParent(self)) {
           v.setSelected(v === self);
-        });
+        }
         getRoot<RootStoreType>(self).onFiltersChanged();
       }
     };

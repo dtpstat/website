@@ -113,7 +113,7 @@ export const FilterStore = types
         (f) => f.name === "date",
       ) as DateFilterType[];
 
-      return dateFilters?.[0];
+      return dateFilters[0];
     },
 
     get startDate() {

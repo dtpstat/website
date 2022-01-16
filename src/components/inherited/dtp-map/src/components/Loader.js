@@ -1,6 +1,7 @@
 import { observer } from "mobx-react";
-import { useStore } from "../models/RootStore";
 import * as React from "react";
+
+import { useStore } from "../models/RootStore";
 
 export const Loader = observer(() => {
   const rootStore = useStore();
