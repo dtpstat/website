@@ -1,5 +1,5 @@
 import { Colors } from "components/ui/Colors";
-import React from "react";
+import * as React from "react";
 
 const EventComments = () => {
   return (

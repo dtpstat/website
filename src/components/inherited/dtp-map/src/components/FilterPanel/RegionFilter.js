@@ -1,5 +1,5 @@
 import { observer } from "mobx-react";
-import React from "react";
+import * as React from "react";
 
 const RegionFilterSection = ({ values }) => (
   <div className="category-item__draw" tabIndex={0}>

@@ -2,7 +2,7 @@
 import makeInspectable from "mobx-devtools-mst";
 // import { useRouter } from 'next/router'
 import { cast, flow, Instance, types } from "mobx-state-tree";
-import React from "react";
+import * as React from "react";
 
 import { POINTS_ZOOM } from "../utils";
 import { AreaStore } from "./AreaStore";
@@ -67,7 +67,7 @@ const RootStore = types
       }
     };
     const prepareFilter = () => {
-      const selection = buildSelection(self.filterStore.filters.slice());
+      const selection = buildSelection([...self.filterStore.filters]);
 
       return (a: any) => passFilters(a, selection);
     };
@@ -173,10 +173,10 @@ const RootStore = types
       const centerStr = params.get("center")?.split(":") ?? [];
       const center =
         centerStr.length === 2
-          ? [parseFloat(centerStr[0]), parseFloat(centerStr[1])]
+          ? [Number.parseFloat(centerStr[0]), Number.parseFloat(centerStr[1])]
           : [55.76, 37.64];
       const zoomStr = params.get("zoom");
-      const zoom = zoomStr ? parseInt(zoomStr, 10) : 12;
+      const zoom = zoomStr ? Number.parseInt(zoomStr, 10) : 12;
       self.mapStore.center = cast(center);
       self.mapStore.zoom = zoom;
       // self.mapStore.center = [55.76, 37.64]

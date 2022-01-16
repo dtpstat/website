@@ -1,6 +1,6 @@
 import Footer from "components/Footer/Footer";
 import { Colors } from "components/ui/Colors";
-import React from "react";
+import * as React from "react";
 
 import NewsItem from "./NewsItem";
 

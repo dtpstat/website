@@ -8,7 +8,7 @@ import {
 } from "date-fns";
 import ruLocale from "date-fns/locale/ru";
 import { observer } from "mobx-react";
-import React from "react";
+import * as React from "react";
 
 const DateFilterSection = ({ filter }) => {
   const defaultRange = {

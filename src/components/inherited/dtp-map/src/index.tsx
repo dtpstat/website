@@ -2,7 +2,7 @@ import "./scss/style.scss";
 
 import * as Sentry from "@sentry/browser";
 import config from "config";
-import React from "react";
+import * as React from "react";
 import ReactDOM from "react-dom";
 
 import { App } from "./App";

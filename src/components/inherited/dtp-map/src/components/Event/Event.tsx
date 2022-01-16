@@ -1,5 +1,5 @@
 import { Colors } from "components/ui/Colors";
-import React from "react";
+import * as React from "react";
 
 import NewsItem from "../News/NewsItem";
 import SvgIcon from "../SvgIcon";

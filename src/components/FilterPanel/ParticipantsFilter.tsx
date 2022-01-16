@@ -1,10 +1,12 @@
 import { observer } from "mobx-react";
-import React, { FC } from "react";
+import * as React from "react";
 
 import { config } from "../../config";
 import { ParticipantsFilterType } from "../../models/filters/ParticipantsFilter";
 
-const ParticipantsFilter: FC<ParticipantsFilterType> = (filter) => (
+const ParticipantsFilter: React.VoidFunctionComponent<
+  ParticipantsFilterType
+> = (filter) => (
   <div className="participant-filter">
     {filter.values.map((item) => (
       <button

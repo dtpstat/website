@@ -1,10 +1,12 @@
 import { observer } from "mobx-react";
-import React, { FC } from "react";
+import * as React from "react";
 
 import { SeverityFilterType } from "../../models/filters/SeverityFilter";
 import { Colors } from "../../styles/Colors";
 
-const SeverityFilterSection: FC<SeverityFilterType> = ({ values }) => (
+const SeverityFilterSection: React.VoidFunctionComponent<
+  SeverityFilterType
+> = ({ values }) => (
   <div>
     {values.map((item) => (
       <label key={item.value} className="severity-item" tabIndex={0}>

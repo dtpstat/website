@@ -1,5 +1,5 @@
 import Footer from "components/Footer/Footer";
-import React from "react";
+import * as React from "react";
 
 import NewsItem from "./NewsItem";
 

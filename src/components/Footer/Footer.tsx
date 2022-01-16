@@ -1,7 +1,7 @@
 import { faTelegram, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import React from "react";
+import * as React from "react";
 
 import { Colors } from "../../styles/Colors";
 
