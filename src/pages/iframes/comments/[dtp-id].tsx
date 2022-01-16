@@ -12,20 +12,44 @@ export interface CommentsIframePageProps {
 }
 
 const CommentsIframePage: NextPage<CommentsIframePageProps> = ({ dtpId }) => {
+  const [height, setHeight] = React.useState(100);
+
   if (!dtpId) {
     return <Error statusCode={404} />;
   }
 
   return (
-    <CommentsProvider>
-      <CommentList />
+    <div style={{ border: "3px solid red" }}>
+      {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+      <script src="/iframes/iframe-resizer.content-window.min.js" />
+      <CommentsProvider>
+        <CommentList />
 
-      {commentsArePaused ? (
-        <p>Добавление новых комментариев приостановлено</p>
-      ) : (
-        <CommentInput />
-      )}
-    </CommentsProvider>
+        {commentsArePaused ? (
+          <p>Добавление новых комментариев приостановлено</p>
+        ) : (
+          <CommentInput />
+        )}
+        <div
+          style={{
+            height,
+            userSelect: "none",
+            marginTop: 10,
+          }}
+          onClick={() => {}}
+        >
+          Дополнителная высота в айфрейме: {height}
+          <br />
+          <button
+            onClick={() => {
+              setHeight(Math.round(100 + Math.random() * 300));
+            }}
+          >
+            поменять
+          </button>
+        </div>
+      </CommentsProvider>
+    </div>
   );
 };
 
