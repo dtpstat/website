@@ -18,7 +18,7 @@ export const UserProfile: React.VoidFunctionComponent = () => {
     <div>
       <Gravatar
         email={user.email || ""}
-        default="wavatar"
+        default="mp"
         rating="g"
         size={150}
       />
