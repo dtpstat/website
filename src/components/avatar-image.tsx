@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 const StyledGravatar = styled(Gravatar)`
   border-radius: 50%;
-  width: 28px;
-  height: 28px;
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
 `;
 
 const ImageContainer = styled.div`
@@ -14,14 +14,21 @@ const ImageContainer = styled.div`
 
 interface AvatarImageProps {
   email?: string | null;
+  size?: number;
 }
 
 export const AvatarImage: React.VoidFunctionComponent<AvatarImageProps> = ({
   email,
+  size,
 }) => {
   return (
     <ImageContainer>
-      <StyledImg email={email || ""} default="wavatar" rating="g" />
+      <StyledGravatar
+        email={email || ""}
+        default="mp"
+        rating="g"
+        size={size || 28}
+      />
     </ImageContainer>
   );
 };
