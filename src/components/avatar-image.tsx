@@ -2,7 +2,7 @@ import * as React from "react";
 import Gravatar from "react-gravatar";
 import styled from "styled-components";
 
-const StyledImg = styled(Gravatar)`
+const StyledGravatar = styled(Gravatar)`
   border-radius: 50%;
   width: 28px;
   height: 28px;
