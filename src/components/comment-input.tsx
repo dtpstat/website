@@ -9,18 +9,26 @@ import { NewComment } from "../types";
 import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";
 import { Link } from "./link";
-import { TextInput } from "./text-input";
+import { Textarea } from "./textarea";
 
 const InputContainer = styled.div`
-  height: 54px;
   background: rgba(24, 51, 74, 0.1);
   border-radius: 4px;
+  color: #18334a;
   display: flex;
   flex: none;
   order: 3;
   flex-grow: 0;
   margin: 0 0 16px;
   padding: 12px;
+  align-items: start;
+  justify-content: space-between;
+`;
+
+const SubmitButtonContainer = styled.div`
+  display: flex;
+  flex: none;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
 `;
@@ -30,12 +38,17 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     useComments();
   const { user } = useUser();
   const { accidentId } = useAccident();
+  const [submitting, setSubmitting] = React.useState<boolean>(false);
 
   const userPicture = (user && user.avatarUrl) || undefined;
 
-  const handleSend = async () => {
+  const handleSubmit = async () => {
     if (!user) {
       throw new Error("no user");
+    }
+
+    if (!newCommentText) {
+      return;
     }
 
     const newComment: NewComment = {
@@ -45,29 +58,41 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     };
 
     try {
+      setSubmitting(true);
       const comment = await postComment(window.location.origin, newComment);
 
       setComments([...comments, comment]);
-
       setNewCommentText("");
     } catch {
       // TODO: handleError(error);
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewCommentText(event.target.value);
   };
 
   return user ? (
     <InputContainer>
       <AvatarImage src={userPicture} />
-      <TextInput
+      <Textarea
         placeholder="Добавить комментарий..."
+        disabled={submitting}
         value={newCommentText}
+        onSubmit={handleSubmit}
         onChange={handleTextChange}
       />
-      <Button onClick={handleSend}>Отправить</Button>
+      <SubmitButtonContainer>
+        <Button
+          onClick={handleSubmit}
+          disabled={newCommentText.length === 0 || submitting}
+        >
+          Отправить
+        </Button>
+        <span>Ctrl + Enter</span>
+      </SubmitButtonContainer>
     </InputContainer>
   ) : (
     <div>
