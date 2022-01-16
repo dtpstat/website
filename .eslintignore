@@ -7,13 +7,12 @@
 !*/
 
 # Allow certain file types
-# !*.js
 !*.cjs
+!*.js
 !*.json
 !*.mjs
 !*.ts
 !*.tsx
-# !*.scss
 
 /inherited/
 
