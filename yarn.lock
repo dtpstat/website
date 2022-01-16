@@ -801,6 +801,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-gravatar@npm:^2.6.10":
+  version: 2.6.10
+  resolution: "@types/react-gravatar@npm:2.6.10"
+  dependencies:
+    "@types/react": "*"
+  checksum: 04ef3a2c1252fdc7eeee25047eeecb8a7573917bfa095fa926917255e2599b25c3b07d841c6761ecec2dbdec755e41d0aeef53dd4e881056959ddcc93af3eb0d
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:*, @types/react@npm:^17.0.38":
   version: 17.0.38
   resolution: "@types/react@npm:17.0.38"
@@ -6165,6 +6174,7 @@ __metadata:
     "@prisma/client": ^3.7.0
     "@types/node": ^16.11.19
     "@types/react": ^17.0.38
+    "@types/react-gravatar": ^2.6.10
     "@types/styled-components": ^5.1.19
     dayjs: ^1.10.7
     eslint: ^8.6.0
