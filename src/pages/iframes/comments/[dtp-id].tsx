@@ -31,6 +31,7 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({ dtpId }) => {
 
 export const getServerSideProps: GetServerSideProps<
   CommentsIframePageProps
+  // eslint-disable-next-line @typescript-eslint/require-await -- to be removed when we check dtp id
 > = async ({ params }) => {
   const rawDtpId =
     typeof params?.["dtp-id"] === "string" ? params["dtp-id"] : "";

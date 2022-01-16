@@ -14,7 +14,7 @@ interface UserProfileContextValue {
 
 const UserProfileContext = React.createContext<
   UserProfileContextValue | undefined
->();
+>(undefined);
 
 export const UserProfileProvider: React.VoidFunctionComponent<{
   children?: React.ReactNode;

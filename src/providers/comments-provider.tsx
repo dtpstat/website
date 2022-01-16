@@ -10,7 +10,9 @@ interface CommentsContextValue {
   setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
 }
 
-const CommentsContext = React.createContext<CommentsContextValue | undefined>();
+const CommentsContext = React.createContext<CommentsContextValue | undefined>(
+  undefined,
+);
 
 export const CommentsProvider: React.VoidFunctionComponent<{
   children?: React.ReactNode;
