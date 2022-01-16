@@ -1,7 +1,7 @@
 import { cast, getRoot, types } from "mobx-state-tree";
 import ReactDOMServer from "react-dom/server";
+import { Coordinate } from "types";
 
-import { Coordinate } from "../../../types";
 import { InfoBalloonContent } from "../components/InfoBalloon";
 import { RootStoreType } from "./RootStore";
 
@@ -75,16 +75,16 @@ export const MapStore = types
     function setMap(mapInstance: any) {
       map = mapInstance;
 
-      // @ts-ignore WIP: figure out and fix @ts-ignore
+      // @ts-ignore
       objectManager = new window.ymaps.ObjectManager({
         clusterize: true,
         gridSize: 256,
         clusterIconPieChartRadius: (node: any) => {
-          let radius = 0;
-          for (let i = 0, r = node.length; i < r; i++) {
+          for (var radius = 0, i = 0, r = node.length; i < r; i++) {
             radius += node[i].weight;
           }
-
+          // return 10 + (10 * Math.log(radius)) / 0.69314718056 // PR
+          // return 25 + 2 * Math.floor(Math.log(radius)) // Yandex
           return 15 + 4 * Math.floor(Math.log(radius));
         },
         showInAlphabeticalOrder: true,
@@ -117,7 +117,7 @@ export const MapStore = types
         handlerCloseBalloon();
       });
 
-      // @ts-ignore WIP: figure out and fix @ts-ignore
+      // @ts-ignore
       heatmap = new window.ymaps.Heatmap([], {
         radius: 15,
         dissipating: false,
@@ -202,13 +202,13 @@ export const MapStore = types
       },
       options: {
         // iconLayout: 'default#image',
-        // // @ts-ignore WIP: figure out and fix @ts-ignore
+        // // @ts-ignore
         // iconImageHref: supportedIconsBySeverity[acc.severity],
         // iconImageSize: [10, 10],
         // iconImageOffset: [-5, -5],
 
         preset: "islands#circleIcon",
-        // @ts-ignore WIP: figure out and fix @ts-ignore
+        // @ts-ignore
         iconColor: colorBySeverity[acc.severity],
       },
     });

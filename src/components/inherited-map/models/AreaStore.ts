@@ -1,6 +1,6 @@
 import { cast, flow, getRoot, Instance, types } from "mobx-state-tree";
 
-import { fetchRegion } from "../api";
+import { fetchArea } from "../api";
 import { Coordinate } from "../types";
 import { isEmpty } from "../utils";
 import { RootStoreType } from "./RootStore";
@@ -28,7 +28,7 @@ export const AreaStore = types
   .actions((self) => {
     const loadArea = flow(function* (center: Coordinate, zoom: number) {
       try {
-        const response = yield fetchRegion({ center, zoom });
+        const response = yield fetchArea(center, zoom);
         if (isEmpty(response)) {
           return;
         }
@@ -48,7 +48,7 @@ export const AreaStore = types
           getRoot<RootStoreType>(self).onParentAreaChanged();
         }
       } catch (error) {
-        if (error?.name !== "AbortError") {
+        if (error.name !== "AbortError") {
           throw error;
         }
       }

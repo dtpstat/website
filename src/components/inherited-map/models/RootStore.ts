@@ -1,5 +1,5 @@
+// @ts-ignore
 import makeInspectable from "mobx-devtools-mst";
-// import { useRouter } from 'next/router'
 import { cast, flow, Instance, types } from "mobx-state-tree";
 import * as React from "react";
 
@@ -43,8 +43,8 @@ const RootStore = types
       const { areaStore, filterStore, trafficAccidentStore } = self;
       if (areaStore.area) {
         trafficAccidentStore.loadTrafficAccidents(
-          filterStore.start_date,
-          filterStore.end_date,
+          filterStore.startDate,
+          filterStore.endDate,
           areaStore.area.parentId,
         );
       }
@@ -56,7 +56,7 @@ const RootStore = types
         const top = area.id === area.parentId;
         const allAreaAccs = top
           ? accs
-          : accs.filter((a: any) => a.regionSlug === area.id);
+          : accs.filter((a: any) => a.region_slug === area.id);
         const areaAccs = allAreaAccs.filter(prepareFilter());
         self.areaStore.setStatistics({
           count: areaAccs.length,
@@ -169,17 +169,14 @@ const RootStore = types
     };
     const setMapFromUrl = () => {
       const params = new URLSearchParams(document.location.search);
-      const centerStr = params.get("center")?.split(":") ?? [];
-      const center =
-        centerStr.length === 2
-          ? [Number.parseFloat(centerStr[0]), Number.parseFloat(centerStr[1])]
-          : [55.76, 37.64];
+      const centerStr = params.get("center")?.split(":");
+      const center = centerStr
+        ? [Number.parseFloat(centerStr[0]), Number.parseFloat(centerStr[1])]
+        : [55.76, 37.64];
       const zoomStr = params.get("zoom");
       const zoom = zoomStr ? Number.parseInt(zoomStr, 10) : 12;
       self.mapStore.center = cast(center);
       self.mapStore.zoom = zoom;
-      // self.mapStore.center = [55.76, 37.64]
-      // self.mapStore.zoom = 10;
     };
     const setDatesFromUrl = () => {
       const currentParams = new URLSearchParams(document.location.search);

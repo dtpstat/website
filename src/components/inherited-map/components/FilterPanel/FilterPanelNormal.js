@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
 import * as React from "react";
 
-import { useStore } from "../../models-x/RootStore";
+import { useStore } from "../../models/RootStore";
 import DateFilter from "./DateFilter";
 import ParticipantsFilter from "./ParticipantsFilter";
 import RegionFilter from "./RegionFilter";
