@@ -1,10 +1,9 @@
-// import { Map } from "../components/OldMap";
 import dynamic from "next/dynamic";
 import Script from "next/script";
 import * as React from "react";
 
-const DynamicOldMap = dynamic(
-  () => import("../components/inherited/dtp-map/src/App"),
+const DynamicMap = dynamic(
+  () => import("../../components/inherited/dtp-map/src/App"),
   {
     ssr: false,
   },
@@ -21,7 +20,7 @@ export default function Home() {
         src="https://yastatic.net/s3/mapsapi-jslibs/heatmap/0.0.1/heatmap.min.js"
         strategy="beforeInteractive"
       />
-      <DynamicOldMap />
+      <DynamicMap />
     </>
   );
 }
