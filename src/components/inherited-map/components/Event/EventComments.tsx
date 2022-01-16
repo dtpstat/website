@@ -1,5 +1,6 @@
-import { Colors } from "components/ui/Colors";
 import * as React from "react";
+
+import { Colors } from "../ui/Colors";
 
 const EventComments = () => {
   return (

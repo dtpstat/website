@@ -19,6 +19,7 @@ const NewsItem = ({ title, img, link, size, text, tags }: Props) => {
         <div style={{ display: "flex", flexWrap: "wrap", marginBottom: "8px" }}>
           {tags.map((tag) => (
             <button
+              key={tag}
               className="btn-rect"
               style={{
                 borderRadius: "4px",

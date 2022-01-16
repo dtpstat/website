@@ -19,7 +19,7 @@ const ParticipantItem = types
     };
     const selectOne = () => {
       if (!self.selected) {
-        // @ts-ignore
+        // @ts-expect-error -- TODO: investigate
         for (const v of getParent(self)) {
           v.setSelected(v === self);
         }

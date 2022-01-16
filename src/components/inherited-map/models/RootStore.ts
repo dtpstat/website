@@ -1,4 +1,3 @@
-// @ts-ignore
 import makeInspectable from "mobx-devtools-mst";
 import { cast, flow, Instance, types } from "mobx-state-tree";
 import * as React from "react";

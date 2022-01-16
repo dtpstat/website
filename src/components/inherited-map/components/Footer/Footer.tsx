@@ -1,7 +1,7 @@
-import { Colors } from "components/ui/Colors";
 import * as React from "react";
 
 import SvgIcon from "../SvgIcon";
+import { Colors } from "../ui/Colors";
 
 const Footer = () => {
   return (
@@ -18,8 +18,8 @@ const Footer = () => {
             <img src="/static/media/svg/logo.svg" alt="Лого сайта" />
             <p className="body1" style={{ marginTop: "18px" }}>
               Проект посвящен проблеме дорожно-транспортных происшествий
-              в России. Цель проекта — повышение безопасности дорожного движения
-              и снижение смертности в ДТП.
+              в&nbsp;России. Цель проекта — повышение безопасности дорожного
+              движения и снижение смертности в&nbsp;ДТП.
             </p>
           </div>
 

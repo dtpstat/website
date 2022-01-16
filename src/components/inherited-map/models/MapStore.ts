@@ -1,8 +1,8 @@
 import { cast, getRoot, types } from "mobx-state-tree";
 import ReactDOMServer from "react-dom/server";
-import { Coordinate } from "types";
 
 import { InfoBalloonContent } from "../components/InfoBalloon";
+import { Coordinate } from "../types";
 import { RootStoreType } from "./RootStore";
 
 // const supportedIconsBySeverity = {
@@ -75,12 +75,12 @@ export const MapStore = types
     function setMap(mapInstance: any) {
       map = mapInstance;
 
-      // @ts-ignore
+      // @ts-expect-error -- TODO: add ymaps to window
       objectManager = new window.ymaps.ObjectManager({
         clusterize: true,
         gridSize: 256,
         clusterIconPieChartRadius: (node: any) => {
-          for (var radius = 0, i = 0, r = node.length; i < r; i++) {
+          for (let radius = 0, i = 0, r = node.length; i < r; i++) {
             radius += node[i].weight;
           }
           // return 10 + (10 * Math.log(radius)) / 0.69314718056 // PR

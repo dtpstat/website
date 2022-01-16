@@ -38,7 +38,7 @@ const SeverityFilterSection: React.VoidFunctionComponent<
             {item.preview}
           </p>
         </label>
-        {Boolean(item.description) && (
+        {item.description ? (
           <img
             src="/static/media/svg/question-mark.svg"
             data-tip={item.description}
@@ -47,7 +47,7 @@ const SeverityFilterSection: React.VoidFunctionComponent<
             className="severity-item-hint"
             alt={`Что такое "Вред здоровью: ${item.preview}"`}
           />
-        )}
+        ) : undefined}
       </div>
     ))}
     <ReactTooltip globalEventOff="click" />

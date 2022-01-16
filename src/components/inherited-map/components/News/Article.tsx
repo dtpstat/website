@@ -1,7 +1,7 @@
-import Footer from "components/Footer/Footer";
-import { Colors } from "components/ui/Colors";
 import * as React from "react";
 
+import Footer from "../Footer/Footer";
+import { Colors } from "../ui/Colors";
 import NewsItem from "./NewsItem";
 
 const Articles = () => {
