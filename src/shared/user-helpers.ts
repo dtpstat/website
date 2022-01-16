@@ -8,7 +8,6 @@ export const userProfileToUser = (userProfile: UserProfile): User => {
     name: userProfile.name,
     nickname: userProfile.nickname,
     email: userProfile.email,
-    avatarUrl: userProfile.picture,
     updateDate: userProfile.updated_at,
   } as User;
 };

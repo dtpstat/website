@@ -7,7 +7,6 @@ export interface NewComment {
 }
 
 export interface CommentUser {
-  avatarUrl?: string | null;
   name?: string | null;
   email?: string | null;
 }
