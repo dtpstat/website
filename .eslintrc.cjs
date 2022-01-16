@@ -7,4 +7,15 @@ module.exports = {
   rules: {
     "@next/next/no-img-element": "off",
   },
+  overrides: [
+    {
+      files: ["**/inherited/**"],
+      rules: {
+        "@typescript-eslint/naming-convention": "off",
+        "func-style": "off",
+        "import/no-default-export": "off",
+        "unicorn/file-case": "off",
+      },
+    },
+  ],
 };
