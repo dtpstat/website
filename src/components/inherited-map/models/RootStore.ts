@@ -1,4 +1,3 @@
-// @ts-ignore WIP: figure out and fix @ts-ignore
 import makeInspectable from "mobx-devtools-mst";
 // import { useRouter } from 'next/router'
 import { cast, flow, Instance, types } from "mobx-state-tree";

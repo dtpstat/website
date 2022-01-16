@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
 import * as React from "react";
 
-import { config } from "../../config";
+import { config } from "../../../../config";
 import { ParticipantsFilterType } from "../../models/filters/ParticipantsFilter";
 
 const ParticipantsFilter: React.VoidFunctionComponent<

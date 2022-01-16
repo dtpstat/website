@@ -2,11 +2,10 @@ import dynamic from "next/dynamic";
 import Script from "next/script";
 import * as React from "react";
 
-const DynamicMap = dynamic(
-  () => import("../../components/inherited/dtp-map/src/App"),
-  {
-    ssr: false,
-  },
+const InheritedMap = dynamic(
+  // eslint-disable-next-line unicorn/no-await-expression-member
+  async () => (await import("../../components/inherited-map")).InheritedMap,
+  { ssr: false },
 );
 
 export default function Home() {
@@ -20,7 +19,7 @@ export default function Home() {
         src="https://yastatic.net/s3/mapsapi-jslibs/heatmap/0.0.1/heatmap.min.js"
         strategy="beforeInteractive"
       />
-      <DynamicMap />
+      <InheritedMap />
     </>
   );
 }

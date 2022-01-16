@@ -1,8 +1,8 @@
 import { cast, getRoot, types } from "mobx-state-tree";
 import ReactDOMServer from "react-dom/server";
 
+import { Coordinate } from "../../../types";
 import { InfoBalloonContent } from "../components/InfoBalloon";
-import { Coordinate } from "../types";
 import { RootStoreType } from "./RootStore";
 
 // const supportedIconsBySeverity = {

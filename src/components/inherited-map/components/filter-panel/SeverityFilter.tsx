@@ -1,8 +1,8 @@
 import { observer } from "mobx-react";
 import * as React from "react";
 
+import { Colors } from "../../../../styles/Colors";
 import { SeverityFilterType } from "../../models/filters/SeverityFilter";
-import { Colors } from "../../styles/Colors";
 
 const SeverityFilterSection: React.VoidFunctionComponent<
   SeverityFilterType

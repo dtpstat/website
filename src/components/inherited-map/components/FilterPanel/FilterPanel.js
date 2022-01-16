@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
 import * as React from "react";
 
-import { useStore } from "../../models/RootStore";
+import { useStore } from "../../models-x/RootStore";
 import { FilterPanelCategory } from "./FilterPanelCategory";
 import { FilterPanelHidden } from "./FilterPanelHidden";
 import { FilterPanelNormal } from "./FilterPanelNormal";

@@ -1,4 +1,4 @@
-import config from "./config";
+import { config } from "./config";
 import { Coordinate, FilterResponse, ShortStatisticsResponse } from "./types";
 
 export const fetchFilters = (): Promise<FilterResponse[]> =>
