@@ -24,11 +24,11 @@ export const CommentsProvider: React.VoidFunctionComponent<{
 
   React.useEffect(() => {
     const initFetchComments = async () => {
-      const initComments = await fetchComments(
+      const initialComments = await fetchComments(
         window.location.origin,
         accidentId,
       );
-      setComments(initComments);
+      setComments(initialComments);
     };
     void initFetchComments();
   }, []);
