@@ -12,6 +12,7 @@ export const getComments = async (): Promise<Comment[]> => {
         select: {
           name: true,
           avatarUrl: true,
+          email: true,
         },
       },
     },
@@ -38,6 +39,7 @@ export const createComment = async (
         select: {
           name: true,
           avatarUrl: true,
+          email: true,
         },
       },
     },
