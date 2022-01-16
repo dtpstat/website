@@ -17,7 +17,12 @@ export const Footer = () => {
       >
         <div className="footer-wrap">
           <div>
-            <Image src="/logo.png" alt="Лого сайта" width={167} height={25} />
+            <Image
+              src="/static/logo.png"
+              alt="Лого сайта"
+              width={167}
+              height={25}
+            />
             <p className="body1" style={{ marginTop: "18px" }}>
               Проект посвящен проблеме дорожно-транспортных происшествий в
               России. Цель проекта — повышение безопасности дорожного движения и
@@ -89,7 +94,7 @@ export const Footer = () => {
                 target="_blank"
               >
                 <Image
-                  src="/gor.svg"
+                  src="/static/gor.svg"
                   alt="Лого сайта"
                   width={150}
                   height={46}
@@ -102,7 +107,7 @@ export const Footer = () => {
                 target="_blank"
               >
                 <Image
-                  src="/stab.svg"
+                  src="/static/stab.svg"
                   alt="Лого сайта"
                   width={150}
                   height={27}

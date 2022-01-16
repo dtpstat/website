@@ -24,7 +24,7 @@ const Event = () => {
           </h2>
           <EventMembers />
           <div className="dtp-info">
-            <img src="/svg/gibdd.svg" alt="Лого ГИБДД" />
+            <img src="/static/media/svg/gibdd.svg" alt="Лого ГИБДД" />
             <p className="subtitle1">Официальные данные ГИБДД</p>
             <button className="btn-light" style={{ flexShrink: 0 }}>
               <SvgIcon name="warning" color={Colors.$grey70} />

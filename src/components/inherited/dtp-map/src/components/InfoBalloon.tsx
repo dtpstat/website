@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import config from "../config";
 import SvgIcon from "./SvgIcon";
 import { Colors } from "./ui/Colors";
 
@@ -43,26 +42,26 @@ export const InfoBalloonContent = (props: Props) => {
     <div className="balloon-content">
       <h4 className="subtitle1">{props.categoryName}</h4>
       <p className="balloon-time body3">{dateTime}</p>
-      {props.address && (
+      {props.address ? (
         <p className="balloon-address body3">{props.address}</p>
-      )}
+      ) : undefined}
       <div className="balloon-injured">
-        {props.injured > 0 && (
+        {props.injured > 0 ? (
           <p className="subtitle3" style={{ color: Colors.$yellow }}>
             {injuredMessage}
           </p>
-        )}
-        {props.dead > 0 && (
+        ) : undefined}
+        {props.dead > 0 ? (
           <p className="subtitle3" style={{ color: Colors.$red }}>
             {deadMessage}
           </p>
-        )}
+        ) : undefined}
       </div>
       <div className="balloon-footer">
         <a
           id="balloon-button"
           className="btn-light"
-          href={`${config.STATIC_URL}/dtp/${props.id}`}
+          href={`/dtp/${props.id}`}
           target="_blank"
           rel="noopener noreferrer"
         >

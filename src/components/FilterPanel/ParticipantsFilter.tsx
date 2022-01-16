@@ -20,7 +20,7 @@ const ParticipantsFilter: React.VoidFunctionComponent<
       >
         <object
           type="image/svg+xml"
-          data={`${config.STATIC_URL}${item.icon}`}
+          data={`/svgs/${item.icon}`}
           aria-label={item.preview}
         />
         <p className="subtitle3">{item.preview}</p>

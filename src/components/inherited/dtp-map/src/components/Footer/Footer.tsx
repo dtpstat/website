@@ -15,7 +15,7 @@ const Footer = () => {
       >
         <div className="footer-wrap">
           <div>
-            <img src="/svg/logo.svg" alt="Лого сайта" />
+            <img src="/static/media/svg/logo.svg" alt="Лого сайта" />
             <p className="body1" style={{ marginTop: "18px" }}>
               Проект посвящен проблеме дорожно-транспортных происшествий
               в России. Цель проекта — повышение безопасности дорожного движения

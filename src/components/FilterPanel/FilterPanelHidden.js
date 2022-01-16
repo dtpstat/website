@@ -32,7 +32,7 @@ export const FilterPanelHidden = observer(() => {
         onClick={(e) => filterStore.setVisible(true)}
       >
         <svg className="icon icon-arrow-up">
-          <use xlinkHref="/svg/sprite.svg#arrow-down" />
+          <use xlinkHref="/static/media/svg/sprite.svg#arrow-down" />
         </svg>
         <span>Показать</span>
       </button>

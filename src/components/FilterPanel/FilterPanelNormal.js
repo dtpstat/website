@@ -31,7 +31,7 @@ const CategoryTag = observer(({ filter }) => {
         </button>
         <button className="btn-decline" onClick={(e) => filter.reset()}>
           <svg className="icon icon-decline">
-            <use xlinkHref="/svg/sprite.svg#decline" />
+            <use xlinkHref="/static/media/svg/sprite.svg#decline" />
           </svg>
         </button>
       </div>
@@ -77,7 +77,7 @@ export const FilterPanelNormal = observer(() => {
         onClick={(e) => filterStore.setVisible(false)}
       >
         <svg className="icon icon-arrow-up">
-          <use xlinkHref="/svg/sprite.svg#arrow-up" />
+          <use xlinkHref="/static/media/svg/sprite.svg#arrow-up" />
         </svg>
         <span>Скрыть</span>
       </button>

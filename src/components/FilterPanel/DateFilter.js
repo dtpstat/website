@@ -89,7 +89,7 @@ const DateFilterSection = ({ filter }) => {
         <div className="date-dropdown">
           <button className="date-button" onClick={(e) => setShow(true)}>
             <svg className="icon icon-down">
-              <use xlinkHref="/svg/sprite.svg#arrow-down" />
+              <use xlinkHref="/static/media/svg/sprite.svg#arrow-down" />
             </svg>
           </button>
           {show && <DateMenu handleClick={handleClick} setShow={setShow} />}
