@@ -31,7 +31,7 @@ export const CommentsProvider: React.VoidFunctionComponent<{
       setComments(initialComments);
     };
     void initFetchComments();
-  }, []);
+  }, [accidentId]);
 
   const providerValue = React.useMemo<CommentsContextValue>(
     () => ({
