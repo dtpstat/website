@@ -18,7 +18,7 @@ const SeverityFilterSection: React.VoidFunctionComponent<
         />
         <span className="checkmark">
           <svg className="icon icon-check">
-            <use xlinkHref="svg/sprite.svg#check" />
+            <use xlinkHref="/svg/sprite.svg#check" />
           </svg>
         </span>
         <div

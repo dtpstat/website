@@ -1,5 +1,5 @@
-import * as React from "react";
 import { observer } from "mobx-react";
+import * as React from "react";
 
 import { useStore } from "../../models/RootStore";
 
@@ -12,11 +12,12 @@ const CategoryHeader = () => {
     filterStore.setCurrentKey(null);
     filterStore.setSearch("");
   };
+
   return (
     <div className="filter-header">
       <button className="btn-back" onClick={handleBack}>
         <svg className="icon icon-arrow-back">
-          <use xlinkHref="svg/sprite.svg#arrow-back" />
+          <use xlinkHref="/svg/sprite.svg#arrow-back" />
         </svg>
         <span>{filter.label}</span>
       </button>
@@ -47,7 +48,7 @@ const CategoryHeader = () => {
         {/* maybe it should be button not just svg */}
         <button className="btn-search">
           <svg className="icon icon-search">
-            <use xlinkHref="svg/sprite.svg#search" />
+            <use xlinkHref="/svg/sprite.svg#search" />
           </svg>
         </button>
       </div>

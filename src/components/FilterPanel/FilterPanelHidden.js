@@ -1,8 +1,7 @@
-import * as React from "react";
 import { observer } from "mobx-react";
+import * as React from "react";
 
 import { useStore } from "../../models/RootStore";
-
 import DateFilter from "./DateFilter";
 
 export const FilterPanelHidden = observer(() => {
@@ -13,6 +12,7 @@ export const FilterPanelHidden = observer(() => {
     filters.filter((f) => f.values?.some((v) => v.selected !== v.default)) ||
     [];
   const text = activeFilters.map((f) => f.label).join(", ");
+
   return (
     <div className="filter-panel">
       <div className="filter-panel-hidden">
@@ -32,7 +32,7 @@ export const FilterPanelHidden = observer(() => {
         onClick={(e) => filterStore.setVisible(true)}
       >
         <svg className="icon icon-arrow-up">
-          <use xlinkHref="svg/sprite.svg#arrow-down" />
+          <use xlinkHref="/svg/sprite.svg#arrow-down" />
         </svg>
         <span>Показать</span>
       </button>

@@ -20,7 +20,7 @@ const SeverityFilterSection: React.VoidFunctionComponent<
           />
           <span className="checkmark">
             <svg className="icon icon-check">
-              <use xlinkHref="svg/sprite.svg#check" />
+              <use xlinkHref="/svg/sprite.svg#check" />
             </svg>
           </span>
           <div
@@ -40,7 +40,7 @@ const SeverityFilterSection: React.VoidFunctionComponent<
         </label>
         {Boolean(item.description) && (
           <img
-            src="svg/question-mark.svg"
+            src="/svg/question-mark.svg"
             data-tip={item.description}
             data-event="click focus hover"
             data-place="right"

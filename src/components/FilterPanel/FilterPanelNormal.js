@@ -1,12 +1,11 @@
-import * as React from "react";
 import { observer } from "mobx-react";
+import * as React from "react";
 
 import { useStore } from "../../models/RootStore";
-
 import DateFilter from "./DateFilter";
 import ParticipantsFilter from "./ParticipantsFilter";
-import SeverityFilter from "./SeverityFilter";
 import RegionFilter from "./RegionFilter";
+import SeverityFilter from "./SeverityFilter";
 
 const FilterSection = ({ filter }) => {
   switch (filter.name) {
@@ -32,12 +31,13 @@ const CategoryTag = observer(({ filter }) => {
         </button>
         <button className="btn-decline" onClick={(e) => filter.reset()}>
           <svg className="icon icon-decline">
-            <use xlinkHref="svg/sprite.svg#decline" />
+            <use xlinkHref="/svg/sprite.svg#decline" />
           </svg>
         </button>
       </div>
     );
   }
+
   return (
     <div className="category-tag">
       <button className="btn-rect" onClick={(e) => filter.navigate()}>
@@ -77,7 +77,7 @@ export const FilterPanelNormal = observer(() => {
         onClick={(e) => filterStore.setVisible(false)}
       >
         <svg className="icon icon-arrow-up">
-          <use xlinkHref="svg/sprite.svg#arrow-up" />
+          <use xlinkHref="/svg/sprite.svg#arrow-up" />
         </svg>
         <span>Скрыть</span>
       </button>

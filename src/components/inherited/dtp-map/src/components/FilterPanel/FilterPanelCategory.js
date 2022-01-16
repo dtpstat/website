@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
-import { useStore } from "../../models/RootStore";
 import * as React from "react";
 
+import { useStore } from "../../models/RootStore";
 import CategoryHeader from "./CategoryHeader";
 
 const CategoryValue = observer(({ value }) => (
@@ -13,7 +13,7 @@ const CategoryValue = observer(({ value }) => (
     />
     <span className="checkmark">
       <svg className="icon icon-check">
-        <use xlinkHref="svg/sprite.svg#check" />
+        <use xlinkHref="/svg/sprite.svg#check" />
       </svg>
     </span>
     <span className="value-preview body1">{value.preview}</span>

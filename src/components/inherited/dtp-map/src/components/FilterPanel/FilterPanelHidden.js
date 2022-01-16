@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
-import { useStore } from "../../models/RootStore";
 import * as React from "react";
 
+import { useStore } from "../../models/RootStore";
 import DateFilter from "./DateFilter";
 
 export const FilterPanelHidden = observer(() => {
@@ -32,7 +32,7 @@ export const FilterPanelHidden = observer(() => {
         onClick={(e) => filterStore.setVisible(true)}
       >
         <svg className="icon icon-arrow-up">
-          <use xlinkHref="svg/sprite.svg#arrow-down" />
+          <use xlinkHref="/svg/sprite.svg#arrow-down" />
         </svg>
         <span>Показать</span>
       </button>
