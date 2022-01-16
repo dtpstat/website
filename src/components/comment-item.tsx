@@ -57,7 +57,7 @@ export const CommentItem: React.VoidFunctionComponent<CommentItemProps> = ({
 }) => {
   return (
     <CommentContainer>
-      <AvatarImage src={comment.author?.avatarUrl} />
+      <AvatarImage email={comment.author?.email} />
       <div>
         <div>
           <CommentAuthor>{comment.author?.name}</CommentAuthor>:{" "}

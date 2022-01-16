@@ -1,9 +1,8 @@
 import * as React from "react";
+import Gravatar from "react-gravatar";
 import styled from "styled-components";
 
-const defaultAvatarUrl = "/icons/avatar_default.svg";
-
-const StyledImg = styled.img`
+const StyledImg = styled(Gravatar)`
   border-radius: 50%;
   width: 28px;
   height: 28px;
@@ -14,15 +13,15 @@ const ImageContainer = styled.div`
 `;
 
 interface AvatarImageProps {
-  src?: string | null;
+  email?: string | null;
 }
 
 export const AvatarImage: React.VoidFunctionComponent<AvatarImageProps> = ({
-  src,
+  email,
 }) => {
   return (
     <ImageContainer>
-      <StyledImg src={src || defaultAvatarUrl} />
+      <StyledImg email={email || ""} default="wavatar" rating="g" />
     </ImageContainer>
   );
 };

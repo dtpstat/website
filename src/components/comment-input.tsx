@@ -29,8 +29,6 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     useComments();
   const { user } = useUser();
 
-  const userPicture = (user && user.avatarUrl) || undefined;
-
   const handleSend = async () => {
     if (!user) {
       throw new Error("no user");
@@ -58,7 +56,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
 
   return user ? (
     <InputContainer>
-      <AvatarImage src={userPicture} />
+      <AvatarImage email={user.email} />
       <TextInput
         placeholder="Добавить комментарий..."
         value={newCommentText}

@@ -1,4 +1,5 @@
 import * as React from "react";
+import Gravatar from "react-gravatar";
 
 import { useUser } from "../providers/user-profile-provider";
 import { Link } from "./link";
@@ -15,7 +16,12 @@ export const UserProfile: React.VoidFunctionComponent = () => {
 
   return user ? (
     <div>
-      <img src={user.avatarUrl || ""} alt={user.name || ""} />
+      <Gravatar
+        email={user.email || ""}
+        default="wavatar"
+        rating="g"
+        size={150}
+      />
       <h4>{user.name}</h4>
       <p>{user.email}</p>
       <Link href="/api/auth/logout">Logout</Link>
