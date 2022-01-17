@@ -48,7 +48,7 @@ export const AreaStore = types
           getRoot<RootStoreType>(self).onParentAreaChanged();
         }
       } catch (error) {
-        if (error.name !== "AbortError") {
+        if (error instanceof Error && error.name !== "AbortError") {
           throw error;
         }
       }

@@ -5,8 +5,8 @@ import { RootStoreType } from "./root-store";
 
 const getYears = (startDate: string, endDate: string) => {
   const result = [];
-  const start = Number.parseInt(startDate.split("-")[0]);
-  const end = Number.parseInt(endDate.split("-")[0]);
+  const start = Number.parseInt(startDate.split("-")[0] ?? "0");
+  const end = Number.parseInt(endDate.split("-")[0] ?? "0");
   for (let i = start; i <= end; i++) {
     result.push(i);
   }
@@ -35,7 +35,7 @@ export const TrafficAccidentStore = types
           );
         root.onTrafficAccidentsLoaded();
       } catch (error) {
-        if (error.name !== "AbortError") {
+        if (error instanceof Error && error.name !== "AbortError") {
           throw error;
         }
       } finally {

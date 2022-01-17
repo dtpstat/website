@@ -170,7 +170,10 @@ const RootStore = types
       const params = new URLSearchParams(document.location.search);
       const centerStr = params.get("center")?.split(":");
       const center = centerStr
-        ? [Number.parseFloat(centerStr[0]), Number.parseFloat(centerStr[1])]
+        ? [
+            Number.parseFloat(centerStr[0] ?? "0"),
+            Number.parseFloat(centerStr[1] ?? "0"),
+          ]
         : [55.76, 37.64];
       const zoomStr = params.get("zoom");
       const zoom = zoomStr ? Number.parseInt(zoomStr, 10) : 12;
