@@ -40,8 +40,6 @@ export const CommentInput: React.VoidFunctionComponent = () => {
   const { accidentId } = useAccident();
   const [submitting, setSubmitting] = React.useState<boolean>(false);
 
-  const userPicture = (user && user.avatarUrl) || undefined;
-
   const handleSubmit = async () => {
     if (!user) {
       throw new Error("no user");
@@ -76,7 +74,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
 
   return user ? (
     <InputContainer>
-      <AvatarImage src={userPicture} />
+      <AvatarImage email={user.email} />
       <Textarea
         placeholder="Добавить комментарий..."
         disabled={submitting}

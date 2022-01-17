@@ -23,7 +23,6 @@ model User {
   name         String?
   nickname     String?
   email        String?
-  avatarUrl    String?
   createDate   DateTime? @db.Date @default(now())
   updateDate   DateTime? @db.Date @default(now())
   comments     Comment[]
