@@ -50,17 +50,7 @@ Example for local development on the host **http://localhost:3000** and staging 
 
 1.  Get the auth0 application values: **DOMAIN, CLIENT_ID, CLIENT_SECRET**
 
-1.  Create file **.env.local** using template **env.example** and fill it with auth0 information:
-
-```ini
-AUTH0_SECRET='replace-with-your-own-secret-generated-with-openssl'
-AUTH0_BASE_URL='http://localhost:3000'
-AUTH0_ISSUER_BASE_URL='https://{DOMAIN}'
-AUTH0_CLIENT_ID='{CLIENT_ID}'
-AUTH0_CLIENT_SECRET='{CLIENT_SECRET}'
-AUTH0_AUDIENCE=
-AUTH0_SCOPE='openid profile'
-```
+1.  Create file **.env.local** and copy commented-out `AUTH0_*` variables from **.env**.
 
 ### Database Configuration
 
@@ -70,7 +60,6 @@ AUTH0_SCOPE='openid profile'
 
 ```ini
 DATABASE_URL="postgres://user:password@host:5432/db"
-...
 ```
 
 ## Database Schema Update
