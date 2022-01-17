@@ -11,7 +11,7 @@ export const getComments = async (): Promise<Comment[]> => {
       author: {
         select: {
           name: true,
-          avatarUrl: true,
+          email: true,
         },
       },
     },
@@ -37,7 +37,7 @@ export const createComment = async (
       author: {
         select: {
           name: true,
-          avatarUrl: true,
+          email: true,
         },
       },
     },
