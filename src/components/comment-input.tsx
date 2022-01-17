@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 
+import { useAccident } from "../providers/accident-provider";
 import { useComments } from "../providers/comments-provider";
 import { useUser } from "../providers/user-profile-provider";
 import { postComment } from "../requests/comments";
@@ -36,6 +37,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
   const { setNewCommentText, newCommentText, comments, setComments } =
     useComments();
   const { user } = useUser();
+  const { accidentId } = useAccident();
   const [submitting, setSubmitting] = React.useState<boolean>(false);
 
   const handleSubmit = async () => {
@@ -48,6 +50,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     }
 
     const newComment: NewComment = {
+      accidentId,
       authorId: user.id,
       text: newCommentText,
     };
