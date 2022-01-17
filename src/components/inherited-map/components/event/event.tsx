@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { Colors } from "../../../../styles/colors";
-import NewsItem from "../news-tmp/news-item";
+import NewsItem from "../news/news-item";
 import SvgIcon from "../svg-icon";
 import EventComments from "./event-comments";
 import EventHeader from "./event-header";
