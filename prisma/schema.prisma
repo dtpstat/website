@@ -9,6 +9,7 @@ datasource db {
 
 model Comment {
   id          Int       @id @default(autoincrement())
+  accidentId  String    @db.VarChar
   text        String?
   authorId    String    @db.VarChar
   isPublished Boolean   @default(false)
@@ -22,7 +23,6 @@ model User {
   name         String?
   nickname     String?
   email        String?
-  avatarUrl    String?
   createDate   DateTime? @db.Date @default(now())
   updateDate   DateTime? @db.Date @default(now())
   comments     Comment[]

@@ -13,8 +13,8 @@ export const buildApiUrl = (
   return `${baseUrl}/api/${endpoint}${idPath}`;
 };
 
-export const buildCommentsApiUrl = (baseUrl: string) =>
-  buildApiUrl(baseUrl, apiEndPoints.COMMENTS);
+export const buildCommentsApiUrl = (baseUrl: string, accidentId: string) =>
+  buildApiUrl(baseUrl, apiEndPoints.COMMENTS, accidentId);
 
 export const buildUsersApiUrl = (baseUrl: string, userId?: string) =>
   buildApiUrl(baseUrl, apiEndPoints.USERS, userId);
