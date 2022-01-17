@@ -6,7 +6,7 @@ export const apiEndPoints = {
 export const buildApiUrl = (
   baseUrl: string,
   endpoint: string,
-  id?: string | number,
+  id?: string,
 ): string => {
   const idPath = id ? `/${id}` : "";
 
@@ -18,11 +18,3 @@ export const buildCommentsApiUrl = (baseUrl: string, accidentId: string) =>
 
 export const buildUsersApiUrl = (baseUrl: string, userId?: string) =>
   buildApiUrl(baseUrl, apiEndPoints.USERS, userId);
-
-export const getApiParamNumberValue = (paramValue?: string) => {
-  const stringValue = typeof paramValue === "string" ? paramValue : "";
-  const numberValue = Number.parseInt(stringValue);
-  const resultValue = `${numberValue}` === stringValue ? numberValue : 0;
-
-  return resultValue;
-};
