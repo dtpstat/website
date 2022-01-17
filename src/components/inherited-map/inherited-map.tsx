@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import { FilterPanel } from "./components/FilterPanel";
-import { InfoPanel } from "./components/InfoPanel";
-import { Loader } from "./components/Loader";
-import { Map } from "./components/Map";
-import { rootStore, RootStoreContext } from "./models/RootStore";
+import { FilterPanel } from "./components/filter-panel-tmp";
+import { InfoPanel } from "./components/info-panel";
+import { Loader } from "./components/loader-tmp";
+import { Map } from "./components/map-tmp";
+import { rootStore, RootStoreContext } from "./models/root-store";
 // import Toast from 'components/Toast';
 // import Layers from './components/Layers/Layers';
 // import Event from './components/Event/Event';
