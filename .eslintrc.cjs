@@ -7,12 +7,4 @@ module.exports = {
   rules: {
     "@next/next/no-img-element": "off",
   },
-  overrides: [
-    {
-      files: ["*.config.{,c,m}js"],
-      env: {
-        node: true,
-      },
-    },
-  ],
 };
