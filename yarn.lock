@@ -330,9 +330,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@kachkaev/eslint-config-base@npm:^0.4.2":
-  version: 0.4.2
-  resolution: "@kachkaev/eslint-config-base@npm:0.4.2"
+"@kachkaev/eslint-config-base@npm:^0.4.3":
+  version: 0.4.3
+  resolution: "@kachkaev/eslint-config-base@npm:0.4.3"
   dependencies:
     "@typescript-eslint/eslint-plugin": ^5.8.1
     "@typescript-eslint/parser": ^5.8.1
@@ -344,21 +344,21 @@ __metadata:
     eslint-plugin-unicorn: ^40.0.0
   peerDependencies:
     eslint: ">=8.0.0"
-  checksum: f4461a694f5f30a04099d83a604a7b79b59083efe3060630155dc04d6a1b42bddd17289e0259b9c3d6ede02a277cc92a18f54f826efd6a0f2654a55a5ebc4227
+  checksum: 8633fe806ebbf764ee76ddef7810e6baa0dd06dbed25896feeda8cdbc973502bd07af6a2a60cd02806ab085993aa23bad010e1cecaeba108ab38f1c227ae1751
   languageName: node
   linkType: hard
 
-"@kachkaev/eslint-config-react@npm:^0.4.3":
-  version: 0.4.3
-  resolution: "@kachkaev/eslint-config-react@npm:0.4.3"
+"@kachkaev/eslint-config-react@npm:^0.4.5":
+  version: 0.4.5
+  resolution: "@kachkaev/eslint-config-react@npm:0.4.5"
   dependencies:
-    "@kachkaev/eslint-config-base": ^0.4.2
+    "@kachkaev/eslint-config-base": ^0.4.3
     eslint-plugin-react: ^7.28.0
     eslint-plugin-react-hooks: ^4.3.0
     eslint-plugin-testing-library: ^5.0.1
   peerDependencies:
     eslint: ">=8.0.0"
-  checksum: 5df83fafda8816b0781027b7f68b816ccc1994ba2136cbe710b298de13490ebb3eb018dc784dacbc89c2179a8f2b87ebe0d7b1c33302d7a502026fc313026103
+  checksum: 7ce3407f390084a4e37dbe5e59d0ea8ce1d99938f8063e28769a98616638ef9bc2730804f395086fee2d646dc889a5893dc1895d5a47f66116cb9541ed35c452
   languageName: node
   linkType: hard
 
@@ -6148,7 +6148,7 @@ __metadata:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@auth0/nextjs-auth0": ^1.6.2
-    "@kachkaev/eslint-config-react": ^0.4.3
+    "@kachkaev/eslint-config-react": ^0.4.5
     "@kachkaev/markdownlint-config": ^0.3.0
     "@netlify/plugin-nextjs": ^4.1.1
     "@next/eslint-plugin-next": ^12.0.7
