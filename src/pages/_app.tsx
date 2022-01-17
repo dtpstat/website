@@ -1,4 +1,4 @@
-import "../components/inherited-map/scss/style.scss";
+import "../styles/inherited-scss/style.scss";
 
 import { UserProvider } from "@auth0/nextjs-auth0";
 import { AppProps } from "next/app";
