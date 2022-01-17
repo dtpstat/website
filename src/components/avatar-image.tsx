@@ -2,6 +2,8 @@ import * as React from "react";
 import Gravatar from "react-gravatar";
 import styled from "styled-components";
 
+const defaultAvatarSizePix = 28;
+
 const StyledGravatar = styled(Gravatar)`
   border-radius: 50%;
   width: ${(props) => props.size}px;
@@ -27,7 +29,7 @@ export const AvatarImage: React.VoidFunctionComponent<AvatarImageProps> = ({
         email={email || ""}
         default="mp"
         rating="g"
-        size={size || 28}
+        size={size || defaultAvatarSizePix}
       />
     </ImageContainer>
   );
