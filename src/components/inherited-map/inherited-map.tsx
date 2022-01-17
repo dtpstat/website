@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { FilterPanel } from "./components/filter-panel-tmp";
+import { FilterPanel } from "./components/filter-panel";
 import { InfoPanel } from "./components/info-panel";
 import { Loader } from "./components/loader";
 import { Map } from "./components/map";
