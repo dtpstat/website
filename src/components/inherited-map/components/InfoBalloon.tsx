@@ -1,7 +1,7 @@
 import * as React from "react";
 
+import { Colors } from "../../../styles/colors";
 import SvgIcon from "./SvgIcon";
-import { Colors } from "./ui/colors";
 
 interface Props {
   id: string;

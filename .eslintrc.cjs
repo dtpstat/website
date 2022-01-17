@@ -37,7 +37,6 @@ module.exports = {
         "no-param-reassign": "off",
         "unicorn/consistent-destructuring": "off",
         "unicorn/consistent-function-scoping": "off",
-        "unicorn/filename-case": "off",
         "unicorn/no-array-callback-reference": "off",
         "unicorn/no-array-for-each": "off",
         "unicorn/no-null": "off",
