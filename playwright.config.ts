@@ -7,7 +7,7 @@ const config: PlaywrightTestConfig = {
   testDir: "./tests",
 
   /* Reuse auth state */
-  globalSetup: require.resolve("./tests/global-setup"),
+  globalSetup: "./tests/global-setup",
 
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
@@ -107,4 +107,6 @@ const config: PlaywrightTestConfig = {
   //   port: 3000,
   // },
 };
+
+// eslint-disable-next-line import/no-default-export
 export default config;

@@ -1,8 +1,9 @@
-import { chromium, expect, FullConfig } from "@playwright/test";
-// Load test env variables
-require("dotenv").config({ path: ".env.local" });
+import { chromium, expect } from "@playwright/test";
+import dotenv from "dotenv";
 
-async function globalSetup(config: FullConfig) {
+dotenv.config({ path: ".env.local" });
+
+const globalSetup = async () => {
   // Create a Chromium browser instance
   const browser = await chromium.launch();
   const context = await browser.newContext({
@@ -43,10 +44,11 @@ async function globalSetup(config: FullConfig) {
     page.click('button:has-text("Далее")'),
   ]);
 
-  await expect(page.locator("text=DTP-STAT TEST")).toBeDefined();
+  expect(page.locator("text=DTP-STAT TEST")).toBeDefined();
 
   // Save storage state into the file.
   await context.storageState({ path: "tests/state.json" });
-}
+};
 
+// eslint-disable-next-line import/no-default-export
 export default globalSetup;

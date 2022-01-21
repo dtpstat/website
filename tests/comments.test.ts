@@ -1,6 +1,6 @@
 import { chromium, expect, test } from "@playwright/test";
 
-test("add comment", async ({}) => {
+test("add comment", async () => {
   // Create a Chromium browser instance
   const browser = await chromium.launch();
   // Create a new context with the saved storage state.
@@ -25,6 +25,6 @@ test("add comment", async ({}) => {
   // Click text=Отправить
   await page.click("text=Отправить");
 
-  await expect(page.locator("text=DTP-STAT TEST")).toBeDefined();
-  await expect(page.locator("text=Hi, this is my comment")).toBeDefined();
+  expect(page.locator("text=DTP-STAT TEST")).toBeDefined();
+  expect(page.locator("text=Hi, this is my comment")).toBeDefined();
 });
