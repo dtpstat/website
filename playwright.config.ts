@@ -6,6 +6,9 @@ import { devices, PlaywrightTestConfig } from "@playwright/test";
 const config: PlaywrightTestConfig = {
   testDir: "./tests",
 
+  /* Reuse auth state */
+  globalSetup: require.resolve("./tests/global-setup"),
+
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
 
