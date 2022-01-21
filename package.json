@@ -17,7 +17,8 @@
     "lint:yarn-dedupe": "yarn dedupe --check",
     "start": "next start",
     "postinstall": "husky install",
-    "test": "yarn playwright test --project=chromium"
+    "test": "yarn playwright test --project=chromium",
+    "test:debug": "PWDEBUG=1 yarn test login"
   },
   "lint-staged": {
     "**/*": [

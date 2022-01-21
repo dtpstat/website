@@ -19,6 +19,12 @@ Run end-2-end tests with [Playwright](https://playwright.dev/).
 yarn test
 ```
 
+Run tests in interactive debug mode.
+
+```sh
+yarn test:debug
+```
+
 ## Environment variables
 
 All secrets should never be committed to the git repo, but saved in the environment variables.
