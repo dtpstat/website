@@ -16,7 +16,8 @@
     "lint:tsc": "tsc --project .",
     "lint:yarn-dedupe": "yarn dedupe --check",
     "start": "next start",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "test": "yarn playwright test --project=chromium"
   },
   "lint-staged": {
     "**/*": [
