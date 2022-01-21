@@ -3014,6 +3014,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dotenv@npm:^14.2.0":
+  version: 14.2.0
+  resolution: "dotenv@npm:14.2.0"
+  checksum: 85a0e44918ef49e64c278f757dab50a156b9a6ca67f708876fd81d265e575e35b67387fc681d910df99368d6c1edca66cd546edeb0f7db3b499cb876c999233e
+  languageName: node
+  linkType: hard
+
 "electron-to-chromium@npm:^1.3.723":
   version: 1.4.35
   resolution: "electron-to-chromium@npm:1.4.35"
@@ -7212,6 +7219,7 @@ __metadata:
     "@types/react-linkify": ^1.0.1
     "@types/styled-components": ^5.1.19
     dayjs: ^1.10.7
+    dotenv: ^14.2.0
     eslint: ^8.6.0
     husky: ^7.0.4
     lint-staged: ^12.1.5

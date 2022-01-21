@@ -1,4 +1,6 @@
 import { chromium, expect, FullConfig } from "@playwright/test";
+// Load test env variables
+require("dotenv").config({ path: ".env.local" });
 
 async function globalSetup(config: FullConfig) {
   // Create a Chromium browser instance
@@ -9,7 +11,7 @@ async function globalSetup(config: FullConfig) {
   const page = await context.newPage();
 
   // Go to http://localhost:3000/
-  await page.goto("http://localhost:3000/");
+  await page.goto(process.env.AUTH0_BASE_URL as string);
   // Click text=Login
   await Promise.all([
     page.waitForNavigation(/* { url: 'https://dev-9pt5c6ik.us.auth0.com/u/login?state=hKFo2SB1OGdCaDdaSUMtQlU0X2NlQWcyTUdrZk5ZU2tXeHdMMKFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIGduLW8xY2pKTFFoQkpuS2dXaEhRRGh6UjAwMmxLTk9mo2NpZNkgVklNTGgwNFNLdjhxUjdXc2VwRUhNT3FrdGJSQlNVeTE' } */),
@@ -23,7 +25,7 @@ async function globalSetup(config: FullConfig) {
   // Fill [aria-label="Телефон\ или\ адрес\ эл\.\ почты"]
   await page.fill(
     '[aria-label="Телефон\\ или\\ адрес\\ эл\\.\\ почты"]',
-    "dtp.stat.test@gmail.com",
+    process.env.TEST_LOGIN as string,
   );
   // Click button:has-text("Далее")
   await Promise.all([
@@ -31,7 +33,10 @@ async function globalSetup(config: FullConfig) {
     page.click('button:has-text("Далее")'),
   ]);
   // Fill [aria-label="Введите\ пароль"]
-  await page.fill('[aria-label="Введите\\ пароль"]', "*geB7^QqUYvt2uTuyd");
+  await page.fill(
+    '[aria-label="Введите\\ пароль"]',
+    process.env.TEST_PASSWORD as string,
+  );
   // Click button:has-text("Далее")
   await Promise.all([
     page.waitForNavigation(/* { url: 'http://localhost:3000/' } */),
