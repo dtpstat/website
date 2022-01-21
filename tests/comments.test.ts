@@ -9,11 +9,11 @@ test("add comment", async ({}) => {
   });
   const page = await context.newPage();
 
-  // Go to http://localhost:3000/
-  await page.goto("http://localhost:3000/");
+  // Go to /
+  await page.goto(process.env.AUTH0_BASE_URL as string);
   // Click text=Comments
   await Promise.all([
-    page.waitForNavigation(/* { url: 'http://localhost:3000/iframes/comments/1' } */),
+    page.waitForNavigation(/* { url: '/iframes/comments/1' } */),
     page.click("text=Comments"),
   ]);
   // Click textarea
