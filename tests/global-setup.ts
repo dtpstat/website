@@ -1,17 +1,43 @@
-import { chromium, expect } from "@playwright/test";
+import { chromium, Page } from "@playwright/test";
+import dotenv from "dotenv";
 
-// TODO: Enable oly for local env
-// import dotenv from "dotenv";
-// dotenv.config({ path: ".env.local" });
+dotenv.config({ path: ".env.local" });
 
-const globalSetup = async () => {
-  // Create a Chromium browser instance
-  const browser = await chromium.launch();
-  const context = await browser.newContext({
-    locale: "ru-RU",
-  });
-  const page = await context.newPage();
+interface TestParams {
+  page: Page;
+}
 
+const loginWithEmail = async ({ page }: TestParams) => {
+  // Go to http://localhost:3000/
+  await page.goto(process.env.AUTH0_BASE_URL as string);
+
+  // Click text=Login
+  await Promise.all([
+    page.waitForNavigation(/* { url: 'https://dev-9pt5c6ik.us.auth0.com/u/login?state=hKFo2SBSXy14NTExZ1M3RWJobTFCU1hHS2xzS0FZbkpMejJRVqFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIHk3d2tZVjZwbnI3SzB1UHowUkdCZjItWWpjaExyNnd6o2NpZNkgVklNTGgwNFNLdjhxUjdXc2VwRUhNT3FrdGJSQlNVeTE' } */),
+    page.click("text=Login"),
+  ]);
+
+  // Fill input[name="username"]
+  await page.fill('input[name="username"]', process.env.TEST_LOGIN as string);
+
+  // Click input[name="password"]
+  await page.click('input[name="password"]');
+
+  // Fill input[name="password"]
+  await page.fill(
+    'input[name="password"]',
+    process.env.TEST_PASSWORD as string,
+  );
+
+  // Click button:has-text("Continue")
+  await Promise.all([
+    page.waitForNavigation(/* { url: 'http://localhost:3000/' } */),
+    page.click('button:has-text("Continue")'),
+  ]);
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const loginWithGoogle = async ({ page }: TestParams) => {
   // Go to http://localhost:3000/
   await page.goto(process.env.AUTH0_BASE_URL as string);
   // Click text=Login
@@ -44,8 +70,17 @@ const globalSetup = async () => {
     page.waitForNavigation(/* { url: 'http://localhost:3000/' } */),
     page.click('button:has-text("Далее")'),
   ]);
+};
 
-  expect(page.locator("text=DTP-STAT TEST")).toBeDefined();
+const globalSetup = async () => {
+  // Create a Chromium browser instance
+  const browser = await chromium.launch();
+  const context = await browser.newContext({
+    locale: "ru-RU",
+  });
+  const page = await context.newPage();
+
+  await loginWithEmail({ page });
 
   // Save storage state into the file.
   await context.storageState({ path: "tests/state.json" });
