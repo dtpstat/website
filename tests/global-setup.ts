@@ -1,7 +1,8 @@
 import { chromium, expect } from "@playwright/test";
-import dotenv from "dotenv";
 
-dotenv.config({ path: ".env.local" });
+// TODO: Enable oly for local env
+// import dotenv from "dotenv";
+// dotenv.config({ path: ".env.local" });
 
 const globalSetup = async () => {
   // Create a Chromium browser instance
