@@ -8,6 +8,14 @@ export const testAuthData = {
   URL: process.env.AUTH0_BASE_URL as string,
   LOGIN: process.env.TEST_LOGIN as string,
   PASSWORD: process.env.TEST_PASSWORD as string,
+  authMeResp: {
+    nickname: "dtp.stat.test",
+    name: "dtp.stat.test@gmail.com",
+    picture: "",
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    updated_at: "2022-01-21T23:42:43.606Z",
+    sub: "auth0|61eb2c2059e0a90071d8f69f",
+  },
 };
 
 export const loginWithEmail = async ({ page }: TestParams) => {
@@ -36,7 +44,6 @@ export const loginWithEmail = async ({ page }: TestParams) => {
   ]);
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const loginWithGoogle = async ({ page }: TestParams) => {
   // Go to /
   await page.goto(testAuthData.URL);
@@ -68,4 +75,15 @@ export const loginWithGoogle = async ({ page }: TestParams) => {
     page.waitForNavigation(/* { url: 'http://localhost:3000/' } */),
     page.click('button:has-text("Далее")'),
   ]);
+};
+
+export const mockAuth0Login = async ({ page }: TestParams) => {
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  await page.route(`${testAuthData.URL}/api/auth/me`, (route) =>
+    route.fulfill({ body: JSON.stringify(testAuthData.authMeResp) }),
+  );
+};
+
+export const mockLoginWithEmail = async ({ page }: TestParams) => {
+  await mockAuth0Login({ page });
 };

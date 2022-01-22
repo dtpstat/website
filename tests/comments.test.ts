@@ -1,15 +1,12 @@
-import { chromium, expect, test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
-import { testAuthData } from "./helpers/auth-helpers";
+import { mockLoginWithEmail, testAuthData } from "./helpers/auth-helpers";
+import { TestParams } from "./helpers/types";
 
-test("add comment", async () => {
-  // Create a Chromium browser instance
-  const browser = await chromium.launch();
-  // Create a new context with the saved storage state.
-  const context = await browser.newContext({
-    storageState: "tests/state.json",
-  });
-  const page = await context.newPage();
+// eslint-disable-next-line jest/no-done-callback
+test("add comment", async ({ page }: TestParams) => {
+  await mockLoginWithEmail({ page });
+
   const newCommentText = "Hi, this is my comment";
 
   // Go to /
