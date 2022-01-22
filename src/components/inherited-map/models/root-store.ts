@@ -64,23 +64,34 @@ const RootStore = types
         });
       }
     };
+
     const prepareFilter = () => {
       const selection = buildSelection([...self.filterStore.filters]);
 
       return (a: any) => passFilters(a, selection);
     };
+
     const redraw = () => {
       const visibleAccs = self.trafficAccidentStore.accs.filter(
         (a: any) => a.point,
       );
+      console.log(
+        "self.mapStore.zoom, POINTS_ZOOM",
+        self.mapStore.zoom,
+        POINTS_ZOOM,
+      );
       if (self.mapStore.zoom >= POINTS_ZOOM) {
         self.mapStore.setFilter(prepareFilter());
-        self.mapStore.drawPoints(visibleAccs);
+        self.mapStore.clearObjects();
+        window.requestAnimationFrame(() =>
+          self.mapStore.drawPoints(visibleAccs, self.mapStore.zoom),
+        );
       } else {
         const accs = visibleAccs.filter(prepareFilter());
         self.mapStore.drawHeat(accs);
       }
     };
+
     const onTrafficAccidentsLoaded = () => {
       const accs = self.trafficAccidentStore.accs;
       self.filterStore.updateStreets(accs);
@@ -88,6 +99,7 @@ const RootStore = types
       updateStat();
       redraw();
     };
+
     const onBoundsChanged = (zoom: number, prevZoom: number) => {
       initBoundsChanged = true;
       if (initFiltersLoaded) {
@@ -95,12 +107,14 @@ const RootStore = types
         loadArea();
         if (
           (zoom >= POINTS_ZOOM && prevZoom < POINTS_ZOOM) ||
-          (zoom < POINTS_ZOOM && prevZoom >= POINTS_ZOOM)
+          (zoom < POINTS_ZOOM && prevZoom >= POINTS_ZOOM) ||
+          zoom !== prevZoom
         ) {
           redraw();
         }
       }
     };
+
     const onDatesChanged = () => {
       updateUrl();
       loadAccs();

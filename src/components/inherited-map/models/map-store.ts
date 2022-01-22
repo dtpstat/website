@@ -3,6 +3,7 @@ import ReactDOMServer from "react-dom/server";
 
 import { InfoBalloonContent } from "../components/info-balloon";
 import { Coordinate } from "../types";
+import { POINTS_ZOOM } from "../utils";
 import { RootStoreType } from "./root-store";
 
 // const supportedIconsBySeverity = {
@@ -77,7 +78,7 @@ export const MapStore = types
 
       // @ts-expect-error -- TODO: add ymaps to window
       objectManager = new window.ymaps.ObjectManager({
-        clusterize: true,
+        clusterize: false,
         gridSize: 256,
         clusterIconPieChartRadius: (node: any) => {
           // eslint-disable-next-line no-var
@@ -190,11 +191,12 @@ export const MapStore = types
       window.history.pushState(null, "", `?${currentParams.toString()}`);
     };
 
-    const createFeature = (acc: any) => ({
+    const createFeature = (acc: any, zoom: number) => ({
       type: "Feature",
       id: acc.id,
       geometry: {
-        type: "Point",
+        type: "Circle",
+        radius: Math.max(120 - (zoom - POINTS_ZOOM) * 20, 10),
         coordinates: [acc.point.latitude, acc.point.longitude],
       },
       properties: {
@@ -206,12 +208,13 @@ export const MapStore = types
         // iconLayout: 'default#image',
         // // @ts-ignore
         // iconImageHref: supportedIconsBySeverity[acc.severity],
-        // iconImageSize: [10, 10],
+        iconImageSize: [5, 5],
         // iconImageOffset: [-5, -5],
 
-        preset: "islands#circleIcon",
+        // preset: "islands#circleIcon",
         // @ts-expect-error -- TODO: investigate
-        iconColor: colorBySeverity[acc.severity],
+        fillColor: colorBySeverity[acc.severity],
+        outline: false,
       },
     });
 
@@ -227,10 +230,16 @@ export const MapStore = types
       },
     });
 
-    const drawPoints = (accs: any[]) => {
+    const clearObjects = () => {
       objectManager.removeAll();
       heatmap.setData([]);
-      const data = accs.map((a) => createFeature(a));
+      console.log("objectManager.objects", objectManager.objects);
+    };
+
+    const drawPoints = (accs: any[], zoom: number) => {
+      console.log("drawPoints triggered", zoom);
+      const data = accs.map((a) => createFeature(a, zoom));
+      console.log(data.map((a) => a.geometry.radius));
       objectManager.add(data);
 
       const params = new URLSearchParams(window.location.search);
@@ -255,6 +264,7 @@ export const MapStore = types
       getMap,
       updateBounds,
       drawPoints,
+      clearObjects,
       drawHeat,
       setFilter,
     };
