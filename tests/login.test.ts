@@ -5,19 +5,11 @@ import {
   mockLoginWithEmail,
   testAuthData,
 } from "./helpers/auth-helpers";
+import { TestParams } from "./helpers/types";
 
-test("mock login with email", async () => {
-  // Create a Chromium browser instance
-  const browser = await chromium.launch();
-  const context = await browser.newContext({
-    locale: "ru-RU",
-  });
-  const page = await context.newPage();
-
+// eslint-disable-next-line jest/no-done-callback
+test("mock login with email", async ({ page }: TestParams) => {
   await mockLoginWithEmail({ page });
-
-  // Save storage state into the file.
-  await context.storageState({ path: "tests/state.json" });
 
   // Go to /
   await page.goto(testAuthData.URL);
