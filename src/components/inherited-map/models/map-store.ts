@@ -233,13 +233,10 @@ export const MapStore = types
     const clearObjects = () => {
       objectManager.removeAll();
       heatmap.setData([]);
-      console.log("objectManager.objects", objectManager.objects);
     };
 
     const drawPoints = (accs: any[], zoom: number) => {
-      console.log("drawPoints triggered", zoom);
       const data = accs.map((a) => createFeature(a, zoom));
-      console.log(data.map((a) => a.geometry.radius));
       objectManager.add(data);
 
       const params = new URLSearchParams(window.location.search);

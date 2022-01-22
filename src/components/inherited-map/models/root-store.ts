@@ -42,8 +42,8 @@ const RootStore = types
       const { areaStore, filterStore, trafficAccidentStore } = self;
       if (areaStore.area) {
         trafficAccidentStore.loadTrafficAccidents(
-          filterStore.startDate,
-          filterStore.endDate,
+          filterStore.startDate ?? "",
+          filterStore.endDate ?? "",
           areaStore.area.parentId,
         );
       }
@@ -75,11 +75,7 @@ const RootStore = types
       const visibleAccs = self.trafficAccidentStore.accs.filter(
         (a: any) => a.point,
       );
-      console.log(
-        "self.mapStore.zoom, POINTS_ZOOM",
-        self.mapStore.zoom,
-        POINTS_ZOOM,
-      );
+
       if (self.mapStore.zoom >= POINTS_ZOOM) {
         self.mapStore.setFilter(prepareFilter());
         self.mapStore.clearObjects();
