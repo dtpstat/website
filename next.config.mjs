@@ -9,12 +9,12 @@
  * map PROD_XYZ / XYZ_PROD or PR_XYZ / XYZ_PR into XYZ.
  */
 
-const suffixOrPrefix =
-  process.env.CONTEXT === "production"
-    ? "PROD"
-    : process.env.CONTEXT === "deploy-preview"
-    ? "PR"
-    : "";
+const suffixOrPrefixByContext = {
+  production: "PROD",
+  "deploy-preview": "PR",
+};
+
+const suffixOrPrefix = suffixOrPrefixByContext[process.env.CONTEXT];
 
 if (suffixOrPrefix) {
   for (const key in process.env) {
