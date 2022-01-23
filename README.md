@@ -11,6 +11,20 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Test
+
+Run end-2-end tests with [Playwright](https://playwright.dev/).
+
+```sh
+yarn test
+```
+
+Run tests in interactive debug mode.
+
+```sh
+yarn test:debug
+```
+
 ## Environment variables
 
 All secrets should never be committed to the git repo, but saved in the environment variables.

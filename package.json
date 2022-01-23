@@ -16,7 +16,9 @@
     "lint:tsc": "tsc --project .",
     "lint:yarn-dedupe": "yarn dedupe --check",
     "start": "next start",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "test": "yarn playwright test --project=chromium",
+    "test:debug": "PWDEBUG=1 yarn test login"
   },
   "lint-staged": {
     "**/*": [
@@ -29,6 +31,7 @@
     "@auth0/nextjs-auth0": "^1.6.2",
     "@prisma/client": "^3.8.1",
     "dayjs": "^1.10.7",
+    "dotenv": "^14.2.0",
     "next": "^12.0.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -41,6 +44,7 @@
     "@kachkaev/markdownlint-config": "^0.3.0",
     "@netlify/plugin-nextjs": "^4.1.1",
     "@next/eslint-plugin-next": "^12.0.7",
+    "@playwright/test": "^1.18.0",
     "@types/node": "^16.11.19",
     "@types/react": "^17.0.38",
     "@types/react-gravatar": "^2.6.10",
