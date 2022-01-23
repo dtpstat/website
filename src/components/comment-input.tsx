@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 
+import { useAccident } from "../providers/accident-provider";
 import { useComments } from "../providers/comments-provider";
 import { useUser } from "../providers/user-profile-provider";
 import { postComment } from "../requests/comments";
@@ -36,9 +37,8 @@ export const CommentInput: React.VoidFunctionComponent = () => {
   const { setNewCommentText, newCommentText, comments, setComments } =
     useComments();
   const { user } = useUser();
+  const { accidentId } = useAccident();
   const [submitting, setSubmitting] = React.useState<boolean>(false);
-
-  const userPicture = (user && user.avatarUrl) || undefined;
 
   const handleSubmit = async () => {
     if (!user) {
@@ -50,6 +50,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     }
 
     const newComment: NewComment = {
+      accidentId,
       authorId: user.id,
       text: newCommentText,
     };
@@ -73,7 +74,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
 
   return user ? (
     <InputContainer>
-      <AvatarImage src={userPicture} />
+      <AvatarImage email={user.email} />
       <Textarea
         placeholder="Добавить комментарий..."
         disabled={submitting}

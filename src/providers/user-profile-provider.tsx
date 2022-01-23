@@ -39,12 +39,10 @@ export const UserProfileProvider: React.VoidFunctionComponent<{
         return await (dbUser
           ? patchUser(window.location.origin, userId, {
               ...userData,
-              email: auth0User.email as string,
             })
           : postUser(window.location.origin, {
               ...userData,
               createDate: userData.updateDate,
-              email: auth0User.email as string,
             }));
       };
 

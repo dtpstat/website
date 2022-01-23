@@ -4,17 +4,20 @@ import * as React from "react";
 
 import { CommentInput } from "../../../components/comment-input";
 import { CommentList } from "../../../components/comment-list";
+import { AccidentProvider } from "../../../providers/accident-provider";
 import { CommentsProvider } from "../../../providers/comments-provider";
 import { commentsArePaused } from "../../../shared/comment-helpers";
 
 export interface CommentsIframePageProps {
-  dtpId?: number;
+  accidentId?: string;
 }
 
-const CommentsIframePage: NextPage<CommentsIframePageProps> = ({ dtpId }) => {
+const CommentsIframePage: NextPage<CommentsIframePageProps> = ({
+  accidentId,
+}) => {
   const [height, setHeight] = React.useState(100);
 
-  if (!dtpId) {
+  if (!accidentId) {
     return <Error statusCode={404} />;
   }
 
@@ -22,33 +25,35 @@ const CommentsIframePage: NextPage<CommentsIframePageProps> = ({ dtpId }) => {
     <div style={{ border: "3px solid red" }}>
       {/* eslint-disable-next-line @next/next/no-sync-scripts */}
       <script src="/iframes/iframe-resizer.content-window.min.js" />
-      <CommentsProvider>
-        <CommentList />
+      <AccidentProvider initAccidentId={accidentId}>
+        <CommentsProvider>
+          <CommentList />
 
-        {commentsArePaused ? (
-          <p>Добавление новых комментариев приостановлено</p>
-        ) : (
-          <CommentInput />
-        )}
-        <div
-          style={{
-            height,
-            userSelect: "none",
-            marginTop: 10,
-          }}
-          onClick={() => {}}
-        >
-          Дополнителная высота в айфрейме: {height}
-          <br />
-          <button
-            onClick={() => {
-              setHeight(Math.round(100 + Math.random() * 300));
+          {commentsArePaused ? (
+            <p>Добавление новых комментариев приостановлено</p>
+          ) : (
+            <CommentInput />
+          )}
+          <div
+            style={{
+              height,
+              userSelect: "none",
+              marginTop: 10,
             }}
+            onClick={() => {}}
           >
-            поменять
-          </button>
-        </div>
-      </CommentsProvider>
+            Дополнителная высота в айфрейме: {height}
+            <br />
+            <button
+              onClick={() => {
+                setHeight(Math.round(100 + Math.random() * 300));
+              }}
+            >
+              поменять
+            </button>
+          </div>
+        </CommentsProvider>
+      </AccidentProvider>
     </div>
   );
 };
@@ -57,16 +62,14 @@ export const getServerSideProps: GetServerSideProps<
   CommentsIframePageProps
   // eslint-disable-next-line @typescript-eslint/require-await -- to be removed when we check dtp id
 > = async ({ params }) => {
-  const rawDtpId =
-    typeof params?.["dtp-id"] === "string" ? params["dtp-id"] : "";
-  const parsedDtpId = Number.parseInt(rawDtpId);
-  const dtpId = `${parsedDtpId}` === rawDtpId ? parsedDtpId : 0;
+  // Former dtp-id in the prev version
+  const accidentId = params?.["accident-id"] as string;
 
-  if (dtpId > 0) {
+  if (accidentId) {
     // TODO: Check dtp id presence and return { notFound: true } on failure
     return {
       props: {
-        dtpId,
+        accidentId,
       },
     };
   }

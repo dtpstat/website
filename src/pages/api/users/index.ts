@@ -1,3 +1,4 @@
+import { withSentry } from "@sentry/nextjs";
 import { NextApiHandler } from "next";
 
 import { prisma } from "../../../shared/prisma-helper";
@@ -9,7 +10,6 @@ export const getUsers = async (): Promise<User[]> => {
       id: true,
       name: true,
       nickname: true,
-      avatarUrl: true,
       email: true,
       createDate: true,
       updateDate: true,
@@ -36,4 +36,4 @@ const handler: NextApiHandler = async (req, res) => {
   }
 };
 
-export default handler;
+export default withSentry(handler);

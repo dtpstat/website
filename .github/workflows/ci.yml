@@ -1,4 +1,4 @@
-name: Check codebase
+name: CI
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: Linting
     runs-on: ubuntu-20.04
     steps:
       - name: Check out repository

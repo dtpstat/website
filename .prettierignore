@@ -9,6 +9,7 @@
 # Allow certain file types
 !*.cjs
 !*.js
+!*.jsx
 !*.json
 !*.md
 !*.mjs
@@ -36,7 +37,8 @@ tsconfig.tsbuildinfo
 
 # misc
 .DS_Store
-.env*
+.env.local
+.env.*.local
 
 # debug
 npm-debug.log*

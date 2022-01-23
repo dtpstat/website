@@ -10,6 +10,7 @@
 !*.cjs
 !*.js
 !*.json
+!*.jsx
 !*.mjs
 !*.ts
 !*.tsx
@@ -36,7 +37,8 @@ tsconfig.tsbuildinfo
 
 # misc
 .DS_Store
-.env*
+.env.local
+.env.*.local
 
 # debug
 npm-debug.log*

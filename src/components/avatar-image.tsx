@@ -1,12 +1,13 @@
 import * as React from "react";
+import Gravatar from "react-gravatar";
 import styled from "styled-components";
 
-const defaultAvatarUrl = "/icons/avatar_default.svg";
+const defaultAvatarSizePix = 28;
 
-const StyledImg = styled.img`
+const StyledGravatar = styled(Gravatar)`
   border-radius: 50%;
-  width: 28px;
-  height: 28px;
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
 `;
 
 const ImageContainer = styled.div`
@@ -14,15 +15,22 @@ const ImageContainer = styled.div`
 `;
 
 interface AvatarImageProps {
-  src?: string | null;
+  email?: string | null;
+  size?: number;
 }
 
 export const AvatarImage: React.VoidFunctionComponent<AvatarImageProps> = ({
-  src,
+  email,
+  size,
 }) => {
   return (
     <ImageContainer>
-      <StyledImg src={src || defaultAvatarUrl} />
+      <StyledGravatar
+        email={email || ""}
+        default="mp"
+        rating="g"
+        size={size || defaultAvatarSizePix}
+      />
     </ImageContainer>
   );
 };
