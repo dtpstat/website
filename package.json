@@ -28,6 +28,7 @@
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.7.0",
     "@prisma/client": "^3.8.1",
+    "@sentry/nextjs": "^6.16.1",
     "dayjs": "^1.10.7",
     "next": "^12.0.8",
     "react": "^17.0.2",

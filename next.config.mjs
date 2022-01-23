@@ -1,7 +1,9 @@
 // @ts-check
+import { withSentryConfig } from "@sentry/nextjs";
 
 /**
- * @type import("next").NextConfig
+ * @type Omit<import("next").NextConfig, "webpack">
+ * @todo Remove Omit<> when mismatch between Next Config and Sentry config is resolved
  */
 const nextConfig = {
   experimental: {
@@ -18,4 +20,12 @@ const nextConfig = {
   typescript: { ignoreBuildErrors: true },
 };
 
-export default nextConfig;
+/**
+ * @type Partial<import("@sentry/nextjs/src/config/types").SentryWebpackPluginOptions>
+ */
+const sentryWebpackPluginOptions = {
+  dryRun: !process.env.SENTRY_AUTH_TOKEN,
+  silent: true,
+};
+
+export default withSentryConfig(nextConfig, sentryWebpackPluginOptions);
