@@ -83,6 +83,18 @@ On every change of the raw database schema please run:
 yarn prisma db pull
 ```
 
+### Error tracking
+
+This app uses [Sentry](https://sentry.io) to track runtime errors both on client and server.
+Error reporting is disabled by default.
+For it to work for a deployment, configure these variables _before_ running `yarn build`.
+
+```ini
+NEXT_PUBLIC_SENTRY_DSN=https://...
+NEXT_PUBLIC_SENTRY_ENVIRONMENT=production/staging/...
+SENTRY_AUTH_TOKEN=...
+```
+
 ## Contributing
 
 [How to contribute](https://github.com/github/docs/blob/main/CONTRIBUTING.md)
