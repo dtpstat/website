@@ -9,7 +9,6 @@
 # Allow certain file types
 !*.cjs
 !*.js
-!*.jsx
 !*.json
 !*.jsx
 !*.mjs
