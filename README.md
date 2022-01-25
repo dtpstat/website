@@ -19,7 +19,7 @@ All secrets should never be committed to the git repo, but saved in the environm
 
 ```ini
 ## (optional) Pausing comments
-NEXT_PUBLIC_COMMENTS_ARE_PAUSED=true
+COMMENTS_ARE_PAUSED=true
 ```
 
 ### Authorization with auth0
@@ -90,9 +90,9 @@ Error reporting is disabled by default.
 For it to work for a deployment, configure these variables _before_ running `yarn build`.
 
 ```ini
-NEXT_PUBLIC_SENTRY_DSN=https://...
-NEXT_PUBLIC_SENTRY_ENVIRONMENT=production/staging/...
 SENTRY_AUTH_TOKEN=...
+SENTRY_DSN=https://...
+SENTRY_ENVIRONMENT=production/staging/...
 ```
 
 ## Contributing
