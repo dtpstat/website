@@ -1,3 +1,5 @@
+import "../styles/inherited-scss/style.scss";
+
 import { UserProvider } from "@auth0/nextjs-auth0";
 import { AppProps } from "next/app";
 import * as React from "react";

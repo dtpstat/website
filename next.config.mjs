@@ -45,6 +45,14 @@ const nextConfig = {
   // For local checks, run `yarn lint`.
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
+
+  redirects: async () => [
+    {
+      source: "/dtp/:slug",
+      destination: "https://dtp-stat.ru/dtp/:slug",
+      permanent: false,
+    },
+  ],
 };
 
 /**
