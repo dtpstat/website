@@ -29,8 +29,8 @@ if (suffixOrPrefix) {
 }
 
 // Adding NEXT_PUBLIC_ makes environment variables available inside Next.js client.
-// We don’t use the prefix outside Next.js code to make app app setup less bulky
-// and to avoid unnecessary breaking changes in it.
+// We don’t use the prefix outside Next.js code to make app setup less bulky and
+// to avoid unnecessary breaking changes in it.
 process.env.NEXT_PUBLIC_COMMENTS_ARE_PAUSED = process.env.COMMENTS_ARE_PAUSED;
 process.env.NEXT_PUBLIC_SENTRY_DSN = process.env.SENTRY_DSN;
 process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT = process.env.SENTRY_ENVIRONMENT;
