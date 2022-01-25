@@ -28,6 +28,13 @@ if (suffixOrPrefix) {
   }
 }
 
+// Adding NEXT_PUBLIC_ makes environment variables available inside Next.js client.
+// We don’t use the prefix outside Next.js code to make app setup less bulky and
+// to avoid unnecessary breaking changes in it.
+process.env.NEXT_PUBLIC_COMMENTS_ARE_PAUSED = process.env.COMMENTS_ARE_PAUSED;
+process.env.NEXT_PUBLIC_SENTRY_DSN = process.env.SENTRY_DSN;
+process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT = process.env.SENTRY_ENVIRONMENT;
+
 /**
  * @type Omit<import("next").NextConfig, "webpack">
  * @todo Remove Omit<> when mismatch between Next Config and Sentry config is resolved
@@ -71,6 +78,11 @@ const nextConfig = {
 const sentryWebpackPluginOptions = {
   dryRun: !process.env.SENTRY_AUTH_TOKEN,
   silent: true,
+  deploy: {
+    env: process.env.SENTRY_ENVIRONMENT,
+  },
 };
 
-export default withSentryConfig(nextConfig, sentryWebpackPluginOptions);
+export default process.env.SENTRY_DSN
+  ? withSentryConfig(nextConfig, sentryWebpackPluginOptions)
+  : nextConfig;
