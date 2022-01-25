@@ -54,10 +54,20 @@ const nextConfig = {
   typescript: { ignoreBuildErrors: true },
 
   redirects: async () => [
+    // This redirect supports clicks on accident cards inside the map.
+    // @todo Replace with navigation to Django while it’s used.
     {
       source: "/dtp/:slug",
       destination: "https://dtp-stat.ru/dtp/:slug",
       permanent: false,
+    },
+
+    // This redirect was added before the public release to minimise SSR.
+    // @todo Remove after 2022-03-01.
+    {
+      source: "/iframes/comments/:slug",
+      destination: "/iframes/comments?accident-id=:slug",
+      permanent: true,
     },
   ],
 };
