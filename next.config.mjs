@@ -66,7 +66,7 @@ const nextConfig = {
  * @type Partial<import("@sentry/nextjs/src/config/types").SentryWebpackPluginOptions>
  */
 const sentryWebpackPluginOptions = {
-  dryRun: !process.env.SENTRY_AUTH_TOKEN,
+  dryRun: !process.env.SENTRY_AUTH_TOKEN || !process.env.NEXT_PUBLIC_SENTRY_DSN,
   silent: true,
 };
 
