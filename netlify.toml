@@ -1,8 +1,9 @@
 [build]
 publish = ".next"
 
+## Yarn 3 cache does not work out of box as of Jan 2022. Context:
+## https://github.com/netlify/build/issues/1535#issuecomment-1021947989
 [build.environment]
-NODE_VERSION = "16"
 YARN_VERSION = "3.1.1"
 YARN_CACHE_FOLDER = "/opt/buildhome/.yarn_cache"
 
