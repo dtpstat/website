@@ -2,11 +2,11 @@ import { GetServerSideProps, NextPage } from "next";
 import Error from "next/error";
 import * as React from "react";
 
-import { CommentInput } from "../../../components/comment-input";
-import { CommentList } from "../../../components/comment-list";
-import { AccidentProvider } from "../../../providers/accident-provider";
-import { CommentsProvider } from "../../../providers/comments-provider";
-import { commentsArePaused } from "../../../shared/comment-helpers";
+import { CommentInput } from "../../components/comment-input";
+import { CommentList } from "../../components/comment-list";
+import { AccidentProvider } from "../../providers/accident-provider";
+import { CommentsProvider } from "../../providers/comments-provider";
+import { commentsArePaused } from "../../shared/comment-helpers";
 
 export interface CommentsIframePageProps {
   accidentId?: string;
