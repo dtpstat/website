@@ -37,7 +37,7 @@ export const HomePage: NextPage = () => {
         <PageTitle>Welcome to DTP-MAP</PageTitle>
 
         <h3>Menu:</h3>
-        <Link href="/iframes/comments/1">Comments</Link>
+        <Link href="/iframes/comments?accident-id=1">Comments</Link>
 
         <h3>User profile:</h3>
         <UserProfile />
