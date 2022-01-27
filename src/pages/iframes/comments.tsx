@@ -25,17 +25,20 @@ const CommentsIframePage: NextPage = () => {
   }
 
   return (
-    <AccidentProvider initAccidentId={accidentId}>
-      <CommentsProvider>
-        <CommentList />
-
-        {commentsArePaused ? (
-          <p>Добавление новых комментариев приостановлено</p>
-        ) : (
-          <CommentInput />
-        )}
-      </CommentsProvider>
-    </AccidentProvider>
+    <>
+      {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+      <script src="/iframes/iframe-resizer.content-window.min.js" />
+      <AccidentProvider initAccidentId={accidentId}>
+        <CommentsProvider>
+          <CommentList />
+          {commentsArePaused ? (
+            <p>Добавление новых комментариев приостановлено</p>
+          ) : (
+            <CommentInput />
+          )}
+        </CommentsProvider>
+      </AccidentProvider>
+    </>
   );
 };
 
