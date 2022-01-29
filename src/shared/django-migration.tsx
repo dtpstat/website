@@ -49,8 +49,8 @@ export const IframeAwareLoginLink: React.VoidFunctionComponent<{
   );
 
   return (
-    <Link href={authLink}>
-      <a onClick={handleClick}>{children}</a>
+    <Link href={authLink} onClick={handleClick}>
+      {children}
     </Link>
   );
 };
@@ -60,23 +60,25 @@ export const GoToDjangoOnIframeAuth: React.VoidFunctionComponent<{
   djangoPageHref: string | undefined;
 }> = ({ children, djangoPageHref }) => {
   const router = useRouter();
-
-  const { isLoading } = useUser();
+  const { isLoading: userIsLoading } = useUser();
+  const [readyToRenderChildren, setReadyToRenderChildren] =
+    React.useState(false);
 
   React.useEffect(() => {
-    const authWasTriggeredInIframe = router.query[paramName] === "true";
-    if (
-      !authWasTriggeredInIframe ||
-      !djangoBaseUrl ||
-      !djangoPageHref ||
-      !router.isReady
-    ) {
+    if (!router.isReady || userIsLoading) {
       return;
     }
-    void router.replace(djangoBaseUrl + djangoPageHref);
-  }, [djangoPageHref, router, router.isReady, router.query]);
 
-  return <>{isLoading ? undefined : children}</>;
+    const authWasTriggeredInIframe = router.query[paramName] === "true";
+
+    if (authWasTriggeredInIframe && djangoBaseUrl && djangoPageHref) {
+      void router.replace(djangoBaseUrl + djangoPageHref);
+    } else {
+      setReadyToRenderChildren(true);
+    }
+  }, [djangoPageHref, router, router.isReady, router.query, userIsLoading]);
+
+  return <>{readyToRenderChildren ? children : undefined}</>;
 };
 
 export const IframeResizerScript: React.VoidFunctionComponent = () => {

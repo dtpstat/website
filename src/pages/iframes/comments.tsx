@@ -54,7 +54,9 @@ const CommentsIframePage: NextPage = () => {
       <IframeResizerScript />
       <GoToDjangoOnIframeAuth
         djangoPageHref={
-          typeof accidentId === "string" ? `/dtp/${accidentId}/` : undefined
+          typeof accidentId === "string"
+            ? `/dtp/${accidentId}/#comments`
+            : undefined
         }
       >
         <AccidentProvider initAccidentId={accidentId}>

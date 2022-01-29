@@ -28,6 +28,9 @@ export const UserProfileProvider: React.VoidFunctionComponent<{
   const [user, setUser] = React.useState<User>();
 
   React.useEffect(() => {
+    if (!auth0UserIsLoading) {
+      return;
+    }
     const syncAuth0UserProfileWithDbUser = async () => {
       const createOrUpdateDbUser = async (
         userData: User,
@@ -56,11 +59,11 @@ export const UserProfileProvider: React.VoidFunctionComponent<{
         const userData = userProfileToUser(auth0User);
         const updatedUser = await createOrUpdateDbUser(userData);
         setUser(updatedUser);
-        setDbUserIsLoading(false);
       }
+      setDbUserIsLoading(false);
     };
     void syncAuth0UserProfileWithDbUser();
-  }, [auth0User]);
+  }, [auth0User, auth0UserIsLoading]);
 
   const providerValue = React.useMemo<UserProfileContextValue>(
     () => ({
