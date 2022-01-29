@@ -21,6 +21,7 @@ const InputContainer = styled.div`
   flex-grow: 0;
   margin: 0 0 16px;
   padding: 12px;
+  padding-right: 0;
   align-items: start;
   justify-content: space-between;
 `;

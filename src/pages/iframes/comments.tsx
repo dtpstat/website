@@ -14,11 +14,16 @@ import {
   IframeResizerScript,
 } from "../../shared/django-migration";
 
-// Keeping "height: 100%" from src/styles/inherited-scss/helpers/_base.scss
-// would invalidate iframe resizing
-const HtmlHeightOverride = createGlobalStyle`
-  html {
+const GlobalStyleOverride = createGlobalStyle`
+  html, body {
+    // Keeping "height: 100%" from src/styles/inherited-scss/helpers/_base.scss
+    // would invalidate iframe resizing
     height: auto;
+
+    // TODO: update global styles and remove
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
   }
 `;
 
@@ -38,7 +43,7 @@ const CommentsIframePage: NextPage = () => {
   if (!client || !router.isReady) {
     return (
       <>
-        <HtmlHeightOverride />
+        <GlobalStyleOverride />
         <IframeResizerScript />
       </>
     );
@@ -50,7 +55,7 @@ const CommentsIframePage: NextPage = () => {
 
   return (
     <>
-      <HtmlHeightOverride />
+      <GlobalStyleOverride />
       <IframeResizerScript />
       <DjangoRedirectOnIframeAuth
         djangoPageHref={
