@@ -36,7 +36,7 @@ const SubmitButtonContainer = styled.div`
 export const CommentInput: React.VoidFunctionComponent = () => {
   const { setNewCommentText, newCommentText, comments, setComments } =
     useComments();
-  const { user, userIsLoading } = useUser();
+  const { user, isLoading: userIsLoading } = useUser();
   const { accidentId } = useAccident();
   const [submitting, setSubmitting] = React.useState<boolean>(false);
 
