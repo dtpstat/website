@@ -20,9 +20,9 @@ const generateAuthRedirectTo = (): string => {
 export const IframeAwareLoginLink: React.VoidFunctionComponent<{
   children?: React.ReactNode;
 }> = ({ children }) => {
-  const authLink = `/api/auth/login?redirectTo=${encodeURIComponent(
-    generateAuthRedirectTo(),
-  )}`;
+  const authLink = `${
+    window.location.origin
+  }/api/auth/login?redirectTo=${encodeURIComponent(generateAuthRedirectTo())}`;
 
   const handleClick = React.useCallback<React.MouseEventHandler>(
     (event) => {
