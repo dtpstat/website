@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/nextjs";
 import { observer } from "mobx-react";
 import * as React from "react";
 import styled from "styled-components";
@@ -81,6 +82,14 @@ export const Map = observer(() => {
   }, [mapStore, boundsChangeHandler]);
 
   const mapRef = React.useRef();
+
+  React.useEffect(() => {
+    if (!window.ymaps) {
+      Sentry.captureException(
+        new Error("Map was not rendered because window.ymaps is undefined"),
+      );
+    }
+  }, []);
 
   if (!window.ymaps) {
     return (
