@@ -3,42 +3,16 @@ import dynamic from "next/dynamic";
 import Script from "next/script";
 import * as React from "react";
 
+import { useReportChangesInWindowLocationSearch } from "../../shared/django-migration";
+
 const InheritedMap = dynamic(
   // eslint-disable-next-line unicorn/no-await-expression-member
   async () => (await import("../../components/inherited-map")).InheritedMap,
   { ssr: false },
 );
 
-const postMessageToParent = (message: unknown) => {
-  if (window !== window.parent) {
-    parent.postMessage(message, "*");
-  } else {
-    // eslint-disable-next-line no-console -- not expected in production setup
-    console.info("Mock message to iframe parent", message);
-  }
-};
-
 const MapIframePage: NextPage = () => {
-  // Track changes in window.location.search emitted by the map
-  React.useEffect(() => {
-    let previousSearch = window.location.search;
-    const observer = new MutationObserver(() => {
-      const search = window.location.search;
-      if (previousSearch !== search) {
-        previousSearch = search;
-        postMessageToParent({ action: "replaceSearch", search });
-      }
-    });
-
-    observer.observe(window.document.querySelector("body")!, {
-      childList: true,
-      subtree: true,
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+  useReportChangesInWindowLocationSearch();
 
   return (
     <>

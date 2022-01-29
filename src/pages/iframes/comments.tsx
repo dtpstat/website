@@ -1,7 +1,6 @@
 import { NextPage } from "next";
 import Error from "next/error";
 import { useRouter } from "next/router";
-import Script from "next/script";
 import * as React from "react";
 import { createGlobalStyle } from "styled-components";
 
@@ -10,7 +9,10 @@ import { CommentList } from "../../components/comment-list";
 import { AccidentProvider } from "../../providers/accident-provider";
 import { CommentsProvider } from "../../providers/comments-provider";
 import { commentsArePaused } from "../../shared/comment-helpers";
-import { useGoToDjangoOnIframeAuth } from "../../shared/django-migration";
+import {
+  IframeResizerScript,
+  useGoToDjangoOnIframeAuth,
+} from "../../shared/django-migration";
 
 // Keeping "height: 100%" from src/styles/inherited-scss/helpers/_base.scss
 // would invalidate iframe resizing
@@ -19,15 +21,6 @@ const HtmlHeightOverride = createGlobalStyle`
     height: auto;
   }
 `;
-
-const IframeResizerScript: React.VoidFunctionComponent = () => {
-  return (
-    <Script
-      src="/iframes/iframe-resizer.content-window.min.js"
-      strategy="afterInteractive"
-    />
-  );
-};
 
 const CommentsIframePage: NextPage = () => {
   const router = useRouter();

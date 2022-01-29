@@ -13,7 +13,7 @@ import { rootStore, RootStoreContext } from "./models/root-store";
 //import Articles from './components/News/Articles';
 //import Article from './components/News/Article';
 
-const InheritedMap: React.VoidFunctionComponent = () => (
+export const InheritedMap: React.VoidFunctionComponent = () => (
   <RootStoreContext.Provider value={rootStore}>
     <Loader />
     <Map />
@@ -29,6 +29,3 @@ const InheritedMap: React.VoidFunctionComponent = () => (
     {/* <Articles /> */}
   </RootStoreContext.Provider>
 );
-
-const MemoizedInheritedMap = React.memo(InheritedMap);
-export { MemoizedInheritedMap as InheritedMap };
