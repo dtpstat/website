@@ -5,10 +5,10 @@ import { useAccident } from "../providers/accident-provider";
 import { useComments } from "../providers/comments-provider";
 import { useUser } from "../providers/user-profile-provider";
 import { postComment } from "../requests/comments";
+import { IframeAwareLoginLink } from "../shared/django-migration";
 import { NewComment } from "../types";
 import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";
-import { Link } from "./link";
 import { Textarea } from "./textarea";
 
 declare global {
@@ -82,15 +82,6 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     setNewCommentText(event.target.value);
   };
 
-  // TODO: Remove after migrating all pages to Next.js and removing iframes
-  const handleAuthClick = React.useCallback(() => {
-    if (window.parentIFrame) {
-      const heightNeededForAuth0 = document.body.clientWidth > 480 ? 800 : 690;
-      window.parentIFrame.autoResize(false);
-      window.parentIFrame.size(heightNeededForAuth0);
-    }
-  }, []);
-
   return user ? (
     <InputContainer>
       <AvatarImage email={user.email} />
@@ -114,10 +105,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
   ) : (
     <div>
       Для оставления комментария{" "}
-      <Link href="/api/auth/login">
-        <a onClick={handleAuthClick}>авторизуйтесь</a>
-      </Link>
-      .
+      <IframeAwareLoginLink>авторизуйтесь</IframeAwareLoginLink>.
     </div>
   );
 };

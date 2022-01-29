@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { useUser } from "../providers/user-profile-provider";
+import { IframeAwareLoginLink } from "../shared/django-migration";
 import { AvatarImage } from "./avatar-image";
 import { Link } from "./link";
 
@@ -23,7 +24,7 @@ export const UserProfile: React.VoidFunctionComponent = () => {
     </div>
   ) : (
     <div>
-      <Link href="/api/auth/login">Login</Link>
+      <IframeAwareLoginLink>login</IframeAwareLoginLink>
     </div>
   );
 };

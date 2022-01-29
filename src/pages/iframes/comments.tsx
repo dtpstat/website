@@ -10,6 +10,7 @@ import { CommentList } from "../../components/comment-list";
 import { AccidentProvider } from "../../providers/accident-provider";
 import { CommentsProvider } from "../../providers/comments-provider";
 import { commentsArePaused } from "../../shared/comment-helpers";
+import { useGoToDjangoOnIframeAuth } from "../../shared/django-migration";
 
 // Keeping "height: 100%" from src/styles/inherited-scss/helpers/_base.scss
 // would invalidate iframe resizing
@@ -29,10 +30,15 @@ const IframeResizerScript: React.VoidFunctionComponent = () => {
 };
 
 const CommentsIframePage: NextPage = () => {
-  const {
-    query: { "accident-id": accidentId },
-    isReady: routerIsReady,
-  } = useRouter();
+  const router = useRouter();
+  const accidentId =
+    typeof router.query["accident-id"] === "string"
+      ? router.query["accident-id"]
+      : undefined;
+
+  useGoToDjangoOnIframeAuth(
+    typeof accidentId === "string" ? `/dtp/${accidentId}/` : undefined,
+  );
 
   // Prevent tree mismatch between server and client on initial render
   const [client, setClient] = React.useState(false);
@@ -40,7 +46,7 @@ const CommentsIframePage: NextPage = () => {
     setClient(true);
   }, []);
 
-  if (!client || !routerIsReady) {
+  if (!client || !router.isReady) {
     return (
       <>
         <HtmlHeightOverride />

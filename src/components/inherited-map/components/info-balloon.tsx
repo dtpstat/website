@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { djangoBaseUrl } from "../../../shared/django-migration";
 import { Colors } from "../../../styles/colors";
 import SvgIcon from "./svg-icon";
 
@@ -61,7 +62,7 @@ export const InfoBalloonContent = (props: Props) => {
         <a
           id="balloon-button"
           className="btn-light"
-          href={`/dtp/${props.id}`}
+          href={`${djangoBaseUrl}/dtp/${props.id}`}
           target="_blank"
           rel="noopener noreferrer"
         >
