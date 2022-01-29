@@ -20,7 +20,7 @@ const Event = () => {
           <EventHeader />
           <EventTags />
           <h2 className="h2" style={{ marginBottom: "12px" }}>
-            Участники ДТП
+            Участники ДТП???
           </h2>
           <EventMembers />
           <div className="dtp-info">

@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 import Script from "next/script";
 import * as React from "react";
 
@@ -10,17 +11,24 @@ const InheritedMap = dynamic(
 );
 
 const MapIframePage: NextPage = () => {
+  const router = useRouter();
   const [search, setSearch] = React.useState<string | undefined>();
   const [parentOrigin, setParentOrigin] = React.useState<string | undefined>();
 
+  // Initialize search and parentOrigin from ?parent-url=... + tweak window.location.search
   React.useEffect(() => {
+    if (!router.isReady || typeof parentOrigin === "string") {
+      return;
+    }
+
     const initialPageUrl = new URL(window.location.href);
     const parentUrlParam = initialPageUrl.searchParams.get("parent-url");
     if (!parentUrlParam) {
-      // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console -- not expected in production setup
       console.warn(
         "Missing parent-url in iframe params. Messages to parent won’t be sent.",
       );
+      setParentOrigin("");
       setSearch("");
 
       return;
@@ -28,31 +36,56 @@ const MapIframePage: NextPage = () => {
 
     try {
       const parentUrl = new URL(parentUrlParam);
-      setSearch(parentUrl.search.replace(/^\?/, ""));
+      const parentSearch = parentUrl.search.replace(/^\?/, "");
       setParentOrigin(parentUrl.origin);
+      setSearch(parentSearch);
+      void router.replace(`/iframes/map?${parentSearch}`, undefined, {
+        shallow: true, // Prevents page remount, which would re-trigger all effects
+      });
     } catch {
-      // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console -- not expected in production setup
       console.warn(`Unable to parse ${parentUrlParam} as URL`);
+      setParentOrigin("");
       setSearch("");
     }
-  }, []);
+  }, [router, router.isReady, parentOrigin]);
 
+  // Track changes in window.location.search emitted by the map
   React.useEffect(() => {
-    if (!parentOrigin) {
+    if (typeof parentOrigin !== "string") {
       return;
     }
-    const interval = setInterval(() => {
-      setSearch(window.location.search);
-    }, 100);
+
+    let oldSearch = window.location.search;
+    const observer = new MutationObserver(() => {
+      const newSearch = window.location.search;
+      if (oldSearch !== newSearch) {
+        oldSearch = newSearch;
+        setSearch(newSearch);
+      }
+    });
+
+    observer.observe(window.document.querySelector("body")!, {
+      childList: true,
+      subtree: true,
+    });
 
     return () => {
-      clearInterval(interval);
+      observer.disconnect();
     };
   }, [parentOrigin]);
 
+  // Post message to iframe parent
   React.useEffect(() => {
-    if (parentOrigin && typeof search === "string") {
-      parent.postMessage({ action: "replaceSearch", search }, parentOrigin);
+    if (typeof search !== "string") {
+      return;
+    }
+    const message = { action: "replaceSearch", search };
+    if (parentOrigin) {
+      parent.postMessage(message, parentOrigin);
+    } else {
+      // eslint-disable-next-line no-console -- not expected in production setup
+      console.info("Mock message to iframe parent", message);
     }
   }, [search, parentOrigin]);
 
