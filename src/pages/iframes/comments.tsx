@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import dynamic from "next/dynamic";
 import Error from "next/error";
 import { useRouter } from "next/router";
 import * as React from "react";
@@ -13,10 +12,16 @@ import { commentsArePaused } from "../../shared/comment-helpers";
 const CommentsIframePage: NextPage = () => {
   const {
     query: { "accident-id": accidentId },
-    isReady,
+    isReady: routerIsReady,
   } = useRouter();
 
-  if (!isReady) {
+  // Prevent tree mismatch between server and client on initial render
+  const [client, setClient] = React.useState(false);
+  React.useEffect(() => {
+    setClient(true);
+  }, []);
+
+  if (!client || !routerIsReady) {
     return <></>;
   }
 
@@ -26,7 +31,7 @@ const CommentsIframePage: NextPage = () => {
 
   return (
     <>
-      {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+      {/* eslint-disable-next-line @next/next/no-sync-scripts -- temp exception while we need iframes */}
       <script src="/iframes/iframe-resizer.content-window.min.js" />
       <AccidentProvider initAccidentId={accidentId}>
         <CommentsProvider>
@@ -42,8 +47,4 @@ const CommentsIframePage: NextPage = () => {
   );
 };
 
-export default dynamic(
-  // eslint-disable-next-line @typescript-eslint/require-await
-  async () => CommentsIframePage,
-  { ssr: false },
-);
+export default CommentsIframePage;
