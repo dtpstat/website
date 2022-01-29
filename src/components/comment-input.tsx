@@ -36,7 +36,7 @@ const SubmitButtonContainer = styled.div`
 export const CommentInput: React.VoidFunctionComponent = () => {
   const { setNewCommentText, newCommentText, comments, setComments } =
     useComments();
-  const { user } = useUser();
+  const { user, userIsLoading } = useUser();
   const { accidentId } = useAccident();
   const [submitting, setSubmitting] = React.useState<boolean>(false);
 
@@ -71,6 +71,10 @@ export const CommentInput: React.VoidFunctionComponent = () => {
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewCommentText(event.target.value);
   };
+
+  if (userIsLoading) {
+    return <></>;
+  }
 
   return user ? (
     <InputContainer>
