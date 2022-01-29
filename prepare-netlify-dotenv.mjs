@@ -28,7 +28,7 @@ if (suffixOrPrefix) {
       envToWrite[key.slice(suffixOrPrefix.length + 1)] = process.env[key];
     } else if (key.endsWith(`_${suffixOrPrefix}`)) {
       envToWrite[key.slice(undefined, suffixOrPrefix.length - 1)] =
-        envToWrite[key];
+        process.env[key];
     }
   }
 }
