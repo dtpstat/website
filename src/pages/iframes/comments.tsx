@@ -11,6 +11,14 @@ import { AccidentProvider } from "../../providers/accident-provider";
 import { CommentsProvider } from "../../providers/comments-provider";
 import { commentsArePaused } from "../../shared/comment-helpers";
 
+// Keeping "height: 100%" from src/styles/inherited-scss/helpers/_base.scss
+// would invalidate iframe resizing
+const HtmlHeightOverride = createGlobalStyle`
+  html {
+    height: auto;
+  }
+`;
+
 const IframeResizerScript: React.VoidFunctionComponent = () => {
   return (
     <Script
@@ -19,13 +27,6 @@ const IframeResizerScript: React.VoidFunctionComponent = () => {
     />
   );
 };
-
-// Globally set height: 100%; makes resizing a noop
-const HtmlHeightOverride = createGlobalStyle`
-  html {
-    height: auto;
-  }
-`;
 
 const CommentsIframePage: NextPage = () => {
   const {
