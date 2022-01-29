@@ -7,7 +7,7 @@ export const djangoBaseUrl = process.env.NEXT_PUBLIC_DJANGO_BASE_URL ?? "";
 
 const paramName = "auth-was-triggered-in-iframe";
 
-const generateAuthRedirectTo = (): string => {
+const generateAuthReturnTo = (): string => {
   const url = new URL(window.location.href);
 
   if (window !== window.parent) {
@@ -22,7 +22,7 @@ export const IframeAwareLoginLink: React.VoidFunctionComponent<{
 }> = ({ children }) => {
   const authLink = `${
     window.location.origin
-  }/api/auth/login?redirectTo=${encodeURIComponent(generateAuthRedirectTo())}`;
+  }/api/auth/login?return-url=${encodeURIComponent(generateAuthReturnTo())}`;
 
   const handleClick = React.useCallback<React.MouseEventHandler>(
     (event) => {
