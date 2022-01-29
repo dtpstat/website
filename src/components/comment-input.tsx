@@ -11,6 +11,16 @@ import { Button } from "./button";
 import { Link } from "./link";
 import { Textarea } from "./textarea";
 
+declare global {
+  interface Window {
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- third-party name
+    parentIFrame?: {
+      autoResize: (value: boolean) => void;
+      size: (height: number) => void;
+    };
+  }
+}
+
 const InputContainer = styled.div`
   background: rgba(24, 51, 74, 0.1);
   border-radius: 4px;
@@ -72,6 +82,15 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     setNewCommentText(event.target.value);
   };
 
+  // TODO: Remove after migrating all pages to Next.js and removing iframes
+  const handleAuthClick = React.useCallback(() => {
+    if (window.parentIFrame) {
+      const heightNeededForAuth0 = document.body.clientWidth > 480 ? 800 : 690;
+      window.parentIFrame.autoResize(false);
+      window.parentIFrame.size(heightNeededForAuth0);
+    }
+  }, []);
+
   return user ? (
     <InputContainer>
       <AvatarImage email={user.email} />
@@ -95,7 +114,10 @@ export const CommentInput: React.VoidFunctionComponent = () => {
   ) : (
     <div>
       Для оставления комментария{" "}
-      <Link href="/api/auth/login">авторизуйтесь</Link>.
+      <Link href="/api/auth/login">
+        <a onClick={handleAuthClick}>авторизуйтесь</a>
+      </Link>
+      .
     </div>
   );
 };
