@@ -39,26 +39,24 @@ export const UserProfileProvider: React.VoidFunctionComponent<{
         const userId = auth0User.sub as string;
 
         // Check if the user exists in the DB
-        try {
-          const dbUser = await fetchUser(window.location.origin, userId);
 
-          return await (dbUser
-            ? patchUser(window.location.origin, userId, {
-                ...userData,
-              })
-            : postUser(window.location.origin, {
-                ...userData,
-                createDate: userData.updateDate,
-              }));
-        } finally {
-          setDbUserIsLoading(false);
-        }
+        const dbUser = await fetchUser(window.location.origin, userId);
+
+        return await (dbUser
+          ? patchUser(window.location.origin, userId, {
+              ...userData,
+            })
+          : postUser(window.location.origin, {
+              ...userData,
+              createDate: userData.updateDate,
+            }));
       };
 
       if (auth0User) {
         const userData = userProfileToUser(auth0User);
         const updatedUser = await createOrUpdateDbUser(userData);
         setUser(updatedUser);
+        setDbUserIsLoading(false);
       }
     };
     void syncAuth0UserProfileWithDbUser();
