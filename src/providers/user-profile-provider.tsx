@@ -19,7 +19,12 @@ const UserProfileContext = React.createContext<
 export const UserProfileProvider: React.VoidFunctionComponent<{
   children?: React.ReactNode;
 }> = ({ children }) => {
-  const { user: auth0User, isLoading, error } = useAuth0User();
+  const {
+    user: auth0User,
+    isLoading: auth0UserIsLoading,
+    error: auth0Error,
+  } = useAuth0User();
+  const [dbUserIsLoading, setDbUserIsLoading] = React.useState<boolean>(true);
   const [user, setUser] = React.useState<User>();
 
   React.useEffect(() => {
@@ -34,16 +39,20 @@ export const UserProfileProvider: React.VoidFunctionComponent<{
         const userId = auth0User.sub as string;
 
         // Check if the user exists in the DB
-        const dbUser = await fetchUser(window.location.origin, userId);
+        try {
+          const dbUser = await fetchUser(window.location.origin, userId);
 
-        return await (dbUser
-          ? patchUser(window.location.origin, userId, {
-              ...userData,
-            })
-          : postUser(window.location.origin, {
-              ...userData,
-              createDate: userData.updateDate,
-            }));
+          return await (dbUser
+            ? patchUser(window.location.origin, userId, {
+                ...userData,
+              })
+            : postUser(window.location.origin, {
+                ...userData,
+                createDate: userData.updateDate,
+              }));
+        } finally {
+          setDbUserIsLoading(false);
+        }
       };
 
       if (auth0User) {
@@ -59,10 +68,10 @@ export const UserProfileProvider: React.VoidFunctionComponent<{
     () => ({
       user,
       setUser,
-      isLoading,
-      error,
+      isLoading: auth0UserIsLoading || dbUserIsLoading,
+      error: auth0Error,
     }),
-    [user, setUser, isLoading, error],
+    [user, auth0UserIsLoading, dbUserIsLoading, auth0Error],
   );
 
   return (

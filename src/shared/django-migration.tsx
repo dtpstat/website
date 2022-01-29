@@ -3,6 +3,7 @@ import Script from "next/script";
 import * as React from "react";
 
 import { Link } from "../components/link";
+import { useUser } from "../providers/user-profile-provider";
 
 export const djangoBaseUrl = process.env.NEXT_PUBLIC_DJANGO_BASE_URL ?? "";
 
@@ -54,23 +55,28 @@ export const IframeAwareLoginLink: React.VoidFunctionComponent<{
   );
 };
 
-export const useGoToDjangoOnIframeAuth = (
-  iframeContainerHref: string | undefined,
-) => {
+export const GoToDjangoOnIframeAuth: React.VoidFunctionComponent<{
+  children?: React.ReactNode;
+  djangoPageHref: string | undefined;
+}> = ({ children, djangoPageHref }) => {
   const router = useRouter();
+
+  const { isLoading } = useUser();
 
   React.useEffect(() => {
     const authWasTriggeredInIframe = router.query[paramName] === "true";
     if (
       !authWasTriggeredInIframe ||
       !djangoBaseUrl ||
-      !iframeContainerHref ||
+      !djangoPageHref ||
       !router.isReady
     ) {
       return;
     }
-    void router.replace(djangoBaseUrl + iframeContainerHref);
-  }, [iframeContainerHref, router, router.isReady, router.query]);
+    void router.replace(djangoBaseUrl + djangoPageHref);
+  }, [djangoPageHref, router, router.isReady, router.query]);
+
+  return <>{isLoading ? undefined : children}</>;
 };
 
 export const IframeResizerScript: React.VoidFunctionComponent = () => {

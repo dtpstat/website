@@ -11,16 +11,6 @@ import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";
 import { Textarea } from "./textarea";
 
-declare global {
-  interface Window {
-    // eslint-disable-next-line @typescript-eslint/naming-convention -- third-party name
-    parentIFrame?: {
-      autoResize: (value: boolean) => void;
-      size: (height: number) => void;
-    };
-  }
-}
-
 const InputContainer = styled.div`
   background: rgba(24, 51, 74, 0.1);
   border-radius: 4px;

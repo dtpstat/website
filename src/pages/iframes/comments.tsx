@@ -10,8 +10,8 @@ import { AccidentProvider } from "../../providers/accident-provider";
 import { CommentsProvider } from "../../providers/comments-provider";
 import { commentsArePaused } from "../../shared/comment-helpers";
 import {
+  GoToDjangoOnIframeAuth,
   IframeResizerScript,
-  useGoToDjangoOnIframeAuth,
 } from "../../shared/django-migration";
 
 // Keeping "height: 100%" from src/styles/inherited-scss/helpers/_base.scss
@@ -28,10 +28,6 @@ const CommentsIframePage: NextPage = () => {
     typeof router.query["accident-id"] === "string"
       ? router.query["accident-id"]
       : undefined;
-
-  useGoToDjangoOnIframeAuth(
-    typeof accidentId === "string" ? `/dtp/${accidentId}/` : undefined,
-  );
 
   // Prevent tree mismatch between server and client on initial render
   const [client, setClient] = React.useState(false);
@@ -56,16 +52,22 @@ const CommentsIframePage: NextPage = () => {
     <>
       <HtmlHeightOverride />
       <IframeResizerScript />
-      <AccidentProvider initAccidentId={accidentId}>
-        <CommentsProvider>
-          <CommentList />
-          {commentsArePaused ? (
-            <p>Добавление новых комментариев приостановлено</p>
-          ) : (
-            <CommentInput />
-          )}
-        </CommentsProvider>
-      </AccidentProvider>
+      <GoToDjangoOnIframeAuth
+        djangoPageHref={
+          typeof accidentId === "string" ? `/dtp/${accidentId}/` : undefined
+        }
+      >
+        <AccidentProvider initAccidentId={accidentId}>
+          <CommentsProvider>
+            <CommentList />
+            {commentsArePaused ? (
+              <p>Добавление новых комментариев приостановлено</p>
+            ) : (
+              <CommentInput />
+            )}
+          </CommentsProvider>
+        </AccidentProvider>
+      </GoToDjangoOnIframeAuth>
     </>
   );
 };
