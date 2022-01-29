@@ -2,7 +2,7 @@ import NextLink from "next/link";
 import * as React from "react";
 import styled from "styled-components";
 
-const StyledLink = styled.a`
+export const StyledLink = styled.a`
   text-decoration: underline;
 `;
 

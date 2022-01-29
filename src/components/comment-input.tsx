@@ -5,10 +5,11 @@ import { useAccident } from "../providers/accident-provider";
 import { useComments } from "../providers/comments-provider";
 import { useUser } from "../providers/user-profile-provider";
 import { postComment } from "../requests/comments";
+import { popupCenter } from "../shared/ui-helpers";
 import { NewComment } from "../types";
 import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";
-import { Link } from "./link";
+import { StyledLink } from "./link";
 import { Textarea } from "./textarea";
 
 const InputContainer = styled.div`
@@ -72,6 +73,15 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     setNewCommentText(event.target.value);
   };
 
+  const openLoginWindow = () => {
+    popupCenter(window, {
+      url: "/api/auth/login",
+      title: "Auth",
+      w: 500,
+      h: 800,
+    });
+  };
+
   return user ? (
     <InputContainer>
       <AvatarImage email={user.email} />
@@ -95,7 +105,13 @@ export const CommentInput: React.VoidFunctionComponent = () => {
   ) : (
     <div>
       Для оставления комментария{" "}
-      <Link href="/api/auth/login">авторизуйтесь</Link>.
+      <StyledLink
+        onClick={() => {
+          openLoginWindow();
+        }}
+      >
+        авторизуйтесь
+      </StyledLink>
     </div>
   );
 };
