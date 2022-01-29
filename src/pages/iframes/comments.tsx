@@ -10,7 +10,7 @@ import { AccidentProvider } from "../../providers/accident-provider";
 import { CommentsProvider } from "../../providers/comments-provider";
 import { commentsArePaused } from "../../shared/comment-helpers";
 import {
-  GoToDjangoOnIframeAuth,
+  DjangoRedirectOnIframeAuth,
   IframeResizerScript,
 } from "../../shared/django-migration";
 
@@ -52,7 +52,7 @@ const CommentsIframePage: NextPage = () => {
     <>
       <HtmlHeightOverride />
       <IframeResizerScript />
-      <GoToDjangoOnIframeAuth
+      <DjangoRedirectOnIframeAuth
         djangoPageHref={
           typeof accidentId === "string"
             ? `/dtp/${accidentId}/#comments`
@@ -69,7 +69,7 @@ const CommentsIframePage: NextPage = () => {
             )}
           </CommentsProvider>
         </AccidentProvider>
-      </GoToDjangoOnIframeAuth>
+      </DjangoRedirectOnIframeAuth>
     </>
   );
 };

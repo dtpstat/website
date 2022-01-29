@@ -28,7 +28,7 @@ export const UserProfileProvider: React.VoidFunctionComponent<{
   const [user, setUser] = React.useState<User>();
 
   React.useEffect(() => {
-    if (!auth0UserIsLoading) {
+    if (auth0UserIsLoading) {
       return;
     }
     const syncAuth0UserProfileWithDbUser = async () => {
