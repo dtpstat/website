@@ -35,7 +35,7 @@ if (suffixOrPrefix) {
 
 if (process.env.AUTH0_BASE_URL) {
   throw new Error(
-    `Did not expect process.env.AUTH0_BASE_URL to be defined (=${process.env.AUTH0_BASE_URL}). Either remove it from Netlify UI or delete this code`,
+    `Did not expect process.env.AUTH0_BASE_URL to be defined (=${process.env.AUTH0_BASE_URL}). Remove it from Netlify UI or delete this code.`,
   );
 }
 
