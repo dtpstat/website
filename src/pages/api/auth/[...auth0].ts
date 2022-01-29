@@ -4,12 +4,13 @@ import { NextApiHandler } from "next";
 
 const handleWithAuth0 = handleAuth({
   login: (req, res, { returnTo, ...rest } = {}) => {
+    const customReturnTo =
+      typeof req.query["returnTo"] === "string"
+        ? req.query["returnTo"]
+        : undefined;
+
     return handleLogin(req, res, {
-      getLoginState: () => {
-        return {
-          returnTo: req.query["return-url"] ?? returnTo,
-        };
-      },
+      returnTo: customReturnTo ?? returnTo,
       ...rest,
     });
   },

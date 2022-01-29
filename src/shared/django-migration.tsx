@@ -22,7 +22,7 @@ export const IframeAwareLoginLink: React.VoidFunctionComponent<{
 }> = ({ children }) => {
   const authLink = `${
     window.location.origin
-  }/api/auth/login?return-url=${encodeURIComponent(generateAuthReturnTo())}`;
+  }/api/auth/login?returnTo=${encodeURIComponent(generateAuthReturnTo())}`;
 
   const handleClick = React.useCallback<React.MouseEventHandler>(
     (event) => {
