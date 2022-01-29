@@ -9,7 +9,6 @@ const SeverityFilterSection: React.VoidFunctionComponent<
   SeverityFilterType
 > = ({ values }) => (
   <div>
-    ???xx
     {values.map((item) => (
       <div className="severity-wrapper" key={item.value}>
         <label className="severity-item" tabIndex={0}>
