@@ -36,6 +36,12 @@ process.env.NEXT_PUBLIC_DJANGO_BASE_URL = process.env.DJANGO_BASE_URL;
 process.env.NEXT_PUBLIC_SENTRY_DSN = process.env.SENTRY_DSN;
 process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT = process.env.SENTRY_ENVIRONMENT;
 
+// Configure Auth0 base URL based on Netlify env. This enables auth in deploy previews.
+// https://docs.netlify.com/configure-builds/environment-variables/#deploy-urls-and-metadata
+if (!process.env.AUTH0_BASE_URL) {
+  process.env.AUTH0_BASE_URL = process.env.DEPLOY_PRIME_URL;
+}
+
 /**
  * @type Omit<import("next").NextConfig, "webpack">
  * @todo Remove Omit<> when mismatch between Next Config and Sentry config is resolved
