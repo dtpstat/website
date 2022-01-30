@@ -47,7 +47,7 @@ const postMessageToIframeParent = (message: unknown): boolean => {
  * 4. user completes Auth0 form
  * 5. user lands on {next.js}/some-url&{flag}=true in the parent window
  * 6. <DjangoRedirectOnIframeAuth /> detects {flag} and redirects parent window to a corresponding Django page
- * 7. user sees {next.js}/some-url as part of the corresponding parent page
+ * 7. user sees {next.js}/some-url as part of the corresponding Django page
  */
 const specialIframeFlagInAuthUrls = "iframe-auth";
 
@@ -138,7 +138,7 @@ export const IframeResizerScript: React.VoidFunctionComponent = () => {
 };
 
 /**
- * Helps replace ?search in the parent page when iframe search params are updated.
+ * Helps replace ?search in the parent window when iframe search params are updated.
  * Used in iframe with map.
  */
 export const usePostLocationSearchChangesToIframeParent = (): void => {

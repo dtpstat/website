@@ -42,7 +42,6 @@ export const UserProfileProvider: React.VoidFunctionComponent<{
         const userId = auth0User.sub as string;
 
         // Check if the user exists in the DB
-
         const dbUser = await fetchUser(window.location.origin, userId);
 
         return await (dbUser
