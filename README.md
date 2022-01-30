@@ -30,11 +30,37 @@ Future frontend of https://dtp-stat.ru written in Next.js.
 
 All secrets should never be committed to the git repo, but saved in the environment variables.
 
+### Transition from Django
+
+Classic version of `dtp-stat.ru` runs on [Django framework](https://www.djangoproject.com).
+Its source is stored in [dtpstat/dtp-stat](https://github.com/dtpstat/dtp-stat) _(internal link)_.
+While we transition to Next.js, we still need Django app to serve API requests and missing pages.
+
+```ini
+DJANGO_BASE_URL={url}
+DJANGO_CONTENT_FALLBACK={true | false}
+```
+
+Enabling `DJANGO_CONTENT_FALLBACK` makes Next.js route all non-existing resources to Django.
+This enables incremental adoption of Next.js, allowing us to convert pages to React one by one.
+See `next.config.mjs` → `rewrites` for implementation details.
+
 ### Content management
 
 ```ini
-## (optional) Pausing comments
-COMMENTS_ARE_PAUSED=true
+COMMENTS_ARE_PAUSED={true | false}
+```
+
+### Error tracking
+
+This app uses [Sentry](https://sentry.io) to track runtime errors both on client and server.
+Error reporting is disabled by default.
+For it to work for a deployment, configure these variables _before_ running `yarn build`.
+
+```ini
+SENTRY_AUTH_TOKEN={token}
+SENTRY_DSN={url}
+SENTRY_ENVIRONMENT={production | staging | ...}
 ```
 
 ### Authorization with auth0
@@ -106,18 +132,6 @@ On every change of the raw database schema please run:
 
 ```shell
 yarn prisma db pull
-```
-
-### Error tracking
-
-This app uses [Sentry](https://sentry.io) to track runtime errors both on client and server.
-Error reporting is disabled by default.
-For it to work for a deployment, configure these variables _before_ running `yarn build`.
-
-```ini
-SENTRY_AUTH_TOKEN=...
-SENTRY_DSN=https://...
-SENTRY_ENVIRONMENT={production | staging | ...}
 ```
 
 ## Contributing

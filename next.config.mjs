@@ -29,7 +29,7 @@ const nextConfig = {
 
   redirects: async () => [
     // This redirect was added before the public release to minimise SSR.
-    // @todo Remove after 2022-03-01.
+    // @todo Remove after 2022-03-01
     {
       source: "/iframes/comments/:slug",
       destination: "/iframes/comments?accident-id=:slug",
@@ -44,6 +44,26 @@ const nextConfig = {
         destination: "/api/rewrites/robots",
       },
     ],
+
+    // Incremental adoption of Next.js (content form Django is served as fallback)
+    // https://nextjs.org/docs/api-reference/next.config.js/rewrites#incremental-adoption-of-nextjs
+    // @todo Remove once all web pages are migrated to React
+    fallback:
+      process.env.DJANGO_BASE_URL &&
+      process.env.DJANGO_CONTENT_FALLBACK === "true"
+        ? [
+            {
+              // Add trailing slash to page urls (no .) to avoid infinite redirects
+              source: "/:path([^\\.]+)*",
+              destination: `${process.env.DJANGO_BASE_URL}/:path*/`,
+            },
+            {
+              // Do not add trailing slash to files to avoid 404
+              source: "/:path*",
+              destination: `${process.env.DJANGO_BASE_URL}/:path*`,
+            },
+          ]
+        : [],
   }),
 };
 
