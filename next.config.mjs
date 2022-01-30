@@ -22,6 +22,9 @@ const nextConfig = {
   reactStrictMode: true,
 
   rewrites: () => ({
+    // Incremental adoption of Next.js (content form Django is served as fallback)
+    // https://nextjs.org/docs/api-reference/next.config.js/rewrites#incremental-adoption-of-nextjs
+    // @todo Remove once all web pages are migrated to React
     fallback:
       process.env.DJANGO_BASE_URL &&
       process.env.DJANGO_CONTENT_FALLBACK === "true"
@@ -48,7 +51,7 @@ const nextConfig = {
 
   redirects: async () => [
     // This redirect was added before the public release to minimise SSR.
-    // @todo Remove after 2022-03-01.
+    // @todo Remove after 2022-03-01
     {
       source: "/iframes/comments/:slug",
       destination: "/iframes/comments?accident-id=:slug",
