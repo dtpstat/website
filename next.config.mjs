@@ -36,6 +36,15 @@ const nextConfig = {
       permanent: true,
     },
   ],
+
+  rewrites: () => ({
+    beforeFiles: [
+      {
+        source: "/robots.txt",
+        destination: "/api/rewrites/robots",
+      },
+    ],
+  }),
 };
 
 /**
