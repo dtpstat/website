@@ -21,28 +21,6 @@ const nextConfig = {
   productionBrowserSourceMaps: true,
   reactStrictMode: true,
 
-  rewrites: () => ({
-    // Incremental adoption of Next.js (content form Django is served as fallback)
-    // https://nextjs.org/docs/api-reference/next.config.js/rewrites#incremental-adoption-of-nextjs
-    // @todo Remove once all web pages are migrated to React
-    fallback:
-      process.env.DJANGO_BASE_URL &&
-      process.env.DJANGO_CONTENT_FALLBACK === "true"
-        ? [
-            {
-              // Add trailing slash to page urls (no .) to avoid infinite redirects
-              source: "/:path([^\\.]+)*",
-              destination: `${process.env.DJANGO_BASE_URL}/:path*/`,
-            },
-            {
-              // Do not add trailing slash to files to avoid 404
-              source: "/:path*",
-              destination: `${process.env.DJANGO_BASE_URL}/:path*`,
-            },
-          ]
-        : [],
-  }),
-
   // We call linters in GitHub Actions for all pull requests. By not linting
   // again during `next build`, we save CI minutes and unlock more feedback.
   // For local checks, run `yarn lint`.
@@ -66,6 +44,26 @@ const nextConfig = {
         destination: "/api/rewrites/robots",
       },
     ],
+
+    // Incremental adoption of Next.js (content form Django is served as fallback)
+    // https://nextjs.org/docs/api-reference/next.config.js/rewrites#incremental-adoption-of-nextjs
+    // @todo Remove once all web pages are migrated to React
+    fallback:
+      process.env.DJANGO_BASE_URL &&
+      process.env.DJANGO_CONTENT_FALLBACK === "true"
+        ? [
+            {
+              // Add trailing slash to page urls (no .) to avoid infinite redirects
+              source: "/:path([^\\.]+)*",
+              destination: `${process.env.DJANGO_BASE_URL}/:path*/`,
+            },
+            {
+              // Do not add trailing slash to files to avoid 404
+              source: "/:path*",
+              destination: `${process.env.DJANGO_BASE_URL}/:path*`,
+            },
+          ]
+        : [],
   }),
 };
 
