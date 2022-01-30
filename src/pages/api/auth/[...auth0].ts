@@ -4,8 +4,7 @@ import { NextApiHandler } from "next";
 
 const handler: NextApiHandler = handleAuth({
   login: (req, res, { returnTo, ...rest } = {}) => {
-    // Enables redirects to a page where login was pressed
-    // Works together with
+    // Enable navigation back to a page where ‘login’ was pressed
     const customReturnTo =
       typeof req.query["returnTo"] === "string"
         ? req.query["returnTo"]

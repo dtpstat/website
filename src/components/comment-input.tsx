@@ -5,7 +5,7 @@ import { useAccident } from "../providers/accident-provider";
 import { useComments } from "../providers/comments-provider";
 import { useUser } from "../providers/user-profile-provider";
 import { postComment } from "../requests/comments";
-import { IframeAwareLoginLink } from "../shared/django-migration";
+import { IframeAwareLoginLink } from "../shared/django-helpers";
 import { NewComment } from "../types";
 import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";

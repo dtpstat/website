@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { useUser } from "../providers/user-profile-provider";
-import { IframeAwareLoginLink } from "../shared/django-migration";
+import { IframeAwareLoginLink } from "../shared/django-helpers";
 import { AvatarImage } from "./avatar-image";
 import { Link } from "./link";
 

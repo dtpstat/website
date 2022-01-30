@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { djangoBaseUrl } from "../../../shared/django-migration";
+import { djangoBaseUrl } from "../../../shared/django-helpers";
 import { Colors } from "../../../styles/colors";
 import SvgIcon from "./svg-icon";
 

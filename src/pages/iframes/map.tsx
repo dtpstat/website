@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import Script from "next/script";
 import * as React from "react";
 
-import { useReportChangesInWindowLocationSearch } from "../../shared/django-migration";
+import { useReportChangesInWindowLocationSearch } from "../../shared/django-helpers";
 
 const InheritedMap = dynamic(
   // eslint-disable-next-line unicorn/no-await-expression-member

@@ -12,7 +12,7 @@ import { commentsArePaused } from "../../shared/comment-helpers";
 import {
   DjangoRedirectOnIframeAuth,
   IframeResizerScript,
-} from "../../shared/django-migration";
+} from "../../shared/django-helpers";
 
 const GlobalStyleOverride = createGlobalStyle`
   html, body {
@@ -35,12 +35,12 @@ const CommentsIframePage: NextPage = () => {
       : undefined;
 
   // Prevent tree mismatch between server and client on initial render
-  const [client, setClient] = React.useState(false);
+  const [ssr, setSsr] = React.useState(true);
   React.useEffect(() => {
-    setClient(true);
+    setSsr(false);
   }, []);
 
-  if (!client || !router.isReady) {
+  if (ssr || !router.isReady) {
     return (
       <>
         <GlobalStyleOverride />
