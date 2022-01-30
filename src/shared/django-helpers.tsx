@@ -1,6 +1,8 @@
 /*
  * This file contains workarounds needed for a smooth transition from Django to Next.js.
  * The main focus of the file is iframe messaging and iframe-aware auth flows.
+ *
+ * When deleting this file, remember to also delete /public/iframes/.
  */
 
 import { useRouter } from "next/router";
@@ -122,7 +124,7 @@ export const DjangoRedirectOnIframeAuth: React.VoidFunctionComponent<{
 
 /**
  * Enables iframe resizing based on content height.
- * Used in the iframe with comments.
+ * Used in iframe with comments.
  *
  * @see https://github.com/davidjbradshaw/iframe-resizer
  */
@@ -136,10 +138,10 @@ export const IframeResizerScript: React.VoidFunctionComponent = () => {
 };
 
 /**
- * Helps update ?query params in the parent page when iframe query params are updated.
- * Used in the iframe with map.
+ * Helps replace ?search in the parent page when iframe search params are updated.
+ * Used in iframe with map.
  */
-export const useReportChangesInWindowLocationSearch = (): void => {
+export const usePostLocationSearchChangesToIframeParent = (): void => {
   React.useEffect(() => {
     let previousSearch = window.location.search;
     const observer = new MutationObserver(() => {

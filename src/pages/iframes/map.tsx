@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import Script from "next/script";
 import * as React from "react";
 
-import { useReportChangesInWindowLocationSearch } from "../../shared/django-helpers";
+import { usePostLocationSearchChangesToIframeParent } from "../../shared/django-helpers";
 
 const InheritedMap = dynamic(
   // eslint-disable-next-line unicorn/no-await-expression-member
@@ -12,7 +12,7 @@ const InheritedMap = dynamic(
 );
 
 const MapIframePage: NextPage = () => {
-  useReportChangesInWindowLocationSearch();
+  usePostLocationSearchChangesToIframeParent();
 
   return (
     <>
