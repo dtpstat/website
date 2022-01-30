@@ -19,7 +19,7 @@ All secrets should never be committed to the git repo, but saved in the environm
 
 ```ini
 ## (optional) Pausing comments
-NEXT_PUBLIC_COMMENTS_ARE_PAUSED=true
+COMMENTS_ARE_PAUSED=true
 ```
 
 ### Authorization with auth0
@@ -50,7 +50,17 @@ Example for local development on the host **http://localhost:3000** and staging 
 
 1.  Get the auth0 application values: **DOMAIN, CLIENT_ID, CLIENT_SECRET**
 
-1.  Create file **.env.local** and copy commented-out `AUTH0_*` variables from **.env**.
+1.  Create file **.env.local** with the following contents:
+
+    ```ini
+    AUTH0_BASE_URL=http://localhost:3000
+    AUTH0_CLIENT_ID={client-id}
+    AUTH0_CLIENT_SECRET={client-secret}
+    AUTH0_ISSUER_BASE_URL=https://{domain}
+    AUTH0_SECRET={secret}
+    
+    DATABASE_URL="postgres://{user}:{password}@{host}:{port}/{db}"
+    ```
 
 ### Database Configuration
 
@@ -90,9 +100,9 @@ Error reporting is disabled by default.
 For it to work for a deployment, configure these variables _before_ running `yarn build`.
 
 ```ini
-NEXT_PUBLIC_SENTRY_DSN=https://...
-NEXT_PUBLIC_SENTRY_ENVIRONMENT=production/staging/...
 SENTRY_AUTH_TOKEN=...
+SENTRY_DSN=https://...
+SENTRY_ENVIRONMENT=production/staging/...
 ```
 
 ## Contributing

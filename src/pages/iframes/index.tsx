@@ -29,12 +29,14 @@ export const HomePage: NextPage = () => {
   return (
     <PageContainer>
       <Main>
-        <PageTitle>DTP-MAP iframes</PageTitle>
+        <PageTitle>Welcome to DTP-MAP</PageTitle>
 
-        <h3>Menu:</h3>
-        <Link href="/iframes/comments/1">Comments</Link>
+        <h3>Django iframes</h3>
+        <Link href="/iframes/comments?accident-id=1">Comments</Link>
+        <Link href="/iframes/map">Map</Link>
+        <br />
 
-        <h3>User profile:</h3>
+        <h3>User profile</h3>
         <UserProfile />
       </Main>
     </PageContainer>

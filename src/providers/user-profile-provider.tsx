@@ -19,10 +19,18 @@ const UserProfileContext = React.createContext<
 export const UserProfileProvider: React.VoidFunctionComponent<{
   children?: React.ReactNode;
 }> = ({ children }) => {
-  const { user: auth0User, isLoading, error } = useAuth0User();
+  const {
+    user: auth0User,
+    isLoading: auth0UserIsLoading,
+    error: auth0Error,
+  } = useAuth0User();
+  const [dbUserIsLoading, setDbUserIsLoading] = React.useState<boolean>(true);
   const [user, setUser] = React.useState<User>();
 
   React.useEffect(() => {
+    if (auth0UserIsLoading) {
+      return;
+    }
     const syncAuth0UserProfileWithDbUser = async () => {
       const createOrUpdateDbUser = async (
         userData: User,
@@ -51,18 +59,19 @@ export const UserProfileProvider: React.VoidFunctionComponent<{
         const updatedUser = await createOrUpdateDbUser(userData);
         setUser(updatedUser);
       }
+      setDbUserIsLoading(false);
     };
     void syncAuth0UserProfileWithDbUser();
-  }, [auth0User]);
+  }, [auth0User, auth0UserIsLoading]);
 
   const providerValue = React.useMemo<UserProfileContextValue>(
     () => ({
       user,
       setUser,
-      isLoading,
-      error,
+      isLoading: auth0UserIsLoading || dbUserIsLoading,
+      error: auth0Error,
     }),
-    [user, setUser, isLoading, error],
+    [user, auth0UserIsLoading, dbUserIsLoading, auth0Error],
   );
 
   return (
