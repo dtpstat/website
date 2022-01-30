@@ -1,8 +1,8 @@
-import { config } from "./config";
+import { djangoBaseUrl } from "../../shared/django-helpers";
 import { Coordinate, FilterResponse, ShortStatisticsResponse } from "./types";
 
 export const fetchFilters = (): Promise<FilterResponse[]> =>
-  fetch(`${config.API_URL}/filters`).then((response) => response.json());
+  fetch(`${djangoBaseUrl}/api/filters`).then((response) => response.json());
 
 let areaController: AbortController | null;
 
@@ -14,7 +14,7 @@ export const fetchArea = (
   areaController = new AbortController();
 
   return fetch(
-    `${config.API_URL}/stat/?center_point=${center[1]}+${center[0]}&scale=${zoom}`,
+    `${djangoBaseUrl}/api/stat/?center_point=${center[1]}+${center[0]}&scale=${zoom}`,
     {
       signal: areaController.signal,
     },
@@ -32,7 +32,7 @@ const fetchDtpYear = (signal: AbortSignal, year: number, region: string) => {
   }
 
   return fetch(
-    `${config.API_URL}/dtp_load/?year=${year}&region_slug=${region}&format=json`,
+    `${djangoBaseUrl}/api/dtp_load/?year=${year}&region_slug=${region}&format=json`,
     {
       signal,
     },
