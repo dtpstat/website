@@ -54,7 +54,6 @@ const Tag = styled.span`
   font-size: 12px;
   margin: 0 6px;
   padding: 6px 10px;
-  cursor: pointer;
 `;
 
 export const CommentItem: React.VoidFunctionComponent<CommentItemProps> = ({

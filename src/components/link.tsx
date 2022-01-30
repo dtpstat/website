@@ -6,7 +6,8 @@ const StyledLink = styled.a`
   text-decoration: underline;
 `;
 
-interface LinkProps {
+interface LinkProps
+  extends Omit<React.HTMLProps<HTMLAnchorElement>, "as" | "ref"> {
   href: string;
   children?: React.ReactNode;
 }
@@ -14,10 +15,11 @@ interface LinkProps {
 export const Link: React.VoidFunctionComponent<LinkProps> = ({
   href,
   children,
+  ...rest
 }) => {
   return (
     <NextLink href={href} passHref={true}>
-      <StyledLink>{children}</StyledLink>
+      <StyledLink {...rest}>{children}</StyledLink>
     </NextLink>
   );
 };

@@ -49,5 +49,6 @@ yarn-error.log*
 ## Shared between linters
 #########################
 
-.git/
-.yarn/
+/.git/
+/.yarn/
+/public/iframes/

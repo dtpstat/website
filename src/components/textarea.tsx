@@ -7,7 +7,7 @@ const StyledTextArea = styled.textarea`
   color: #18334a;
   flex: 1 1 auto;
   font-family: ${(props) => props.theme.fontFamily};
-  font-size: 14px;
+  font-size: 1rem;
   font-style: normal;
   font-weight: normal;
   outline: none;

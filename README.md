@@ -50,7 +50,17 @@ Example for local development on the host **http://localhost:3000** and staging 
 
 1.  Get the auth0 application values: **DOMAIN, CLIENT_ID, CLIENT_SECRET**
 
-1.  Create file **.env.local** and copy commented-out `AUTH0_*` variables from **.env**.
+1.  Create file **.env.local** with the following contents:
+
+    ```ini
+    AUTH0_BASE_URL=http://localhost:3000
+    AUTH0_CLIENT_ID={client-id}
+    AUTH0_CLIENT_SECRET={client-secret}
+    AUTH0_ISSUER_BASE_URL=https://{domain}
+    AUTH0_SECRET={secret}
+    
+    DATABASE_URL="postgres://{user}:{password}@{host}:{port}/{db}"
+    ```
 
 ### Database Configuration
 
