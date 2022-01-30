@@ -1,37 +1,11 @@
 // @ts-check
 import { withSentryConfig } from "@sentry/nextjs";
 
-/*
- * Netlify UI does not support context-based environment variables.
- * For example, we cannot configure XYZ=42 for preview releases (pull requests)
- * and XYZ=4242 for production (main branch).
- *
- * As a workaround, we read Netlify’s CONTEXT env variable and then
- * map PROD_XYZ / XYZ_PROD or PR_XYZ / XYZ_PR into XYZ.
- */
-
-const suffixOrPrefixByContext = {
-  production: "PROD",
-  "deploy-preview": "PR",
-};
-
-const suffixOrPrefix = suffixOrPrefixByContext[process.env.CONTEXT];
-
-if (suffixOrPrefix) {
-  for (const key in process.env) {
-    if (key.startsWith(`${suffixOrPrefix}_`)) {
-      process.env[key.slice(suffixOrPrefix.length + 1)] = process.env[key];
-    } else if (key.endsWith(`_${suffixOrPrefix}`)) {
-      process.env[key.slice(undefined, suffixOrPrefix.length - 1)] =
-        process.env[key];
-    }
-  }
-}
-
 // Adding NEXT_PUBLIC_ makes environment variables available inside Next.js client.
 // We don’t use the prefix outside Next.js code to make app setup less bulky and
 // to avoid unnecessary breaking changes in it.
 process.env.NEXT_PUBLIC_COMMENTS_ARE_PAUSED = process.env.COMMENTS_ARE_PAUSED;
+process.env.NEXT_PUBLIC_DJANGO_BASE_URL = process.env.DJANGO_BASE_URL;
 process.env.NEXT_PUBLIC_SENTRY_DSN = process.env.SENTRY_DSN;
 process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT = process.env.SENTRY_ENVIRONMENT;
 
@@ -54,14 +28,6 @@ const nextConfig = {
   typescript: { ignoreBuildErrors: true },
 
   redirects: async () => [
-    // This redirect supports clicks on accident cards inside the map.
-    // @todo Replace with navigation to Django while it’s used.
-    {
-      source: "/dtp/:slug",
-      destination: "https://dtp-stat.ru/dtp/:slug",
-      permanent: false,
-    },
-
     // This redirect was added before the public release to minimise SSR.
     // @todo Remove after 2022-03-01.
     {
