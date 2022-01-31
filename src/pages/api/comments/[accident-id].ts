@@ -9,7 +9,10 @@ const handler: NextApiHandler = async (req, res) => {
   const accidentId = req.query["accident-id"] as string;
 
   if (!accidentId) {
-    res.status(422).json({ status: "query param accident-id is missing" });
+    res.status(422).json({
+      error: "missing_param",
+      description: "query param accident-id is missing",
+    });
 
     return;
   }
@@ -24,7 +27,10 @@ const handler: NextApiHandler = async (req, res) => {
       .status(200)
       .json({ status: "ok", comments: await getComments(accidentId) });
   } else {
-    res.status(405).json({ status: "only POST and GET methods are allowed" });
+    res.status(405).json({
+      error: "method_not_allowed",
+      description: "only POST and GET methods are allowed",
+    });
   }
 };
 

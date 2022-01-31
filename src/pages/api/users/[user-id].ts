@@ -18,14 +18,18 @@ const handler: NextApiHandler = async (req, res) => {
   const { user: sessionUser } = getSession(req, res) as Session;
 
   if (!userId) {
-    res.status(422).json({ status: "query param user-id is missing" });
+    res.status(422).json({
+      error: "missing_param",
+      description: "query param user-id is missing",
+    });
 
     return;
   }
 
   if (userId !== sessionUser.sub) {
-    res.status(401).json({
-      status: `you are not authorized for access user-id '${userId}'`,
+    res.status(403).json({
+      error: "forbidden",
+      description: `you are not authorized for access user-id '${userId}'`,
     });
 
     return;
@@ -40,7 +44,10 @@ const handler: NextApiHandler = async (req, res) => {
   } else if (req.method === "GET") {
     res.status(200).json({ status: "ok", user: await getUser(userId) });
   } else {
-    res.status(405).json({ status: "only PATCH and GET methods are allowed" });
+    res.status(405).json({
+      error: "method_not_allowed",
+      description: "only PATCH and GET methods are allowed",
+    });
   }
 };
 
