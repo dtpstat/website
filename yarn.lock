@@ -871,6 +871,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/md5@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "@types/md5@npm:2.3.1"
+  dependencies:
+    "@types/node": "*"
+  checksum: d508f4dd0663beba1660e5b3796480137690096f5683a0a7dfd2e4afa3a5d906e1f04f5a3bf02355f35ee2e64f4067adf349f4f67ccb15da50e1372b848b8579
+  languageName: node
+  linkType: hard
+
 "@types/minimatch@npm:*":
   version: 3.0.5
   resolution: "@types/minimatch@npm:3.0.5"
@@ -903,6 +912,15 @@ __metadata:
   version: 15.7.4
   resolution: "@types/prop-types@npm:15.7.4"
   checksum: ef6e1899e59b876c273811b1bd845022fc66d5a3d11cb38a25b6c566b30514ae38fe20a40f67622f362a4f4f7f9224e22d8da101cff3d6e97e11d7b4c307cfc1
+  languageName: node
+  linkType: hard
+
+"@types/query-string@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "@types/query-string@npm:6.3.0"
+  dependencies:
+    query-string: "*"
+  checksum: 7d507aea24e650548bc8a164ae695deb1eaf7a566fdaeb53ec3f89605dbd2c5201daf9b76c31843bc8accc01e866df8b2a06557514ad8014c3af99c664cd0b5c
   languageName: node
   linkType: hard
 
@@ -5151,7 +5169,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"query-string@npm:^7.1.0":
+"query-string@npm:*, query-string@npm:^7.1.0":
   version: 7.1.0
   resolution: "query-string@npm:7.1.0"
   dependencies:
@@ -5552,7 +5570,9 @@ __metadata:
     "@next/eslint-plugin-next": ^12.0.9
     "@prisma/client": ^3.8.1
     "@sentry/nextjs": ^6.17.3
+    "@types/md5": ^2.3.1
     "@types/node": ^16.11.21
+    "@types/query-string": ^6.3.0
     "@types/react": ^17.0.38
     "@types/react-dom": ^17.0.11
     "@types/react-gravatar": ^2.6.10
