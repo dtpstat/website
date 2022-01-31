@@ -2,6 +2,8 @@ import { handleAuth, handleLogin } from "@auth0/nextjs-auth0";
 import { withSentry } from "@sentry/nextjs";
 import { NextApiHandler } from "next";
 
+import { handleProfile } from "../profile";
+
 const handler: NextApiHandler = handleAuth({
   login: (req, res, { returnTo, ...rest } = {}) => {
     // Enable navigation back to a page where ‘login’ was pressed
@@ -19,6 +21,9 @@ const handler: NextApiHandler = handleAuth({
       returnTo: customReturnToIsValid ? customReturnTo : returnTo,
       ...rest,
     });
+  },
+  profile: (req, res) => {
+    return handleProfile(req, res);
   },
 });
 
