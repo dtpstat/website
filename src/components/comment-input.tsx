@@ -1,11 +1,12 @@
+import { useUser } from "@auth0/nextjs-auth0";
 import * as React from "react";
 import styled from "styled-components";
 
 import { useAccident } from "../providers/accident-provider";
 import { useComments } from "../providers/comments-provider";
-import { useUser } from "../providers/user-profile-provider";
 import { postComment } from "../requests/comments";
 import { IframeAwareLoginLink } from "../shared/django-helpers";
+import { userProfileToUser } from "../shared/user-helpers";
 import { NewComment } from "../types";
 import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";
@@ -37,15 +38,22 @@ const SubmitButtonContainer = styled.div`
 export const CommentInput: React.VoidFunctionComponent = () => {
   const { setNewCommentText, newCommentText, comments, setComments } =
     useComments();
-  const { user, isLoading: userIsLoading } = useUser();
+  const { user: auth0UserProfile, isLoading: userIsLoading } = useUser();
   const { accidentId } = useAccident();
   const [submitting, setSubmitting] = React.useState<boolean>(false);
 
-  const handleSubmit = async () => {
-    if (!user) {
-      throw new Error("no user");
-    }
+  if (!auth0UserProfile) {
+    return (
+      <div>
+        Для оставления комментария{" "}
+        <IframeAwareLoginLink>авторизуйтесь</IframeAwareLoginLink>.
+      </div>
+    );
+  }
 
+  const user = userProfileToUser(auth0UserProfile);
+
+  const handleSubmit = async () => {
     if (!newCommentText) {
       return;
     }
@@ -77,7 +85,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     return <></>;
   }
 
-  return user ? (
+  return (
     <InputContainer>
       <AvatarImage email={user.email} />
       <Textarea
@@ -97,10 +105,5 @@ export const CommentInput: React.VoidFunctionComponent = () => {
         <span>Ctrl + Enter</span>
       </SubmitButtonContainer>
     </InputContainer>
-  ) : (
-    <div>
-      Для оставления комментария{" "}
-      <IframeAwareLoginLink>авторизуйтесь</IframeAwareLoginLink>.
-    </div>
   );
 };
