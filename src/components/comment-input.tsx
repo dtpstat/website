@@ -79,7 +79,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
 
   return user ? (
     <InputContainer>
-      <AvatarImage src={user.avatarUrl} />
+      <AvatarImage src={user.avatarUrl} alt={user.name} />
       <Textarea
         placeholder="Добавить комментарий..."
         disabled={submitting}

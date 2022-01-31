@@ -13,7 +13,7 @@ const StyledImg = styled.img`
 interface AvatarImageProps {
   src?: string | null;
   size?: number;
-  alt?: string;
+  alt?: string | null;
 }
 
 export const AvatarImage: React.VoidFunctionComponent<AvatarImageProps> = ({
