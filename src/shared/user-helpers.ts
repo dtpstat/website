@@ -16,7 +16,7 @@ const defaultGravatarUrlProps = {
   email: undefined,
   size: 50,
   rating: "g",
-  theme: "retro",
+  theme: "mp",
   protocol: "//",
   domain: "www.gravatar.com",
 };
