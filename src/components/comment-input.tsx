@@ -6,8 +6,7 @@ import { useAccident } from "../providers/accident-provider";
 import { useComments } from "../providers/comments-provider";
 import { postComment } from "../requests/comments";
 import { IframeAwareLoginLink } from "../shared/django-helpers";
-import { userProfileToUser } from "../shared/user-helpers";
-import { NewComment } from "../types";
+import { NewComment, User } from "../types";
 import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";
 import { Textarea } from "./textarea";
@@ -51,7 +50,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     );
   }
 
-  const user = userProfileToUser(auth0UserProfile);
+  const user = auth0UserProfile.user as User;
 
   const handleSubmit = async () => {
     if (!newCommentText) {

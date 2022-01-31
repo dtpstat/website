@@ -2,7 +2,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 import * as React from "react";
 
 import { IframeAwareLoginLink } from "../shared/django-helpers";
-import { userProfileToUser } from "../shared/user-helpers";
+import { User } from "../types";
 import { AvatarImage } from "./avatar-image";
 import { Link } from "./link";
 
@@ -17,7 +17,7 @@ export const UserProfile: React.VoidFunctionComponent = () => {
   }
 
   if (auth0UserProfile) {
-    const user = userProfileToUser(auth0UserProfile);
+    const user = auth0UserProfile.user as User;
 
     return (
       <div>
