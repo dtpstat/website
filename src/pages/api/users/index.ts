@@ -1,3 +1,4 @@
+import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { withSentry } from "@sentry/nextjs";
 import { NextApiHandler } from "next";
 
@@ -36,4 +37,4 @@ const handler: NextApiHandler = async (req, res) => {
   }
 };
 
-export default withSentry(handler);
+export default withSentry(withApiAuthRequired(handler));
