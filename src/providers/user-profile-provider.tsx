@@ -36,9 +36,7 @@ export const UserProfileProvider: React.VoidFunctionComponent<{
     const syncAuth0UserProfileWithDbUser = async () => {
       if (auth0User) {
         const userData = userProfileToUser(auth0User);
-        const userId = auth0User.sub as string;
-        const updatedUser = await createOrUpdateDbUser(userId, userData);
-        setUser(updatedUser);
+        setUser(userData);
       }
       setDbUserIsLoading(false);
     };
