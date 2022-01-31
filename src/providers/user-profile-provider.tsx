@@ -1,8 +1,10 @@
 import { useUser as useAuth0User } from "@auth0/nextjs-auth0";
 import * as React from "react";
 
-import { fetchUser, patchUser, postUser } from "../requests/users";
-import { userProfileToUser } from "../shared/user-helpers";
+import {
+  createOrUpdateDbUser,
+  userProfileToUser,
+} from "../shared/user-helpers";
 import { User } from "../types";
 
 interface UserProfileContextValue {
@@ -32,31 +34,10 @@ export const UserProfileProvider: React.VoidFunctionComponent<{
       return;
     }
     const syncAuth0UserProfileWithDbUser = async () => {
-      const createOrUpdateDbUser = async (
-        userData: User,
-      ): Promise<User | undefined> => {
-        if (!auth0User) {
-          return;
-        }
-
-        const userId = auth0User.sub as string;
-
-        // Check if the user exists in the DB
-        const dbUser = await fetchUser(window.location.origin, userId);
-
-        return await (dbUser
-          ? patchUser(window.location.origin, userId, {
-              ...userData,
-            })
-          : postUser(window.location.origin, {
-              ...userData,
-              createDate: userData.updateDate,
-            }));
-      };
-
       if (auth0User) {
         const userData = userProfileToUser(auth0User);
-        const updatedUser = await createOrUpdateDbUser(userData);
+        const userId = auth0User.sub as string;
+        const updatedUser = await createOrUpdateDbUser(userId, userData);
         setUser(updatedUser);
       }
       setDbUserIsLoading(false);
