@@ -1,31 +1,24 @@
 import * as React from "react";
-import Gravatar from "react-gravatar";
 import styled from "styled-components";
 
 const defaultAvatarSizePix = 28;
 
-const StyledGravatar = styled(Gravatar)`
+const StyledImg = styled.img`
   border-radius: 50%;
-  width: ${(props) => props.size}px;
-  height: ${(props) => props.size}px;
+  width: ${defaultAvatarSizePix}px;
+  height: ${defaultAvatarSizePix}px;
   margin-right: 12px;
 `;
 
 interface AvatarImageProps {
-  email?: string | null;
+  src?: string | null;
   size?: number;
+  alt?: string;
 }
 
 export const AvatarImage: React.VoidFunctionComponent<AvatarImageProps> = ({
-  email,
-  size,
+  src,
+  alt,
 }) => {
-  return (
-    <StyledGravatar
-      email={email || ""}
-      default="mp"
-      rating="g"
-      size={size || defaultAvatarSizePix}
-    />
-  );
+  return <StyledImg src={src || ""} alt={alt ?? "Avatar Image"} />;
 };
