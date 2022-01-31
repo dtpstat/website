@@ -1,7 +1,7 @@
 import {
   getSession,
   HandleProfile,
-  handleProfile as auth0HandleProfile,
+  handleProfile,
   UserProfile,
 } from "@auth0/nextjs-auth0";
 import { withSentry } from "@sentry/nextjs";
@@ -11,7 +11,7 @@ import {
   userProfileToUser,
 } from "../../../shared/user-helpers";
 
-const handleProfile: HandleProfile = async (req, res) => {
+const handleMe: HandleProfile = async (req, res) => {
   const { user: auth0User } = getSession(req, res) as { user: UserProfile };
 
   const userData = userProfileToUser(auth0User);
@@ -19,10 +19,9 @@ const handleProfile: HandleProfile = async (req, res) => {
   const updatedUser = await createOrUpdateDbUser(userId, userData);
 
   if (req.method === "GET") {
-    res.status(200).json(updatedUser);
+    res.status(200).json({ ...auth0User, user: updatedUser });
   } else {
-    return auth0HandleProfile(req, res);
+    return handleProfile(req, res);
   }
 };
-export { handleProfile };
-export default withSentry(handleProfile);
+export default withSentry(handleMe);
