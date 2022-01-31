@@ -50,7 +50,9 @@ export const userProfileToUser = (userProfile: UserProfile): User => {
     name: userProfile.name,
     nickname: userProfile.nickname,
     email: userProfile.email,
-    avatarUrl: getGravatarUrlByEmail({ email: userProfile.email }),
+    avatarUrl:
+      userProfile.picture ||
+      getGravatarUrlByEmail({ email: userProfile.email }),
     updateDate: userProfile.updated_at,
   } as User;
 };
