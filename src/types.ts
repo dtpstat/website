@@ -9,7 +9,7 @@ export interface NewComment {
 
 export interface CommentUser {
   name?: string | null;
-  email?: string | null;
+  avatarUrl?: string | null;
 }
 
 interface Comment extends PrismaComment {

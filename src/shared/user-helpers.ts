@@ -5,7 +5,7 @@ import querystring from "query-string";
 import { User } from "../types";
 
 export interface GravatarUrlProps {
-  email?: string;
+  email?: string | null;
   size?: number;
   rating?: string;
   theme?: string;
@@ -33,9 +33,11 @@ export const getGravatarUrlByEmail = (customProps: GravatarUrlProps) => {
   });
 
   // Gravatar service currently trims and lowercases all registered emails
-  const formattedEmail = `${props.email}`.trim().toLowerCase();
+  const formattedEmail = props.email
+    ? `${props.email}`.trim().toLowerCase()
+    : "";
 
-  const hash = md5(formattedEmail, { encoding: "binary" }) as string;
+  const hash = md5(formattedEmail, { encoding: "binary" });
 
   const retinaSrc = `${base}${hash}?${retinaQuery}`;
 
@@ -48,6 +50,7 @@ export const userProfileToUser = (userProfile: UserProfile): User => {
     name: userProfile.name,
     nickname: userProfile.nickname,
     email: userProfile.email,
+    avatarUrl: getGravatarUrlByEmail({ email: userProfile.email }),
     updateDate: userProfile.updated_at,
   } as User;
 };
