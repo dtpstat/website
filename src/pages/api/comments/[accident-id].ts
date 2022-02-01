@@ -1,3 +1,4 @@
+import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { withSentry } from "@sentry/nextjs";
 import { NextApiHandler } from "next";
 
@@ -7,14 +8,21 @@ import { NewComment } from "../../../types";
 const handler: NextApiHandler = async (req, res) => {
   const accidentId = req.query["accident-id"] as string;
 
-  if (req.method === "POST" && accidentId) {
+  if (req.method === "POST") {
     const comment = await createComment(
       JSON.parse(req.body as string) as NewComment,
     );
-    res.status(200).json({ comment });
-  } else if (req.method === "GET" && accidentId) {
-    res.status(200).json({ comments: await getComments(accidentId) });
+    res.status(200).json({ status: "ok", comment });
+  } else if (req.method === "GET") {
+    res
+      .status(200)
+      .json({ status: "ok", comments: await getComments(accidentId) });
+  } else {
+    res.status(405).json({
+      error: "method_not_allowed",
+      description: "only POST and GET methods are allowed",
+    });
   }
 };
 
-export default withSentry(handler);
+export default withSentry(withApiAuthRequired(handler));

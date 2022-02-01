@@ -12,14 +12,6 @@ export const fetchUser = async (
   return user ?? undefined;
 };
 
-export const fetchUsers = async (baseUrl: string): Promise<User[]> => {
-  const usersApiUrl = buildUsersApiUrl(baseUrl);
-  const res = await fetch(usersApiUrl);
-  const { users } = (await res.json()) as { users: User[] };
-
-  return users;
-};
-
 export const postUser = async (
   baseUrl: string,
   newUser: User,
