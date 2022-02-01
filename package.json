@@ -65,7 +65,6 @@
     "@types/node": "^16.11.21",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
-    "@types/react-gravatar": "^2.6.10",
     "@types/react-linkify": "^1.0.1",
     "@types/styled-components": "^5.1.21",
     "dotenv-flow": "^3.2.0",

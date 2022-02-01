@@ -915,15 +915,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-gravatar@npm:^2.6.10":
-  version: 2.6.10
-  resolution: "@types/react-gravatar@npm:2.6.10"
-  dependencies:
-    "@types/react": "*"
-  checksum: 04ef3a2c1252fdc7eeee25047eeecb8a7573917bfa095fa926917255e2599b25c3b07d841c6761ecec2dbdec755e41d0aeef53dd4e881056959ddcc93af3eb0d
-  languageName: node
-  linkType: hard
-
 "@types/react-linkify@npm:^1.0.1":
   version: 1.0.1
   resolution: "@types/react-linkify@npm:1.0.1"
@@ -5539,7 +5530,6 @@ __metadata:
     "@types/node": ^16.11.21
     "@types/react": ^17.0.38
     "@types/react-dom": ^17.0.11
-    "@types/react-gravatar": ^2.6.10
     "@types/react-linkify": ^1.0.1
     "@types/styled-components": ^5.1.21
     date-fns: ^2.28.0
