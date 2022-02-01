@@ -16,7 +16,7 @@ import {
 
 const GlobalStyleOverride = createGlobalStyle`
   html, body {
-    // Keeping "height: 100%" from src/styles/inherited-scss/helpers/_base.scss
+    // Keeping height: 100% from src/styles/inherited-scss/helpers/_base.scss
     // would invalidate iframe resizing
     height: auto;
 
