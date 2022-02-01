@@ -18,8 +18,9 @@ export const convertUserProfileToUser = (userProfile: UserProfile): User => {
     name: userProfile.name,
     nickname: userProfile.nickname,
     email: userProfile.email,
+
     avatarUrl:
-      userProfile.picture ||
+      userProfile.picture ??
       gravatarUrl(userProfile.email!, defaultGravatarUrlOptions),
     updateDate: userProfile.updated_at,
   } as User;
