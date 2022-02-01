@@ -5,12 +5,12 @@
  * When deleting this file, remember to also delete /public/iframes/.
  */
 
+import { useUser } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/router";
 import Script from "next/script";
 import * as React from "react";
 
 import { Link } from "../components/link";
-import { useUser } from "../providers/user-profile-provider";
 
 export const djangoBaseUrl = process.env.NEXT_PUBLIC_DJANGO_BASE_URL ?? "";
 
