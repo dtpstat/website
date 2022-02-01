@@ -16,7 +16,8 @@
     "lint:tsc": "tsc --project .",
     "lint:yarn-dedupe": "yarn dedupe --check",
     "start": "next start",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "prisma": "node -r dotenv-flow/config ./node_modules/.bin/prisma"
   },
   "lint-staged": {
     "**/*": [
@@ -67,6 +68,7 @@
     "@types/react-gravatar": "^2.6.10",
     "@types/react-linkify": "^1.0.1",
     "@types/styled-components": "^5.1.21",
+    "dotenv-flow": "^3.2.0",
     "eslint": "^8.8.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.2",
