@@ -8,15 +8,6 @@ import { NewComment } from "../../../types";
 const handler: NextApiHandler = async (req, res) => {
   const accidentId = req.query["accident-id"] as string;
 
-  if (!accidentId) {
-    res.status(422).json({
-      error: "missing_param",
-      description: "query param accident-id is missing",
-    });
-
-    return;
-  }
-
   if (req.method === "POST") {
     const comment = await createComment(
       JSON.parse(req.body as string) as NewComment,

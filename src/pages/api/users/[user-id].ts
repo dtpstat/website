@@ -17,19 +17,10 @@ const handler: NextApiHandler = async (req, res) => {
   const userId = req.query["user-id"] as string;
   const { user: sessionUser } = getSession(req, res) as Session;
 
-  if (!userId) {
-    res.status(422).json({
-      error: "missing_param",
-      description: "query param user-id is missing",
-    });
-
-    return;
-  }
-
   if (userId !== sessionUser.sub) {
     res.status(403).json({
       error: "forbidden",
-      description: `you are not authorized for access user-id '${userId}'`,
+      description: `you are not authorized to access user-id '${userId}'`,
     });
 
     return;
