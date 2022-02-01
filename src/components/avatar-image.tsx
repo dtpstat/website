@@ -22,7 +22,7 @@ export const AvatarImage: React.VoidFunctionComponent<AvatarImageProps> = ({
   return (
     <StyledImg
       src={src || ""}
-      alt={alt ?? "Avatar Image"}
+      alt={alt ?? "аваратрка"}
       width={size || defaultAvatarSizePix}
       height={size || defaultAvatarSizePix}
     />

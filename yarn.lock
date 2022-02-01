@@ -1425,6 +1425,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"blueimp-md5@npm:^2.18.0":
+  version: 2.19.0
+  resolution: "blueimp-md5@npm:2.19.0"
+  checksum: 28095dcbd2c67152a2938006e8d7c74c3406ba6556071298f872505432feb2c13241b0476644160ee0a5220383ba94cb8ccdac0053b51f68d168728f9c382530
+  languageName: node
+  linkType: hard
+
 "brace-expansion@npm:^1.1.7":
   version: 1.1.11
   resolution: "brace-expansion@npm:1.1.11"
@@ -2954,6 +2961,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"gravatar-url@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "gravatar-url@npm:4.0.1"
+  dependencies:
+    md5-hex: ^4.0.0
+    type-fest: ^1.0.2
+  checksum: 38bd26066ec9ad217cb4fb7857983310abb7b8efc939a7616ef2137763e8a58aece458341e8d9e702d997eb306fba454e265de94305b0841ddbc19db6b750501
+  languageName: node
+  linkType: hard
+
 "gud@npm:^1.0.0":
   version: 1.0.0
   resolution: "gud@npm:1.0.0"
@@ -4037,6 +4054,15 @@ __metadata:
   dependencies:
     markdown-it: 12.2.0
   checksum: 5308070947796d706e752e7dfe6c741fe613d007be152e710a1fb7bbe2f0481beb2be4c0ed053065aea631daeac3f86d66e5e8cb9a753febf35158930771f34f
+  languageName: node
+  linkType: hard
+
+"md5-hex@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "md5-hex@npm:4.0.0"
+  dependencies:
+    blueimp-md5: ^2.18.0
+  checksum: e1c48ea8f2bab0f83ea909f8dc5602f9ecb8c2f8bf2bb43019f48e7468f94e2631d888aa427c3cffb0e8c59fb286abea6ba1bb0cb6436406622d2974bda5ec33
   languageName: node
   linkType: hard
 
@@ -5581,6 +5607,7 @@ __metadata:
     date-fns: ^2.28.0
     dayjs: ^1.10.7
     eslint: ^8.8.0
+    gravatar-url: ^4.0.1
     husky: ^7.0.4
     lint-staged: ^12.3.2
     markdownlint-cli: ^0.30.0
@@ -6481,6 +6508,13 @@ __metadata:
   version: 0.8.1
   resolution: "type-fest@npm:0.8.1"
   checksum: d61c4b2eba24009033ae4500d7d818a94fd6d1b481a8111612ee141400d5f1db46f199c014766b9fa9b31a6a7374d96fc748c6d688a78a3ce5a33123839becb7
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^1.0.2":
+  version: 1.4.0
+  resolution: "type-fest@npm:1.4.0"
+  checksum: b011c3388665b097ae6a109a437a04d6f61d81b7357f74cbcb02246f2f5bd72b888ae33631b99871388122ba0a87f4ff1c94078e7119ff22c70e52c0ff828201
   languageName: node
   linkType: hard
 

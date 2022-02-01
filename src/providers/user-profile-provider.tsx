@@ -2,7 +2,7 @@ import { useUser as useAuth0User } from "@auth0/nextjs-auth0";
 import * as React from "react";
 
 import { fetchUser, patchUser, postUser } from "../requests/users";
-import { userProfileToUser } from "../shared/user-helpers";
+import { convertUserProfileToUser } from "../shared/user-helpers";
 import { User } from "../types";
 
 interface UserProfileContextValue {
@@ -55,7 +55,7 @@ export const UserProfileProvider: React.VoidFunctionComponent<{
       };
 
       if (auth0User) {
-        const userData = userProfileToUser(auth0User);
+        const userData = convertUserProfileToUser(auth0User);
         const updatedUser = await createOrUpdateDbUser(userData);
         setUser(updatedUser);
       }
