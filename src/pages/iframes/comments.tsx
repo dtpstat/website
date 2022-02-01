@@ -14,12 +14,13 @@ import {
   IframeResizerScript,
 } from "../../shared/django-helpers";
 
-// Keeping "height: 100%" from src/styles/inherited-scss/helpers/_base.scss
-// would invalidate iframe resizing
-// @todo: update global styles and remove
 const GlobalStyleOverride = createGlobalStyle`
   html, body {
+    // Keeping height: 100% from src/styles/inherited-scss/helpers/_base.scss
+    // would invalidate iframe resizing
     height: auto;
+
+    // TODO: update global styles and remove
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
