@@ -871,15 +871,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/md5@npm:^2.3.1":
-  version: 2.3.1
-  resolution: "@types/md5@npm:2.3.1"
-  dependencies:
-    "@types/node": "*"
-  checksum: d508f4dd0663beba1660e5b3796480137690096f5683a0a7dfd2e4afa3a5d906e1f04f5a3bf02355f35ee2e64f4067adf349f4f67ccb15da50e1372b848b8579
-  languageName: node
-  linkType: hard
-
 "@types/minimatch@npm:*":
   version: 3.0.5
   resolution: "@types/minimatch@npm:3.0.5"
@@ -912,15 +903,6 @@ __metadata:
   version: 15.7.4
   resolution: "@types/prop-types@npm:15.7.4"
   checksum: ef6e1899e59b876c273811b1bd845022fc66d5a3d11cb38a25b6c566b30514ae38fe20a40f67622f362a4f4f7f9224e22d8da101cff3d6e97e11d7b4c307cfc1
-  languageName: node
-  linkType: hard
-
-"@types/query-string@npm:^6.3.0":
-  version: 6.3.0
-  resolution: "@types/query-string@npm:6.3.0"
-  dependencies:
-    query-string: "*"
-  checksum: 7d507aea24e650548bc8a164ae695deb1eaf7a566fdaeb53ec3f89605dbd2c5201daf9b76c31843bc8accc01e866df8b2a06557514ad8014c3af99c664cd0b5c
   languageName: node
   linkType: hard
 
@@ -1568,13 +1550,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"charenc@npm:0.0.2":
-  version: 0.0.2
-  resolution: "charenc@npm:0.0.2"
-  checksum: 81dcadbe57e861d527faf6dd3855dc857395a1c4d6781f4847288ab23cffb7b3ee80d57c15bba7252ffe3e5e8019db767757ee7975663ad2ca0939bb8fcaf2e5
-  languageName: node
-  linkType: hard
-
 "chokidar@npm:>=3.0.0 <4.0.0, chokidar@npm:^3.5.2":
   version: 3.5.3
   resolution: "chokidar@npm:3.5.3"
@@ -1858,13 +1833,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"crypt@npm:0.0.2":
-  version: 0.0.2
-  resolution: "crypt@npm:0.0.2"
-  checksum: baf4c7bbe05df656ec230018af8cf7dbe8c14b36b98726939cef008d473f6fe7a4fad906cfea4062c93af516f1550a3f43ceb4d6615329612c6511378ed9fe34
-  languageName: node
-  linkType: hard
-
 "css-color-keywords@npm:^1.0.0":
   version: 1.0.0
   resolution: "css-color-keywords@npm:1.0.0"
@@ -1938,13 +1906,6 @@ __metadata:
   dependencies:
     ms: ^2.1.1
   checksum: b3d8c5940799914d30314b7c3304a43305fd0715581a919dacb8b3176d024a782062368405b47491516d2091d6462d4d11f2f4974a405048094f8bfebfa3071c
-  languageName: node
-  linkType: hard
-
-"decode-uri-component@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "decode-uri-component@npm:0.2.0"
-  checksum: f3749344ab9305ffcfe4bfe300e2dbb61fc6359e2b736812100a3b1b6db0a5668cba31a05e4b45d4d63dbf1a18dfa354cd3ca5bb3ededddabb8cd293f4404f94
   languageName: node
   linkType: hard
 
@@ -2618,13 +2579,6 @@ __metadata:
   dependencies:
     to-regex-range: ^5.0.1
   checksum: cc283f4e65b504259e64fd969bcf4def4eb08d85565e906b7d36516e87819db52029a76b6363d0f02d0d532f0033c9603b9e2d943d56ee3b0d4f7ad3328ff917
-  languageName: node
-  linkType: hard
-
-"filter-obj@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "filter-obj@npm:1.1.0"
-  checksum: cf2104a7c45ff48e7f505b78a3991c8f7f30f28bd8106ef582721f321f1c6277f7751aacd5d83026cb079d9d5091082f588d14a72e7c5d720ece79118fa61e10
   languageName: node
   linkType: hard
 
@@ -3374,13 +3328,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-buffer@npm:~1.1.6":
-  version: 1.1.6
-  resolution: "is-buffer@npm:1.1.6"
-  checksum: 4a186d995d8bbf9153b4bd9ff9fd04ae75068fe695d29025d25e592d9488911eeece84eefbd8fa41b8ddcc0711058a71d4c466dcf6f1f6e1d83830052d8ca707
-  languageName: node
-  linkType: hard
-
 "is-builtin-module@npm:^3.1.0":
   version: 3.1.0
   resolution: "is-builtin-module@npm:3.1.0"
@@ -4079,17 +4026,6 @@ __metadata:
   dependencies:
     blueimp-md5: ^2.18.0
   checksum: e1c48ea8f2bab0f83ea909f8dc5602f9ecb8c2f8bf2bb43019f48e7468f94e2631d888aa427c3cffb0e8c59fb286abea6ba1bb0cb6436406622d2974bda5ec33
-  languageName: node
-  linkType: hard
-
-"md5@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "md5@npm:2.3.0"
-  dependencies:
-    charenc: 0.0.2
-    crypt: 0.0.2
-    is-buffer: ~1.1.6
-  checksum: a63cacf4018dc9dee08c36e6f924a64ced735b37826116c905717c41cebeb41a522f7a526ba6ad578f9c80f02cb365033ccd67fe186ffbcc1a1faeb75daa9b6e
   languageName: node
   linkType: hard
 
@@ -5211,18 +5147,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"query-string@npm:*, query-string@npm:^7.1.0":
-  version: 7.1.0
-  resolution: "query-string@npm:7.1.0"
-  dependencies:
-    decode-uri-component: ^0.2.0
-    filter-obj: ^1.1.0
-    split-on-first: ^1.0.0
-    strict-uri-encode: ^2.0.0
-  checksum: 4594a0a092772eb6854310feea85e34f8dcf70df494776a45b9e5be53621ffbcf930ae669974e4e171ce5e0f29a837e9821d48db843106dd94ee390f6f5ac857
-  languageName: node
-  linkType: hard
-
 "queue-microtask@npm:^1.2.2":
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
@@ -5612,9 +5536,7 @@ __metadata:
     "@next/eslint-plugin-next": ^12.0.9
     "@prisma/client": ^3.8.1
     "@sentry/nextjs": ^6.17.3
-    "@types/md5": ^2.3.1
     "@types/node": ^16.11.21
-    "@types/query-string": ^6.3.0
     "@types/react": ^17.0.38
     "@types/react-dom": ^17.0.11
     "@types/react-gravatar": ^2.6.10
@@ -5628,7 +5550,6 @@ __metadata:
     husky: ^7.0.4
     lint-staged: ^12.3.2
     markdownlint-cli: ^0.30.0
-    md5: ^2.3.0
     mobx: ^6.3.13
     mobx-devtools-mst: ^0.9.30
     mobx-react: ^7.2.1
@@ -5639,7 +5560,6 @@ __metadata:
     prettier-plugin-packagejson: ^2.2.15
     prettier-plugin-sh: ^0.8.1
     prisma: ^3.8.1
-    query-string: ^7.1.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-linkify: ^1.0.0-alpha
@@ -6058,13 +5978,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"split-on-first@npm:^1.0.0":
-  version: 1.1.0
-  resolution: "split-on-first@npm:1.1.0"
-  checksum: 16ff85b54ddcf17f9147210a4022529b343edbcbea4ce977c8f30e38408b8d6e0f25f92cd35b86a524d4797f455e29ab89eb8db787f3c10708e0b47ebf528d30
-  languageName: node
-  linkType: hard
-
 "ssri@npm:^8.0.0, ssri@npm:^8.0.1":
   version: 8.0.1
   resolution: "ssri@npm:8.0.1"
@@ -6085,13 +5998,6 @@ __metadata:
   version: 1.5.0
   resolution: "statuses@npm:1.5.0"
   checksum: c469b9519de16a4bb19600205cffb39ee471a5f17b82589757ca7bd40a8d92ebb6ed9f98b5a540c5d302ccbc78f15dc03cc0280dd6e00df1335568a5d5758a5c
-  languageName: node
-  linkType: hard
-
-"strict-uri-encode@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "strict-uri-encode@npm:2.0.0"
-  checksum: eaac4cf978b6fbd480f1092cab8b233c9b949bcabfc9b598dd79a758f7243c28765ef7639c876fa72940dac687181b35486ea01ff7df3e65ce3848c64822c581
   languageName: node
   linkType: hard
 
