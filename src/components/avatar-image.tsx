@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const defaultAvatarImgAttributes = {
   src: "",
-  alt: "аваратрка",
+  alt: "аватарка",
   width: 28,
   height: 28,
 };
