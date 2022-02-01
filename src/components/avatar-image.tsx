@@ -1,7 +1,12 @@
 import * as React from "react";
 import styled from "styled-components";
 
-const defaultAvatarSizePix = 28;
+const defaultAvatarImgAttributes = {
+  src: "",
+  alt: "аваратрка",
+  width: 28,
+  height: 28,
+};
 
 const StyledImg = styled.img`
   border-radius: 50%;
@@ -21,10 +26,10 @@ export const AvatarImage: React.VoidFunctionComponent<AvatarImageProps> = ({
 }) => {
   return (
     <StyledImg
-      src={src || ""}
-      alt={alt ?? "аваратрка"}
-      width={size || defaultAvatarSizePix}
-      height={size || defaultAvatarSizePix}
+      src={src ?? defaultAvatarImgAttributes.src}
+      alt={alt ?? defaultAvatarImgAttributes.alt}
+      width={size || defaultAvatarImgAttributes.width}
+      height={size || defaultAvatarImgAttributes.height}
     />
   );
 };
