@@ -9,10 +9,12 @@ const handler: NextApiHandler = async (req, res) => {
   const accidentId = req.query["accident-id"] as string;
 
   if (req.method === "POST") {
-    const comment = await createComment(
-      JSON.parse(req.body as string) as NewComment,
-    );
-    res.status(200).json({ status: "ok", comment });
+    return withApiAuthRequired(async () => {
+      const comment = await createComment(
+        JSON.parse(req.body as string) as NewComment,
+      );
+      res.status(200).json({ status: "ok", comment });
+    })(req, res);
   } else if (req.method === "GET") {
     res
       .status(200)
@@ -25,4 +27,4 @@ const handler: NextApiHandler = async (req, res) => {
   }
 };
 
-export default withSentry(withApiAuthRequired(handler));
+export default withSentry(handler);
