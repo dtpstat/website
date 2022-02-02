@@ -4,35 +4,33 @@ import gravatarUrl, { Options } from "gravatar-url";
 import { fetchUser, patchUser, postUser } from "../requests/users";
 import { User } from "../types";
 
-const defaultGravatarUrlOptions = {
+const defaultGravatarUrlOptions: Options = {
   size: 100,
   rating: "g",
   default: "mp",
-} as Options;
+};
 
 export const baseUrl = process.env.AUTH0_BASE_URL ?? "";
 
-export const convertUserProfileToUser = (userProfile: UserProfile): User => {
-  return {
-    id: userProfile.sub,
-    name: userProfile.name,
-    nickname: userProfile.nickname,
-    email: userProfile.email,
-
-    avatarUrl:
-      userProfile.picture ??
-      gravatarUrl(userProfile.email!, defaultGravatarUrlOptions),
-    updateDate: userProfile.updated_at,
-  } as User;
-};
-
 export const createOrUpdateDbUser = async (
-  userId: string,
-  userData: User,
+  userProfile: UserProfile,
 ): Promise<User | undefined> => {
+  const userId = userProfile.sub as string;
   if (!userId) {
     return;
   }
+
+  const {
+    sub: id,
+    updated_at: updateDate,
+    picture,
+    ...profileData
+  } = userProfile;
+
+  const avatarUrl =
+    picture ?? gravatarUrl(userProfile.email ?? "", defaultGravatarUrlOptions);
+
+  const userData = { id, updateDate, avatarUrl, ...profileData } as User;
 
   // Check if the user exists in the DB
   const dbUser = await fetchUser(baseUrl, userId);
@@ -40,6 +38,7 @@ export const createOrUpdateDbUser = async (
   return await (dbUser
     ? patchUser(baseUrl, userId, {
         ...userData,
+        createDate: dbUser.createDate,
       })
     : postUser(baseUrl, {
         ...userData,
