@@ -1,9 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 
-import { useAccident } from "../providers/accident-provider";
 import { useComments } from "../providers/comments-provider";
-import { fetchComments } from "../requests/comments";
 import { Comment } from "../types";
 import { CommentItem } from "./comment-item";
 
@@ -17,29 +15,7 @@ const CommentsHeader = styled.h2`
 `;
 
 export const CommentList: React.VoidFunctionComponent = () => {
-  const { setComments, comments } = useComments();
-  const { accidentId } = useAccident();
-  React.useEffect(() => {
-    let commentsSubscribed = true;
-
-    const subscribeComments = async () => {
-      if (!commentsSubscribed || !accidentId) {
-        return;
-      }
-
-      const initialComments = await fetchComments(
-        window.location.origin,
-        accidentId,
-      );
-      setComments(initialComments);
-    };
-
-    void subscribeComments();
-
-    return () => {
-      commentsSubscribed = false;
-    };
-  }, [accidentId, setComments]);
+  const { comments } = useComments();
 
   return (
     <div>

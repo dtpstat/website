@@ -1,6 +1,8 @@
 import * as React from "react";
 
+import { fetchComments } from "../requests/comments";
 import { Comment } from "../types";
+import { useAccident } from "./accident-provider";
 
 interface CommentsContextValue {
   newCommentText: string;
@@ -18,7 +20,28 @@ export const CommentsProvider: React.VoidFunctionComponent<{
 }> = ({ children }) => {
   const [comments, setComments] = React.useState<Comment[]>([]);
   const [newCommentText, setNewCommentText] = React.useState<string>("");
+  const { accidentId } = useAccident();
 
+  React.useEffect(() => {
+    let effectIsStale = false;
+
+    const fetchAndSetComments = async () => {
+      const initialComments = await fetchComments(
+        window.location.origin,
+        accidentId,
+      );
+
+      if (!effectIsStale) {
+        setComments(initialComments);
+      }
+    };
+
+    void fetchAndSetComments();
+
+    return () => {
+      effectIsStale = true;
+    };
+  }, [accidentId]);
   const providerValue = React.useMemo<CommentsContextValue>(
     () => ({
       newCommentText,
