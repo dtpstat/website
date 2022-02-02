@@ -1,5 +1,5 @@
 import { UserProfile } from "@auth0/nextjs-auth0";
-import gravatarUrl, { Options } from "gravatar-url";
+import { default as gravatarUrl, Options } from "gravatar-url";
 
 import { fetchUser, patchUser, postUser } from "../requests/users";
 import { User } from "../types";
@@ -17,20 +17,20 @@ export const createOrUpdateDbUser = async (
 ): Promise<User | undefined> => {
   const userId = userProfile.sub as string;
   if (!userId) {
-    return;
+    throw new Error("userProfile.sub is required");
   }
 
   const {
-    sub: id,
+    sub: id = userId,
     updated_at: updateDate,
     picture,
     ...profileData
   } = userProfile;
 
-  const avatarUrl =
+  const avatarUrl: string =
     picture ?? gravatarUrl(userProfile.email ?? "", defaultGravatarUrlOptions);
 
-  const userData = { id, updateDate, avatarUrl, ...profileData } as User;
+  const userData: User = { id, avatarUrl, updateDate, ...profileData };
 
   // Check if the user exists in the DB
   const dbUser = await fetchUser(baseUrl, userId);
