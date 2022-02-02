@@ -13,6 +13,8 @@ import * as React from "react";
 import { Link } from "../components/link";
 
 export const djangoBaseUrl = process.env.NEXT_PUBLIC_DJANGO_BASE_URL ?? "";
+export const djangoContentFallback =
+  process.env.NEXT_PUBLIC_DJANGO_CONTENT_FALLBACK === "true";
 
 const postMessageToIframeParent = (message: unknown): boolean => {
   if (window !== window.parent) {

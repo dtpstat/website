@@ -5,7 +5,11 @@ import { withSentryConfig } from "@sentry/nextjs";
 // We don’t use the prefix outside Next.js code to make app setup less bulky and
 // to avoid unnecessary breaking changes in it.
 process.env.NEXT_PUBLIC_COMMENTS_ARE_PAUSED = process.env.COMMENTS_ARE_PAUSED;
+
 process.env.NEXT_PUBLIC_DJANGO_BASE_URL = process.env.DJANGO_BASE_URL;
+process.env.NEXT_PUBLIC_DJANGO_CONTENT_FALLBACK =
+  process.env.DJANGO_CONTENT_FALLBACK;
+
 process.env.NEXT_PUBLIC_SENTRY_DSN = process.env.SENTRY_DSN;
 process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT = process.env.SENTRY_ENVIRONMENT;
 
@@ -53,12 +57,18 @@ const nextConfig = {
       process.env.DJANGO_CONTENT_FALLBACK === "true"
         ? [
             {
-              // Add trailing slash to page urls (no .) to avoid infinite redirects
+              // Add trailing slash to page-like paths (/hello/world) to avoid infinite redirects
               source: "/:path([^\\.]+)*",
               destination: `${process.env.DJANGO_BASE_URL}/:path*/`,
             },
             {
-              // Do not add trailing slash to files to avoid 404
+              // Add trailing slash to root file-like paths (/hello.txt), also to avoid infinite
+              // redirects (this is needed because of a special `old_redirect` rule in Django)
+              source: "/:path",
+              destination: `${process.env.DJANGO_BASE_URL}/:path/`,
+            },
+            {
+              // Do not add trailing slash to all other file-like paths (/hello/world.txt)
               source: "/:path*",
               destination: `${process.env.DJANGO_BASE_URL}/:path*`,
             },
