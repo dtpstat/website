@@ -1,27 +1,41 @@
 import { UserProfile } from "@auth0/nextjs-auth0";
+import { default as gravatarUrl, Options } from "gravatar-url";
 
 import { fetchUser, patchUser, postUser } from "../requests/users";
 import { User } from "../types";
 
-export const baseUrl = process.env.AUTH0_BASE_URL ?? "";
-
-export const userProfileToUser = (userProfile: UserProfile): User => {
-  return {
-    id: userProfile.sub,
-    name: userProfile.name,
-    nickname: userProfile.nickname,
-    email: userProfile.email,
-    updateDate: userProfile.updated_at,
-  } as User;
+const defaultGravatarUrlOptions: Options = {
+  size: 100,
+  rating: "g",
+  default: "mp",
 };
 
+export const baseUrl = process.env.AUTH0_BASE_URL ?? "";
+
 export const createOrUpdateDbUser = async (
-  userId: string,
-  userData: User,
+  userProfile: UserProfile,
 ): Promise<User | undefined> => {
+  const userId = userProfile.sub as string;
   if (!userId) {
-    return;
+    throw new Error("userProfile.sub is required");
   }
+
+  const {
+    sub: id = userId,
+    updated_at: updateDate,
+    picture,
+    ...profileData
+  } = userProfile;
+
+  const avatarUrl: string =
+    picture ?? gravatarUrl(userProfile.email ?? "", defaultGravatarUrlOptions);
+
+  const userData = {
+    id,
+    avatarUrl,
+    updateDate,
+    ...profileData,
+  } as Omit<User, "createDate">; // TODO: investigate type mismatches which can be runtime errors
 
   // Check if the user exists in the DB
   const dbUser = await fetchUser(baseUrl, userId);
@@ -29,6 +43,7 @@ export const createOrUpdateDbUser = async (
   return await (dbUser
     ? patchUser(baseUrl, userId, {
         ...userData,
+        createDate: dbUser.createDate,
       })
     : postUser(baseUrl, {
         ...userData,
