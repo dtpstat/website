@@ -30,7 +30,12 @@ export const createOrUpdateDbUser = async (
   const avatarUrl: string =
     picture ?? gravatarUrl(userProfile.email ?? "", defaultGravatarUrlOptions);
 
-  const userData: User = { id, avatarUrl, updateDate, ...profileData };
+  const userData = {
+    id,
+    avatarUrl,
+    updateDate,
+    ...profileData,
+  } as Omit<User, "createDate">; // TODO: investigate type mismatches which can be runtime errors
 
   // Check if the user exists in the DB
   const dbUser = await fetchUser(baseUrl, userId);
