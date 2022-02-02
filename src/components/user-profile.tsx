@@ -21,7 +21,7 @@ export const UserProfile: React.VoidFunctionComponent = () => {
 
     return (
       <div>
-        <AvatarImage email={user.email} size={150} />
+        <AvatarImage src={user.avatarUrl} alt={user.name} size={150} />
         <h4>{user.name}</h4>
         <p>{user.email}</p>
         <Link href="/api/auth/logout">Logout</Link>
