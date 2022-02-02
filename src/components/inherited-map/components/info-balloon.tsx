@@ -1,6 +1,9 @@
 import * as React from "react";
 
-import { djangoBaseUrl } from "../../../shared/django-helpers";
+import {
+  djangoBaseUrl,
+  djangoContentFallback,
+} from "../../../shared/django-helpers";
 import { Colors } from "../../../styles/colors";
 import SvgIcon from "./svg-icon";
 
@@ -62,7 +65,7 @@ export const InfoBalloonContent = (props: Props) => {
         <a
           id="balloon-button"
           className="btn-light"
-          href={`${djangoBaseUrl}/dtp/${props.id}`}
+          href={`${djangoContentFallback ? "" : djangoBaseUrl}/dtp/${props.id}`}
           target="_blank"
           rel="noopener noreferrer"
         >
