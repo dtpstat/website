@@ -23,16 +23,25 @@ export const CommentsProvider: React.VoidFunctionComponent<{
   const { accidentId } = useAccident();
 
   React.useEffect(() => {
-    const initFetchComments = async () => {
+    let effectIsStale = false;
+
+    const fetchAndSetComments = async () => {
       const initialComments = await fetchComments(
         window.location.origin,
         accidentId,
       );
-      setComments(initialComments);
-    };
-    void initFetchComments();
-  }, [accidentId]);
 
+      if (!effectIsStale) {
+        setComments(initialComments);
+      }
+    };
+
+    void fetchAndSetComments();
+
+    return () => {
+      effectIsStale = true;
+    };
+  }, [accidentId]);
   const providerValue = React.useMemo<CommentsContextValue>(
     () => ({
       newCommentText,
