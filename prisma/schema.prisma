@@ -13,18 +13,18 @@ model Comment {
   text        String?
   authorId    String    @db.VarChar
   isPublished Boolean   @default(false)
-  createDate  DateTime? @db.Date @default(now())
-  updateDate  DateTime? @db.Date @default(now())
+  createDate  DateTime? @default(now()) @db.Date
+  updateDate  DateTime? @default(now()) @db.Date
   author      User      @relation(fields: [authorId], references: [id])
 }
 
 model User {
-  id           String    @id @db.VarChar
-  name         String?
-  nickname     String?
-  email        String?   
-  avatarUrl    String?   
-  createDate   DateTime? @db.Date @default(now())
-  updateDate   DateTime? @db.Date @default(now())
-  comments     Comment[]
+  id         String    @id @db.VarChar
+  name       String?
+  nickname   String?
+  email      String?
+  avatarUrl  String?
+  createDate DateTime? @default(now()) @db.Date
+  updateDate DateTime? @default(now()) @db.Date
+  comments   Comment[]
 }
