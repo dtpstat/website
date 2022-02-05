@@ -8,22 +8,26 @@ datasource db {
 }
 
 model Comment {
+
   id          Int      @id @default(autoincrement())
-  accidentId  String   @db.VarChar
+  accidentId  String   @map("accident_id") @db.VarChar
   text        String
-  authorId    String   @db.VarChar
-  isPublished Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now())
+  authorId    String   @map("author_id") @db.VarChar
+  isPublished Boolean  @default(false) @map("is_published")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @default(now()) @map("updated_at")
   author      User     @relation(fields: [authorId], references: [id])
+  @@map("comments")
 }
 
 model User {
+
   id        String    @id @db.VarChar
   name      String
   email     String    @unique
   picture   String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now())
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @default(now()) @map("updated_at")
   comments  Comment[]
+  @@map("users")
 }
