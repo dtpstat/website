@@ -595,6 +595,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@prisma/prisma-fmt-wasm@npm:3.9.0-58.bcc2ff906db47790ee902e7bbc76d7ffb1893009":
+  version: 3.9.0-58.bcc2ff906db47790ee902e7bbc76d7ffb1893009
+  resolution: "@prisma/prisma-fmt-wasm@npm:3.9.0-58.bcc2ff906db47790ee902e7bbc76d7ffb1893009"
+  checksum: 44e60bd41b49b3848d58c3bd9322cc93c33713ae17e985201cd2089622f30d103feddc69360227908378010561f57c6780bc9c8a25620d60825426df62c6aba6
+  languageName: node
+  linkType: hard
+
 "@sentry/browser@npm:6.17.3":
   version: 6.17.3
   resolution: "@sentry/browser@npm:6.17.3"
@@ -5033,6 +5040,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier-plugin-prisma@npm:^3.9.0":
+  version: 3.9.0
+  resolution: "prettier-plugin-prisma@npm:3.9.0"
+  dependencies:
+    "@prisma/prisma-fmt-wasm": 3.9.0-58.bcc2ff906db47790ee902e7bbc76d7ffb1893009
+  peerDependencies:
+    prettier: ">=2"
+  checksum: 8355b0dac30191d304729052024e4307a28b7aa8bc517e5dd895a070034303a5d0d5266ec09c2b33f72dee8aaaa936bf5c3b6b67bdf2f5a5d568f5c002112db2
+  languageName: node
+  linkType: hard
+
 "prettier-plugin-sh@npm:^0.8.1":
   version: 0.8.1
   resolution: "prettier-plugin-sh@npm:0.8.1"
@@ -5548,6 +5566,7 @@ __metadata:
     npm-run-all: ^4.1.5
     prettier: ^2.5.1
     prettier-plugin-packagejson: ^2.2.15
+    prettier-plugin-prisma: ^3.9.0
     prettier-plugin-sh: ^0.8.1
     prisma: ^3.8.1
     react: ^17.0.2
