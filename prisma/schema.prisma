@@ -8,23 +8,22 @@ datasource db {
 }
 
 model Comment {
-  id          Int       @id @default(autoincrement())
-  accidentId  String    @db.VarChar
-  text        String?
-  authorId    String    @db.VarChar
-  isPublished Boolean   @default(false)
-  createDate  DateTime? @default(now()) @db.Date
-  updateDate  DateTime? @default(now()) @db.Date
-  author      User      @relation(fields: [authorId], references: [id])
+  id          Int      @id @default(autoincrement())
+  accidentId  String   @db.VarChar
+  text        String
+  authorId    String   @db.VarChar
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+  author      User     @relation(fields: [authorId], references: [id])
 }
 
 model User {
-  id         String    @id @db.VarChar
-  name       String?
-  nickname   String?
-  email      String?
-  avatarUrl  String?
-  createDate DateTime? @default(now()) @db.Date
-  updateDate DateTime? @default(now()) @db.Date
-  comments   Comment[]
+  id        String    @id @db.VarChar
+  name      String
+  email     String    @unique
+  picture   String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  comments  Comment[]
 }

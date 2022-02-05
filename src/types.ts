@@ -1,21 +1,24 @@
-import { Comment as PrismaComment } from "@prisma/client";
-
-export interface NewComment {
-  id?: number;
-  text?: string;
-  authorId: string;
+export interface NewCommentPayload {
+  text: string;
   accidentId: string;
 }
 
-export interface CommentUser {
-  name?: string | null;
-  avatarUrl?: string | null;
+export interface PublicCommentInfo {
+  accidentId: string;
+  authorAvatarUrl?: string;
+  authorName: string;
+  createdAt: string;
+  id: number;
+  isPublished: boolean;
+  text: string;
 }
 
-interface Comment extends PrismaComment {
-  author?: CommentUser;
+export interface CommentsApiHandlerSuccessfulGetResponseBody {
+  status: "ok";
+  comments: PublicCommentInfo[];
 }
 
-export type { Comment };
-
-export type { User } from "@prisma/client";
+export interface CommentsApiHandlerSuccessfulPostResponseBody {
+  status: "ok";
+  comment: PublicCommentInfo;
+}

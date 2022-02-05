@@ -3,11 +3,11 @@ import Linkify from "react-linkify";
 import styled from "styled-components";
 
 import { formatDate } from "../shared/date-helpers";
-import { Comment } from "../types";
+import { PublicCommentInfo } from "../types";
 import { AvatarImage } from "./avatar-image";
 
 export interface CommentItemProps {
-  comment: Comment;
+  comment: PublicCommentInfo;
 }
 
 const CommentText = styled.div`
@@ -61,11 +61,11 @@ export const CommentItem: React.VoidFunctionComponent<CommentItemProps> = ({
 }) => {
   return (
     <CommentContainer>
-      <AvatarImage src={comment.author?.avatarUrl} alt={comment.author?.name} />
+      <AvatarImage src={comment.authorAvatarUrl} alt={comment.authorName} />
       <div>
         <div>
-          <CommentAuthor>{comment.author?.name}</CommentAuthor>:{" "}
-          <CommentDate>{formatDate(comment.createDate)}</CommentDate>
+          <CommentAuthor>{comment.authorName}</CommentAuthor>:{" "}
+          <CommentDate>{formatDate(comment.createdAt)}</CommentDate>
           {comment.isPublished ? undefined : (
             <Tag title="Комментарий еще не опубликован и виден только вам">
               На модерации

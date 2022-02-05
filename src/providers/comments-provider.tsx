@@ -1,14 +1,14 @@
 import * as React from "react";
 
 import { fetchComments } from "../requests/comments";
-import { Comment } from "../types";
+import { PublicCommentInfo } from "../types";
 import { useAccident } from "./accident-provider";
 
 interface CommentsContextValue {
   newCommentText: string;
   setNewCommentText: React.Dispatch<React.SetStateAction<string>>;
-  comments: Comment[];
-  setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
+  comments: PublicCommentInfo[];
+  setComments: React.Dispatch<React.SetStateAction<PublicCommentInfo[]>>;
 }
 
 const CommentsContext = React.createContext<CommentsContextValue | undefined>(
@@ -18,7 +18,7 @@ const CommentsContext = React.createContext<CommentsContextValue | undefined>(
 export const CommentsProvider: React.VoidFunctionComponent<{
   children?: React.ReactNode;
 }> = ({ children }) => {
-  const [comments, setComments] = React.useState<Comment[]>([]);
+  const [comments, setComments] = React.useState<PublicCommentInfo[]>([]);
   const [newCommentText, setNewCommentText] = React.useState<string>("");
   const { accidentId } = useAccident();
 
