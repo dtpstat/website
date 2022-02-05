@@ -1,4 +1,4 @@
-export interface NewCommentPayload {
+export interface NewComment {
   text: string;
   accidentId: string;
 }

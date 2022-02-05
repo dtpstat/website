@@ -2,7 +2,7 @@ import { buildCommentsApiUrl } from "../shared/api-helpers";
 import {
   CommentsApiHandlerSuccessfulGetResponseBody,
   CommentsApiHandlerSuccessfulPostResponseBody,
-  NewCommentPayload,
+  NewComment,
   PublicCommentInfo,
 } from "../types";
 
@@ -20,10 +20,10 @@ export const fetchComments = async (
 
 export const postComment = async (
   baseUrl: string,
-  newCommentPayload: NewCommentPayload,
+  newComment: NewComment,
 ): Promise<PublicCommentInfo> => {
   const res = await fetch(buildCommentsApiUrl(baseUrl), {
-    body: JSON.stringify(newCommentPayload),
+    body: JSON.stringify(newComment),
     method: "POST",
   });
   const { comment } =

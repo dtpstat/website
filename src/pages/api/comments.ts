@@ -8,7 +8,7 @@ import { generateAvatarUrl } from "../../shared/user-helpers";
 import {
   CommentsApiHandlerSuccessfulGetResponseBody,
   CommentsApiHandlerSuccessfulPostResponseBody,
-  NewCommentPayload,
+  NewComment,
   PublicCommentInfo,
 } from "../../types";
 
@@ -62,11 +62,11 @@ const handler: NextApiHandler = async (req, res) => {
       return;
     }
 
-    let newCommentPayload: NewCommentPayload | undefined;
+    let newComment: NewComment | undefined;
 
     try {
       const { accidentId, text } = JSON.parse(req.body as string) as Record<
-        keyof NewCommentPayload,
+        keyof NewComment,
         unknown
       >; // type casting is tolerable as we are inside try/catch
 
@@ -79,7 +79,7 @@ const handler: NextApiHandler = async (req, res) => {
         throw new Error("Unexpected field types or fields are empty");
       }
 
-      newCommentPayload = { accidentId, text };
+      newComment = { accidentId, text };
     } catch {
       res.status(422).json({
         error: "invalid_payload",
@@ -91,7 +91,7 @@ const handler: NextApiHandler = async (req, res) => {
 
     const selectedComment = await prisma.comment.create({
       data: {
-        ...newCommentPayload,
+        ...newComment,
         authorId: myId,
       },
       select: commentSelect,

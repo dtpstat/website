@@ -7,7 +7,7 @@ import { useComments } from "../providers/comments-provider";
 import { postComment } from "../requests/comments";
 import { IframeAwareLoginLink } from "../shared/django-helpers";
 import { generateAvatarUrl } from "../shared/user-helpers";
-import { NewCommentPayload } from "../types";
+import { NewComment } from "../types";
 import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";
 import { Textarea } from "./textarea";
@@ -56,7 +56,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
       return;
     }
 
-    const newComment: NewCommentPayload = {
+    const newComment: NewComment = {
       accidentId,
       text: newCommentText,
     };
