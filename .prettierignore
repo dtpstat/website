@@ -13,6 +13,7 @@
 !*.json
 !*.md
 !*.mjs
+!*.prisma
 !*.ts
 !*.tsx
 !*.yml
