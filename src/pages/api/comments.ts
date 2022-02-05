@@ -131,6 +131,9 @@ const handler: NextApiHandler = async (req, res) => {
         ],
       },
       select: commentSelect,
+      orderBy: {
+        id: "asc",
+      },
     });
 
     const responseBody: CommentsApiHandlerSuccessfulGetResponseBody = {
