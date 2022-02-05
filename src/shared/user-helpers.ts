@@ -7,8 +7,8 @@ const defaultGravatarUrlOptions: Options = {
 };
 
 export const generateAvatarUrl = (
-  picture?: string,
-  email?: string,
+  picture: string | undefined | null,
+  email: string | undefined | null,
 ): string | undefined => {
   if (picture) {
     return picture;

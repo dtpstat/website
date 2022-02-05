@@ -12,11 +12,8 @@ import {
   PublicCommentInfo,
 } from "../../types";
 
-const publicCommentInfoSelect = {
+const commentSelect = {
   accidentId: true,
-  id: true,
-  text: true,
-  createdAt: true,
   author: {
     select: {
       name: true,
@@ -24,33 +21,38 @@ const publicCommentInfoSelect = {
       picture: true,
     },
   },
+  createdAt: true,
+  id: true,
+  isPublished: true,
+  text: true,
 } as const;
 
-const extractCommentPublicInfo = ({
+const convertSelectedCommentToPublicInfo = ({
   accidentId,
   author,
   createdAt,
   id,
+  isPublished,
   text,
 }: Prisma.CommentGetPayload<{
-  select: typeof publicCommentInfoSelect;
+  select: typeof commentSelect;
 }>): PublicCommentInfo => ({
   accidentId,
-  authorName: author.name,
   authorAvatarUrl: generateAvatarUrl(author.picture ?? undefined, author.email),
+  authorName: author.name,
   createdAt: createdAt.toISOString(),
   id,
-  isPublished: true,
+  isPublished,
   text,
 });
 
 const handler: NextApiHandler = async (req, res) => {
-  if (req.method === "POST") {
-    const session = getSession(req, res);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- external user type is `any`
-    const authorId = session?.user.sub;
+  const session = getSession(req, res);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- external user type is `any`
+  const myId = session?.user.sub;
 
-    if (typeof authorId !== "string") {
+  if (req.method === "POST") {
+    if (typeof myId !== "string") {
       res.status(401).json({
         error: "not_authenticated",
         description:
@@ -87,17 +89,17 @@ const handler: NextApiHandler = async (req, res) => {
       return;
     }
 
-    const selectedCommentData = await prisma.comment.create({
+    const selectedComment = await prisma.comment.create({
       data: {
         ...newCommentPayload,
-        authorId,
+        authorId: myId,
       },
-      select: publicCommentInfoSelect,
+      select: commentSelect,
     });
 
     const responseBody: CommentsApiHandlerSuccessfulPostResponseBody = {
       status: "ok",
-      comment: extractCommentPublicInfo(selectedCommentData),
+      comment: convertSelectedCommentToPublicInfo(selectedComment),
     };
     res.status(200).json(responseBody);
   } else if (req.method === "GET") {
@@ -111,18 +113,30 @@ const handler: NextApiHandler = async (req, res) => {
 
       return;
     }
-    const commentsWithAuthor = await prisma.comment.findMany({
+    const selectedComments = await prisma.comment.findMany({
       where: {
-        isPublished: true,
-        accidentId,
+        OR: [
+          {
+            isPublished: true,
+            accidentId,
+          },
+          ...(typeof myId === "string"
+            ? [
+                {
+                  accidentId,
+                  authorId: myId,
+                },
+              ]
+            : []),
+        ],
       },
-      select: publicCommentInfoSelect,
+      select: commentSelect,
     });
 
     const responseBody: CommentsApiHandlerSuccessfulGetResponseBody = {
       status: "ok",
-      comments: commentsWithAuthor.map((selectedCommentData) =>
-        extractCommentPublicInfo(selectedCommentData),
+      comments: selectedComments.map((selectedComment) =>
+        convertSelectedCommentToPublicInfo(selectedComment),
       ),
     };
     res.status(200).json(responseBody);

@@ -48,9 +48,7 @@ const handler: NextApiHandler = handleAuth({
   callback: async (req, res) => {
     return handleCallback(req, res, {
       afterCallback: async (callbackReq, callbackRes, session) => {
-        const {
-          user: { sub: id, email, name, picture, updatedAt },
-        } = session.user;
+        const { sub: id, email, name, picture, updatedAt } = session.user;
 
         assertString(id, "id");
         assertString(email, "email");
