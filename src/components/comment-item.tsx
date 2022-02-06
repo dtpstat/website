@@ -66,7 +66,7 @@ export const CommentItem: React.VoidFunctionComponent<CommentItemProps> = ({
         <div>
           <CommentAuthor>{comment.authorName}</CommentAuthor>:{" "}
           <CommentDate>{formatDate(comment.createdAt)}</CommentDate>
-          {comment.isPublished ? undefined : (
+          {comment.status === "pending" ? undefined : (
             <Tag title="Комментарий еще не опубликован и виден только вам">
               На модерации
             </Tag>
