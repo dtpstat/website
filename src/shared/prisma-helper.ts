@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
-// In development, the `next dev` clears Node.js cache on run. This in turn initializes
+// In development, `next dev` command clears Node.js cache on run. This in turn initializes
 // a new PrismaClient instance each time due to hot reloading that creates a connection
 // to the database. This can quickly exhaust the database connections as each PrismaClient
 // instance holds its own connection pool. Code below fixes this limitation.
