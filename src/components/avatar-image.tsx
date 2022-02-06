@@ -26,6 +26,7 @@ export const AvatarImage: React.VoidFunctionComponent<AvatarImageProps> = ({
 }) => {
   return (
     <StyledImg
+      referrerPolicy="no-referrer"
       src={src ?? defaultAvatarImgAttributes.src}
       alt={alt ?? defaultAvatarImgAttributes.alt}
       width={size || defaultAvatarImgAttributes.width}
