@@ -2,7 +2,6 @@ import { useUser } from "@auth0/nextjs-auth0";
 import * as React from "react";
 
 import { IframeAwareLoginLink } from "../shared/django-helpers";
-import { generateAvatarUrl } from "../shared/user-helpers";
 import { AvatarImage } from "./avatar-image";
 import { Link } from "./link";
 
@@ -18,11 +17,7 @@ export const UserProfile: React.VoidFunctionComponent = () => {
 
   return user ? (
     <div>
-      <AvatarImage
-        src={generateAvatarUrl(user.picture, user.email)}
-        alt={user.name}
-        size={150}
-      />
+      <AvatarImage user={user} size={150} />
       <h4>{user.name}</h4>
       <p>{user.email}</p>
       <Link href="/api/auth/logout">Logout</Link>
