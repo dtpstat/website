@@ -7,27 +7,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum CommentStatus {
+  pending
+  approved
+  rejected
+}
+
 model Comment {
-  id          Int      @id @default(autoincrement())
-  accidentId  String   @map("accident_id") @db.VarChar
-  text        String
-  authorId    String   @map("author_id") @db.VarChar
-  isPublished Boolean  @default(false) @map("is_published")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @default(now()) @map("updated_at")
-  author      User     @relation(fields: [authorId], references: [id])
+  id         Int    @id @default(autoincrement())
+  accidentId String @map("accident_id") @db.VarChar
+  text       String
+
+  authorId String @map("author_id") @db.VarChar
+  author   User   @relation(fields: [authorId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  status CommentStatus @default(pending)
 
   @@map("comments")
 }
 
 model User {
-  id        String    @id @db.VarChar
-  name      String
-  email     String
-  picture   String?
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @default(now()) @map("updated_at")
-  comments  Comment[]
+  id      String  @id @db.VarChar
+  name    String
+  email   String
+  picture String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  comments Comment[]
 
   @@map("users")
 }

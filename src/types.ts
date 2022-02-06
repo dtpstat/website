@@ -1,3 +1,5 @@
+import { type CommentStatus } from "@prisma/client";
+
 export interface NewComment {
   text: string;
   accidentId: string;
@@ -9,7 +11,7 @@ export interface PublicCommentInfo {
   authorName: string;
   createdAt: string;
   id: number;
-  isPublished: boolean;
+  status: CommentStatus;
   text: string;
 }
 
