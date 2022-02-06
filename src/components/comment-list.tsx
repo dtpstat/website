@@ -2,7 +2,6 @@ import * as React from "react";
 import styled from "styled-components";
 
 import { useComments } from "../providers/comments-provider";
-import { Comment } from "../types";
 import { CommentItem } from "./comment-item";
 
 const CommentsHeader = styled.h2`
@@ -20,7 +19,7 @@ export const CommentList: React.VoidFunctionComponent = () => {
   return (
     <div>
       <CommentsHeader>Комментарии - {comments.length}</CommentsHeader>
-      {comments.map((comment: Comment) => {
+      {comments.map((comment) => {
         return <CommentItem key={comment.id} comment={comment} />;
       })}
     </div>
