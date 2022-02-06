@@ -6,7 +6,6 @@ import { useAccident } from "../providers/accident-provider";
 import { useComments } from "../providers/comments-provider";
 import { postComment } from "../requests/comments";
 import { IframeAwareLoginLink } from "../shared/django-helpers";
-import { generateAvatarUrl } from "../shared/user-helpers";
 import { NewComment } from "../types";
 import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";
@@ -89,10 +88,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
 
   return (
     <InputContainer>
-      <AvatarImage
-        src={generateAvatarUrl(user.picture, user.email)}
-        alt={user.name}
-      />
+      <AvatarImage user={user} />
       <Textarea
         placeholder="Добавить комментарий..."
         disabled={submitting}
