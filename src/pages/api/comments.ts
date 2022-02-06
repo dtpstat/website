@@ -23,7 +23,7 @@ const commentSelect = {
   },
   createdAt: true,
   id: true,
-  isPublished: true,
+  status: true,
   text: true,
 } as const;
 
@@ -32,7 +32,7 @@ const convertSelectedCommentToPublicInfo = ({
   author,
   createdAt,
   id,
-  isPublished,
+  status,
   text,
 }: Prisma.CommentGetPayload<{
   select: typeof commentSelect;
@@ -42,7 +42,7 @@ const convertSelectedCommentToPublicInfo = ({
   authorName: author.name,
   createdAt: createdAt.toISOString(),
   id,
-  isPublished,
+  status,
   text,
 });
 
@@ -117,7 +117,7 @@ const handler: NextApiHandler = async (req, res) => {
       where: {
         OR: [
           {
-            isPublished: true,
+            status: "approved",
             accidentId,
           },
           ...(typeof myId === "string"
@@ -125,7 +125,8 @@ const handler: NextApiHandler = async (req, res) => {
                 {
                   accidentId,
                   authorId: myId,
-                },
+                  status: "pending",
+                } as const,
               ]
             : []),
         ],
