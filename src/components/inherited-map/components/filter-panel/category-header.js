@@ -41,7 +41,7 @@ const CategoryHeader = () => {
         <input
           type="text"
           className="input"
-          placeholder="Введите название нарушения"
+          placeholder="Поиск"
           value={filterStore.search}
           onChange={(e) => filterStore.setSearch(e.target.value)}
         />
