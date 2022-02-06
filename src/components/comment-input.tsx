@@ -63,7 +63,7 @@ export const CommentInput: React.VoidFunctionComponent = () => {
 
     try {
       setSubmitting(true);
-      const comment = await postComment(window.location.origin, newComment);
+      const comment = await postComment(newComment);
 
       setComments([...comments, comment]);
       setNewCommentText("");

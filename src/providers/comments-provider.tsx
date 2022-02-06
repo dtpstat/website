@@ -26,10 +26,7 @@ export const CommentsProvider: React.VoidFunctionComponent<{
     let effectIsStale = false;
 
     const fetchAndSetComments = async () => {
-      const initialComments = await fetchComments(
-        window.location.origin,
-        accidentId,
-      );
+      const initialComments = await fetchComments(accidentId);
 
       if (!effectIsStale) {
         setComments(initialComments);
