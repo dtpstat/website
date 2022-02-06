@@ -1,11 +1,12 @@
 import * as React from "react";
 import styled from "styled-components";
 
+import { generateAvatarUrl } from "../shared/user-helpers";
+
 const defaultAvatarImgAttributes = {
   src: "",
   alt: "аватарка",
-  width: 28,
-  height: 28,
+  size: 28,
 };
 
 const StyledImg = styled.img`
@@ -14,23 +15,33 @@ const StyledImg = styled.img`
 `;
 
 interface AvatarImageProps {
-  src?: string | null;
+  /**
+   * Can be Auth0 user (i.e. ‘me’) or data from Prisma.
+   *
+   * If picture is missing but email is present, gravatar URL is generated
+   */
+  user: {
+    name?: string | null | undefined;
+    picture?: string | null | undefined;
+    email?: string | null | undefined;
+  };
+  /** With and height */
   size?: number;
-  alt?: string | null;
 }
 
 export const AvatarImage: React.VoidFunctionComponent<AvatarImageProps> = ({
-  src,
-  alt,
+  user,
   size,
 }) => {
+  const src = generateAvatarUrl(user.picture, user.email);
+
   return (
     <StyledImg
       referrerPolicy="no-referrer"
       src={src ?? defaultAvatarImgAttributes.src}
-      alt={alt ?? defaultAvatarImgAttributes.alt}
-      width={size || defaultAvatarImgAttributes.width}
-      height={size || defaultAvatarImgAttributes.height}
+      alt={user.name ?? defaultAvatarImgAttributes.alt}
+      width={size ?? defaultAvatarImgAttributes.size}
+      height={size ?? defaultAvatarImgAttributes.size}
     />
   );
 };
