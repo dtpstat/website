@@ -15,8 +15,8 @@ export const Loader: React.VoidFunctionComponent<
       width="24px"
       height="30px"
       viewBox="0 0 24 30"
-      {...props}
       xmlSpace="preserve"
+      {...props}
     >
       <rect
         x="0"
