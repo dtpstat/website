@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { useComments } from "../providers/comments-provider";
 import { CommentItem } from "./comment-item";
+import { Loader } from "./loader";
 
 const CommentsHeader = styled.h2`
   font-family: ${(props) => props.theme.fontFamily};
@@ -13,12 +14,21 @@ const CommentsHeader = styled.h2`
   color: #18334a;
 `;
 
+const StyledLoader = styled(Loader)`
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.5em;
+`;
+
 export const CommentList: React.VoidFunctionComponent = () => {
-  const { comments } = useComments();
+  const { comments, commentsAreLoading } = useComments();
 
   return (
     <div>
-      <CommentsHeader>Комментарии - {comments.length}</CommentsHeader>
+      <CommentsHeader>
+        Комментарии
+        {commentsAreLoading ? <StyledLoader /> : <> – {comments.length}</>}
+      </CommentsHeader>
       {comments.map((comment) => {
         return <CommentItem key={comment.id} comment={comment} />;
       })}
