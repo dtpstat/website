@@ -35,20 +35,16 @@ const SubmitButtonContainer = styled.div`
 `;
 
 export const CommentInput: React.VoidFunctionComponent = () => {
-  const { setNewCommentText, newCommentText, comments, setComments } =
-    useComments();
+  const {
+    setNewCommentText,
+    newCommentText,
+    comments,
+    setComments,
+    commentsAreLoading,
+  } = useComments();
   const { user, isLoading: userIsLoading } = useUser();
   const { accidentId } = useAccident();
   const [submitting, setSubmitting] = React.useState<boolean>(false);
-
-  if (!user) {
-    return (
-      <div>
-        Для оставления комментария{" "}
-        <IframeAwareLoginLink>авторизуйтесь</IframeAwareLoginLink>.
-      </div>
-    );
-  }
 
   const handleSubmit = async () => {
     if (!newCommentText) {
@@ -77,8 +73,17 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     setNewCommentText(event.target.value);
   };
 
-  if (userIsLoading) {
+  if (userIsLoading || commentsAreLoading) {
     return <></>;
+  }
+
+  if (!user) {
+    return (
+      <div>
+        Для оставления комментария{" "}
+        <IframeAwareLoginLink>авторизуйтесь</IframeAwareLoginLink>.
+      </div>
+    );
   }
 
   return (

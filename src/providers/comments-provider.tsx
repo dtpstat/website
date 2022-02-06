@@ -1,4 +1,5 @@
 import * as React from "react";
+import { unstable_batchedUpdates } from "react-dom";
 
 import { fetchComments } from "../requests/comments";
 import { PublicCommentInfo } from "../types";
@@ -8,6 +9,7 @@ interface CommentsContextValue {
   newCommentText: string;
   setNewCommentText: React.Dispatch<React.SetStateAction<string>>;
   comments: PublicCommentInfo[];
+  commentsAreLoading: boolean;
   setComments: React.Dispatch<React.SetStateAction<PublicCommentInfo[]>>;
 }
 
@@ -19,20 +21,29 @@ export const CommentsProvider: React.VoidFunctionComponent<{
   children?: React.ReactNode;
 }> = ({ children }) => {
   const [comments, setComments] = React.useState<PublicCommentInfo[]>([]);
+  const [loading, setLoading] = React.useState<boolean>(true);
   const [newCommentText, setNewCommentText] = React.useState<string>("");
   const { accidentId } = useAccident();
 
   React.useEffect(() => {
     let effectIsStale = false;
+    setLoading(true);
 
     const fetchAndSetComments = async () => {
-      const initialComments = await fetchComments(
-        window.location.origin,
-        accidentId,
-      );
+      try {
+        const initialComments = await fetchComments(
+          window.location.origin,
+          accidentId,
+        );
 
-      if (!effectIsStale) {
-        setComments(initialComments);
+        if (!effectIsStale) {
+          unstable_batchedUpdates(() => {
+            setLoading(false);
+            setComments(initialComments);
+          });
+        }
+      } catch {
+        setLoading(false);
       }
     };
 
@@ -42,14 +53,16 @@ export const CommentsProvider: React.VoidFunctionComponent<{
       effectIsStale = true;
     };
   }, [accidentId]);
+
   const providerValue = React.useMemo<CommentsContextValue>(
     () => ({
       newCommentText,
       setNewCommentText,
       comments,
+      commentsAreLoading: loading,
       setComments,
     }),
-    [newCommentText, setNewCommentText, comments, setComments],
+    [newCommentText, comments, loading],
   );
 
   return (
