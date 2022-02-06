@@ -32,7 +32,7 @@ const suffix = suffixByContext[process.env.CONTEXT];
 if (suffix) {
   for (const key in process.env) {
     if (key.endsWith(`_${suffix}`)) {
-      envToWrite[key.slice(undefined, suffix.length - 1)] = process.env[key];
+      envToWrite[key.slice(0, -suffix.length - 1)] = process.env[key];
     }
   }
 }
