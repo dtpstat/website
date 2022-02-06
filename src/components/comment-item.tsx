@@ -66,11 +66,11 @@ export const CommentItem: React.VoidFunctionComponent<CommentItemProps> = ({
         <div>
           <CommentAuthor>{comment.authorName}</CommentAuthor>:{" "}
           <CommentDate>{formatDate(comment.createdAt)}</CommentDate>
-          {comment.status === "pending" ? undefined : (
+          {comment.status === "pending" ? (
             <Tag title="Комментарий еще не опубликован и виден только вам">
               На модерации
             </Tag>
-          )}
+          ) : undefined}
         </div>
         <CommentText>
           <Linkify>{comment.text}</Linkify>
