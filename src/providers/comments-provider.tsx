@@ -31,10 +31,7 @@ export const CommentsProvider: React.VoidFunctionComponent<{
 
     const fetchAndSetComments = async () => {
       try {
-        const initialComments = await fetchComments(
-          window.location.origin,
-          accidentId,
-        );
+        const initialComments = await fetchComments(accidentId);
 
         if (!effectIsStale) {
           unstable_batchedUpdates(() => {
