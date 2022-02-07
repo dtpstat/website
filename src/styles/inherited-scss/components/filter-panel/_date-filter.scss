@@ -7,10 +7,10 @@
 
 .inputWrap .date-input {
   border-radius: 4px 0 0 4px;
-  // &::selection {
-  //   color: $white;
-  //   background: $greyDark;
-  // }
+
+  @media screen and (max-width: 768px) {
+    font-size: 16px; // disable auto zoom in input on ios-devices
+  }
 }
 
 .date-button {
@@ -21,7 +21,7 @@
   border-radius: 0 4px 4px 0;
   transition: color 0.3s ease-in-out, background 0.3s ease-in-out;
   background: $greyMiddle;
-  // background-color: aliceblue;  
+  // background-color: aliceblue;
   color: $greyDark;
   &:hover,
   &:focus {
