@@ -6,7 +6,7 @@
   pointer-events: all;
   width: fit-content;
 
-  @include mq('768') {
+  @include mq("768") {
     min-width: 240px;
   }
 

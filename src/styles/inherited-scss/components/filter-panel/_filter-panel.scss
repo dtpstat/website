@@ -52,7 +52,7 @@
   }
   .value-preview {
     margin-left: 7px;
-    @include mq('768') {
+    @include mq("768") {
       margin-top: -2px;
     }
   }
@@ -96,7 +96,7 @@
   gap: 12px;
   grid-auto-rows: 65px;
 
-  @include mq('1440') {
+  @include mq("1440") {
     grid-auto-rows: 60px;
   }
 }
@@ -111,7 +111,7 @@
   padding: 4px;
   transition: background 0.3s ease, color 0.3s ease;
 
-  @include mq('1440') {
+  @include mq("1440") {
     padding: 8px;
   }
 
@@ -141,7 +141,7 @@
     font-size: 10px;
     text-align: center;
     color: $greyDark;
-    @include mq('1440') {
+    @include mq("1440") {
       font-size: calc(3rem / 4);
     }
   }

@@ -10,7 +10,7 @@
   margin-bottom: 32px;
   width: 100%;
 
-  @include mq('768') {
+  @include mq("768") {
     flex-direction: row;
   }
 }
@@ -22,14 +22,14 @@
   justify-content: space-between;
   margin-bottom: 16px;
 
-  @include mq('768') {
+  @include mq("768") {
     flex-direction: row;
   }
 
   + .body1 {
     flex-direction: column;
 
-    @include mq('768') {
+    @include mq("768") {
       flex-direction: row;
     }
   }
@@ -43,7 +43,7 @@
   grid-template-columns: 1fr 1fr;
   width: fit-content;
 
-  @include mq('768') {
+  @include mq("768") {
     grid-template-columns: repeat(4, 1fr);
   }
 }
@@ -96,7 +96,7 @@
   width: fit-content;
   flex-direction: column;
 
-  @include mq('768') {
+  @include mq("768") {
     flex-direction: row;
   }
 
@@ -107,7 +107,7 @@
   .subtitle1 {
     margin-bottom: 12px;
 
-    @include mq('768') {
+    @include mq("768") {
       margin-bottom: 0;
       margin-right: 12px;
     }

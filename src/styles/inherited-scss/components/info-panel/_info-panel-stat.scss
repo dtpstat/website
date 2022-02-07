@@ -1,5 +1,5 @@
 .stat {
-  @include mq('1440') {
+  @include mq("1440") {
     margin-right: 28px;
   }
 }
@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column-reverse;
 
-  @include mq('1440') {
+  @include mq("1440") {
     flex-direction: row;
   }
 
@@ -51,7 +51,7 @@
   width: 100%;
   margin-top: 8px;
 
-  @include mq('1440') {
+  @include mq("1440") {
     width: 708px;
     margin-top: 0;
   }

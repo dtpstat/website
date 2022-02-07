@@ -6,7 +6,7 @@
   .h1 {
     margin: 28px auto 20px;
 
-    @include mq('768') {
+    @include mq("768") {
       margin: 48px auto 40px;
     }
   }
@@ -20,12 +20,12 @@
   max-width: 1440px;
   padding: 0 10px;
 
-  @include mq('768') {
+  @include mq("768") {
     grid-template-columns: repeat(3, 1fr);
     padding: 0 30px;
   }
 
-  @include mq('1440') {
+  @include mq("1440") {
     padding: 0 130px;
   }
 }
@@ -34,7 +34,7 @@
   min-height: 100vh;
   padding-top: 24px;
 
-  @include mq('1440') {
+  @include mq("1440") {
     padding-top: 54px;
   }
 
@@ -46,7 +46,7 @@
       width: fit-content;
       margin: 0 auto 20px;
 
-      @include mq('1440') {
+      @include mq("1440") {
         margin: 0 auto 40px;
       }
     }
@@ -59,11 +59,11 @@
     max-width: 844px;
     overflow: hidden;
 
-    @include mq('768') {
+    @include mq("768") {
       height: 340px;
     }
 
-    @include mq('1440') {
+    @include mq("1440") {
       height: 440px;
       margin: 0 auto 48px;
     }
@@ -80,7 +80,7 @@
   margin: 0 auto;
   max-width: 844px;
 
-  @include mq('768') {
+  @include mq("768") {
     display: flex;
   }
 
@@ -90,7 +90,7 @@
     outline: 1px solid $greyDark;
     width: 129px;
 
-    @include mq('768') {
+    @include mq("768") {
       margin-right: -39px;
       margin-top: -39px;
       transform-origin: 0 100%;
@@ -101,7 +101,7 @@
   .article-body {
     margin-bottom: 32px;
 
-    @include mq('768') {
+    @include mq("768") {
       padding-right: 72px;
     }
   }
@@ -116,11 +116,11 @@
     margin-bottom: 28px;
     overflow: hidden;
 
-    @include mq('768') {
+    @include mq("768") {
       height: 340px;
     }
 
-    @include mq('1440') {
+    @include mq("1440") {
       height: 440px;
     }
 

@@ -3,7 +3,7 @@
   grid-template-columns: 1fr;
   gap: 10px 0;
 
-  @include mq('768') {
+  @include mq("768") {
     grid-template-columns: repeat(3, 1fr);
     gap: 50px 0;
   }

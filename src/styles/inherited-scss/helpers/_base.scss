@@ -16,7 +16,7 @@ html {
   font-weight: 400;
   height: 100%;
   line-height: 1.2;
-  @include mq('1440') {
+  @include mq("1440") {
     font-size: $font-size-main;
   }
 }
@@ -63,7 +63,7 @@ address {
   font-style: normal;
 }
 
-input:not([type='checkbox']):not([type='radio']),
+input:not([type="checkbox"]):not([type="radio"]),
 textarea,
 select {
   -webkit-appearance: none;
@@ -71,13 +71,13 @@ select {
   appearance: none;
 }
 
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield !important;
   appearance: textfield !important;
 }
 
-input[type='number']::-webkit-outer-spin-button,
-input[type='number']::-webkit-inner-spin-button {
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none !important;
   margin: 0 !important;
 }
