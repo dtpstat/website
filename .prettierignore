@@ -8,14 +8,14 @@
 
 # Allow certain file types
 !*.cjs
-!*.js
 !*.css
-!*.scss
-!*.jsx
+!*.js
 !*.json
+!*.jsx
 !*.md
 !*.mjs
 !*.prisma
+!*.scss
 !*.ts
 !*.tsx
 !*.yml
