@@ -6,7 +6,6 @@ import { useAccident } from "../providers/accident-provider";
 import { useComments } from "../providers/comments-provider";
 import { postComment } from "../requests/comments";
 import { IframeAwareLoginLink } from "../shared/django-helpers";
-import { generateAvatarUrl } from "../shared/user-helpers";
 import { NewComment } from "../types";
 import { AvatarImage } from "./avatar-image";
 import { Button } from "./button";
@@ -36,20 +35,16 @@ const SubmitButtonContainer = styled.div`
 `;
 
 export const CommentInput: React.VoidFunctionComponent = () => {
-  const { setNewCommentText, newCommentText, comments, setComments } =
-    useComments();
+  const {
+    setNewCommentText,
+    newCommentText,
+    comments,
+    setComments,
+    commentsAreLoading,
+  } = useComments();
   const { user, isLoading: userIsLoading } = useUser();
   const { accidentId } = useAccident();
   const [submitting, setSubmitting] = React.useState<boolean>(false);
-
-  if (!user) {
-    return (
-      <div>
-        Для оставления комментария{" "}
-        <IframeAwareLoginLink>авторизуйтесь</IframeAwareLoginLink>.
-      </div>
-    );
-  }
 
   const handleSubmit = async () => {
     if (!newCommentText) {
@@ -78,16 +73,22 @@ export const CommentInput: React.VoidFunctionComponent = () => {
     setNewCommentText(event.target.value);
   };
 
-  if (userIsLoading) {
+  if (userIsLoading || commentsAreLoading) {
     return <></>;
+  }
+
+  if (!user) {
+    return (
+      <div>
+        Для оставления комментария{" "}
+        <IframeAwareLoginLink>авторизуйтесь</IframeAwareLoginLink>.
+      </div>
+    );
   }
 
   return (
     <InputContainer>
-      <AvatarImage
-        src={generateAvatarUrl(user.picture, user.email)}
-        alt={user.name}
-      />
+      <AvatarImage user={user} />
       <Textarea
         placeholder="Добавить комментарий..."
         disabled={submitting}
