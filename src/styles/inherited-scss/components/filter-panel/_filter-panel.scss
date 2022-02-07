@@ -6,7 +6,7 @@
   pointer-events: all;
   margin: 20px;
   position: relative;
-  max-height: calc(100% - 76px);
+  max-height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
 
@@ -16,6 +16,12 @@
     top: 100%;
     transform: translateX(-50%) translateY(-50%);
     box-shadow: 0px 3px 8px #d4dadd;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 320px;
+    margin-top: 70px;
+    margin-left: 8px;
   }
 }
 

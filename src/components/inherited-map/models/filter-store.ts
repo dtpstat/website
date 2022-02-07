@@ -47,7 +47,7 @@ export const FilterStore = types
         CategoryFilter,
       ),
     ),
-    visible: true,
+    visible: window.innerWidth >= 768,
     search: "",
     currentKey: types.maybeNull(types.string),
   })
