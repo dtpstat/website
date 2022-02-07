@@ -1,5 +1,6 @@
-$font-family-main: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu',
-  'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+$font-family-main: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
+  "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  sans-serif;
 //SIZE
 $font-size-main: 16px;
 $font-size-h1: 40px;
@@ -32,11 +33,11 @@ $white50: rgba($white, 0.5);
 $yellow10: rgba($yellow, 0.1);
 */
 $breakpoints: (
-  '320': 320px,
-  '768': 768px,
-  '1024': 1024px,
-  '1280': 1280px,
-  '1440': 1440px,
+  "320": 320px,
+  "768": 768px,
+  "1024": 1024px,
+  "1280": 1280px,
+  "1440": 1440px,
 );
 //width container
 $max-width: 1440px;

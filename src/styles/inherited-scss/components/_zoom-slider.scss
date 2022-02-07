@@ -76,7 +76,7 @@
   position: absolute;
   top: 30px;
 
-  @include mq('768') {
+  @include mq("768") {
     display: flex;
   }
 

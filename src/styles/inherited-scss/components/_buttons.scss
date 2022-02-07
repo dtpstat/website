@@ -7,7 +7,7 @@
   padding: 4px 12px;
   position: relative;
   transition: color 0.3s ease-in-out, background 0.3s ease-in-out;
-  @include mq('768') {
+  @include mq("768") {
     padding: 6px 16px;
   }
 }
@@ -200,7 +200,7 @@
   &:before {
     background-color: $greyDark;
     border-radius: 6px;
-    content: '';
+    content: "";
     display: inline-block;
     height: 2px;
     left: 50%;
@@ -217,7 +217,7 @@
   &:after {
     background-color: $greyDark;
     border-radius: 6px;
-    content: '';
+    content: "";
     display: inline-block;
     height: 2px;
     left: 50%;
@@ -241,10 +241,12 @@
   padding: 0;
   width: 100px;
   margin-top: -80px;
-  box-shadow: 0px 0px 54px rgba(9, 42, 70, 0.11), 0px 0px 16.28px rgba(9, 42, 70, 0.0716748),
-    0px 0px 6.76164px rgba(9, 42, 70, 0.055), 0px 0px 2.45px rgba(9, 42, 70, 0.038);
+  box-shadow: 0px 0px 54px rgba(9, 42, 70, 0.11),
+    0px 0px 16.28px rgba(9, 42, 70, 0.0716748),
+    0px 0px 6.76164px rgba(9, 42, 70, 0.055),
+    0px 0px 2.45px rgba(9, 42, 70, 0.038);
 
-  @include mq('768') {
+  @include mq("768") {
     width: 240px;
     height: 240px;
   }
@@ -270,7 +272,8 @@
   align-items: center;
   background-color: rgba($white, 0.85);
   border-radius: 20px;
-  box-shadow: 0px -0.83px 3.3px rgba(0, 0, 0, 0.04), 0px 5px 11.67px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px -0.83px 3.3px rgba(0, 0, 0, 0.04),
+    0px 5px 11.67px rgba(0, 0, 0, 0.2);
   color: $greyDark;
   display: flex;
   flex-shrink: 0;
@@ -281,7 +284,7 @@
   right: 10px;
   transition: background-color 0.3s ease;
 
-  @include mq('768') {
+  @include mq("768") {
     position: relative;
     right: initial;
   }

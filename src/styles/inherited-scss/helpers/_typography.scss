@@ -35,7 +35,7 @@
   font-size: 0.9rem;
   line-height: 1.5rem;
 
-  @include mq('768') {
+  @include mq("768") {
     font-size: 1rem;
   }
 }
@@ -54,7 +54,7 @@
 }
 
 .bodySerif {
-  font-family: Merriweather, Georgia, 'Times New Roman', Times, serif;
+  font-family: Merriweather, Georgia, "Times New Roman", Times, serif;
   font-style: normal;
   font-weight: normal;
   font-size: calc(9rem / 8);
@@ -65,7 +65,7 @@
   font-weight: bold;
   font-size: calc(15rem / 8);
   line-height: 2.2rem;
-  @include mq('1440') {
+  @include mq("1440") {
     line-height: 3rem;
   }
 }
@@ -82,7 +82,7 @@
   font-weight: bold;
   letter-spacing: -0.4px;
   line-height: 1rem;
-  @include mq('1440') {
+  @include mq("1440") {
     line-height: calc(7rem / 4);
     font-size: calc(5rem / 4);
   }
