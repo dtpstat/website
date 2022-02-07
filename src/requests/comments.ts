@@ -1,4 +1,3 @@
-import { buildCommentsApiUrl } from "../shared/api-helpers";
 import {
   CommentsApiHandlerSuccessfulGetResponseBody,
   CommentsApiHandlerSuccessfulPostResponseBody,
@@ -7,11 +6,12 @@ import {
 } from "../types";
 
 export const fetchComments = async (
-  baseUrl: string,
   accidentId: string,
 ): Promise<PublicCommentInfo[]> => {
-  const commentsApiUrl = buildCommentsApiUrl(baseUrl, accidentId);
-  const res = await fetch(commentsApiUrl);
+  const res = await fetch(
+    `/api/comments?accident-id=${encodeURIComponent(accidentId)}`,
+  );
+
   const { comments } =
     (await res.json()) as CommentsApiHandlerSuccessfulGetResponseBody;
 
@@ -19,13 +19,13 @@ export const fetchComments = async (
 };
 
 export const postComment = async (
-  baseUrl: string,
   newComment: NewComment,
 ): Promise<PublicCommentInfo> => {
-  const res = await fetch(buildCommentsApiUrl(baseUrl), {
+  const res = await fetch("/api/comments/post", {
     body: JSON.stringify(newComment),
     method: "POST",
   });
+
   const { comment } =
     (await res.json()) as CommentsApiHandlerSuccessfulPostResponseBody;
 
