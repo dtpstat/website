@@ -54,7 +54,9 @@ export const Map = observer(() => {
         },
       );
       mapStore.setMap(map);
-      map.copyrights.add('<a href="https://dtp-stat.ru/opendata/">Официальные данные ГИБДД</a>');
+      map.copyrights.add(
+        '<a href="https://dtp-stat.ru/opendata/">Оффициальные данные ГИБДД</a>',
+      );
       map.events.add("boundschange", boundsChangeHandler);
       map.controls
         .add("zoomControl", {
