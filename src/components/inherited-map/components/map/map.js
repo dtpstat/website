@@ -49,9 +49,14 @@ export const Map = observer(() => {
         },
         {
           avoidFractionalZoom: true,
+          yandexMapDisablePoiInteractivity: true,
+          suppressMapOpenBlock: true,
         },
       );
       mapStore.setMap(map);
+      map.copyrights.add(
+        '<a href="https://dtp-stat.ru/opendata/">Оффициальные данные ГИБДД</a>',
+      );
       map.events.add("boundschange", boundsChangeHandler);
       map.controls
         .add("zoomControl", {
