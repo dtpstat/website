@@ -78,7 +78,7 @@ export const MapStore = types
 
       // @ts-expect-error -- TODO: add ymaps to window
       objectManager = new window.ymaps.ObjectManager({
-        clusterize: false,
+        clusterize: true,
         gridSize: 256,
         clusterIconPieChartRadius: (node: any) => {
           // eslint-disable-next-line no-var
@@ -93,6 +93,9 @@ export const MapStore = types
         showInAlphabeticalOrder: true,
         clusterDisableClickZoom: true,
         clusterIconLayout: "default#pieChart",
+        clusterBalloonContentLayoutHeight: 180,
+        clusterBalloonContentLayoutWidth: 275,
+        clusterBalloonLeftColumnWidth: 100,
       });
 
       objectManager.objects.events.add(
@@ -195,8 +198,8 @@ export const MapStore = types
       type: "Feature",
       id: acc.id,
       geometry: {
-        type: "Circle",
-        radius: Math.max(120 - (zoom - POINTS_ZOOM) * 20, 10),
+        type: "Point",
+        // radius: Math.max(120 - (zoom - POINTS_ZOOM) * 20, 10),
         coordinates: [acc.point.latitude, acc.point.longitude],
       },
       properties: {
@@ -208,12 +211,12 @@ export const MapStore = types
         // iconLayout: 'default#image',
         // // @ts-ignore
         // iconImageHref: supportedIconsBySeverity[acc.severity],
-        iconImageSize: [5, 5],
-        // iconImageOffset: [-5, -5],
+        iconImageSize: [10, 10],
+        iconImageOffset: [-5, -5],
 
-        // preset: "islands#circleIcon",
+        preset: "islands#circleIcon",
         // @ts-expect-error -- TODO: investigate
-        fillColor: colorBySeverity[acc.severity],
+        iconColor: colorBySeverity[acc.severity],
         outline: false,
       },
     });
