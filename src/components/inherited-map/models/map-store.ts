@@ -93,8 +93,8 @@ export const MapStore = types
         showInAlphabeticalOrder: true,
         clusterDisableClickZoom: true,
         clusterIconLayout: "default#pieChart",
-        clusterBalloonContentLayoutHeight: 180,
-        clusterBalloonContentLayoutWidth: 275,
+        clusterBalloonContentLayoutHeight: 230,
+        clusterBalloonContentLayoutWidth: 310,
         clusterBalloonLeftColumnWidth: 100,
       });
 
