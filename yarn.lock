@@ -981,6 +981,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/yandex-maps@npm:^2.1.20":
+  version: 2.1.20
+  resolution: "@types/yandex-maps@npm:2.1.20"
+  checksum: ec47adee269ebefd9e5470a0aa1119b66530686d34f7c4f793cc74a6281d4e56c7d50b0c1be9efc2efac7576b210f120bf7ce9985be2c786530e85b5e2d9230c
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/eslint-plugin@npm:^5.8.1":
   version: 5.10.2
   resolution: "@typescript-eslint/eslint-plugin@npm:5.10.2"
@@ -5562,6 +5569,7 @@ __metadata:
     "@types/react-dom": ^17.0.11
     "@types/react-linkify": ^1.0.1
     "@types/styled-components": ^5.1.22
+    "@types/yandex-maps": ^2.1.20
     date-fns: ^2.28.0
     dayjs: ^1.10.7
     dotenv-flow: ^3.2.0
