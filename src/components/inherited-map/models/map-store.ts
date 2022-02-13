@@ -5,12 +5,20 @@ import { InfoBalloonContent } from "../components/info-balloon";
 import { Coordinate } from "../types";
 import { RootStoreType } from "./root-store";
 
+type Severity = "0" | "1" | "3" | "4";
+
 const iconBySeverity = {
   0: "/static/media/svg/circle-0.svg",
   1: "/static/media/svg/circle-1.svg",
   3: "/static/media/svg/circle-3.svg",
   4: "/static/media/svg/circle-4.svg",
-  default: "/static/media/svg/circle-default.svg",
+};
+
+const colorBySeverity = {
+  0: "rgba(24, 51, 74, 0.5)",
+  1: "#FFB81F",
+  3: "#FF7F24",
+  4: "#FF001A",
 };
 
 export const buildSelection = (filters: any[]) => {
@@ -69,20 +77,9 @@ export const MapStore = types
     function setMap(mapInstance: any) {
       map = mapInstance;
 
-      // @ts-expect-error -- TODO: add ymaps to window
       objectManager = new window.ymaps.ObjectManager({
-        clusterize: false,
-        gridSize: 256,
-        clusterIconPieChartRadius: (node: any) => {
-          // eslint-disable-next-line no-var
-          for (var radius = 0, i = 0, r = node.length; i < r; i++) {
-            radius += node[i].weight;
-          }
-          // return 10 + (10 * Math.log(radius)) / 0.69314718056 // PR
-          // return 25 + 2 * Math.floor(Math.log(radius)) // Yandex
-
-          return 15 + 4 * Math.floor(Math.log(radius));
-        },
+        clusterize: true,
+        groupByCoordinates: true,
         showInAlphabeticalOrder: true,
         clusterDisableClickZoom: true,
         clusterIconLayout: "default#pieChart",
@@ -113,18 +110,12 @@ export const MapStore = types
         handlerCloseBalloon();
       });
 
-      // @ts-expect-error -- TODO: add ymaps to window
+      // @ts-expect-error -- TODO: investigate why Heatmap is not in @types/yandex-map
       heatmap = new window.ymaps.Heatmap([], {
         radius: 15,
         dissipating: false,
         opacity: 0.5,
         intensityOfMidpoint: 0.5,
-        // gradient: {
-        //   0.1: 'rgba(128, 255, 0, 0.7)',
-        //   0.2: 'rgba(255, 255, 0, 0.8)',
-        //   0.7: 'rgba(234, 72, 58, 0.9)',
-        //   1.0: 'rgba(162, 36, 25, 1)',
-        // },
         gradient: {
           0: "rgba(126, 171, 85, 0.0)",
           0.2: "rgba(126, 171, 85, 0.6)",
@@ -199,11 +190,12 @@ export const MapStore = types
       options: {
         hideIconOnBalloonOpen: false,
         iconImageHref:
-          iconBySeverity[acc.severity as "0" | "1" | "3" | "4"] ??
-          iconBySeverity.default,
+          iconBySeverity[acc.severity as Severity] ?? iconBySeverity[0],
         iconImageOffset: [-5, -5],
         iconImageSize: [10, 10],
         iconLayout: "default#image",
+        iconColor:
+          colorBySeverity[acc.severity as Severity] ?? colorBySeverity[0],
       },
     });
 
