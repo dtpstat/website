@@ -3,21 +3,14 @@ import ReactDOMServer from "react-dom/server";
 
 import { InfoBalloonContent } from "../components/info-balloon";
 import { Coordinate } from "../types";
-import { POINTS_ZOOM } from "../utils";
 import { RootStoreType } from "./root-store";
 
-// const supportedIconsBySeverity = {
-//   0: 'svg/circle-0.svg',
-//   1: 'svg/circle-1.svg',
-//   3: 'svg/circle-3.svg',
-//   4: 'svg/circle-4.svg',
-//   default: 'svg/circle-default.svg',
-// }
-
-const colorBySeverity = {
-  1: "#FFB81F",
-  3: "#FF7F24",
-  4: "#FF001A",
+const iconBySeverity = {
+  0: "/static/media/svg/circle-0.svg",
+  1: "/static/media/svg/circle-1.svg",
+  3: "/static/media/svg/circle-3.svg",
+  4: "/static/media/svg/circle-4.svg",
+  default: "/static/media/svg/circle-default.svg",
 };
 
 export const buildSelection = (filters: any[]) => {
@@ -195,8 +188,7 @@ export const MapStore = types
       type: "Feature",
       id: acc.id,
       geometry: {
-        type: "Circle",
-        radius: Math.max(120 - (zoom - POINTS_ZOOM) * 20, 10),
+        type: "Point",
         coordinates: [acc.point.latitude, acc.point.longitude],
       },
       properties: {
@@ -205,16 +197,13 @@ export const MapStore = types
         visible: true,
       },
       options: {
-        // iconLayout: 'default#image',
-        // // @ts-ignore
-        // iconImageHref: supportedIconsBySeverity[acc.severity],
-        iconImageSize: [5, 5],
-        // iconImageOffset: [-5, -5],
-
-        // preset: "islands#circleIcon",
-        // @ts-expect-error -- TODO: investigate
-        fillColor: colorBySeverity[acc.severity],
-        outline: false,
+        hideIconOnBalloonOpen: false,
+        iconImageHref:
+          iconBySeverity[acc.severity as "0" | "1" | "3" | "4"] ??
+          iconBySeverity.default,
+        iconImageOffset: [-5, -5],
+        iconImageSize: [10, 10],
+        iconLayout: "default#image",
       },
     });
 
