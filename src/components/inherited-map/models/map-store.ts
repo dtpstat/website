@@ -7,19 +7,22 @@ import { RootStoreType } from "./root-store";
 
 type Severity = "0" | "1" | "3" | "4";
 
-const iconBySeverity = {
-  0: "/static/media/svg/circle-0.svg",
-  1: "/static/media/svg/circle-1.svg",
-  3: "/static/media/svg/circle-3.svg",
-  4: "/static/media/svg/circle-4.svg",
-};
-
 const colorBySeverity = {
   0: "rgba(24, 51, 74, 0.5)",
   1: "#FFB81F",
   3: "#FF7F24",
   4: "#FF001A",
 };
+
+const calculateMetersPerPixelInWgs84 = (latitude: number, zoom: number) => {
+  const result =
+    (2 * Math.PI * 6_378_137 * Math.cos((latitude * Math.PI) / 180)) /
+    (256 * Math.pow(2, zoom));
+
+  return result;
+};
+
+const pointRadiusInPixels = 5;
 
 export const buildSelection = (filters: any[]) => {
   const selection: any[] = [];
@@ -77,13 +80,7 @@ export const MapStore = types
     function setMap(mapInstance: any) {
       map = mapInstance;
 
-      objectManager = new window.ymaps.ObjectManager({
-        clusterize: true,
-        groupByCoordinates: true,
-        showInAlphabeticalOrder: true,
-        clusterDisableClickZoom: true,
-        clusterIconLayout: "default#pieChart",
-      });
+      objectManager = new window.ymaps.ObjectManager({});
 
       objectManager.objects.events.add(
         "click",
@@ -164,6 +161,9 @@ export const MapStore = types
     };
 
     const handlerOpenBalloon = (objectId: string) => {
+      objectManager.objects.balloon.setPosition(
+        objectManager.objects.getById(objectId).geometry.coordinates,
+      );
       const currentParams = new URLSearchParams(document.location.search);
       currentParams.set("active-obj", objectId);
       window.history.pushState(null, "", `?${currentParams.toString()}`);
@@ -175,29 +175,35 @@ export const MapStore = types
       window.history.pushState(null, "", `?${currentParams.toString()}`);
     };
 
-    const createFeature = (acc: any) => ({
+    const createFeature = (acc: any, zoom: number) => ({
       type: "Feature",
       id: acc.id,
       geometry: {
-        type: "Point",
+        type: "Circle",
+        radius:
+          calculateMetersPerPixelInWgs84(acc.point.latitude, self.zoom) *
+          pointRadiusInPixels,
         coordinates: [acc.point.latitude, acc.point.longitude],
       },
       properties: {
         ...acc,
-        clusterCaption: acc.datetime.split("T")[0],
         visible: true,
       },
       options: {
-        hideIconOnBalloonOpen: false,
-        iconImageHref:
-          iconBySeverity[acc.severity as Severity] ?? iconBySeverity[0],
-        iconImageOffset: [-5, -5],
-        iconImageSize: [10, 10],
-        iconLayout: "default#image",
-        iconColor:
+        fillColor:
           colorBySeverity[acc.severity as Severity] ?? colorBySeverity[0],
+        outline: false,
+        balloonOffset: [pointRadiusInPixels - 2, 0],
       },
     });
+
+    const openActiveObjectBalloon = () => {
+      const params = new URLSearchParams(window.location.search);
+      const activeObject = params.get("active-obj");
+      if (activeObject) {
+        handlerClickToObj(activeObject);
+      }
+    };
 
     const createHeatFeature = (acc: any) => ({
       id: acc.id,
@@ -216,17 +222,25 @@ export const MapStore = types
       heatmap.setData([]);
     };
 
-    const drawPoints = (accs: any[]) => {
-      objectManager.removeAll();
-      heatmap.setData([]);
-      const data = accs.map((a) => createFeature(a));
-      objectManager.add(data);
+    const recreatePoints = (accs: any[]) => {
+      const zoom = self.zoom;
 
-      const params = new URLSearchParams(window.location.search);
-      const activeObject = params.get("active-obj");
-      if (activeObject) {
-        handlerClickToObj(activeObject);
-      }
+      const data = accs.map((a) => createFeature(a, zoom));
+      objectManager.removeAll();
+      objectManager.add(data);
+      openActiveObjectBalloon();
+    };
+
+    const updatePointRadius = () => {
+      objectManager.objects.each((o: any) => {
+        o.geometry.radius =
+          calculateMetersPerPixelInWgs84(o.geometry.coordinates[0], self.zoom) *
+          pointRadiusInPixels;
+      });
+      const mapInstance = objectManager.getParent();
+      objectManager.setParent(null);
+      objectManager.setParent(mapInstance);
+      openActiveObjectBalloon();
     };
 
     const drawHeat = (accs: any[]) => {
@@ -243,7 +257,8 @@ export const MapStore = types
       setMap,
       getMap,
       updateBounds,
-      drawPoints,
+      recreatePoints,
+      updatePointRadius,
       clearObjects,
       drawHeat,
       setFilter,

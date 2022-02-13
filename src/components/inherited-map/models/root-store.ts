@@ -2,7 +2,6 @@ import makeInspectable from "mobx-devtools-mst";
 import { cast, flow, Instance, types } from "mobx-state-tree";
 import * as React from "react";
 
-import { POINTS_ZOOM } from "../utils";
 import { AreaStore } from "./area-store";
 import { FilterStore } from "./filter-store";
 import { DateFilterType } from "./filters/date-filter";
@@ -11,6 +10,7 @@ import { TrafficAccidentStore } from "./traffic-accident-store";
 
 export type RootStoreType = Instance<typeof RootStore>;
 
+const minZoomForPoints = 12;
 const RootStore = types
   .model("RootStore", {
     filterStore: FilterStore,
@@ -71,14 +71,14 @@ const RootStore = types
       return (a: any) => passFilters(a, selection);
     };
 
-    const redraw = () => {
+    const recreateMapObjects = () => {
       const visibleAccs = self.trafficAccidentStore.accs.filter(
         (a: any) => a.point,
       );
-
-      if (self.mapStore.zoom >= POINTS_ZOOM) {
+      self.mapStore.clearObjects();
+      if (self.mapStore.zoom >= minZoomForPoints) {
         self.mapStore.setFilter(prepareFilter());
-        self.mapStore.drawPoints(visibleAccs);
+        self.mapStore.recreatePoints(visibleAccs);
       } else {
         const accs = visibleAccs.filter(prepareFilter());
         self.mapStore.drawHeat(accs);
@@ -90,7 +90,7 @@ const RootStore = types
       self.filterStore.updateStreets(accs);
       setStreetsFromUrl();
       updateStat();
-      redraw();
+      recreateMapObjects();
     };
 
     const onBoundsChanged = (zoom: number, prevZoom: number) => {
@@ -99,10 +99,12 @@ const RootStore = types
         updateUrl();
         loadArea();
         if (
-          (zoom >= POINTS_ZOOM && prevZoom < POINTS_ZOOM) ||
-          (zoom < POINTS_ZOOM && prevZoom >= POINTS_ZOOM)
+          (zoom >= minZoomForPoints && prevZoom < minZoomForPoints) ||
+          (zoom < minZoomForPoints && prevZoom >= minZoomForPoints)
         ) {
-          redraw();
+          recreateMapObjects();
+        } else if (zoom >= minZoomForPoints && prevZoom !== zoom) {
+          self.mapStore.updatePointRadius();
         }
       }
     };
@@ -120,10 +122,10 @@ const RootStore = types
     const onFiltersChanged = () => {
       updateUrl();
       updateStat();
-      if (self.mapStore.zoom >= POINTS_ZOOM) {
+      if (self.mapStore.zoom >= minZoomForPoints) {
         self.mapStore.setFilter(prepareFilter());
       } else {
-        redraw();
+        recreateMapObjects();
       }
     };
     const incLoading = () => {
