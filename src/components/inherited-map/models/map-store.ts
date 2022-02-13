@@ -184,7 +184,7 @@ export const MapStore = types
       window.history.pushState(null, "", `?${currentParams.toString()}`);
     };
 
-    const createFeature = (acc: any, zoom: number) => ({
+    const createFeature = (acc: any) => ({
       type: "Feature",
       id: acc.id,
       geometry: {
@@ -224,8 +224,10 @@ export const MapStore = types
       heatmap.setData([]);
     };
 
-    const drawPoints = (accs: any[], zoom: number) => {
-      const data = accs.map((a) => createFeature(a, zoom));
+    const drawPoints = (accs: any[]) => {
+      objectManager.removeAll();
+      heatmap.setData([]);
+      const data = accs.map((a) => createFeature(a));
       objectManager.add(data);
 
       const params = new URLSearchParams(window.location.search);

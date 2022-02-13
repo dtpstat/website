@@ -78,10 +78,7 @@ const RootStore = types
 
       if (self.mapStore.zoom >= POINTS_ZOOM) {
         self.mapStore.setFilter(prepareFilter());
-        self.mapStore.clearObjects();
-        window.requestAnimationFrame(() =>
-          self.mapStore.drawPoints(visibleAccs, self.mapStore.zoom),
-        );
+        self.mapStore.drawPoints(visibleAccs);
       } else {
         const accs = visibleAccs.filter(prepareFilter());
         self.mapStore.drawHeat(accs);
@@ -103,8 +100,7 @@ const RootStore = types
         loadArea();
         if (
           (zoom >= POINTS_ZOOM && prevZoom < POINTS_ZOOM) ||
-          (zoom < POINTS_ZOOM && prevZoom >= POINTS_ZOOM) ||
-          zoom !== prevZoom
+          (zoom < POINTS_ZOOM && prevZoom >= POINTS_ZOOM)
         ) {
           redraw();
         }
