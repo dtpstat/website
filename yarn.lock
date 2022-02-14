@@ -981,6 +981,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/yandex-maps@npm:^2.1.20":
+  version: 2.1.20
+  resolution: "@types/yandex-maps@npm:2.1.20"
+  checksum: ec47adee269ebefd9e5470a0aa1119b66530686d34f7c4f793cc74a6281d4e56c7d50b0c1be9efc2efac7576b210f120bf7ce9985be2c786530e85b5e2d9230c
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/eslint-plugin@npm:^5.8.1":
   version: 5.10.2
   resolution: "@typescript-eslint/eslint-plugin@npm:5.10.2"
@@ -1798,19 +1805,6 @@ __metadata:
   version: 1.0.3
   resolution: "core-util-is@npm:1.0.3"
   checksum: 9de8597363a8e9b9952491ebe18167e3b36e7707569eed0ebf14f8bba773611376466ae34575bca8cfe3c767890c859c74056084738f09d4e4a6f902b2ad7d99
-  languageName: node
-  linkType: hard
-
-"create-react-context@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "create-react-context@npm:0.3.0"
-  dependencies:
-    gud: ^1.0.0
-    warning: ^4.0.3
-  peerDependencies:
-    prop-types: ^15.0.0
-    react: ^0.14.0 || ^15.0.0 || ^16.0.0
-  checksum: e59b7a65671e59f5b11e06f67faadf0733ab6c33247d5631331aeb05450d180b8ae44d73817b9c02f1527654ba490ea3d3dd7320f8d6debb36776f10b0ae6a47
   languageName: node
   linkType: hard
 
@@ -2979,13 +2973,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gud@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "gud@npm:1.0.0"
-  checksum: 3e2eb37cf794364077c18f036d6aa259c821c7fd188f2b7935cb00d589d82a41e0ebb1be809e1a93679417f62f1ad0513e745c3cf5329596e489aef8c5e5feae
-  languageName: node
-  linkType: hard
-
 "h3@npm:^0.2.10":
   version: 0.2.12
   resolution: "h3@npm:0.2.12"
@@ -3924,7 +3911,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loose-envify@npm:^1.0.0, loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
+"loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
   dependencies:
@@ -5236,13 +5223,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-display-name@npm:^0.2.5":
-  version: 0.2.5
-  resolution: "react-display-name@npm:0.2.5"
-  checksum: ba27778c975e09afea2bfb58c4052b9e12121329a5115391564085ec64293f2b54d3408b841ad04600142c37d40493442676bf1124d0cc0e68f2f1e02762812b
-  languageName: node
-  linkType: hard
-
 "react-dom@npm:^17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
@@ -5311,19 +5291,6 @@ __metadata:
     react: ">=16.0.0"
     react-dom: ">=16.0.0"
   checksum: dd145ae90768a8af5518672bfd91b985a57ff021b50a60044caedd872b457ea5134793cf8d5426bd45587fa6f722320936009f5c6533a4f94d665c0a23589222
-  languageName: node
-  linkType: hard
-
-"react-yandex-maps@npm:^4.6.0":
-  version: 4.6.0
-  resolution: "react-yandex-maps@npm:4.6.0"
-  dependencies:
-    create-react-context: ^0.3.0
-    prop-types: ^15.7.2
-    react-display-name: ^0.2.5
-  peerDependencies:
-    react: ^0.14.9 || ^15.x || ^16.x || ^17.x
-  checksum: 3715e75e5156391e71eda383d05e5dfc9327a3523e5ea54e392b87a054add335d647d9e9aa0a63c7e37b4b78c93022d0020ffdebdc4354a793767252932d26e8
   languageName: node
   linkType: hard
 
@@ -5602,6 +5569,7 @@ __metadata:
     "@types/react-dom": ^17.0.11
     "@types/react-linkify": ^1.0.1
     "@types/styled-components": ^5.1.22
+    "@types/yandex-maps": ^2.1.20
     date-fns: ^2.28.0
     dayjs: ^1.10.7
     dotenv-flow: ^3.2.0
@@ -5626,7 +5594,6 @@ __metadata:
     react-linkify: ^1.0.0-alpha
     react-redux: ^7.2.6
     react-tooltip: ^4.2.21
-    react-yandex-maps: ^4.6.0
     sass: ^1.49.7
     scss: ^0.2.4
     sentry: ^0.1.2
@@ -6703,15 +6670,6 @@ __metadata:
   version: 3.0.3
   resolution: "vscode-uri@npm:3.0.3"
   checksum: 683bf9de835c3cef0b51c104a4949bf746148ded7c2287ebafcc506d20aa0e90b99385a972dba8132903420dba67fc33a5e146e30212c4a6b3ca5d74d1f95702
-  languageName: node
-  linkType: hard
-
-"warning@npm:^4.0.3":
-  version: 4.0.3
-  resolution: "warning@npm:4.0.3"
-  dependencies:
-    loose-envify: ^1.0.0
-  checksum: 4f2cb6a9575e4faf71ddad9ad1ae7a00d0a75d24521c193fa464f30e6b04027bd97aa5d9546b0e13d3a150ab402eda216d59c1d0f2d6ca60124d96cd40dfa35c
   languageName: node
   linkType: hard
 

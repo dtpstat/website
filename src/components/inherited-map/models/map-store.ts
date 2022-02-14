@@ -3,22 +3,26 @@ import ReactDOMServer from "react-dom/server";
 
 import { InfoBalloonContent } from "../components/info-balloon";
 import { Coordinate } from "../types";
-import { POINTS_ZOOM } from "../utils";
 import { RootStoreType } from "./root-store";
 
-// const supportedIconsBySeverity = {
-//   0: 'svg/circle-0.svg',
-//   1: 'svg/circle-1.svg',
-//   3: 'svg/circle-3.svg',
-//   4: 'svg/circle-4.svg',
-//   default: 'svg/circle-default.svg',
-// }
+type Severity = "0" | "1" | "3" | "4";
 
 const colorBySeverity = {
+  0: "rgba(24, 51, 74, 0.5)",
   1: "#FFB81F",
   3: "#FF7F24",
   4: "#FF001A",
 };
+
+const calculateMetersPerPixelInWgs84 = (latitude: number, zoom: number) => {
+  const result =
+    (2 * Math.PI * 6_378_137 * Math.cos((latitude * Math.PI) / 180)) /
+    (256 * Math.pow(2, zoom));
+
+  return result;
+};
+
+const pointRadiusInPixels = 5;
 
 export const buildSelection = (filters: any[]) => {
   const selection: any[] = [];
@@ -76,24 +80,7 @@ export const MapStore = types
     function setMap(mapInstance: any) {
       map = mapInstance;
 
-      // @ts-expect-error -- TODO: add ymaps to window
-      objectManager = new window.ymaps.ObjectManager({
-        clusterize: false,
-        gridSize: 256,
-        clusterIconPieChartRadius: (node: any) => {
-          // eslint-disable-next-line no-var
-          for (var radius = 0, i = 0, r = node.length; i < r; i++) {
-            radius += node[i].weight;
-          }
-          // return 10 + (10 * Math.log(radius)) / 0.69314718056 // PR
-          // return 25 + 2 * Math.floor(Math.log(radius)) // Yandex
-
-          return 15 + 4 * Math.floor(Math.log(radius));
-        },
-        showInAlphabeticalOrder: true,
-        clusterDisableClickZoom: true,
-        clusterIconLayout: "default#pieChart",
-      });
+      objectManager = new window.ymaps.ObjectManager({});
 
       objectManager.objects.events.add(
         "click",
@@ -120,18 +107,12 @@ export const MapStore = types
         handlerCloseBalloon();
       });
 
-      // @ts-expect-error -- TODO: add ymaps to window
+      // @ts-expect-error -- TODO: investigate why Heatmap is not in @types/yandex-map
       heatmap = new window.ymaps.Heatmap([], {
         radius: 15,
         dissipating: false,
         opacity: 0.5,
         intensityOfMidpoint: 0.5,
-        // gradient: {
-        //   0.1: 'rgba(128, 255, 0, 0.7)',
-        //   0.2: 'rgba(255, 255, 0, 0.8)',
-        //   0.7: 'rgba(234, 72, 58, 0.9)',
-        //   1.0: 'rgba(162, 36, 25, 1)',
-        // },
         gradient: {
           0: "rgba(126, 171, 85, 0.0)",
           0.2: "rgba(126, 171, 85, 0.6)",
@@ -180,6 +161,9 @@ export const MapStore = types
     };
 
     const handlerOpenBalloon = (objectId: string) => {
+      objectManager.objects.balloon.setPosition(
+        objectManager.objects.getById(objectId).geometry.coordinates,
+      );
       const currentParams = new URLSearchParams(document.location.search);
       currentParams.set("active-obj", objectId);
       window.history.pushState(null, "", `?${currentParams.toString()}`);
@@ -196,27 +180,30 @@ export const MapStore = types
       id: acc.id,
       geometry: {
         type: "Circle",
-        radius: Math.max(120 - (zoom - POINTS_ZOOM) * 20, 10),
+        radius:
+          calculateMetersPerPixelInWgs84(acc.point.latitude, self.zoom) *
+          pointRadiusInPixels,
         coordinates: [acc.point.latitude, acc.point.longitude],
       },
       properties: {
         ...acc,
-        clusterCaption: acc.datetime.split("T")[0],
         visible: true,
       },
       options: {
-        // iconLayout: 'default#image',
-        // // @ts-ignore
-        // iconImageHref: supportedIconsBySeverity[acc.severity],
-        iconImageSize: [5, 5],
-        // iconImageOffset: [-5, -5],
-
-        // preset: "islands#circleIcon",
-        // @ts-expect-error -- TODO: investigate
-        fillColor: colorBySeverity[acc.severity],
+        fillColor:
+          colorBySeverity[acc.severity as Severity] ?? colorBySeverity[0],
         outline: false,
+        balloonOffset: [pointRadiusInPixels - 2, 0],
       },
     });
+
+    const openActiveObjectBalloon = () => {
+      const params = new URLSearchParams(window.location.search);
+      const activeObject = params.get("active-obj");
+      if (activeObject) {
+        handlerClickToObj(activeObject);
+      }
+    };
 
     const createHeatFeature = (acc: any) => ({
       id: acc.id,
@@ -235,15 +222,25 @@ export const MapStore = types
       heatmap.setData([]);
     };
 
-    const drawPoints = (accs: any[], zoom: number) => {
-      const data = accs.map((a) => createFeature(a, zoom));
-      objectManager.add(data);
+    const recreatePoints = (accs: any[]) => {
+      const zoom = self.zoom;
 
-      const params = new URLSearchParams(window.location.search);
-      const activeObject = params.get("active-obj");
-      if (activeObject) {
-        handlerClickToObj(activeObject);
-      }
+      const data = accs.map((a) => createFeature(a, zoom));
+      objectManager.removeAll();
+      objectManager.add(data);
+      openActiveObjectBalloon();
+    };
+
+    const updatePointRadius = () => {
+      objectManager.objects.each((o: any) => {
+        o.geometry.radius =
+          calculateMetersPerPixelInWgs84(o.geometry.coordinates[0], self.zoom) *
+          pointRadiusInPixels;
+      });
+      const mapInstance = objectManager.getParent();
+      objectManager.setParent(null);
+      objectManager.setParent(mapInstance);
+      openActiveObjectBalloon();
     };
 
     const drawHeat = (accs: any[]) => {
@@ -260,7 +257,8 @@ export const MapStore = types
       setMap,
       getMap,
       updateBounds,
-      drawPoints,
+      recreatePoints,
+      updatePointRadius,
       clearObjects,
       drawHeat,
       setFilter,
