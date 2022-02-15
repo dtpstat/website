@@ -79,6 +79,7 @@ const DateFilterSection = ({ filter }) => {
             ref={inputRef}
             type="text"
             inputMode="numeric"
+            pattern="[0-9\-\.\ ]+"
             className="input date-input"
             value={text || formatRange(defaultRange)}
             spellCheck="false"
