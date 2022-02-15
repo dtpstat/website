@@ -77,7 +77,8 @@ const DateFilterSection = ({ filter }) => {
         <div className="inputWrap">
           <input
             ref={inputRef}
-            type="tel"
+            type="text"
+            inputmode="numeric"
             className="input date-input"
             value={text || formatRange(defaultRange)}
             spellCheck="false"
