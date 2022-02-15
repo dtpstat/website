@@ -26,10 +26,20 @@ const CategoryTag = observer(({ filter }) => {
   if (filter.values.some((v) => v.selected)) {
     return (
       <div className="category-tag active">
-        <button className="btn-rect" onClick={(e) => filter.navigate()}>
+        <button
+          className="btn-rect"
+          onClick={() => {
+            filter.navigate();
+          }}
+        >
           <span>{filter.label}</span>
         </button>
-        <button className="btn-decline" onClick={(e) => filter.reset()}>
+        <button
+          className="btn-decline"
+          onClick={() => {
+            filter.reset();
+          }}
+        >
           <svg className="icon icon-decline">
             <use xlinkHref="/static/media/svg/sprite.svg#decline" />
           </svg>
@@ -40,7 +50,12 @@ const CategoryTag = observer(({ filter }) => {
 
   return (
     <div className="category-tag">
-      <button className="btn-rect" onClick={(e) => filter.navigate()}>
+      <button
+        className="btn-rect"
+        onClick={() => {
+          filter.navigate();
+        }}
+      >
         <span>{filter.label}</span>
       </button>
     </div>
@@ -74,7 +89,9 @@ export const FilterPanelNormal = observer(() => {
       </div>
       <button
         className="btn-hideFilter"
-        onClick={(e) => filterStore.setVisible(false)}
+        onClick={() => {
+          filterStore.setVisible(false);
+        }}
       >
         <svg className="icon icon-arrow-up">
           <use xlinkHref="/static/media/svg/sprite.svg#arrow-up" />

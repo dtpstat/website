@@ -63,7 +63,7 @@ const DateFilterSection = ({ filter }) => {
     setText(e.target.value);
     dirtyRef.current = true;
   };
-  const handleBlur = (e) => {
+  const handleBlur = () => {
     if (dirtyRef.current) {
       setText(null);
       setError(null);
@@ -87,7 +87,12 @@ const DateFilterSection = ({ filter }) => {
           />
         </div>
         <div className="date-dropdown">
-          <button className="date-button" onClick={(e) => setShow(true)}>
+          <button
+            className="date-button"
+            onClick={() => {
+              setShow(true);
+            }}
+          >
             <svg className="icon icon-down">
               <use xlinkHref="/static/media/svg/sprite.svg#arrow-down" />
             </svg>
@@ -120,7 +125,9 @@ const DateMenu = ({ handleClick, setShow }) => {
         <div
           key={r.label}
           className="date-value"
-          onClick={(e) => handleClick(r)}
+          onClick={() => {
+            handleClick(r);
+          }}
         >
           {r.label}
         </div>
