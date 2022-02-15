@@ -9,7 +9,9 @@ const CategoryValue = observer(({ value }) => (
     <input
       type="checkbox"
       checked={value.selected}
-      onChange={() => value.toggle()}
+      onChange={() => {
+        value.toggle();
+      }}
     />
     <span className="checkmark">
       <svg className="icon icon-check">
