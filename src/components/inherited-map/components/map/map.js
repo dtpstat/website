@@ -80,7 +80,7 @@ export const Map = observer(() => {
           .options.set("position", { top: top + 206 + 16, right: 20 });
       };
       updatePos(mapRef.current.offsetHeight);
-      map.events.add("sizechange", (e) => {
+      map.events.add("sizechange", () => {
         updatePos(mapRef.current.offsetHeight);
       });
     });

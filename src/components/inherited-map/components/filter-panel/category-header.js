@@ -8,7 +8,7 @@ const CategoryHeader = () => {
   const filter = filterStore.filters.find(
     (f) => f.key === filterStore.currentKey,
   );
-  const handleBack = (e) => {
+  const handleBack = () => {
     filterStore.setCurrentKey(null);
     filterStore.setSearch("");
   };

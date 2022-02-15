@@ -181,7 +181,7 @@ export const MapStore = types
       geometry: {
         type: "Circle",
         radius:
-          calculateMetersPerPixelInWgs84(acc.point.latitude, self.zoom) *
+          calculateMetersPerPixelInWgs84(acc.point.latitude, zoom) *
           pointRadiusInPixels,
         coordinates: [acc.point.latitude, acc.point.longitude],
       },

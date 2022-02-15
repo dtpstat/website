@@ -1,7 +1,9 @@
 import { observer } from "mobx-react";
 import * as React from "react";
 
-const RegionFilterSection = ({ values }) => (
+const RegionFilterSection: React.VoidFunctionComponent<{
+  value: unknown;
+}> = () => (
   <div className="category-item__draw" tabIndex={0}>
     <svg className="icon icon-edit">
       <use xlinkHref="/static/media/svg/sprite.svg#edit" />
