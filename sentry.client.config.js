@@ -7,4 +7,5 @@ Sentry.init({
   environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT ?? "unset",
   dsn,
   tracesSampleRate: 1,
+  tunnel: "/api/sentry-tunnel",
 });
