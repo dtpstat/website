@@ -55,7 +55,7 @@ export const FilterStore = types
   .actions((self) => {
     function setFilters(filters: any[]) {
       self.filters.clear();
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- @todo: investigate if we need || [];
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- investigate if we need || [];
       self.filters = cast(filters.map(convertFilter)) || [];
     }
     const updateStreets = (accidents: Accident[] | undefined) => {
