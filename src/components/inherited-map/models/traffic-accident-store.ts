@@ -1,6 +1,7 @@
 import { flow, getRoot, types } from "mobx-state-tree";
 
 import { fetchDtp } from "../api";
+import { Accident } from "../types";
 import { RootStoreType } from "./root-store";
 
 const getYears = (startDate: string, endDate: string) => {
@@ -16,7 +17,7 @@ const getYears = (startDate: string, endDate: string) => {
 
 export const TrafficAccidentStore = types
   .model({
-    accs: types.frozen([]),
+    accs: types.frozen<Accident[]>([]),
   })
   .actions((self) => {
     const loadTrafficAccidents = flow(function* loadTrafficAccidents(

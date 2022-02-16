@@ -15,7 +15,7 @@ const InfoPanelObservable = observer(() => {
   return (
     <div className="info-panel-wrap">
       <div className="info-panel">
-        <h3 className="h3">{area.name ?? "\u00A0"}</h3>
+        <h3 className="h3">{area.name ? area.name : "\u00A0"}</h3>
         <p className="subtitle2" style={{ color: Colors.$grey50 }}>
           ДТП
         </p>

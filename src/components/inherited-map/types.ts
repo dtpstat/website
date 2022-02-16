@@ -16,6 +16,16 @@ export type DetailedStatisticsResponse = {
   dead: number;
 };
 
+export type Accident = {
+  id: string;
+  point: { latitude: number; longitude: number };
+  severity: number;
+  injured: number;
+  dead: number;
+  street?: string;
+  // @todo Add more fields by looking at API responses
+};
+
 export type FilterResponse =
   | DateFilterResponse
   | SeverityFilterResponse

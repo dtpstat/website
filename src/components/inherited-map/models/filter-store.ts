@@ -1,6 +1,7 @@
 import { cast, flow, Instance, types } from "mobx-state-tree";
 
 import { fetchFilters } from "../api";
+import { Accident } from "../types";
 import {
   CategoryFilter,
   CategoryFilterType,
@@ -54,16 +55,19 @@ export const FilterStore = types
   .actions((self) => {
     function setFilters(filters: any[]) {
       self.filters.clear();
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- @todo: investigate if we need || [];
       self.filters = cast(filters.map(convertFilter)) || [];
     }
-    const updateStreets = (accidents: any[]) => {
+    const updateStreets = (accidents: Accident[] | undefined) => {
       if (accidents) {
         const streetFilter = self.filters.find(
           (f: any) => f.key === "street",
-        ) as CategoryFilterType;
+        ) as CategoryFilterType | undefined;
         if (streetFilter) {
-          const streets = new Set(
-            accidents.filter((a) => a.street).map((a) => a.street),
+          const streets = new Set<string>(
+            accidents
+              .map((accident) => accident.street)
+              .filter((street): street is string => Boolean(street)),
           );
           const selectedStreets = new Set(
             streetFilter.values.filter((v) => v.selected).map((s) => s.preview),
@@ -73,11 +77,11 @@ export const FilterStore = types
           }
           const sortedStreets = [...streets];
           sortedStreets.sort();
-          const streetValues = sortedStreets.map((s) =>
+          const streetValues = sortedStreets.map((street) =>
             CategoryFilterValue.create({
-              preview: s,
+              preview: street,
               value: -1,
-              selected: selectedStreets.has(s),
+              selected: selectedStreets.has(street),
             }),
           );
           streetFilter.values = cast(streetValues);
