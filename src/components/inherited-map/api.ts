@@ -14,7 +14,7 @@ export const fetchArea = (
   areaController = new AbortController();
 
   return fetch(
-    `${djangoBaseUrl}/api/stat/?center_point=${center[1]}+${center[0]}&scale=${zoom}`,
+    `${djangoBaseUrl}/api/stat/?center_point=${center[1]!}+${center[0]!}&scale=${zoom}`,
     {
       signal: areaController.signal,
     },

@@ -1,5 +1,5 @@
 // duplicate of styles in scss
-export const Colors: { [key: string]: string } = {
+export const Colors = {
   $black: "#000",
   $white: "#fff",
   $white2: "#f2f2f2",
@@ -16,4 +16,4 @@ export const Colors: { [key: string]: string } = {
   $yellow: "#FFB81F",
   $yellow10: "#fff8e9",
   $green: "#17AA14",
-};
+} as const;

@@ -2,12 +2,10 @@ import { cast, getRoot, types } from "mobx-state-tree";
 import ReactDOMServer from "react-dom/server";
 
 import { InfoBalloonContent } from "../components/info-balloon";
-import { Coordinate } from "../types";
+import { Accident, Coordinate } from "../types";
 import { RootStoreType } from "./root-store";
 
-type Severity = "0" | "1" | "3" | "4";
-
-const colorBySeverity = {
+const colorBySeverity: Record<number, string> = {
   0: "rgba(24, 51, 74, 0.5)",
   1: "#FFB81F",
   3: "#FF7F24",
@@ -175,7 +173,7 @@ export const MapStore = types
       window.history.pushState(null, "", `?${currentParams.toString()}`);
     };
 
-    const createFeature = (acc: any, zoom: number) => ({
+    const createFeature = (acc: Accident, zoom: number) => ({
       type: "Feature",
       id: acc.id,
       geometry: {
@@ -190,8 +188,7 @@ export const MapStore = types
         visible: true,
       },
       options: {
-        fillColor:
-          colorBySeverity[acc.severity as Severity] ?? colorBySeverity[0],
+        fillColor: colorBySeverity[acc.severity] ?? colorBySeverity[0],
         outline: false,
         balloonOffset: [pointRadiusInPixels - 2, 0],
       },
@@ -205,7 +202,7 @@ export const MapStore = types
       }
     };
 
-    const createHeatFeature = (acc: any) => ({
+    const createHeatFeature = (acc: Accident) => ({
       id: acc.id,
       type: "Feature",
       geometry: {
@@ -222,7 +219,7 @@ export const MapStore = types
       heatmap.setData([]);
     };
 
-    const recreatePoints = (accs: any[]) => {
+    const recreatePoints = (accs: Accident[]) => {
       const zoom = self.zoom;
 
       const data = accs.map((a) => createFeature(a, zoom));

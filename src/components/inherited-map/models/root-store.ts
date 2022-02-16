@@ -36,12 +36,12 @@ const RootStore = types
     });
     const loadArea = () => {
       const { center, zoom } = self.mapStore;
-      self.areaStore.loadArea(center, zoom);
+      void self.areaStore.loadArea(center, zoom);
     };
     const loadAccs = () => {
       const { areaStore, filterStore, trafficAccidentStore } = self;
       if (areaStore.area) {
-        trafficAccidentStore.loadTrafficAccidents(
+        void trafficAccidentStore.loadTrafficAccidents(
           filterStore.startDate ?? "",
           filterStore.endDate ?? "",
           areaStore.area.parentId,
@@ -59,8 +59,8 @@ const RootStore = types
         const areaAccs = allAreaAccs.filter(prepareFilter());
         self.areaStore.setStatistics({
           count: areaAccs.length,
-          injured: areaAccs.reduce((s, v: any) => s + v.injured, 0),
-          dead: areaAccs.reduce((s, v: any) => s + v.dead, 0),
+          injured: areaAccs.reduce((s, v) => s + v.injured, 0),
+          dead: areaAccs.reduce((s, v) => s + v.dead, 0),
         });
       }
     };
@@ -143,7 +143,7 @@ const RootStore = types
     };
     const updateUrlMap = (currentParams: URLSearchParams) => {
       const { center, zoom } = self.mapStore;
-      currentParams.set("center", `${center[0]}:${center[1]}`);
+      currentParams.set("center", `${center[0]!}:${center[1]!}`);
       currentParams.set("zoom", String(zoom));
     };
     const updateUrlDates = (currentParams: URLSearchParams) => {

@@ -7,7 +7,7 @@ const SeverityItem = types
     preview: types.string,
     value: types.number,
     color: types.string,
-    description: types.string && types.null,
+    description: types.maybeNull(types.string),
     disabled: types.boolean,
     default: types.boolean,
     selected: false,
