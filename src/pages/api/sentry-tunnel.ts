@@ -21,16 +21,15 @@ const handler: NextApiHandler = async (req, res) => {
       throw new Error(`Invalid DSN: ${requestDsn!}`);
     }
 
-    const { host, pathname: projectId } = new URL(requestDsn);
+    const { host, pathname } = new URL(requestDsn);
+    const projectId = pathname.replace(/^\//, "");
     const targetUrl = `https://${host}/api/${projectId}/envelope/`;
     const response = await fetch(targetUrl, { method: "POST", body });
 
-    return response.json();
+    res.json(response.json());
   } catch (error) {
     captureException(error);
     res.status(400).json({ status: "invalid request" });
-
-    return;
   }
 };
 
