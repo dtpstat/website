@@ -22,17 +22,12 @@ const handler: NextApiHandler = async (req, res) => {
     }
 
     const { host, pathname: projectId } = new URL(requestDsn);
-
-    const url = `https://${host}/api/${projectId}/envelope/`;
-    const response = await fetch(url, {
-      method: "POST",
-      body,
-    });
+    const targetUrl = `https://${host}/api/${projectId}/envelope/`;
+    const response = await fetch(targetUrl, { method: "POST", body });
 
     return response.json();
   } catch (error) {
     captureException(error);
-
     res.status(400).json({ status: "invalid request" });
 
     return;
