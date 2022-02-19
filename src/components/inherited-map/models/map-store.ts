@@ -139,6 +139,10 @@ export const MapStore = types
           data.map((rawFeature: any, index) => ({
             id: index,
             ...rawFeature,
+            properties: {
+              ...rawFeature.properties,
+              hintContent: `Очаг аварийности (${variant})`,
+            },
             options: {
               fillColor: "#000",
               strokeColor: "#000",
@@ -150,7 +154,6 @@ export const MapStore = types
                   ? 10
                   : 5,
               cursor: "default",
-              interactivityModel: "default#transparent",
               zIndex: 1,
               zIndexHover: 1,
             },
