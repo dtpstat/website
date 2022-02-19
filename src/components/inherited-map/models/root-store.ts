@@ -117,6 +117,7 @@ const RootStore = types
           )
         ) {
           recreateMapObjects();
+          self.mapStore.drawConcentrationPlaces();
         } else if (zoom >= minZoomForPoints && prevZoom !== zoom) {
           self.mapStore.updatePointRadius();
         }
