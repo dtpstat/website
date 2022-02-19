@@ -1,9 +1,9 @@
 import * as React from "react";
 
 import { Colors } from "../../../../styles/colors";
-import SvgIcon from "../svg-icon";
+import { SvgIcon } from "../svg-icon";
 
-const EventHeader = () => {
+export const EventHeader: React.VoidFunctionComponent = () => {
   return (
     <div className="event-header">
       <button className="btn-gallery" style={{ marginRight: "32px" }}>
@@ -74,5 +74,3 @@ const EventHeader = () => {
     </div>
   );
 };
-
-export default EventHeader;

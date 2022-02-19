@@ -72,16 +72,16 @@ export const MapStore = types
     let objectManager: any = null;
     let heatmap: any = null;
 
-    function updateBounds(center: Coordinate, zoom: number) {
+    const updateBounds = (center: Coordinate, zoom: number) => {
       const prevZoom = self.zoom;
       self.center = cast(center);
       self.zoom = zoom;
       getRoot<RootStoreType>(self).onBoundsChanged(zoom, prevZoom);
-    }
+    };
 
     const getMap = () => map;
 
-    function setMap(mapInstance: any) {
+    const setMap = (mapInstance: any) => {
       map = mapInstance;
 
       objectManager = new window.ymaps.ObjectManager({});
@@ -131,7 +131,7 @@ export const MapStore = types
       map.geoObjects.add(objectManager);
 
       updateBounds(map.getCenter(), map.getZoom());
-    }
+    };
 
     const handlerClickToObj = (objectId: string) => {
       const obj = objectManager.objects.getById(objectId);

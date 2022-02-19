@@ -1,14 +1,14 @@
 import * as React from "react";
 
 import { Colors } from "../../../../styles/colors";
-import NewsItem from "../news/news-item";
-import SvgIcon from "../svg-icon";
-import EventComments from "./event-comments";
-import EventHeader from "./event-header";
-import EventMembers from "./event-members";
-import EventTags from "./event-tags";
+import { NewsItem } from "../news/news-item";
+import { SvgIcon } from "../svg-icon";
+import { EventComments } from "./event-comments";
+import { EventHeader } from "./event-header";
+import { EventMembers } from "./event-members";
+import { EventTags } from "./event-tags";
 
-const Event = () => {
+export const Event: React.VoidFunctionComponent = () => {
   return (
     <div className="dtp">
       <div id="toggle">
@@ -63,5 +63,3 @@ const Event = () => {
     </div>
   );
 };
-
-export default Event;

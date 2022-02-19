@@ -1,15 +1,22 @@
 import * as React from "react";
 
-type Props = {
+export interface NewsItemProps {
   title: string;
   img: string;
   link: string;
   size?: string;
   text?: string;
   tags?: string[];
-};
+}
 
-const NewsItem = ({ title, img, link, size, text, tags }: Props) => {
+export const NewsItem: React.VoidFunctionComponent<NewsItemProps> = ({
+  title,
+  img,
+  link,
+  size,
+  text,
+  tags,
+}) => {
   return (
     <a className={size ? `news-item-${size}` : "news-item"} href={link}>
       <span className="img-wrap">
@@ -41,5 +48,3 @@ const NewsItem = ({ title, img, link, size, text, tags }: Props) => {
     </a>
   );
 };
-
-export default NewsItem;

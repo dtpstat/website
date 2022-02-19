@@ -5,9 +5,9 @@ import ReactTooltip from "react-tooltip";
 import { Colors } from "../../../../styles/colors";
 import { SeverityFilterType } from "../../models/filters/severity-filter";
 
-const SeverityFilterSection: React.VoidFunctionComponent<
-  SeverityFilterType
-> = ({ values }) => (
+export const SeverityFilter = observer<
+  React.VoidFunctionComponent<SeverityFilterType>
+>(({ values }) => (
   <div>
     {values.map((item) => (
       <div className="severity-wrapper" key={item.value}>
@@ -52,5 +52,4 @@ const SeverityFilterSection: React.VoidFunctionComponent<
     ))}
     <ReactTooltip globalEventOff="click" />
   </div>
-);
-export default observer(SeverityFilterSection);
+));

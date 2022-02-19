@@ -22,7 +22,7 @@ const Filter = types.union(
 
 export type FilterType = Instance<typeof Filter>;
 
-function convertFilter(filter: any): any {
+const convertFilter = (filter: any): any => {
   switch (filter.name) {
     case "date":
       return DateFilter.create(filter);
@@ -35,7 +35,7 @@ function convertFilter(filter: any): any {
     case "category":
       return CategoryFilter.create(filter);
   }
-}
+};
 
 export const FilterStore = types
   .model("FilterStore", {
@@ -53,11 +53,11 @@ export const FilterStore = types
     currentKey: types.maybeNull(types.string),
   })
   .actions((self) => {
-    function setFilters(filters: any[]) {
+    const setFilters = (filters: any[]) => {
       self.filters.clear();
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- investigate if we need || [];
       self.filters = cast(filters.map(convertFilter)) || [];
-    }
+    };
     const updateStreets = (accidents: Accident[] | undefined) => {
       if (accidents) {
         const streetFilter = self.filters.find(

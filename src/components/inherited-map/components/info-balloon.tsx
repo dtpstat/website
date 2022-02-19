@@ -5,7 +5,7 @@ import {
   djangoContentFallback,
 } from "../../../shared/django-helpers";
 import { Colors } from "../../../styles/colors";
-import SvgIcon from "./svg-icon";
+import { SvgIcon } from "./svg-icon";
 
 interface Props {
   id: string;

@@ -1,9 +1,9 @@
 import * as React from "react";
 
 import { Colors } from "../../../styles/colors";
-import SvgIcon from "./svg-icon";
+import { SvgIcon } from "./svg-icon";
 
-const InfoBaloon = () => (
+export const InfoBalloon: React.VoidFunctionComponent = () => (
   <div
     className="baloon"
     style={{ position: "absolute", top: "70%", left: "50%" }}
@@ -24,5 +24,3 @@ const InfoBaloon = () => (
     <SvgIcon name="pointer" />
   </div>
 );
-
-export default InfoBaloon;

@@ -1,13 +1,17 @@
 import * as React from "react";
 
-type Props = { name: string; color?: string };
+export interface SvgIconProps {
+  name: string;
+  color?: string;
+}
 
-const SvgIcon = ({ name, color }: Props) => {
+export const SvgIcon: React.VoidFunctionComponent<SvgIconProps> = ({
+  name,
+  color,
+}) => {
   return (
     <svg className={`icon icon-${name}`} style={{ fill: color ? color : "" }}>
       <use xlinkHref={`/static/media/svg/sprite.svg#${name}`} />
     </svg>
   );
 };
-
-export default SvgIcon;

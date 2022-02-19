@@ -2,7 +2,7 @@ import { observer } from "mobx-react";
 import * as React from "react";
 
 import { useStore } from "../../models/root-store";
-import DateFilter from "./date-filter";
+import { DateFilter } from "./date-filter";
 
 export const FilterPanelHidden = observer(() => {
   const { filterStore } = useStore();

@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import SvgIcon from "../svg-icon";
+import { SvgIcon } from "../svg-icon";
 
-const ZoomSlider = () => {
+export const ZoomSlider: React.VoidFunctionComponent = () => {
   return (
     <div className="zoom" style={{ marginBottom: "16px" }}>
       <button className="btn-plus" aria-label="Приблизить" />
@@ -58,5 +58,3 @@ const ZoomSlider = () => {
     </div>
   );
 };
-
-export default ZoomSlider;

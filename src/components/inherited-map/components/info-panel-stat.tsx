@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const InfoPanelStat = () => {
+export const InfoPanelStat: React.VoidFunctionComponent = () => {
   return (
     <div className="stat-wrap">
       <div className="stat">
@@ -69,5 +69,3 @@ const InfoPanelStat = () => {
     </div>
   );
 };
-
-export default InfoPanelStat;

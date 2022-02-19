@@ -6,7 +6,7 @@ import { FilterPanelCategory } from "./filter-panel-category";
 import { FilterPanelHidden } from "./filter-panel-hidden";
 import { FilterPanelNormal } from "./filter-panel-normal";
 
-const FilterPanel = () => {
+export const FilterPanel = observer(() => {
   const { filterStore } = useStore();
   const { filters } = filterStore;
 
@@ -23,6 +23,4 @@ const FilterPanel = () => {
   } else {
     return <FilterPanelHidden />;
   }
-};
-
-export default observer(FilterPanel);
+});

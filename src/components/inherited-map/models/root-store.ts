@@ -263,8 +263,8 @@ makeInspectable(rootStore);
 export const RootStoreContext =
   React.createContext<typeof rootStore>(rootStore);
 
-export function useStore() {
+export const useStore = () => {
   const store = React.useContext(RootStoreContext);
 
   return store;
-}
+};
