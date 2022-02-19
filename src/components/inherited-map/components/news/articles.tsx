@@ -1,9 +1,9 @@
 import * as React from "react";
 
 import { Footer } from "../../../footer";
-import NewsItem from "./news-item";
+import { NewsItem } from "./news-item";
 
-const Articles = () => {
+export const Articles: React.VoidFunctionComponent = () => {
   return (
     <div className="articles-container">
       <h1 className="h1">Статьи и исследования</h1>
@@ -39,5 +39,3 @@ const Articles = () => {
     </div>
   );
 };
-
-export default Articles;

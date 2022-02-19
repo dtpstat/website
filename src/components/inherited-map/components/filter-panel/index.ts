@@ -1,1 +1,1 @@
-export { default as FilterPanel } from "./filter-panel";
+export { FilterPanel } from "./filter-panel";

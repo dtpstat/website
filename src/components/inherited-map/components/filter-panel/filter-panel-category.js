@@ -2,7 +2,7 @@ import { observer } from "mobx-react";
 import * as React from "react";
 
 import { useStore } from "../../models/root-store";
-import CategoryHeader from "./category-header";
+import { CategoryHeader } from "./category-header";
 
 const CategoryValue = observer(({ value }) => (
   <label className="category-value severity-item" tabIndex={0}>

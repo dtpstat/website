@@ -2,10 +2,10 @@ import { observer } from "mobx-react";
 import * as React from "react";
 
 import { useStore } from "../../models/root-store";
-import DateFilter from "./date-filter";
-import ParticipantsFilter from "./participants-filter";
-import RegionFilter from "./region-filter";
-import SeverityFilter from "./severity-filter";
+import { DateFilter } from "./date-filter";
+import { ParticipantsFilter } from "./participants-filter";
+import { RegionFilter } from "./region-filter";
+import { SeverityFilter } from "./severity-filter";
 
 const FilterSection = ({ filter }) => {
   switch (filter.name) {

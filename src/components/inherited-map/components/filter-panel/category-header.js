@@ -3,7 +3,7 @@ import * as React from "react";
 
 import { useStore } from "../../models/root-store";
 
-const CategoryHeader = () => {
+export const CategoryHeader = observer(() => {
   const { filterStore } = useStore();
   const filter = filterStore.filters.find(
     (f) => f.key === filterStore.currentKey,
@@ -54,6 +54,4 @@ const CategoryHeader = () => {
       </div>
     </div>
   );
-};
-
-export default observer(CategoryHeader);
+});

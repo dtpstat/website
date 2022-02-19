@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import SvgIcon from "./svg-icon";
+import { SvgIcon } from "./svg-icon";
 
-const Toast = () => {
+export const Toast: React.VoidFunctionComponent = () => {
   return (
     <div>
       <div
@@ -36,5 +36,3 @@ const Toast = () => {
     </div>
   );
 };
-
-export default Toast;
