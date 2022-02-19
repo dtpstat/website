@@ -25,7 +25,7 @@
   }
 
   button {
-    &:focus,
+    &:focus-visible,
     &:hover {
       box-shadow: none;
     }
