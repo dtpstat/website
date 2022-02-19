@@ -13,6 +13,8 @@ const colorBySeverity: Record<number, string> = {
   4: "#FF001A",
 };
 
+export const supportedConcentrationPlaces = ["2020"];
+
 const calculateMetersPerPixelInWgs84 = (latitude: number, zoom: number) => {
   const result =
     (2 * Math.PI * 6_378_137 * Math.cos((latitude * Math.PI) / 180)) /
@@ -61,11 +63,22 @@ export const MapStore = types
     center: types.array(types.number),
     zoom: 1,
     mapReady: false,
+    concentrationPlaces: types.maybeNull(
+      types.enumeration(supportedConcentrationPlaces),
+    ),
   })
   .actions((self) => {
     let map: Map | null = null;
     let objectManager: any = null;
     let heatmap: any = null;
+
+    const setConcentrationPlaces = (variant: string | null) => {
+      self.concentrationPlaces =
+        variant && supportedConcentrationPlaces.includes(variant)
+          ? variant
+          : null;
+      getRoot<RootStoreType>(self).onLayersChanged();
+    };
 
     const updateBounds = (center: Coordinate, zoom: number) => {
       const prevZoom = self.zoom;
@@ -253,6 +266,7 @@ export const MapStore = types
     };
 
     return {
+      setConcentrationPlaces,
       setMap,
       getMap,
       updateBounds,

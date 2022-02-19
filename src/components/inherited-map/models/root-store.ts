@@ -5,7 +5,12 @@ import * as React from "react";
 import { AreaStore } from "./area-store";
 import { FilterStore } from "./filter-store";
 import { DateFilterType } from "./filters/date-filter";
-import { buildSelection, MapStore, passFilters } from "./map-store";
+import {
+  buildSelection,
+  MapStore,
+  passFilters,
+  supportedConcentrationPlaces,
+} from "./map-store";
 import { TrafficAccidentStore } from "./traffic-accident-store";
 
 export type RootStoreType = Instance<typeof RootStore>;
@@ -93,6 +98,10 @@ const RootStore = types
       recreateMapObjects();
     };
 
+    const onLayersChanged = () => {
+      updateUrl();
+    };
+
     const onBoundsChanged = (zoom: number, prevZoom: number) => {
       initBoundsChanged = true;
       if (initFiltersLoaded) {
@@ -113,12 +122,15 @@ const RootStore = types
       updateUrl();
       loadAccs();
     };
+
     const onAreaChanged = () => {
       updateStat();
     };
+
     const onParentAreaChanged = () => {
       loadAccs();
     };
+
     const onFiltersChanged = () => {
       updateUrl();
       updateStat();
@@ -128,12 +140,15 @@ const RootStore = types
         recreateMapObjects();
       }
     };
+
     const incLoading = () => {
       self.loadingCount += 1;
     };
+
     const decLoading = () => {
       self.loadingCount -= 1;
     };
+
     const updateUrl = () => {
       const currentParams = new URLSearchParams(document.location.search);
       updateUrlMap(currentParams);
@@ -141,11 +156,19 @@ const RootStore = types
       updateUrlFilters(currentParams);
       window.history.pushState(null, "", `?${currentParams.toString()}`);
     };
+
     const updateUrlMap = (currentParams: URLSearchParams) => {
-      const { center, zoom } = self.mapStore;
+      const { center, zoom, concentrationPlaces } = self.mapStore;
       currentParams.set("center", `${center[0]!}:${center[1]!}`);
       currentParams.set("zoom", String(zoom));
+
+      if (concentrationPlaces) {
+        currentParams.set("cp", concentrationPlaces);
+      } else {
+        currentParams.delete("cp");
+      }
     };
+
     const updateUrlDates = (currentParams: URLSearchParams) => {
       const value = (
         self.filterStore.filters.find(
@@ -155,6 +178,7 @@ const RootStore = types
       currentParams.set("start_date", value.start_date);
       currentParams.set("end_date", value.end_date);
     };
+
     const updateUrlFilters = (currentParams: URLSearchParams) => {
       self.filterStore.filters
         .filter((f) => f.name !== "date")
@@ -174,6 +198,7 @@ const RootStore = types
           }
         });
     };
+
     const setMapFromUrl = () => {
       const params = new URLSearchParams(document.location.search);
       const centerStr = params.get("center")?.split(":");
@@ -187,7 +212,14 @@ const RootStore = types
       const zoom = zoomStr ? Number.parseInt(zoomStr, 10) : 12;
       self.mapStore.center = cast(center);
       self.mapStore.zoom = zoom;
+
+      self.mapStore.concentrationPlaces = supportedConcentrationPlaces.includes(
+        params.get("cp")!,
+      )
+        ? params.get("cp")
+        : null;
     };
+
     const setDatesFromUrl = () => {
       const currentParams = new URLSearchParams(document.location.search);
       const dateFilter = self.filterStore.filters.find(
@@ -199,6 +231,7 @@ const RootStore = types
         dateFilter.value = { start_date, end_date };
       }
     };
+
     const setFiltersFromUrl = () => {
       const currentParams = new URLSearchParams(document.location.search);
       self.filterStore.filters
@@ -215,6 +248,7 @@ const RootStore = types
           }
         });
     };
+
     const setStreetsFromUrl = () => {
       const currentParams = new URLSearchParams(document.location.search);
       const streetFilter: any = self.filterStore.filters.find(
@@ -237,6 +271,7 @@ const RootStore = types
       onTrafficAccidentsLoaded,
       onDatesChanged,
       onFiltersChanged,
+      onLayersChanged,
       incLoading,
       decLoading,
     };

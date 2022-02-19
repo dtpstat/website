@@ -1,4 +1,7 @@
+import { observer } from "mobx-react";
 import * as React from "react";
+
+import { useStore } from "../../models/root-store";
 
 // import { SvgIcon } from "../svg-icon";
 
@@ -6,6 +9,12 @@ const RenderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
   props,
   ref,
 ) => {
+  const { mapStore } = useStore();
+
+  const handleLayerChange: React.ChangeEventHandler = (event) => {
+    mapStore.setConcentrationPlaces(event.currentTarget.getAttribute("value"));
+  };
+
   return (
     <div className="layers-filter" ref={ref}>
       {/*
@@ -71,7 +80,13 @@ const RenderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
           <li>
             <label className="checkWrap" tabIndex={0}>
               Выключены
-              <input type="radio" checked={true} name="radio" />
+              <input
+                type="radio"
+                name="layer"
+                value=""
+                checked={!mapStore.concentrationPlaces}
+                onChange={handleLayerChange}
+              />
               <span className="checkmark" />
             </label>
           </li>
@@ -79,7 +94,13 @@ const RenderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
             <div style={{ display: "flex", flexDirection: "row" }}>
               <label className="checkWrap" tabIndex={0}>
                 Очаги аварийности (2020)
-                <input type="radio" checked={false} name="radio" />
+                <input
+                  type="radio"
+                  name="layer"
+                  value="2020"
+                  checked={mapStore.concentrationPlaces === "2020"}
+                  onChange={handleLayerChange}
+                />
                 <span className="checkmark" />
               </label>
             </div>
@@ -90,4 +111,4 @@ const RenderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
   );
 };
 
-export const LayersFilter = React.forwardRef(RenderLayersFilter);
+export const LayersFilter = observer(React.forwardRef(RenderLayersFilter));
