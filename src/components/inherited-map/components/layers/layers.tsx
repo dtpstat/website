@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import SvgIcon from "../svg-icon";
-import LayersFilter from "./layers-filter";
-import ZoomSlider from "./zoom-slider";
+import { SvgIcon } from "../svg-icon";
+import { LayersFilter } from "./layers-filter";
+import { ZoomSlider } from "./zoom-slider";
 
-const Layers = () => {
+export const Layers = () => {
   return (
     <div className="layers-wrap">
       <button
@@ -24,5 +24,3 @@ const Layers = () => {
     </div>
   );
 };
-
-export default Layers;

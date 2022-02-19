@@ -1,9 +1,9 @@
 import * as React from "react";
 
 import { Colors } from "../../../../styles/colors";
-import MemberCard from "./member-card";
+import { MemberCard } from "./member-card";
 
-const EventMembers = () => {
+export const EventMembers: React.VoidFunctionComponent = () => {
   return (
     <div style={{ marginBottom: "32px", overflow: "auto" }}>
       <div style={{ display: "flex", alignItems: "flex-start" }}>
@@ -57,5 +57,3 @@ const EventMembers = () => {
     </div>
   );
 };
-
-export default EventMembers;

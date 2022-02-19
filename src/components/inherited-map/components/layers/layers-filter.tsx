@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import SvgIcon from "../svg-icon";
+import { SvgIcon } from "../svg-icon";
 
-const LayersFilter = () => {
+export const LayersFilter: React.VoidFunctionComponent = () => {
   return (
     <div className="layers-filter">
       <div style={{ marginBottom: "16px" }}>
@@ -80,5 +80,3 @@ const LayersFilter = () => {
     </div>
   );
 };
-
-export default LayersFilter;

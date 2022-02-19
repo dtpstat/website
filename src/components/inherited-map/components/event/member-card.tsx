@@ -1,9 +1,9 @@
 import * as React from "react";
 
 import { Colors } from "../../../../styles/colors";
-import SvgIcon from "../svg-icon";
+import { SvgIcon } from "../svg-icon";
 
-type Props = {
+export interface MemberCardProps {
   icon: string;
   color?: string;
   name: string;
@@ -11,9 +11,9 @@ type Props = {
   exp?: string;
   descr: string;
   add?: string;
-};
+}
 
-const EventMembers = ({
+export const MemberCard: React.VoidFunctionComponent<MemberCardProps> = ({
   icon,
   color,
   name,
@@ -21,7 +21,7 @@ const EventMembers = ({
   exp,
   descr,
   add,
-}: Props) => {
+}) => {
   return (
     <div className="member-card">
       <div className="card-header">
@@ -58,5 +58,3 @@ const EventMembers = ({
     </div>
   );
 };
-
-export default EventMembers;

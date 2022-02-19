@@ -2,9 +2,9 @@ import * as React from "react";
 
 import { Colors } from "../../../../styles/colors";
 import { Footer } from "../../../footer";
-import NewsItem from "./news-item";
+import { NewsItem } from "./news-item";
 
-const Articles = () => {
+export const Articles: React.VoidFunctionComponent = () => {
   return (
     <div>
       <div className="article-container">
@@ -122,5 +122,3 @@ const Articles = () => {
     </div>
   );
 };
-
-export default Articles;

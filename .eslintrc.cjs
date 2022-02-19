@@ -26,7 +26,6 @@ module.exports = {
         "@typescript-eslint/no-use-before-define": "off",
         "func-style": "off",
         "id-length": "off",
-        "import/no-default-export": "off",
         "no-param-reassign": "off",
         "unicorn/consistent-destructuring": "off",
         "unicorn/consistent-function-scoping": "off",

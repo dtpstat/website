@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import SvgIcon from "./svg-icon";
+import { SvgIcon } from "./svg-icon";
 
-const NewsItem = () => {
+export const NewsItem: React.VoidFunctionComponent = () => {
   return (
     <div className="modal-overlay">
       <div className="modal">
@@ -27,5 +27,3 @@ const NewsItem = () => {
     </div>
   );
 };
-
-export default NewsItem;

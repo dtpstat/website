@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { Colors } from "../../../../styles/colors";
 
-const EventComments = () => {
+export const EventComments: React.VoidFunctionComponent = () => {
   return (
     <div className="event-comments">
       <h2 className="h2" style={{ marginBottom: "16px" }}>
@@ -48,5 +48,3 @@ const EventComments = () => {
     </div>
   );
 };
-
-export default EventComments;

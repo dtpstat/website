@@ -10,7 +10,7 @@ import ruLocale from "date-fns/locale/ru";
 import { observer } from "mobx-react";
 import * as React from "react";
 
-const DateFilterSection = ({ filter }) => {
+export const DateFilter = observer(({ filter }) => {
   const defaultRange = {
     start: parseISO(filter.value.start_date),
     end: parseISO(filter.value.end_date),
@@ -111,7 +111,7 @@ const DateFilterSection = ({ filter }) => {
       )}
     </div>
   );
-};
+});
 
 const DateMenu = ({ handleClick, setShow }) => {
   const menuRef = React.useRef();
@@ -220,5 +220,3 @@ const useOutsideClick = (ref, callback) => {
     };
   });
 };
-
-export default observer(DateFilterSection);

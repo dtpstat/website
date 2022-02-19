@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const EventTags = () => {
+export const EventTags: React.VoidFunctionComponent = () => {
   return (
     <div
       style={{
@@ -56,5 +56,3 @@ const EventTags = () => {
     </div>
   );
 };
-
-export default EventTags;

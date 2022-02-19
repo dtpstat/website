@@ -4,7 +4,7 @@ import * as React from "react";
 import { Colors } from "../../../styles/colors";
 import { useStore } from "../models/root-store";
 
-const InfoPanelObservable = observer(() => {
+export const InfoPanel = observer(() => {
   const { areaStore } = useStore();
   const { area, statistics } = areaStore;
 
@@ -42,5 +42,3 @@ const InfoPanelObservable = observer(() => {
     </div>
   );
 });
-
-export { InfoPanelObservable as InfoPanel };

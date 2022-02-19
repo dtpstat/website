@@ -3,9 +3,9 @@ import * as React from "react";
 
 import { ParticipantsFilterType } from "../../models/filters/participants-filter";
 
-const ParticipantsFilter: React.VoidFunctionComponent<
-  ParticipantsFilterType
-> = (filter) => (
+export const ParticipantsFilter = observer<
+  React.VoidFunctionComponent<ParticipantsFilterType>
+>((filter) => (
   <div className="participant-filter">
     {filter.values.map((item) => (
       <button
@@ -26,6 +26,4 @@ const ParticipantsFilter: React.VoidFunctionComponent<
       </button>
     ))}
   </div>
-);
-
-export default observer(ParticipantsFilter);
+));
