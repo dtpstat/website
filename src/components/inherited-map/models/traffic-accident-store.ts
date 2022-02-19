@@ -6,10 +6,10 @@ import { RootStoreType } from "./root-store";
 
 const getYears = (startDate: string, endDate: string) => {
   const result = [];
-  const start = Number.parseInt(startDate.split("-")[0] ?? "0");
-  const end = Number.parseInt(endDate.split("-")[0] ?? "0");
-  for (let i = start; i <= end; i++) {
-    result.push(i);
+  const startYear = Number.parseInt(startDate.split("-")[0] ?? "0");
+  const endYear = Number.parseInt(endDate.split("-")[0] ?? "0");
+  for (let year = startYear; year <= endYear; year += 1) {
+    result.push(year);
   }
 
   return result;

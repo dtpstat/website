@@ -24,10 +24,14 @@ const pointRadiusInPixels = 5;
 
 export const buildSelection = (filters: any[]) => {
   const selection: any[] = [];
-  for (const filter of filters.filter((f) => f.name !== "date")) {
+  for (const filter of filters.filter(
+    (currentFilter) => currentFilter.name !== "date",
+  )) {
     const values = filter.values
-      .filter((v: any) => v.selected)
-      .map((v: any) => (v.value === -1 ? v.preview : v.value));
+      .filter((filterValue: any) => filterValue.selected)
+      .map((filterValue: any) =>
+        filterValue.value === -1 ? filterValue.preview : filterValue.value,
+      );
     selection.push({ id: filter.key || filter.name, values });
   }
 
@@ -42,7 +46,9 @@ export const passFilters = (item: any, selection: any[]): boolean => {
       continue;
     }
     if (Array.isArray(value)) {
-      if (!value.some((v) => selectedValues.includes(v))) {
+      if (
+        !value.some((currentValue) => selectedValues.includes(currentValue))
+      ) {
         return false;
       }
     } else {
@@ -229,10 +235,12 @@ export const MapStore = types
     };
 
     const updatePointRadius = () => {
-      objectManager.objects.each((o: any) => {
-        o.geometry.radius =
-          calculateMetersPerPixelInWgs84(o.geometry.coordinates[0], self.zoom) *
-          pointRadiusInPixels;
+      objectManager.objects.each((object: any) => {
+        object.geometry.radius =
+          calculateMetersPerPixelInWgs84(
+            object.geometry.coordinates[0],
+            self.zoom,
+          ) * pointRadiusInPixels;
       });
       const mapInstance = objectManager.getParent();
       objectManager.setParent(null);
@@ -247,7 +255,7 @@ export const MapStore = types
     };
 
     const setFilter = (filter: any) => {
-      objectManager.setFilter((f: any) => filter(f.properties));
+      objectManager.setFilter((object: any) => filter(object.properties));
     };
 
     return {

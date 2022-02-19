@@ -33,8 +33,8 @@ export const CategoryFilter = types
   })
   .actions((self) => ({
     reset() {
-      for (const v of self.values) {
-        v.reset();
+      for (const value of self.values) {
+        value.reset();
       }
       // if (self.key === 'street') {
       //   getRoot<RootStoreType>(self).updateStreets() TODO // clear previously selected streets from another region

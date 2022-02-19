@@ -7,11 +7,14 @@ import DateFilter from "./date-filter";
 export const FilterPanelHidden = observer(() => {
   const { filterStore } = useStore();
   const { filters } = filterStore;
-  const dateFilter = filters.find((f) => f.name === "date");
+  const dateFilter = filters.find(
+    (currentFilter) => currentFilter.name === "date",
+  );
   const activeFilters =
-    filters.filter((f) => f.values?.some((v) => v.selected !== v.default)) ||
-    [];
-  const text = activeFilters.map((f) => f.label).join(", ");
+    filters.filter((currentFilter) =>
+      currentFilter.values?.some((value) => value.selected !== value.default),
+    ) || [];
+  const text = activeFilters.map((value) => value.label).join(", ");
 
   return (
     <div className="filter-panel">

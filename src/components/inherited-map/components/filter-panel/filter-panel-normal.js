@@ -23,7 +23,7 @@ const FilterSection = ({ filter }) => {
 };
 
 const CategoryTag = observer(({ filter }) => {
-  if (filter.values.some((v) => v.selected)) {
+  if (filter.values.some((currentFilter) => currentFilter.selected)) {
     return (
       <div className="category-tag active">
         <button
@@ -66,23 +66,27 @@ export const FilterPanelNormal = observer(() => {
   const { filterStore } = useStore();
   const { filters } = filterStore;
 
-  const mainFilters = filters.filter((f) => f.name !== "category");
-  const categoryFilters = filters.filter((f) => f.name === "category");
+  const mainFilters = filters.filter(
+    (currentFilter) => currentFilter.name !== "category",
+  );
+  const categoryFilters = filters.filter(
+    (currentFilter) => currentFilter.name === "category",
+  );
 
   return (
     <div className="filter-panel">
       <div className="filter-panel-normal">
-        {mainFilters.map((f) => (
-          <div key={f.name} className="filter-item">
-            <p className="subtitle2">{f.label}</p>
-            <FilterSection filter={f} />
+        {mainFilters.map((currentFilter) => (
+          <div key={currentFilter.name} className="filter-item">
+            <p className="subtitle2">{currentFilter.label}</p>
+            <FilterSection filter={currentFilter} />
           </div>
         ))}
         <div className="filter-item">
           <p className="subtitle2">Фильтры</p>
           <div className="category-filter">
-            {categoryFilters.map((f) => (
-              <CategoryTag key={f.key} filter={f} />
+            {categoryFilters.map((currentFilter) => (
+              <CategoryTag key={currentFilter.key} filter={currentFilter} />
             ))}
           </div>
         </div>

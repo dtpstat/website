@@ -5,7 +5,6 @@ import styled from "styled-components";
 
 import { useStore } from "../../models/root-store";
 import { StyledMap } from "./styles";
-// import { debounce } from 'utils'
 
 const ErrorMessage = styled.div`
   position: absolute;
@@ -19,16 +18,9 @@ const ErrorMessage = styled.div`
 
 export const Map = observer(() => {
   const { mapStore } = useStore();
-  // const boundsChangeHandler = React.useCallback( // TODO
-  //   debounce((e) => {
-  //     const { newCenter, newZoom, newBounds } = e.originalEvent
-  //     mapStore.updateBounds(newCenter, newZoom, newBounds)
-  //   }, 1000),
-  //   [mapStore]
-  // )
   const boundsChangeHandler = React.useCallback(
-    (e) => {
-      const { newCenter, newZoom, newBounds } = e.originalEvent;
+    (event) => {
+      const { newCenter, newZoom, newBounds } = event.originalEvent;
       mapStore.updateBounds(newCenter, newZoom, newBounds);
     },
     [mapStore],
@@ -70,8 +62,8 @@ export const Map = observer(() => {
         });
 
       // move to center
-      const updatePos = (h) => {
-        const top = (h - (206 + 16 + 28)) / 2;
+      const updatePos = (height) => {
+        const top = (height - (206 + 16 + 28)) / 2;
         map.controls
           .get("zoomControl")
           .options.set("position", { top, right: 20 });

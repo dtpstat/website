@@ -32,9 +32,9 @@ const DateFilterSection = ({ filter }) => {
     inputRef.current.blur();
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      const range = parseRange(e.target.value);
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      const range = parseRange(event.target.value);
       if (range) {
         const curYear = new Date().getFullYear();
         const endOfYear = new Date(curYear, 11, 31);
@@ -56,11 +56,11 @@ const DateFilterSection = ({ filter }) => {
     apply(range);
     setShow(false);
   };
-  const handleChange = (e) => {
+  const handleChange = (event) => {
     if (error) {
       setError(null);
     }
-    setText(e.target.value);
+    setText(event.target.value);
     dirtyRef.current = true;
   };
   const handleBlur = () => {
@@ -102,16 +102,16 @@ const DateFilterSection = ({ filter }) => {
       </div>
       {error && (
         <div className="body3 date-error-wrap">
-          {error.split("\n").map((s, i) => (
-            <div key={i} className="date-error">
-              {s}
+          {error.split("\n").map((line, lineIndex) => (
+            <div key={lineIndex} className="date-error">
+              {line}
             </div>
           ))}
         </div>
       )}
     </div>
   );
-};
+});
 
 const DateMenu = ({ handleClick, setShow }) => {
   const menuRef = React.useRef();
@@ -121,23 +121,23 @@ const DateMenu = ({ handleClick, setShow }) => {
 
   return (
     <div className="date-menu" ref={menuRef}>
-      {defaultRanges.map((r) => (
+      {defaultRanges.map((range) => (
         <div
-          key={r.label}
+          key={range.label}
           className="date-value"
           onClick={() => {
-            handleClick(r);
+            handleClick(range);
           }}
         >
-          {r.label}
+          {range.label}
         </div>
       ))}
     </div>
   );
 };
 
-const parseRange = (s) => {
-  const ps = s.split("-");
+const parseRange = (input) => {
+  const ps = input.split("-");
   if (ps.length === 2) {
     const start = parseDate(ps[0].trim());
     const end = parseDate(ps[1].trim());
@@ -149,9 +149,9 @@ const parseRange = (s) => {
   return null;
 };
 
-const parseDate = (s) => {
+const parseDate = (input) => {
   try {
-    const result = parse(s, "d.M.y", new Date());
+    const result = parse(input, "d.M.y", new Date());
     if (Number.isNaN(result)) {
       return null;
     }
@@ -164,34 +164,40 @@ const parseDate = (s) => {
 
 const formatDate = (date) => format(date, "yyyy-MM-dd");
 
+const dateFormat = "dd.MM.yyyy";
 const formatRange = (range) => {
-  const f = "dd.MM.yyyy";
-
-  return `${format(range.start, f)} - ${format(range.end, f)}`;
+  return `${format(range.start, dateFormat)} - ${format(
+    range.end,
+    dateFormat,
+  )}`;
 };
 
-const getPrevMonth = (n) => {
-  const p = subMonths(new Date(), n);
-  const s = format(p, "LLLL", { locale: ruLocale });
+const derivePrevMonth = (monthDelta) => {
+  const derivedDate = subMonths(new Date(), monthDelta);
+  const stringifiedDerivedDate = format(derivedDate, "LLLL", {
+    locale: ruLocale,
+  });
 
   return {
-    label: s[0].toLocaleUpperCase("ru") + s.slice(1),
-    start: startOfMonth(p),
-    end: lastDayOfMonth(p),
+    label:
+      stringifiedDerivedDate[0].toLocaleUpperCase("ru") +
+      stringifiedDerivedDate.slice(1),
+    start: startOfMonth(derivedDate),
+    end: lastDayOfMonth(derivedDate),
   };
 };
 
 const getDefaultRanges = () => {
   const result = [];
   const year = new Date().getFullYear();
-  for (let i = 1; i <= 2; i++) {
-    result.push(getPrevMonth(i));
+  for (let monthDelta = 1; monthDelta <= 2; monthDelta += 1) {
+    result.push(derivePrevMonth(monthDelta));
   }
-  for (let i = year; i > year - 6; i--) {
+  for (let currentYear = year; currentYear > year - 6; currentYear -= 1) {
     result.push({
-      label: i.toString(),
-      start: new Date(i, 0, 1),
-      end: new Date(i, 11, 31),
+      label: currentYear.toString(),
+      start: new Date(currentYear, 0, 1),
+      end: new Date(currentYear, 11, 31),
     });
   }
   result.push({
@@ -206,8 +212,8 @@ const getDefaultRanges = () => {
 const defaultRanges = getDefaultRanges();
 
 const useOutsideClick = (ref, callback) => {
-  const handleClick = (e) => {
-    if (ref.current && !ref.current.contains(e.target)) {
+  const handleClick = (event) => {
+    if (ref.current && !ref.current.contains(event.target)) {
       callback();
     }
   };

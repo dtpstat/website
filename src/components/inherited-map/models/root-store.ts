@@ -59,8 +59,14 @@ const RootStore = types
         const areaAccs = allAreaAccs.filter(prepareFilter());
         self.areaStore.setStatistics({
           count: areaAccs.length,
-          injured: areaAccs.reduce((s, v) => s + v.injured, 0),
-          dead: areaAccs.reduce((s, v) => s + v.dead, 0),
+          injured: areaAccs.reduce(
+            (accident, partialResult) => accident + partialResult.injured,
+            0,
+          ),
+          dead: areaAccs.reduce(
+            (accident, partialResult) => accident + partialResult.dead,
+            0,
+          ),
         });
       }
     };
@@ -149,7 +155,7 @@ const RootStore = types
     const updateUrlDates = (currentParams: URLSearchParams) => {
       const value = (
         self.filterStore.filters.find(
-          (f) => f.name === "date",
+          (filter) => filter.name === "date",
         ) as DateFilterType
       ).value;
       currentParams.set("start_date", value.start_date);
@@ -157,17 +163,17 @@ const RootStore = types
     };
     const updateUrlFilters = (currentParams: URLSearchParams) => {
       self.filterStore.filters
-        .filter((f) => f.name !== "date")
-        .forEach((f: any) => {
-          const id = f.key || f.name;
+        .filter((filter) => filter.name !== "date")
+        .forEach((filter: any) => {
+          const id = filter.key || filter.name;
           currentParams.delete(id);
-          const values = f.values.filter((v: any) => v.selected);
+          const values = filter.values.filter((value: any) => value.selected);
           if (values.length > 0) {
             currentParams.set(
               id,
               values
-                .map((v: any) =>
-                  id === "street" ? v.preview : String(v.value),
+                .map((value: any) =>
+                  id === "street" ? value.preview : String(value.value),
                 )
                 .join(";"),
             );
@@ -191,7 +197,7 @@ const RootStore = types
     const setDatesFromUrl = () => {
       const currentParams = new URLSearchParams(document.location.search);
       const dateFilter = self.filterStore.filters.find(
-        (f) => f.name === "date",
+        (filter) => filter.name === "date",
       ) as DateFilterType;
       const start_date = currentParams.get("start_date");
       const end_date = currentParams.get("end_date");
@@ -202,15 +208,15 @@ const RootStore = types
     const setFiltersFromUrl = () => {
       const currentParams = new URLSearchParams(document.location.search);
       self.filterStore.filters
-        .filter((f) => f.name !== "date")
-        .forEach((f: any) => {
-          const id = f.key || f.name;
+        .filter((filter) => filter.name !== "date")
+        .forEach((filter: any) => {
+          const id = filter.key || filter.name;
           const value = currentParams.get(id);
           if (value) {
             const values = value.split(";");
-            f.values.forEach((fv: any) => {
-              const s = id === "street" ? fv.preview : String(fv.value);
-              fv.selected = values.includes(s);
+            filter.values.forEach((fv: any) => {
+              const search = id === "street" ? fv.preview : String(fv.value);
+              fv.selected = values.includes(search);
             });
           }
         });
@@ -218,7 +224,7 @@ const RootStore = types
     const setStreetsFromUrl = () => {
       const currentParams = new URLSearchParams(document.location.search);
       const streetFilter: any = self.filterStore.filters.find(
-        (f: any) => f.key === "street",
+        (filter: any) => filter.key === "street",
       );
       const value = currentParams.get("street");
       if (value) {
