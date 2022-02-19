@@ -16,10 +16,10 @@ const SeverityItem = types
     const afterCreate = () => {
       self.selected = self.default;
     };
-    function changeSelection() {
+    const changeSelection = () => {
       self.selected = !self.selected;
       getRoot<RootStoreType>(self).onFiltersChanged();
-    }
+    };
 
     return {
       afterCreate,
