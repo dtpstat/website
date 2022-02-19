@@ -132,6 +132,11 @@
   transition: background 0.3s ease;
   width: 18px;
 
+  // @todo Replace with tooltips on click instead of on hover
+  @media (hover: none) {
+    display: none;
+  }
+
   &:hover,
   &:focus-visible {
     background: $grey50;
