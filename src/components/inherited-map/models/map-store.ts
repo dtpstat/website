@@ -28,16 +28,16 @@ const calculateMetersPerPixelInWgs84 = (latitude: number, zoom: number) => {
 const pointRadiusInPixels = 5;
 
 const generateConcentrationPlaceLayer = () => {
-  return new window.ymaps.ObjectManager(
-    {
+  return new window.ymaps.ObjectManager({
+    ...({
       geoObjectFillColor: "#000",
       geoObjectStrokeColor: "#000",
-      geoObjectOpacity: 0.5,
-      geoObjectStrokeWidth: 5,
+      geoObjectOpacity: 0.4,
+      geoObjectStrokeWidth: 10,
       geoObjectCursor: "default",
       geoObjectInteractivityModel: "default#silent",
-    } as any /* Typings for ObjectManager options don’t support geoObject prefix */,
-  );
+    } as any) /* Typings for ObjectManager options don’t support geoObject prefix */,
+  });
 };
 const populateConcentrationPlaceLayer = async (
   concentrationPlaceLayer: ObjectManager,
@@ -110,10 +110,10 @@ export const MapStore = types
       }
       const variant = self.concentrationPlaces;
 
-      for (const existingVariant in concentrationPlaceLayerByVariant) {
-        map.geoObjects.remove(
-          concentrationPlaceLayerByVariant[existingVariant]!,
-        );
+      for (const concentrationPlaceLayer of Object.values(
+        concentrationPlaceLayerByVariant,
+      )) {
+        map.geoObjects.remove(concentrationPlaceLayer);
       }
 
       if (variant) {
@@ -127,9 +127,7 @@ export const MapStore = types
             variant,
           );
         }
-        map.geoObjects.remove(objectManager);
         map.geoObjects.add(concentrationPlaceLayer);
-        map.geoObjects.add(objectManager);
       }
     };
 
@@ -200,8 +198,8 @@ export const MapStore = types
       });
       heatmap.setMap(map, {});
 
-      applyConcentrationPlaces();
       map.geoObjects.add(objectManager);
+      applyConcentrationPlaces();
       updateBounds(map.getCenter() as Coordinate, map.getZoom());
       self.mapReady = true;
     };
@@ -318,6 +316,7 @@ export const MapStore = types
       const parent = objectManager.getParent();
       objectManager.setParent(null);
       objectManager.setParent(parent);
+      applyConcentrationPlaces();
 
       openActiveObjectBalloon();
     };
