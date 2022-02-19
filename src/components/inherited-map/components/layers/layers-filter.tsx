@@ -86,9 +86,13 @@ const renderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
                 <SvgIcon name="question" />
                 <p
                   className="tooltip tooltip-position-bottom-right"
-                  style={{ width: "121px" }}
+                  style={{ whiteSpace: "nowrap" }}
                 >
-                  <span className="subtitle3">Данные ГИБДД за 2020 год</span>
+                  <span className="subtitle3">
+                    Данные ГИБДД
+                    <br />
+                    за 2020 год
+                  </span>
                 </p>
               </button>
             </div>
