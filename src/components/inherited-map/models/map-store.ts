@@ -1,5 +1,6 @@
 import { cast, getRoot, types } from "mobx-state-tree";
 import ReactDOMServer from "react-dom/server";
+import type { Map } from "yandex-maps";
 
 import { InfoBalloonContent } from "../components/info-balloon";
 import { Accident, Coordinate } from "../types";
@@ -59,10 +60,10 @@ export const MapStore = types
   .model("MapStore", {
     center: types.array(types.number),
     zoom: 1,
+    mapReady: false,
   })
   .actions((self) => {
-    // TODO: improve types
-    let map: any = null;
+    let map: Map | null = null;
     let objectManager: any = null;
     let heatmap: any = null;
 
@@ -77,7 +78,6 @@ export const MapStore = types
 
     const setMap = (mapInstance: any) => {
       map = mapInstance;
-
       objectManager = new window.ymaps.ObjectManager({});
 
       objectManager.objects.events.add(
@@ -122,9 +122,11 @@ export const MapStore = types
       });
       heatmap.setMap(map, {});
 
-      map.geoObjects.add(objectManager);
-
-      updateBounds(map.getCenter(), map.getZoom());
+      if (map) {
+        map.geoObjects.add(objectManager);
+        updateBounds(map.getCenter(), map.getZoom());
+        self.mapReady = true;
+      }
     };
 
     const handlerClickToObj = (objectId: string) => {

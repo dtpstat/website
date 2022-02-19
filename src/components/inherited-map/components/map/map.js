@@ -28,11 +28,12 @@ export const Map = observer(() => {
   // )
   const boundsChangeHandler = React.useCallback(
     (e) => {
-      const { newCenter, newZoom, newBounds } = e.originalEvent;
-      mapStore.updateBounds(newCenter, newZoom, newBounds);
+      const { newCenter, newZoom } = e.originalEvent;
+      mapStore.updateBounds(newCenter, newZoom);
     },
     [mapStore],
   );
+
   React.useEffect(() => {
     if (!window.ymaps) {
       return;
@@ -48,6 +49,8 @@ export const Map = observer(() => {
           controls: [],
         },
         {
+          maxZoom: 20,
+          minZoom: 1,
           avoidFractionalZoom: true,
           yandexMapDisablePoiInteractivity: true,
           suppressMapOpenBlock: true,
@@ -70,6 +73,7 @@ export const Map = observer(() => {
           .options.set("position", { top: top + 206 + 16, right: 20 });
       };
       updatePos(mapRef.current.offsetHeight);
+
       map.events.add("sizechange", () => {
         updatePos(mapRef.current.offsetHeight);
       });

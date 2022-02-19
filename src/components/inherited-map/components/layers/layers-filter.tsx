@@ -85,7 +85,7 @@ export const LayersFilter: React.VoidFunctionComponent = () => {
                   className="tooltip tooltip-position-bottom-right"
                   style={{ width: "121px" }}
                 >
-                  <span className="subtitle3">Данные за 2020 год</span>
+                  <span className="subtitle3">Данные ГИБДД за 2020 год</span>
                 </p>
               </button>
             </div>
