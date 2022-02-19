@@ -33,9 +33,11 @@ const generateConcentrationPlaceLayer = () => {
       geoObjectFillColor: "#000",
       geoObjectStrokeColor: "#000",
       geoObjectOpacity: 0.4,
-      geoObjectStrokeWidth: 10,
+      geoObjectStrokeWidth: 20,
       geoObjectCursor: "default",
-      geoObjectInteractivityModel: "default#silent",
+      geoObjectInteractivityModel: "default#transparent",
+      geoObjectZIndex: 1,
+      geoObjectZIndexHover: 1,
     } as any) /* Typings for ObjectManager options don’t support geoObject prefix */,
   });
 };
@@ -104,7 +106,7 @@ export const MapStore = types
 
     const concentrationPlaceLayerByVariant: Record<string, ObjectManager> = {};
 
-    const applyConcentrationPlaces = () => {
+    const drawConcentrationPlaces = () => {
       if (!map) {
         return;
       }
@@ -138,7 +140,7 @@ export const MapStore = types
         ? (variant as SupportedConcentrationPlacesVariant)
         : null;
 
-      applyConcentrationPlaces();
+      drawConcentrationPlaces();
 
       getRoot<RootStoreType>(self).onConcentrationPlacesChanged();
     };
@@ -199,7 +201,7 @@ export const MapStore = types
       heatmap.setMap(map, {});
 
       map.geoObjects.add(objectManager);
-      applyConcentrationPlaces();
+      drawConcentrationPlaces();
       updateBounds(map.getCenter() as Coordinate, map.getZoom());
       self.mapReady = true;
     };
@@ -316,7 +318,7 @@ export const MapStore = types
       const parent = objectManager.getParent();
       objectManager.setParent(null);
       objectManager.setParent(parent);
-      applyConcentrationPlaces();
+      drawConcentrationPlaces();
 
       openActiveObjectBalloon();
     };
