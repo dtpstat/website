@@ -18,12 +18,13 @@ process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT = process.env.SENTRY_ENVIRONMENT;
  * @todo Remove Omit<> when mismatch between Next Config and Sentry config is resolved
  */
 const nextConfig = {
-  experimental: {
+  compiler: {
     styledComponents: true,
   },
 
   productionBrowserSourceMaps: true,
   reactStrictMode: true,
+  swcMinify: true,
 
   // We call linters in GitHub Actions for all pull requests. By not linting
   // again during `next build`, we save CI minutes and unlock more feedback.
