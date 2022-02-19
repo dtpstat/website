@@ -98,7 +98,7 @@ const RootStore = types
       recreateMapObjects();
     };
 
-    const onLayersChanged = () => {
+    const onConcentrationPlacesChanged = () => {
       updateUrl();
     };
 
@@ -271,7 +271,7 @@ const RootStore = types
       onTrafficAccidentsLoaded,
       onDatesChanged,
       onFiltersChanged,
-      onLayersChanged,
+      onConcentrationPlacesChanged,
       incLoading,
       decLoading,
     };

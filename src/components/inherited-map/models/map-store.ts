@@ -77,7 +77,7 @@ export const MapStore = types
         variant && supportedConcentrationPlaces.includes(variant)
           ? variant
           : null;
-      getRoot<RootStoreType>(self).onLayersChanged();
+      getRoot<RootStoreType>(self).onConcentrationPlacesChanged();
     };
 
     const updateBounds = (center: Coordinate, zoom: number) => {
@@ -250,8 +250,11 @@ export const MapStore = types
           pointRadiusInPixels;
       });
       const mapInstance = objectManager.getParent();
+
+      // This trick helps redraw circles, otherwise their radius is cached
       objectManager.setParent(null);
       objectManager.setParent(mapInstance);
+
       openActiveObjectBalloon();
     };
 
