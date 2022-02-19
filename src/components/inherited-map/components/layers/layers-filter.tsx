@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import { SvgIcon } from "../svg-icon";
+// import { SvgIcon } from "../svg-icon";
 
-const renderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
+const RenderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
   props,
   ref,
 ) => {
@@ -78,23 +78,10 @@ const renderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
           <li>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <label className="checkWrap" tabIndex={0}>
-                Очаги аварийности
+                Очаги аварийности (2020)
                 <input type="radio" checked={false} name="radio" />
                 <span className="checkmark" />
               </label>
-              <button className="btn-question" style={{ marginLeft: "auto" }}>
-                <SvgIcon name="question" />
-                <p
-                  className="tooltip tooltip-position-bottom-right"
-                  style={{ whiteSpace: "nowrap" }}
-                >
-                  <span className="subtitle3">
-                    Данные ГИБДД
-                    <br />
-                    за 2020 год
-                  </span>
-                </p>
-              </button>
             </div>
           </li>
         </ul>
@@ -103,4 +90,4 @@ const renderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
   );
 };
 
-export const LayersFilter = React.forwardRef(renderLayersFilter);
+export const LayersFilter = React.forwardRef(RenderLayersFilter);
