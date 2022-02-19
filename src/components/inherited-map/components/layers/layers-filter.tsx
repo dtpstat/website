@@ -2,9 +2,12 @@ import * as React from "react";
 
 import { SvgIcon } from "../svg-icon";
 
-export const LayersFilter: React.VoidFunctionComponent = () => {
+const renderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
+  props,
+  ref,
+) => {
   return (
-    <div className="layers-filter">
+    <div className="layers-filter" ref={ref}>
       {/*
       <div style={{ marginBottom: "16px" }}>
         <h4 className="subtitle2">Отображение данных</h4>
@@ -95,3 +98,5 @@ export const LayersFilter: React.VoidFunctionComponent = () => {
     </div>
   );
 };
+
+export const LayersFilter = React.forwardRef(renderLayersFilter);
