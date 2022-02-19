@@ -18,6 +18,8 @@ import { TrafficAccidentStore } from "./traffic-accident-store";
 export type RootStoreType = Instance<typeof RootStore>;
 
 const minZoomForPoints = 12;
+const minZoomForHeatmap = 6;
+
 const RootStore = types
   .model("RootStore", {
     filterStore: FilterStore,
@@ -86,7 +88,7 @@ const RootStore = types
       if (self.mapStore.zoom >= minZoomForPoints) {
         self.mapStore.setFilter(prepareFilter());
         self.mapStore.recreatePoints(visibleAccs);
-      } else {
+      } else if (self.mapStore.zoom >= minZoomForHeatmap) {
         const accs = visibleAccs.filter(prepareFilter());
         self.mapStore.drawHeat(accs);
       }
@@ -110,8 +112,9 @@ const RootStore = types
         updateUrl();
         loadArea();
         if (
-          (zoom >= minZoomForPoints && prevZoom < minZoomForPoints) ||
-          (zoom < minZoomForPoints && prevZoom >= minZoomForPoints)
+          [minZoomForPoints, minZoomForHeatmap].some((boundary) =>
+            zoom >= boundary ? prevZoom < boundary : prevZoom >= boundary,
+          )
         ) {
           recreateMapObjects();
         } else if (zoom >= minZoomForPoints && prevZoom !== zoom) {
