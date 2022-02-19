@@ -1,6 +1,7 @@
 import { observer } from "mobx-react";
 import * as React from "react";
 
+import { supportedConcentrationPlaces } from "../../models/map-store";
 import { useStore } from "../../models/root-store";
 
 // import { SvgIcon } from "../svg-icon";
@@ -90,21 +91,23 @@ const RenderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
               <span className="checkmark" />
             </label>
           </li>
-          <li>
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              <label className="checkWrap" tabIndex={0}>
-                Очаги аварийности (2020)
-                <input
-                  type="radio"
-                  name="layer"
-                  value="2020"
-                  checked={mapStore.concentrationPlaces === "2020"}
-                  onChange={handleLayerChange}
-                />
-                <span className="checkmark" />
-              </label>
-            </div>
-          </li>
+          {supportedConcentrationPlaces.map((value) => (
+            <li key={value}>
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <label className="checkWrap" tabIndex={0}>
+                  Очаги аварийности ({value})
+                  <input
+                    type="radio"
+                    name="layer"
+                    value={value}
+                    checked={mapStore.concentrationPlaces === value}
+                    onChange={handleLayerChange}
+                  />
+                  <span className="checkmark" />
+                </label>
+              </div>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
