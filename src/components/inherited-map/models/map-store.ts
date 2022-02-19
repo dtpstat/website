@@ -93,16 +93,16 @@ export const MapStore = types
     zoom: 1,
     mapReady: false,
     concentrationPlaces: types.maybeNull(
-      types.enumeration<SupportedConcentrationPlacesVariant>([
-        ...supportedConcentrationPlaces,
-      ]),
+      types.enumeration([...supportedConcentrationPlaces]),
     ),
   })
   .actions((self) => {
     let map: Map | null = null;
+    // TODO: improve types
     let objectManager: any = null;
-    const concentrationPlaceLayerByVariant: Record<string, ObjectManager> = {};
     let heatmap: any = null;
+
+    const concentrationPlaceLayerByVariant: Record<string, ObjectManager> = {};
 
     const applyConcentrationPlaces = () => {
       if (!map) {

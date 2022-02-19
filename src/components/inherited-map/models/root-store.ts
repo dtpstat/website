@@ -161,6 +161,7 @@ const RootStore = types
 
     const updateUrlMap = (currentParams: URLSearchParams) => {
       const { center, zoom, concentrationPlaces } = self.mapStore;
+      // Using latitude:longitude in URLs for backwards compatibility
       currentParams.set("center", `${center[1]!}:${center[0]!}`);
       currentParams.set("zoom", String(zoom));
 

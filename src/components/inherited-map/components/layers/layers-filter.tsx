@@ -4,8 +4,6 @@ import * as React from "react";
 import { supportedConcentrationPlaces } from "../../models/map-store";
 import { useStore } from "../../models/root-store";
 
-// import { SvgIcon } from "../svg-icon";
-
 const RenderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
   props,
   ref,
