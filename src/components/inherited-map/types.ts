@@ -1,4 +1,4 @@
-export type Coordinate = number[];
+export type Coordinate = [longitude: number, latitude: number];
 
 export type ShortStatisticsResponse = {
   parent_region_name: string;

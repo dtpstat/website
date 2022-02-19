@@ -1,6 +1,6 @@
 import { cast, getRoot, types } from "mobx-state-tree";
 import ReactDOMServer from "react-dom/server";
-import type { Map } from "yandex-maps";
+import type { Map, ObjectManager } from "yandex-maps";
 
 import { InfoBalloonContent } from "../components/info-balloon";
 import { Accident, Coordinate } from "../types";
@@ -13,7 +13,9 @@ const colorBySeverity: Record<number, string> = {
   4: "#FF001A",
 };
 
-export const supportedConcentrationPlaces = ["2020"];
+export const supportedConcentrationPlaces = ["2020"] as const;
+export type SupportedConcentrationPlacesVariant =
+  typeof supportedConcentrationPlaces[0];
 
 const calculateMetersPerPixelInWgs84 = (latitude: number, zoom: number) => {
   const result =
@@ -24,6 +26,33 @@ const calculateMetersPerPixelInWgs84 = (latitude: number, zoom: number) => {
 };
 
 const pointRadiusInPixels = 5;
+
+const generateConcentrationPlaceLayer = () => {
+  return new window.ymaps.ObjectManager(
+    {
+      geoObjectFillColor: "#000",
+      geoObjectStrokeColor: "#000",
+      geoObjectOpacity: 0.5,
+      geoObjectStrokeWidth: 5,
+      geoObjectCursor: "default",
+      geoObjectInteractivityModel: "default#silent",
+    } as any /* Typings for ObjectManager options don’t support geoObject prefix */,
+  );
+};
+const populateConcentrationPlaceLayer = async (
+  concentrationPlaceLayer: ObjectManager,
+  variant: string,
+) => {
+  const response = await fetch(`/data/concentration-places/${variant}.geojson`);
+  const geojson = await response.json();
+
+  concentrationPlaceLayer.add(
+    geojson.features.map((feature: any, index: number) => ({
+      id: index,
+      ...feature,
+    })),
+  );
+};
 
 export const buildSelection = (filters: any[]) => {
   const selection: any[] = [];
@@ -64,19 +93,55 @@ export const MapStore = types
     zoom: 1,
     mapReady: false,
     concentrationPlaces: types.maybeNull(
-      types.enumeration(supportedConcentrationPlaces),
+      types.enumeration<SupportedConcentrationPlacesVariant>([
+        ...supportedConcentrationPlaces,
+      ]),
     ),
   })
   .actions((self) => {
     let map: Map | null = null;
     let objectManager: any = null;
+    const concentrationPlaceLayerByVariant: Record<string, ObjectManager> = {};
     let heatmap: any = null;
 
+    const applyConcentrationPlaces = () => {
+      if (!map) {
+        return;
+      }
+      const variant = self.concentrationPlaces;
+
+      for (const existingVariant in concentrationPlaceLayerByVariant) {
+        map.geoObjects.remove(
+          concentrationPlaceLayerByVariant[existingVariant]!,
+        );
+      }
+
+      if (variant) {
+        let concentrationPlaceLayer = concentrationPlaceLayerByVariant[variant];
+        if (!concentrationPlaceLayer) {
+          concentrationPlaceLayer = generateConcentrationPlaceLayer();
+
+          concentrationPlaceLayerByVariant[variant] = concentrationPlaceLayer;
+          void populateConcentrationPlaceLayer(
+            concentrationPlaceLayer,
+            variant,
+          );
+        }
+        map.geoObjects.remove(objectManager);
+        map.geoObjects.add(concentrationPlaceLayer);
+        map.geoObjects.add(objectManager);
+      }
+    };
+
     const setConcentrationPlaces = (variant: string | null) => {
-      self.concentrationPlaces =
-        variant && supportedConcentrationPlaces.includes(variant)
-          ? variant
-          : null;
+      self.concentrationPlaces = supportedConcentrationPlaces.includes(
+        variant as SupportedConcentrationPlacesVariant,
+      )
+        ? (variant as SupportedConcentrationPlacesVariant)
+        : null;
+
+      applyConcentrationPlaces();
+
       getRoot<RootStoreType>(self).onConcentrationPlacesChanged();
     };
 
@@ -89,7 +154,7 @@ export const MapStore = types
 
     const getMap = () => map;
 
-    const setMap = (mapInstance: any) => {
+    const setMap = (mapInstance: Map) => {
       map = mapInstance;
       objectManager = new window.ymaps.ObjectManager({});
 
@@ -135,11 +200,10 @@ export const MapStore = types
       });
       heatmap.setMap(map, {});
 
-      if (map) {
-        map.geoObjects.add(objectManager);
-        updateBounds(map.getCenter(), map.getZoom());
-        self.mapReady = true;
-      }
+      applyConcentrationPlaces();
+      map.geoObjects.add(objectManager);
+      updateBounds(map.getCenter() as Coordinate, map.getZoom());
+      self.mapReady = true;
     };
 
     const handlerClickToObj = (objectId: string) => {
@@ -196,7 +260,7 @@ export const MapStore = types
         radius:
           calculateMetersPerPixelInWgs84(acc.point.latitude, zoom) *
           pointRadiusInPixels,
-        coordinates: [acc.point.latitude, acc.point.longitude],
+        coordinates: [acc.point.longitude, acc.point.latitude],
       },
       properties: {
         ...acc,
@@ -217,12 +281,12 @@ export const MapStore = types
       }
     };
 
-    const createHeatFeature = (acc: Accident) => ({
+    const createHeatmapFeature = (acc: Accident) => ({
       id: acc.id,
       type: "Feature",
       geometry: {
         type: "Point",
-        coordinates: [acc.point.latitude, acc.point.longitude],
+        coordinates: [acc.point.longitude, acc.point.latitude],
       },
       properties: {
         weight: acc.severity,
@@ -246,21 +310,21 @@ export const MapStore = types
     const updatePointRadius = () => {
       objectManager.objects.each((o: any) => {
         o.geometry.radius =
-          calculateMetersPerPixelInWgs84(o.geometry.coordinates[0], self.zoom) *
+          calculateMetersPerPixelInWgs84(o.geometry.coordinates[1], self.zoom) *
           pointRadiusInPixels;
       });
-      const mapInstance = objectManager.getParent();
 
       // This trick helps redraw circles, otherwise their radius is cached
+      const parent = objectManager.getParent();
       objectManager.setParent(null);
-      objectManager.setParent(mapInstance);
+      objectManager.setParent(parent);
 
       openActiveObjectBalloon();
     };
 
     const drawHeat = (accs: any[]) => {
       objectManager.removeAll();
-      const data = accs.map((a) => createHeatFeature(a));
+      const data = accs.map((a) => createHeatmapFeature(a));
       heatmap.setData(data);
     };
 

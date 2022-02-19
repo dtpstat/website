@@ -2,6 +2,7 @@ import makeInspectable from "mobx-devtools-mst";
 import { cast, flow, Instance, types } from "mobx-state-tree";
 import * as React from "react";
 
+import { Coordinate } from "../types";
 import { AreaStore } from "./area-store";
 import { FilterStore } from "./filter-store";
 import { DateFilterType } from "./filters/date-filter";
@@ -10,6 +11,7 @@ import {
   MapStore,
   passFilters,
   supportedConcentrationPlaces,
+  SupportedConcentrationPlacesVariant,
 } from "./map-store";
 import { TrafficAccidentStore } from "./traffic-accident-store";
 
@@ -41,7 +43,7 @@ const RootStore = types
     });
     const loadArea = () => {
       const { center, zoom } = self.mapStore;
-      void self.areaStore.loadArea(center, zoom);
+      void self.areaStore.loadArea(center as unknown as Coordinate, zoom);
     };
     const loadAccs = () => {
       const { areaStore, filterStore, trafficAccidentStore } = self;
@@ -159,7 +161,7 @@ const RootStore = types
 
     const updateUrlMap = (currentParams: URLSearchParams) => {
       const { center, zoom, concentrationPlaces } = self.mapStore;
-      currentParams.set("center", `${center[0]!}:${center[1]!}`);
+      currentParams.set("center", `${center[1]!}:${center[0]!}`);
       currentParams.set("zoom", String(zoom));
 
       if (concentrationPlaces) {
@@ -204,19 +206,19 @@ const RootStore = types
       const centerStr = params.get("center")?.split(":");
       const center = centerStr
         ? [
-            Number.parseFloat(centerStr[0] ?? "0"),
-            Number.parseFloat(centerStr[1] ?? "0"),
+            Number.parseFloat(centerStr[1] ?? "0"), // longitude
+            Number.parseFloat(centerStr[0] ?? "0"), // latitude
           ]
-        : [55.76, 37.64];
+        : [37.64, 55.76];
       const zoomStr = params.get("zoom");
       const zoom = zoomStr ? Number.parseInt(zoomStr, 10) : 12;
       self.mapStore.center = cast(center);
       self.mapStore.zoom = zoom;
 
       self.mapStore.concentrationPlaces = supportedConcentrationPlaces.includes(
-        params.get("cp")!,
+        params.get("cp") as SupportedConcentrationPlacesVariant,
       )
-        ? params.get("cp")
+        ? (params.get("cp") as SupportedConcentrationPlacesVariant)
         : null;
     };
 
