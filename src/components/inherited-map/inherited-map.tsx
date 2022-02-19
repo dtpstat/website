@@ -18,10 +18,11 @@ export const InheritedMap: React.VoidFunctionComponent = () => (
     <Loader />
     <Map />
     <div className="ui-layer">
+      {/* components are added in order of their z-index */}
+      <Layers />
       <FilterPanel />
       <InfoPanel />
       {/* <Toast /> */}
-      <Layers />
     </div>
     {/* <Event /> */}
     {/* <Modal /> */}
