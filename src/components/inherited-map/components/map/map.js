@@ -19,13 +19,6 @@ const ErrorMessage = styled.div`
 
 export const Map = observer(() => {
   const { mapStore } = useStore();
-  // const boundsChangeHandler = React.useCallback( // TODO
-  //   debounce((e) => {
-  //     const { newCenter, newZoom, newBounds } = e.originalEvent
-  //     mapStore.updateBounds(newCenter, newZoom, newBounds)
-  //   }, 1000),
-  //   [mapStore]
-  // )
   const boundsChangeHandler = React.useCallback(
     (e) => {
       const { newCenter, newZoom } = e.originalEvent;

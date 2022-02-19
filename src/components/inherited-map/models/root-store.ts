@@ -17,8 +17,8 @@ import { TrafficAccidentStore } from "./traffic-accident-store";
 
 export type RootStoreType = Instance<typeof RootStore>;
 
-const minZoomForPoints = 12;
-const minZoomForHeatmap = 6;
+export const minZoomForPoints = 12;
+export const minZoomForHeatmap = 6;
 
 const RootStore = types
   .model("RootStore", {
