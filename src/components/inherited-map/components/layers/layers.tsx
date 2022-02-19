@@ -4,7 +4,7 @@ import { SvgIcon } from "../svg-icon";
 import { LayersFilter } from "./layers-filter";
 import { ZoomSlider } from "./zoom-slider";
 
-export const Layers = () => {
+export const Layers: React.VoidFunctionComponent = () => {
   return (
     <div className="layers-wrap">
       <button
