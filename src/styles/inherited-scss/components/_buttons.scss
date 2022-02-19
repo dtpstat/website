@@ -17,7 +17,7 @@
   background: $greyMiddle;
   color: $greyDark;
   &:hover,
-  &:focus {
+  &:focus-visible {
     background: $grey20;
     box-shadow: none;
   }
@@ -28,7 +28,7 @@
   background: $greyDark;
   color: $white;
   &:hover,
-  &:focus {
+  &:focus-visible {
     background: $grey70;
     box-shadow: none;
   }
@@ -41,7 +41,7 @@
   background: $greyMiddle;
   display: flex;
   &:hover,
-  &:focus {
+  &:focus-visible {
     background-color: $grey20;
     box-shadow: none;
   }
@@ -61,7 +61,7 @@
   background-color: transparent;
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     box-shadow: none;
     .icon-search {
       stroke: $black;
@@ -104,7 +104,7 @@
   width: 40px;
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     background-color: $greyDark;
     .icon-layers {
       fill: $white;
@@ -133,7 +133,7 @@
   width: 18px;
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     background: $grey50;
     .icon-question {
       fill: $greyLight;
@@ -165,7 +165,7 @@
   width: 40px;
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     background-color: $greyDark;
     .icon-location-arrow {
       fill: $white;
@@ -192,7 +192,7 @@
   width: 24px;
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     outline: 0;
     box-shadow: 0 0 0 1px #ccd2d7;
   }

@@ -66,12 +66,12 @@
     }
   }
 
-  &:focus {
+  &:focus-visible {
     outline: none;
   }
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     input ~ .checkmark {
       background-color: $grey70;
     }

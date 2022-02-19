@@ -93,7 +93,7 @@
     transition: background 0.3s ease;
 
     &:hover,
-    &:focus {
+    &:focus-visible {
       background: rgba($greyDark, 0.7);
     }
   }

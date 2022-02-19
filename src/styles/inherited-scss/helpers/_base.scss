@@ -53,7 +53,7 @@ video {
 input,
 textarea {
   -webkit-overflow-scrolling: touch;
-  &:focus {
+  &:focus-visible {
     outline: 0;
     box-shadow: 0 0 0 1px $greyDark;
   }
@@ -85,7 +85,7 @@ input[type="number"]::-webkit-inner-spin-button {
 a {
   text-decoration: none;
   color: inherit;
-  &:focus {
+  &:focus-visible {
     outline: 0;
     box-shadow: 0 0 0 2px #e4f1fd7a;
   }
@@ -97,7 +97,7 @@ a {
 button {
   border: none;
   cursor: pointer;
-  &:focus {
+  &:focus-visible {
     outline: 0;
     box-shadow: 0 0 0 1px $grey70;
   }
