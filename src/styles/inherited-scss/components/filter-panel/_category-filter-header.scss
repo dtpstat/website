@@ -20,7 +20,7 @@
     transition: box-shadow 0.3s ease;
 
     &:hover,
-    &:focus {
+    &:focus-visible {
       box-shadow: 0 0 0 1px $grey20;
       outline: 0;
     }
@@ -50,7 +50,7 @@
   position: relative;
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     .icon-decline {
       stroke: $white;
       opacity: 1;
