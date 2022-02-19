@@ -214,9 +214,12 @@ const RootStore = types
           const value = currentParams.get(id);
           if (value) {
             const values = value.split(";");
-            filter.values.forEach((fv: any) => {
-              const search = id === "street" ? fv.preview : String(fv.value);
-              fv.selected = values.includes(search);
+            filter.values.forEach((filterValue: any) => {
+              const search =
+                id === "street"
+                  ? filterValue.preview
+                  : String(filterValue.value);
+              filterValue.selected = values.includes(search);
             });
           }
         });
@@ -229,8 +232,8 @@ const RootStore = types
       const value = currentParams.get("street");
       if (value) {
         const values = value.split(";");
-        streetFilter.values.forEach((fv: any) => {
-          fv.selected = values.includes(fv.preview);
+        streetFilter.values.forEach((filterValue: any) => {
+          filterValue.selected = values.includes(filterValue.preview);
         });
       }
     };
