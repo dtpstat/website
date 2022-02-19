@@ -93,19 +93,17 @@ const RenderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
           </li>
           {supportedConcentrationPlaces.map((value) => (
             <li key={value}>
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <label className="checkWrap" tabIndex={0}>
-                  Очаги аварийности ({value})
-                  <input
-                    type="radio"
-                    name="layer"
-                    value={value}
-                    checked={mapStore.concentrationPlaces === value}
-                    onChange={handleLayerChange}
-                  />
-                  <span className="checkmark" />
-                </label>
-              </div>
+              <label className="checkWrap" tabIndex={0}>
+                Очаги аварийности ({value})
+                <input
+                  type="radio"
+                  name="layer"
+                  value={value}
+                  checked={mapStore.concentrationPlaces === value}
+                  onChange={handleLayerChange}
+                />
+                <span className="checkmark" />
+              </label>
             </li>
           ))}
         </ul>
