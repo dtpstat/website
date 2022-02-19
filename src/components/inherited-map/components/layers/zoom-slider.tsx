@@ -58,3 +58,13 @@ export const ZoomSlider: React.VoidFunctionComponent = () => {
     </div>
   );
 };
+
+// @todo -- remove in favour of ZoomSlider after adding events to the range control (includes removal of .zoom-minimal)
+export const MinimalZoomSlider: React.VoidFunctionComponent = () => {
+  return (
+    <div className="zoom zoom-minimal" style={{ marginBottom: "16px" }}>
+      <button className="btn-plus" aria-label="Приблизить" />
+      <button className="btn-minus" aria-label="Отдалить" />
+    </div>
+  );
+};

@@ -5,6 +5,7 @@ import { SvgIcon } from "../svg-icon";
 export const LayersFilter: React.VoidFunctionComponent = () => {
   return (
     <div className="layers-filter">
+      {/*
       <div style={{ marginBottom: "16px" }}>
         <h4 className="subtitle2">Отображение данных</h4>
         <ul style={{ padding: 0, margin: 0 }}>
@@ -40,6 +41,7 @@ export const LayersFilter: React.VoidFunctionComponent = () => {
           </li>
         </ul>
       </div>
+      */}
       <div>
         <div
           style={{
@@ -51,6 +53,7 @@ export const LayersFilter: React.VoidFunctionComponent = () => {
           <h4 className="subtitle2" style={{ marginBottom: 0 }}>
             Дополнительные слои
           </h4>
+          {/*
           <button className="btn-question" style={{ marginLeft: "auto" }}>
             <SvgIcon name="question" />
             <p className="tooltip" style={{ width: "121px" }}>
@@ -59,6 +62,7 @@ export const LayersFilter: React.VoidFunctionComponent = () => {
               </span>
             </p>
           </button>
+          */}
         </div>
         <ul style={{ padding: 0, margin: 0 }}>
           <li>
@@ -69,11 +73,22 @@ export const LayersFilter: React.VoidFunctionComponent = () => {
             </label>
           </li>
           <li>
-            <label className="checkWrap" tabIndex={0}>
-              Очаги аварийности
-              <input type="radio" checked={false} name="radio" />
-              <span className="checkmark" />
-            </label>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <label className="checkWrap" tabIndex={0}>
+                Очаги аварийности
+                <input type="radio" checked={false} name="radio" />
+                <span className="checkmark" />
+              </label>
+              <button className="btn-question" style={{ marginLeft: "auto" }}>
+                <SvgIcon name="question" />
+                <p
+                  className="tooltip tooltip-position-bottom-right"
+                  style={{ width: "121px" }}
+                >
+                  <span className="subtitle3">Данные за 2020 год</span>
+                </p>
+              </button>
+            </div>
           </li>
         </ul>
       </div>

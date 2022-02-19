@@ -140,3 +140,8 @@
   pointer-events: none;
   opacity: 0;
 }
+
+.tooltip-position-bottom-right {
+  top: calc(100% + 4px);
+  right: 0;
+}

@@ -55,19 +55,9 @@ export const Map = observer(() => {
       );
       mapStore.setMap(map);
       map.copyrights.add(
-        '<a href="https://dtp-stat.ru/opendata/">Оффициальные данные ГИБДД</a>',
+        '<a href="https://dtp-stat.ru/opendata/">Официальные данные ГИБДД</a>',
       );
       map.events.add("boundschange", boundsChangeHandler);
-      map.controls
-        .add("zoomControl", {
-          float: "none",
-          size: "large", // 206
-          // position: { right: 20, top: 20 },
-        })
-        .add("geolocationControl", {
-          float: "none",
-          // position: { right: 20, top: 20 + 206 + 16 },
-        });
 
       // move to center
       const updatePos = (h) => {
