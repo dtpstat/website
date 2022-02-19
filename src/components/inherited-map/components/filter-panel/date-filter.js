@@ -111,7 +111,7 @@ const DateFilterSection = ({ filter }) => {
       )}
     </div>
   );
-});
+};
 
 const DateMenu = ({ handleClick, setShow }) => {
   const menuRef = React.useRef();
