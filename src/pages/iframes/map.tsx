@@ -17,7 +17,7 @@ const MapIframePage: NextPage = () => {
   return (
     <>
       <Script
-        src="https://api-maps.yandex.ru/2.1/?apikey=ad7c40a7-7096-43c9-b6e2-5e1f6d06b9ec&lang=ru_RU"
+        src="https://api-maps.yandex.ru/2.1/?apikey=ad7c40a7-7096-43c9-b6e2-5e1f6d06b9ec&lang=ru_RU&coordorder=longlat"
         strategy="beforeInteractive"
       />
       <Script
