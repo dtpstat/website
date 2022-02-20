@@ -83,6 +83,9 @@ if (
     ],
   };
 
+  fs.renameSync("next.config.mjs", "next.config.mjs.bak");
+  fs.renameSync("public", "public.bak");
+
   fs.writeFileSync(
     "next.config.mjs",
     `export default ${JSON.stringify(noopNextConfig)}`,
