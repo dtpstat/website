@@ -2,9 +2,9 @@ import { observer } from "mobx-react";
 import * as React from "react";
 
 import { useStore } from "../../models/root-store";
-import { SvgIcon } from "../svg-icon";
 
-export const ZoomSlider: React.VoidFunctionComponent = () => {
+/*
+const ZoomSlider: React.VoidFunctionComponent = () => {
   return (
     <div className="zoom" style={{ marginBottom: "16px" }}>
       <button className="btn-plus" aria-label="Приблизить" />
@@ -60,9 +60,10 @@ export const ZoomSlider: React.VoidFunctionComponent = () => {
     </div>
   );
 };
+*/
 
 // @todo -- remove in favour of ZoomSlider after adding events to the range control (includes removal of .zoom-minimal)
-export const MinimalZoomSlider = observer<React.VoidFunctionComponent>(() => {
+export const ZoomSlider = observer<React.VoidFunctionComponent>(() => {
   const { mapStore } = useStore();
   const map = mapStore.getMap();
 

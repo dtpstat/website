@@ -4,7 +4,7 @@ import { useOutsideClickRef } from "rooks";
 import { SvgIcon } from "../svg-icon";
 import { LayersFilter } from "./layers-filter";
 import { LocationButton } from "./location-button";
-import { MinimalZoomSlider as ZoomSlider } from "./zoom-slider";
+import { ZoomSlider } from "./zoom-slider";
 
 export const Layers: React.VoidFunctionComponent = () => {
   const [layersVisible, setLayersVisible] = React.useState(false);
