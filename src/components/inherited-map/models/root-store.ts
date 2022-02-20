@@ -10,8 +10,8 @@ import {
   buildSelection,
   MapStore,
   passFilters,
-  supportedConcentrationPlaces,
   SupportedConcentrationPlacesVariant,
+  supportedConcentrationPlacesVariants,
 } from "./map-store";
 import { TrafficAccidentStore } from "./traffic-accident-store";
 
@@ -170,13 +170,13 @@ const RootStore = types
     };
 
     const updateUrlMap = (currentParams: URLSearchParams) => {
-      const { center, zoom, concentrationPlaces } = self.mapStore;
+      const { center, zoom, concentrationPlacesVariant } = self.mapStore;
       // Using latitude:longitude in URLs for backwards compatibility
       currentParams.set("center", `${center[1]!}:${center[0]!}`);
       currentParams.set("zoom", String(zoom));
 
-      if (concentrationPlaces) {
-        currentParams.set("cp", concentrationPlaces);
+      if (concentrationPlacesVariant) {
+        currentParams.set("cp", concentrationPlacesVariant);
       } else {
         currentParams.delete("cp");
       }
@@ -226,11 +226,12 @@ const RootStore = types
       self.mapStore.center = cast(center);
       self.mapStore.zoom = zoom;
 
-      self.mapStore.concentrationPlaces = supportedConcentrationPlaces.includes(
-        params.get("cp") as SupportedConcentrationPlacesVariant,
-      )
-        ? (params.get("cp") as SupportedConcentrationPlacesVariant)
-        : null;
+      self.mapStore.concentrationPlacesVariant =
+        supportedConcentrationPlacesVariants.includes(
+          params.get("cp") as SupportedConcentrationPlacesVariant,
+        )
+          ? (params.get("cp") as SupportedConcentrationPlacesVariant)
+          : null;
     };
 
     const setDatesFromUrl = () => {

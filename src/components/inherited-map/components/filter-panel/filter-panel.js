@@ -9,7 +9,6 @@ import { FilterPanelNormal } from "./filter-panel-normal";
 export const FilterPanel = observer(() => {
   const { filterStore, mapStore } = useStore();
   const { filters } = filterStore;
-
   const { zoom } = mapStore;
 
   if (filters.length === 0 || zoom < minZoomForHeatmap) {

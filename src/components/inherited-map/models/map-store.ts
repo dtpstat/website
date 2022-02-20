@@ -19,9 +19,9 @@ const colorBySeverity: Record<number, string> = {
   4: "#FF001A",
 };
 
-export const supportedConcentrationPlaces = ["2020"] as const;
+export const supportedConcentrationPlacesVariants = ["2020"] as const;
 export type SupportedConcentrationPlacesVariant =
-  typeof supportedConcentrationPlaces[0];
+  typeof supportedConcentrationPlacesVariants[number];
 
 const calculateMetersPerPixelInWgs84 = (latitude: number, zoom: number) => {
   const result =
@@ -39,7 +39,7 @@ const forceRedraw = (objectManager: ObjectManager) => {
   objectManager.setParent(parent);
 };
 
-const fetchConcentrationPlaceFeatures = async (
+const fetchConcentrationPlaces = async (
   variant: string,
 ): Promise<ConcentrationPointFeature[]> => {
   const response = await fetch(`/data/concentration-places/${variant}.geojson`);
@@ -92,8 +92,8 @@ export const MapStore = types
     center: types.array(types.number),
     zoom: 1,
     mapReady: false,
-    concentrationPlaces: types.maybeNull(
-      types.enumeration([...supportedConcentrationPlaces]),
+    concentrationPlacesVariant: types.maybeNull(
+      types.enumeration([...supportedConcentrationPlacesVariants]),
     ),
   })
   .actions((self) => {
@@ -116,7 +116,7 @@ export const MapStore = types
 
       concentrationPlaceObjectManager.removeAll();
 
-      const variant = self.concentrationPlaces;
+      const variant = self.concentrationPlacesVariant;
       if (!variant) {
         return;
       }
@@ -124,7 +124,7 @@ export const MapStore = types
       const data = concentrationPlaceDataByVariant[variant];
       if (!data) {
         concentrationPlaceDataByVariant[variant] = "loading";
-        fetchConcentrationPlaceFeatures(variant)
+        fetchConcentrationPlaces(variant)
           .then((features) => {
             concentrationPlaceDataByVariant[variant] = features;
           })
@@ -170,12 +170,13 @@ export const MapStore = types
       forceRedraw(concentrationPlaceObjectManager);
     };
 
-    const setConcentrationPlaces = (variant: string | null) => {
-      self.concentrationPlaces = supportedConcentrationPlaces.includes(
-        variant as SupportedConcentrationPlacesVariant,
-      )
-        ? (variant as SupportedConcentrationPlacesVariant)
-        : null;
+    const setConcentrationPlacesVariant = (variant: string | null) => {
+      self.concentrationPlacesVariant =
+        supportedConcentrationPlacesVariants.includes(
+          variant as SupportedConcentrationPlacesVariant,
+        )
+          ? (variant as SupportedConcentrationPlacesVariant)
+          : null;
 
       drawConcentrationPlaces();
 
@@ -375,7 +376,7 @@ export const MapStore = types
     };
 
     return {
-      setConcentrationPlaces,
+      setConcentrationPlacesVariant,
       drawConcentrationPlaces,
       setMap,
       getMap,

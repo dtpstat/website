@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
 import * as React from "react";
 
-import { supportedConcentrationPlaces } from "../../models/map-store";
+import { supportedConcentrationPlacesVariants } from "../../models/map-store";
 import {
   minZoomForHeatmap,
   minZoomForPoints,
@@ -29,11 +29,12 @@ const RenderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
   ref,
 ) => {
   const { mapStore } = useStore();
-
   const zoom = mapStore.zoom;
 
   const handleLayerChange: React.ChangeEventHandler = (event) => {
-    mapStore.setConcentrationPlaces(event.currentTarget.getAttribute("value"));
+    mapStore.setConcentrationPlacesVariant(
+      event.currentTarget.getAttribute("value"),
+    );
   };
 
   return (
@@ -91,13 +92,13 @@ const RenderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
                 type="radio"
                 name="layer"
                 value=""
-                checked={!mapStore.concentrationPlaces}
+                checked={!mapStore.concentrationPlacesVariant}
                 onChange={handleLayerChange}
               />
               <span className="checkmark" />
             </label>
           </li>
-          {supportedConcentrationPlaces.map((value) => (
+          {supportedConcentrationPlacesVariants.map((value) => (
             <li key={value}>
               <label className="checkWrap" tabIndex={0}>
                 Очаги аварийности ({value})
@@ -105,7 +106,7 @@ const RenderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
                   type="radio"
                   name="layer"
                   value={value}
-                  checked={mapStore.concentrationPlaces === value}
+                  checked={mapStore.concentrationPlacesVariant === value}
                   onChange={handleLayerChange}
                 />
                 <span className="checkmark" />
