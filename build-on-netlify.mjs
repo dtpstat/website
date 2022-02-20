@@ -11,7 +11,8 @@ import fs from "node:fs";
 const mark = " [build-on-netlify.mjs] ";
 const logStatement = (/** @type {string} */ message) => {
   /* eslint-disable no-console */
-  console.log(`=${mark}${"=".repeat(message.length - mark.length)}`);
+  console.log("");
+  console.log(`=${mark}${"=".repeat(message.length - mark.length - 1)}`);
   console.log(message);
   console.log("=".repeat(message.length));
   console.log("");
@@ -27,12 +28,13 @@ const logStatement = (/** @type {string} */ message) => {
  */
 if (
   process.env.PRODUCTION_REDIRECT_DESTINATION &&
-  (process.env.CONTEXT === "production" ||
-    true) /* 🚨 🚨 🚨 remove before merging */
+  process.env.CONTEXT === "production"
 ) {
   logStatement(
-    `Real website will not be deployed. All requests will be redirect to "${process.env.PRODUCTION_REDIRECT_DESTINATION}"`,
+    `Real website will not be deployed. All requests will be redirect to ${process.env.PRODUCTION_REDIRECT_DESTINATION}`,
   );
+
+  // @todo Investigate ways of making a dummy Netlify deploy without involving Next.js
 
   fs.renameSync("next.config.mjs", "next.config.mjs.bak");
   fs.renameSync("public", "public.bak");
