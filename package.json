@@ -51,6 +51,7 @@
     "sass": "^1.49.8",
     "scss": "^0.2.4",
     "sentry": "^0.1.2",
+    "sleep-promise": "^9.1.0",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {

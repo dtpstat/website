@@ -3,6 +3,7 @@ import { useOutsideClickRef } from "rooks";
 
 import { SvgIcon } from "../svg-icon";
 import { LayersFilter } from "./layers-filter";
+import { LocationButton } from "./location-button";
 import { MinimalZoomSlider as ZoomSlider } from "./zoom-slider";
 
 export const Layers: React.VoidFunctionComponent = () => {
@@ -41,12 +42,7 @@ export const Layers: React.VoidFunctionComponent = () => {
 
       {layersVisible ? <LayersFilter ref={layersFilterRef} /> : null}
       <ZoomSlider />
-
-      {/*
-      <button className="btn-location" aria-label="Мое местоположение">
-        <SvgIcon name="location-arrow" />
-      </button>
-      */}
+      <LocationButton />
     </div>
   );
 };

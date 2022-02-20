@@ -5631,6 +5631,7 @@ __metadata:
     sass: ^1.49.8
     scss: ^0.2.4
     sentry: ^0.1.2
+    sleep-promise: ^9.1.0
     styled-components: ^5.3.3
     suppress-exit-code: ^1.0.0
     typescript: ^4.5.5
@@ -5906,6 +5907,13 @@ __metadata:
   version: 3.0.0
   resolution: "slash@npm:3.0.0"
   checksum: 94a93fff615f25a999ad4b83c9d5e257a7280c90a32a7cb8b4a87996e4babf322e469c42b7f649fd5796edd8687652f3fb452a86dc97a816f01113183393f11c
+  languageName: node
+  linkType: hard
+
+"sleep-promise@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "sleep-promise@npm:9.1.0"
+  checksum: a93359c18d2e4d586f2ecd4575cbdbc92bcbd9d387bd4bca249892abb512ca4e80075f67e53ec1279ea4555e8a1f6dc9df9e90f8aa71178ad943e9ba1f27debb
   languageName: node
   linkType: hard
 

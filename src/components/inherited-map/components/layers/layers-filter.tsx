@@ -62,7 +62,9 @@ const RenderLayersFilter: React.ForwardRefRenderFunction<HTMLDivElement> = (
                   {disabled ? (
                     <p className="tooltip" style={{ width: "121px" }}>
                       <span className="subtitle3">
-                        Недоступно <br /> на этом масштабе
+                        Недоступно
+                        <br />
+                        на этом масштабе
                       </span>
                     </p>
                   ) : undefined}
