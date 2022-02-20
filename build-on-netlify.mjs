@@ -27,11 +27,11 @@ const logStatement = (/** @type {string} */ message) => {
  * to a predefined destination.
  */
 if (
-  process.env.PRODUCTION_REDIRECT_DESTINATION &&
-  process.env.CONTEXT === "production"
+  process.env.MAIN_BRANCH_REDIRECT_DESTINATION &&
+  process.env.CONTEXT === "production" // = check for `main` branch on Netlify
 ) {
   logStatement(
-    `Real website will not be deployed. All requests will be redirect to ${process.env.PRODUCTION_REDIRECT_DESTINATION}`,
+    `Real website will not be deployed. All requests will be redirect to ${process.env.MAIN_BRANCH_REDIRECT_DESTINATION}`,
   );
 
   // @todo Investigate ways of making a dummy Netlify deploy without involving Next.js
@@ -51,7 +51,7 @@ export default {
   redirects: async () => [
     {
       source: "/:path*",
-      destination: "${process.env.PRODUCTION_REDIRECT_DESTINATION}",
+      destination: "${process.env.MAIN_BRANCH_REDIRECT_DESTINATION}",
       permanent: false,
     },
   ],
