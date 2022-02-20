@@ -6,7 +6,7 @@ import { useStore } from "../../models/root-store";
 export const CategoryHeader = observer(() => {
   const { filterStore } = useStore();
   const filter = filterStore.filters.find(
-    (f) => f.key === filterStore.currentKey,
+    (currentFilter) => currentFilter.key === filterStore.currentKey,
   );
   const handleBack = () => {
     filterStore.setCurrentKey(null);
@@ -43,7 +43,7 @@ export const CategoryHeader = observer(() => {
           className="input"
           placeholder="Поиск"
           value={filterStore.search}
-          onChange={(e) => filterStore.setSearch(e.target.value)}
+          onChange={(event) => filterStore.setSearch(event.target.value)}
         />
         {/* maybe it should be button not just svg */}
         <button className="btn-search">

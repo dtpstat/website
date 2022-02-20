@@ -25,8 +25,10 @@ const CategoryValue = observer(({ value }) => (
 export const FilterPanelCategory = observer(() => {
   const { filterStore } = useStore();
   const { filters } = filterStore;
-  const filter = filters.find((f) => f.key === filterStore.currentKey);
-  const q = filterStore.search.toLowerCase();
+  const filter = filters.find(
+    (currentFilter) => currentFilter.key === filterStore.currentKey,
+  );
+  const normalizedSearch = filterStore.search.toLowerCase();
 
   return (
     <div className="filter-panel">
@@ -34,11 +36,17 @@ export const FilterPanelCategory = observer(() => {
         <CategoryHeader />
         <div className="panel-content">
           {filter.values
-            .filter((v) => v.preview.toLowerCase().includes(q))
-            .map((v) => (
+            .filter((currentFilter) =>
+              currentFilter.preview.toLowerCase().includes(normalizedSearch),
+            )
+            .map((currentFilter) => (
               <CategoryValue
-                key={v.value === -1 ? v.preview : v.value}
-                value={v}
+                key={
+                  currentFilter.value === -1
+                    ? currentFilter.preview
+                    : currentFilter.value
+                }
+                value={currentFilter}
               />
             ))}
         </div>

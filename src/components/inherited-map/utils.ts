@@ -7,5 +7,8 @@ export const resultFromApiResult = (
   keyFromApiKey: AnyEmptyObject,
 ) =>
   Object.fromEntries(
-    Object.entries(apiResult).map(([apiKey, v]) => [keyFromApiKey[apiKey], v]),
+    Object.entries(apiResult).map(([apiKey, payload]) => [
+      keyFromApiKey[apiKey],
+      payload,
+    ]),
   );
