@@ -14,30 +14,6 @@ import fs from "node:fs";
 const envToWrite = {};
 
 /*
- * Netlify UI does not support context-based environment variables.
- * For example, we cannot configure XYZ=42 for deploy previews (pull requests)
- * and XYZ=4242 for production (main branch).
- *
- * As a workaround, we read Netlify’s CONTEXT env variable and then
- * map XYZ_PROD or XYZ_PR into XYZ.
- */
-
-const suffixByContext = {
-  production: "PROD",
-  "deploy-preview": "PR",
-};
-
-const suffix = suffixByContext[process.env.CONTEXT];
-
-if (suffix) {
-  for (const key in process.env) {
-    if (key.endsWith(`_${suffix}`)) {
-      envToWrite[key.slice(0, -suffix.length - 1)] = process.env[key];
-    }
-  }
-}
-
-/*
  * Deploy previews and production release require different AUTH0_BASE_URL.
  * We cannot set this variable dynamically in the Netlify UI, So we define
  * it based on system variables available at build time:
