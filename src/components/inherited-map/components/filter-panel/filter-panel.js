@@ -1,16 +1,18 @@
 import { observer } from "mobx-react";
 import * as React from "react";
 
-import { useStore } from "../../models/root-store";
+import { minZoomForHeatmap, useStore } from "../../models/root-store";
 import { FilterPanelCategory } from "./filter-panel-category";
 import { FilterPanelHidden } from "./filter-panel-hidden";
 import { FilterPanelNormal } from "./filter-panel-normal";
 
 export const FilterPanel = observer(() => {
-  const { filterStore } = useStore();
+  const { filterStore, mapStore } = useStore();
   const { filters } = filterStore;
 
-  if (filters.length === 0) {
+  const { zoom } = mapStore;
+
+  if (filters.length === 0 || zoom < minZoomForHeatmap) {
     return null;
   }
 

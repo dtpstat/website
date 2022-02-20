@@ -3,7 +3,7 @@ import { cast, flow, getRoot, Instance, types } from "mobx-state-tree";
 import { fetchArea } from "../api";
 import { Coordinate } from "../types";
 import { isEmpty } from "../utils";
-import { RootStoreType } from "./root-store";
+import { minZoomForHeatmap, RootStoreType } from "./root-store";
 
 const Area = types.model("Area", {
   id: types.string,
@@ -28,18 +28,21 @@ export const AreaStore = types
   .actions((self) => {
     const loadArea = flow(function* (center: Coordinate, zoom: number) {
       try {
-        const response = yield fetchArea(center, zoom);
-        if (isEmpty(response)) {
-          return;
+        let newArea = null;
+        if (zoom >= minZoomForHeatmap) {
+          const response = yield fetchArea(center, zoom);
+          if (isEmpty(response)) {
+            return;
+          }
+          newArea = Area.create({
+            id: response.region_slug,
+            name: response.region_name,
+            parentId: response.parent_region_slug,
+            parentName: response.parent_region_name,
+          });
         }
-        const newArea = Area.create({
-          id: response.region_slug,
-          name: response.region_name,
-          parentId: response.parent_region_slug,
-          parentName: response.parent_region_name,
-        });
-        const areaChanged = newArea.id !== self.area?.id;
-        const parentChanged = newArea.parentId !== self.area?.parentId;
+        const areaChanged = newArea?.id !== self.area?.id;
+        const parentChanged = newArea?.parentId !== self.area?.parentId;
         self.area = newArea;
         if (areaChanged) {
           getRoot<RootStoreType>(self).onAreaChanged();
