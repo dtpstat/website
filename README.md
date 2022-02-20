@@ -101,7 +101,7 @@ SENTRY_ENVIRONMENT={production | staging | ...}
     ```
 
     For local development you will also need to set `AUTH0_BASE_URL=http://localhost:3000`.
-    This variable is automatically configured for Netlify deployments via [`prepare-netlify-dotenv.mjs`](prepare-netlify-dotenv.mjs).
+    This variable is automatically configured for Netlify deployments via [`build-on-netlify.mjs`](build-on-netlify.mjs).
 
 ### Database Configuration
 
