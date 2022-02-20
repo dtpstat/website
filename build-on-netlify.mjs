@@ -1,4 +1,5 @@
 // @ts-check
+/* eslint-disable no-console */
 
 /*
  * This script contains workarounds for Netlify environment variables. It transforms
@@ -64,6 +65,8 @@ if (
   (process.env.CONTEXT === "production" ||
     true) /* 🚨 🚨 🚨 remove before merging */
 ) {
+  console.log("!!!!");
+
   /**  @type import("next").NextConfig */
   const noopNextConfig = {
     pageExtensions: ["non-existing"],
@@ -80,7 +83,7 @@ if (
     ],
   };
 
-  fs.writeFileSync(JSON.stringify(noopNextConfig), "utf-8");
+  fs.writeFileSync("next.config.js", JSON.stringify(noopNextConfig), "utf-8");
 }
 
 // @ts-expect-error -- false-positive top-level await call is reported by VSCode’s tsc (needs investigation)
