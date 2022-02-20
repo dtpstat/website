@@ -44,7 +44,7 @@
   position: relative;
   user-select: none;
   &:hover,
-  &:focus {
+  &:focus-visible {
     outline: none;
     input ~ .checkmark {
       background-color: $greyMiddle;
@@ -102,7 +102,7 @@
     margin-top: -74px;
   }
 
-  &:focus {
+  &:focus-visible {
     outline: 0;
     box-shadow: 0 0 0 1px $greyDark;
   }

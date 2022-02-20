@@ -41,7 +41,7 @@
     top: 0;
 
     &:hover,
-    &:focus {
+    &:focus-visible {
       .icon-decline {
         stroke: $grey70;
       }

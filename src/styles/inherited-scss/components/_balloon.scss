@@ -47,7 +47,7 @@
   margin-top: 8px;
   font-size: 1rem;
   text-decoration: none;
-  &:focus {
+  &:focus-visible {
     outline: 0;
     box-shadow: none;
   }
