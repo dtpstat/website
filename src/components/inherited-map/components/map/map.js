@@ -53,22 +53,6 @@ export const Map = observer(() => {
         '<a href="https://dtp-stat.ru/opendata/">Официальные данные ГИБДД</a>',
       );
       map.events.add("boundschange", boundsChangeHandler);
-
-      // move to center
-      const updatePos = (height) => {
-        const top = (height - (206 + 16 + 28)) / 2;
-        map.controls
-          .get("zoomControl")
-          .options.set("position", { top, right: 20 });
-        map.controls
-          .get("geolocationControl")
-          .options.set("position", { top: top + 206 + 16, right: 20 });
-      };
-      updatePos(mapRef.current.offsetHeight);
-
-      map.events.add("sizechange", () => {
-        updatePos(mapRef.current.offsetHeight);
-      });
     });
   }, [mapStore, boundsChangeHandler]);
 
