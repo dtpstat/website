@@ -63,12 +63,6 @@ export default {
   const envToWrite = {};
 
   /*
-  * It transforms
-  * variables available at build time and writes them into a dotenv file.
-  * This file is then read by Next.js both at build time and run time.
-  * /
- 
-  /*
    * Deploy previews and production release require different AUTH0_BASE_URL.
    * We cannot set this variable dynamically in the Netlify UI, So we define
    * it based on system variables available at build time:
