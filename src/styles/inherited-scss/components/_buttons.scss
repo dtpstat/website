@@ -166,11 +166,16 @@
   width: 40px;
 
   &:hover,
-  &:focus-visible {
+  &:focus-visible,
+  &.btn-location-loading {
     background-color: $greyDark;
     .icon-location-arrow {
       fill: $white;
     }
+  }
+
+  &.btn-location-loading {
+    cursor: wait;
   }
 
   .icon-location-arrow {
@@ -182,6 +187,7 @@
   }
 
   &.btn-location-error {
+    cursor: default;
     animation: shake 1s;
   }
 }

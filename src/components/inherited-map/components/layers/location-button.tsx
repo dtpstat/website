@@ -22,14 +22,13 @@ export const LocationButton = observer<
   const handleClick = React.useCallback(async () => {
     setStatus("loading");
     try {
-      const result = await (window.ymaps as any).geolocation.get({
+      // @ts-expect-error -- geolocation is not included into Yandex Maps typings
+      const result = await window.ymaps.geolocation.get({
         provider: "yandex",
         mapStateAutoApply: true,
       });
       await map?.panTo(result.geoObjects.position);
-      setTimeout(() => {
-        setStatus("idle");
-      }, 1000);
+      setStatus("idle");
     } catch {
       setStatus("error");
       await sleep(1000);
