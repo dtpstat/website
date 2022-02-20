@@ -83,7 +83,11 @@ if (
     ],
   };
 
-  fs.writeFileSync("next.config.js", JSON.stringify(noopNextConfig), "utf-8");
+  fs.writeFileSync(
+    "next.config.mjs",
+    `export default ${JSON.stringify(noopNextConfig)}`,
+    "utf-8",
+  );
 }
 
 // @ts-expect-error -- false-positive top-level await call is reported by VSCode’s tsc (needs investigation)
