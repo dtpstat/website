@@ -1,8 +1,10 @@
+import { observer } from "mobx-react";
 import * as React from "react";
 
-import { SvgIcon } from "../svg-icon";
+import { useStore } from "../../models/root-store";
 
-export const ZoomSlider: React.VoidFunctionComponent = () => {
+/*
+const ZoomSlider: React.VoidFunctionComponent = () => {
   return (
     <div className="zoom" style={{ marginBottom: "16px" }}>
       <button className="btn-plus" aria-label="Приблизить" />
@@ -58,3 +60,38 @@ export const ZoomSlider: React.VoidFunctionComponent = () => {
     </div>
   );
 };
+*/
+
+// @todo -- remove in favour of ZoomSlider after adding events to the range control (includes removal of .zoom-minimal)
+export const ZoomSlider = observer<React.VoidFunctionComponent>(() => {
+  const { mapStore } = useStore();
+  const map = mapStore.getMap();
+
+  if (!mapStore.mapReady || !map) {
+    return <></>;
+  }
+
+  const zoom = map.getZoom();
+  const [minZoom, maxZoom] = map.zoomRange.getCurrent() as [number, number];
+
+  return (
+    <div className="zoom zoom-minimal" style={{ marginBottom: "16px" }}>
+      <button
+        disabled={zoom > maxZoom - 1}
+        className="btn-plus"
+        aria-label="Приблизить"
+        onClick={() => {
+          void map.setZoom(map.getZoom() + 1, { duration: 200 });
+        }}
+      />
+      <button
+        disabled={mapStore.zoom < minZoom + 1}
+        className="btn-minus"
+        aria-label="Отдалить"
+        onClick={() => {
+          void map.setZoom(map.getZoom() - 1, { duration: 200 });
+        }}
+      />
+    </div>
+  );
+});

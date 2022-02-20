@@ -2,15 +2,24 @@ import makeInspectable from "mobx-devtools-mst";
 import { cast, flow, Instance, types } from "mobx-state-tree";
 import * as React from "react";
 
+import { Coordinate } from "../types";
 import { AreaStore } from "./area-store";
 import { FilterStore } from "./filter-store";
 import { DateFilterType } from "./filters/date-filter";
-import { buildSelection, MapStore, passFilters } from "./map-store";
+import {
+  buildSelection,
+  MapStore,
+  passFilters,
+  SupportedConcentrationPlacesVariant,
+  supportedConcentrationPlacesVariants,
+} from "./map-store";
 import { TrafficAccidentStore } from "./traffic-accident-store";
 
 export type RootStoreType = Instance<typeof RootStore>;
 
-const minZoomForPoints = 12;
+export const minZoomForPoints = 12;
+export const minZoomForHeatmap = 6;
+
 const RootStore = types
   .model("RootStore", {
     filterStore: FilterStore,
@@ -36,7 +45,7 @@ const RootStore = types
     });
     const loadArea = () => {
       const { center, zoom } = self.mapStore;
-      void self.areaStore.loadArea(center, zoom);
+      void self.areaStore.loadArea(center as unknown as Coordinate, zoom);
     };
     const loadAccs = () => {
       const { areaStore, filterStore, trafficAccidentStore } = self;
@@ -85,7 +94,7 @@ const RootStore = types
       if (self.mapStore.zoom >= minZoomForPoints) {
         self.mapStore.setFilter(prepareFilter());
         self.mapStore.recreatePoints(visibleAccs);
-      } else {
+      } else if (self.mapStore.zoom >= minZoomForHeatmap) {
         const accs = visibleAccs.filter(prepareFilter());
         self.mapStore.drawHeat(accs);
       }
@@ -99,16 +108,22 @@ const RootStore = types
       recreateMapObjects();
     };
 
+    const onConcentrationPlacesChanged = () => {
+      updateUrl();
+    };
+
     const onBoundsChanged = (zoom: number, prevZoom: number) => {
       initBoundsChanged = true;
       if (initFiltersLoaded) {
         updateUrl();
         loadArea();
         if (
-          (zoom >= minZoomForPoints && prevZoom < minZoomForPoints) ||
-          (zoom < minZoomForPoints && prevZoom >= minZoomForPoints)
+          [minZoomForPoints, minZoomForHeatmap].some((boundary) =>
+            zoom >= boundary ? prevZoom < boundary : prevZoom >= boundary,
+          )
         ) {
           recreateMapObjects();
+          self.mapStore.drawConcentrationPlaces();
         } else if (zoom >= minZoomForPoints && prevZoom !== zoom) {
           self.mapStore.updatePointRadius();
         }
@@ -119,12 +134,15 @@ const RootStore = types
       updateUrl();
       loadAccs();
     };
+
     const onAreaChanged = () => {
       updateStat();
     };
+
     const onParentAreaChanged = () => {
       loadAccs();
     };
+
     const onFiltersChanged = () => {
       updateUrl();
       updateStat();
@@ -134,12 +152,15 @@ const RootStore = types
         recreateMapObjects();
       }
     };
+
     const incLoading = () => {
       self.loadingCount += 1;
     };
+
     const decLoading = () => {
       self.loadingCount -= 1;
     };
+
     const updateUrl = () => {
       const currentParams = new URLSearchParams(document.location.search);
       updateUrlMap(currentParams);
@@ -147,11 +168,20 @@ const RootStore = types
       updateUrlFilters(currentParams);
       window.history.pushState(null, "", `?${currentParams.toString()}`);
     };
+
     const updateUrlMap = (currentParams: URLSearchParams) => {
-      const { center, zoom } = self.mapStore;
-      currentParams.set("center", `${center[0]!}:${center[1]!}`);
+      const { center, zoom, concentrationPlacesVariant } = self.mapStore;
+      // Using latitude:longitude in URLs for backwards compatibility
+      currentParams.set("center", `${center[1]!}:${center[0]!}`);
       currentParams.set("zoom", String(zoom));
+
+      if (concentrationPlacesVariant) {
+        currentParams.set("cp", concentrationPlacesVariant);
+      } else {
+        currentParams.delete("cp");
+      }
     };
+
     const updateUrlDates = (currentParams: URLSearchParams) => {
       const value = (
         self.filterStore.filters.find(
@@ -161,6 +191,7 @@ const RootStore = types
       currentParams.set("start_date", value.start_date);
       currentParams.set("end_date", value.end_date);
     };
+
     const updateUrlFilters = (currentParams: URLSearchParams) => {
       self.filterStore.filters
         .filter((filter) => filter.name !== "date")
@@ -180,20 +211,29 @@ const RootStore = types
           }
         });
     };
+
     const setMapFromUrl = () => {
       const params = new URLSearchParams(document.location.search);
       const centerStr = params.get("center")?.split(":");
       const center = centerStr
         ? [
-            Number.parseFloat(centerStr[0] ?? "0"),
-            Number.parseFloat(centerStr[1] ?? "0"),
+            Number.parseFloat(centerStr[1] ?? "0"), // longitude
+            Number.parseFloat(centerStr[0] ?? "0"), // latitude
           ]
-        : [55.76, 37.64];
+        : [37.64, 55.76];
       const zoomStr = params.get("zoom");
       const zoom = zoomStr ? Number.parseInt(zoomStr, 10) : 12;
       self.mapStore.center = cast(center);
       self.mapStore.zoom = zoom;
+
+      self.mapStore.concentrationPlacesVariant =
+        supportedConcentrationPlacesVariants.includes(
+          params.get("cp") as SupportedConcentrationPlacesVariant,
+        )
+          ? (params.get("cp") as SupportedConcentrationPlacesVariant)
+          : null;
     };
+
     const setDatesFromUrl = () => {
       const currentParams = new URLSearchParams(document.location.search);
       const dateFilter = self.filterStore.filters.find(
@@ -205,6 +245,7 @@ const RootStore = types
         dateFilter.value = { start_date, end_date };
       }
     };
+
     const setFiltersFromUrl = () => {
       const currentParams = new URLSearchParams(document.location.search);
       self.filterStore.filters
@@ -224,6 +265,7 @@ const RootStore = types
           }
         });
     };
+
     const setStreetsFromUrl = () => {
       const currentParams = new URLSearchParams(document.location.search);
       const streetFilter: any = self.filterStore.filters.find(
@@ -246,6 +288,7 @@ const RootStore = types
       onTrafficAccidentsLoaded,
       onDatesChanged,
       onFiltersChanged,
+      onConcentrationPlacesChanged,
       incLoading,
       decLoading,
     };

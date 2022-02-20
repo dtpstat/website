@@ -20,11 +20,12 @@ export const Map = observer(() => {
   const { mapStore } = useStore();
   const boundsChangeHandler = React.useCallback(
     (event) => {
-      const { newCenter, newZoom, newBounds } = event.originalEvent;
-      mapStore.updateBounds(newCenter, newZoom, newBounds);
+      const { newCenter, newZoom } = event.originalEvent;
+      mapStore.updateBounds(newCenter, newZoom);
     },
     [mapStore],
   );
+
   React.useEffect(() => {
     if (!window.ymaps) {
       return;
@@ -40,6 +41,8 @@ export const Map = observer(() => {
           controls: [],
         },
         {
+          maxZoom: 20,
+          minZoom: 1,
           avoidFractionalZoom: true,
           yandexMapDisablePoiInteractivity: true,
           suppressMapOpenBlock: true,
@@ -47,34 +50,9 @@ export const Map = observer(() => {
       );
       mapStore.setMap(map);
       map.copyrights.add(
-        '<a href="https://dtp-stat.ru/opendata/">Оффициальные данные ГИБДД</a>',
+        '<a href="https://dtp-stat.ru/opendata/">Официальные данные ГИБДД</a>',
       );
       map.events.add("boundschange", boundsChangeHandler);
-      map.controls
-        .add("zoomControl", {
-          float: "none",
-          size: "large", // 206
-          // position: { right: 20, top: 20 },
-        })
-        .add("geolocationControl", {
-          float: "none",
-          // position: { right: 20, top: 20 + 206 + 16 },
-        });
-
-      // move to center
-      const updatePos = (height) => {
-        const top = (height - (206 + 16 + 28)) / 2;
-        map.controls
-          .get("zoomControl")
-          .options.set("position", { top, right: 20 });
-        map.controls
-          .get("geolocationControl")
-          .options.set("position", { top: top + 206 + 16, right: 20 });
-      };
-      updatePos(mapRef.current.offsetHeight);
-      map.events.add("sizechange", () => {
-        updatePos(mapRef.current.offsetHeight);
-      });
     });
   }, [mapStore, boundsChangeHandler]);
 

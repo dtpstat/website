@@ -3883,6 +3883,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.debounce@npm:^4.0.8":
+  version: 4.0.8
+  resolution: "lodash.debounce@npm:4.0.8"
+  checksum: a3f527d22c548f43ae31c861ada88b2637eb48ac6aa3eb56e82d44917971b8aa96fbb37aa60efea674dc4ee8c42074f90f7b1f772e9db375435f6c83a19b3bc6
+  languageName: node
+  linkType: hard
+
 "lodash.defaults@npm:^4.2.0":
   version: 4.2.0
   resolution: "lodash.defaults@npm:4.2.0"
@@ -5043,6 +5050,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"performance-now@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "performance-now@npm:2.1.0"
+  checksum: 534e641aa8f7cba160f0afec0599b6cecefbb516a2e837b512be0adbe6c1da5550e89c78059c7fabc5c9ffdf6627edabe23eb7c518c4500067a898fa65c2b550
+  languageName: node
+  linkType: hard
+
 "picocolors@npm:^1.0.0":
   version: 1.0.0
   resolution: "picocolors@npm:1.0.0"
@@ -5266,6 +5280,15 @@ __metadata:
   version: 5.1.1
   resolution: "quick-lru@npm:5.1.1"
   checksum: a516faa25574be7947969883e6068dbe4aa19e8ef8e8e0fd96cddd6d36485e9106d85c0041a27153286b0770b381328f4072aa40d3b18a19f5f7d2b78b94b5ed
+  languageName: node
+  linkType: hard
+
+"raf@npm:^3.4.1":
+  version: 3.4.1
+  resolution: "raf@npm:3.4.1"
+  dependencies:
+    performance-now: ^2.1.0
+  checksum: 50ba284e481c8185dbcf45fc4618ba3aec580bb50c9121385d5698cb6012fe516d2015b1df6dd407a7b7c58d44be8086108236affbce1861edd6b44637c8cd52
   languageName: node
   linkType: hard
 
@@ -5609,6 +5632,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rooks@npm:^5.10.0":
+  version: 5.10.0
+  resolution: "rooks@npm:5.10.0"
+  dependencies:
+    lodash.debounce: ^4.0.8
+    raf: ^3.4.1
+  peerDependencies:
+    react: ^16.8.0  || ^17.0.0
+    react-dom: ^16.8.0  || ^17.0.0
+  checksum: 67ef3402f0e2f318e02d6426b8c93500fc60d094f9fe0649b048e40c3271e5cdb2ed71806bf38df0f6378314fd8a5fe2760ad234c82a8451017e8b98b34d5d3c
+  languageName: node
+  linkType: hard
+
 "root-workspace-0b6124@workspace:.":
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
@@ -5655,9 +5691,11 @@ __metadata:
     react-linkify: ^1.0.0-alpha
     react-redux: ^7.2.6
     react-tooltip: ^4.2.21
+    rooks: ^5.10.0
     sass: ^1.49.8
     scss: ^0.2.4
     sentry: ^0.1.2
+    sleep-promise: ^9.1.0
     styled-components: ^5.3.3
     suppress-exit-code: ^1.0.0
     typescript: ^4.5.5
@@ -5933,6 +5971,13 @@ __metadata:
   version: 3.0.0
   resolution: "slash@npm:3.0.0"
   checksum: 94a93fff615f25a999ad4b83c9d5e257a7280c90a32a7cb8b4a87996e4babf322e469c42b7f649fd5796edd8687652f3fb452a86dc97a816f01113183393f11c
+  languageName: node
+  linkType: hard
+
+"sleep-promise@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "sleep-promise@npm:9.1.0"
+  checksum: a93359c18d2e4d586f2ecd4575cbdbc92bcbd9d387bd4bca249892abb512ca4e80075f67e53ec1279ea4555e8a1f6dc9df9e90f8aa71178ad943e9ba1f27debb
   languageName: node
   linkType: hard
 

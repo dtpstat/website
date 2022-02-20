@@ -9,6 +9,7 @@
   max-height: calc(100% - 60px);
   display: flex;
   flex-direction: column;
+  z-index: 120;
 
   .btn-hideFilter {
     position: absolute;

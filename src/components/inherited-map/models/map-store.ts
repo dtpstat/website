@@ -1,9 +1,16 @@
 import { cast, getRoot, types } from "mobx-state-tree";
 import ReactDOMServer from "react-dom/server";
+import type { Map, ObjectManager } from "yandex-maps";
 
 import { InfoBalloonContent } from "../components/info-balloon";
 import { Accident, Coordinate } from "../types";
-import { RootStoreType } from "./root-store";
+import {
+  minZoomForHeatmap,
+  minZoomForPoints,
+  RootStoreType,
+} from "./root-store";
+
+type ConcentrationPointFeature = unknown;
 
 const colorBySeverity: Record<number, string> = {
   0: "rgba(24, 51, 74, 0.5)",
@@ -11,6 +18,10 @@ const colorBySeverity: Record<number, string> = {
   3: "#FF7F24",
   4: "#FF001A",
 };
+
+export const supportedConcentrationPlacesVariants = ["2020"] as const;
+export type SupportedConcentrationPlacesVariant =
+  typeof supportedConcentrationPlacesVariants[number];
 
 const calculateMetersPerPixelInWgs84 = (latitude: number, zoom: number) => {
   const result =
@@ -21,6 +32,21 @@ const calculateMetersPerPixelInWgs84 = (latitude: number, zoom: number) => {
 };
 
 const pointRadiusInPixels = 5;
+
+const forceRedraw = (objectManager: ObjectManager) => {
+  const parent = objectManager.getParent();
+  objectManager.setParent(null);
+  objectManager.setParent(parent);
+};
+
+const fetchConcentrationPlaces = async (
+  variant: string,
+): Promise<ConcentrationPointFeature[]> => {
+  const response = await fetch(`/data/concentration-places/${variant}.geojson`);
+  const geojson = await response.json();
+
+  return geojson.features;
+};
 
 export const buildSelection = (filters: any[]) => {
   const selection: any[] = [];
@@ -65,12 +91,97 @@ export const MapStore = types
   .model("MapStore", {
     center: types.array(types.number),
     zoom: 1,
+    mapReady: false,
+    concentrationPlacesVariant: types.maybeNull(
+      types.enumeration([...supportedConcentrationPlacesVariants]),
+    ),
   })
   .actions((self) => {
+    let map: Map | null = null;
+
     // TODO: improve types
-    let map: any = null;
-    let objectManager: any = null;
+    let pointObjectManager: any = null;
     let heatmap: any = null;
+
+    let concentrationPlaceObjectManager: ObjectManager | null = null;
+    const concentrationPlaceDataByVariant: Record<
+      string,
+      ConcentrationPointFeature[] | "loading" | "loadingError"
+    > = {};
+
+    const drawConcentrationPlaces = () => {
+      if (!concentrationPlaceObjectManager) {
+        return;
+      }
+
+      concentrationPlaceObjectManager.removeAll();
+
+      const variant = self.concentrationPlacesVariant;
+      if (!variant) {
+        return;
+      }
+
+      const data = concentrationPlaceDataByVariant[variant];
+      if (!data) {
+        concentrationPlaceDataByVariant[variant] = "loading";
+        fetchConcentrationPlaces(variant)
+          .then((features) => {
+            concentrationPlaceDataByVariant[variant] = features;
+          })
+          .catch(() => {
+            concentrationPlaceDataByVariant[variant] = "loadingError";
+          })
+          .finally(() => {
+            drawConcentrationPlaces();
+          });
+
+        return;
+      }
+
+      if (Array.isArray(data)) {
+        const zoom = self.zoom;
+
+        concentrationPlaceObjectManager.add(
+          data.map((rawFeature: any, index) => ({
+            id: index,
+            ...rawFeature,
+            properties: {
+              ...rawFeature.properties,
+              hintContent: `Очаг аварийности (${variant})`,
+            },
+            options: {
+              fillColor: "#000",
+              strokeColor: "#000",
+              opacity: 0.5,
+              strokeWidth:
+                zoom >= minZoomForPoints
+                  ? 20
+                  : zoom >= minZoomForHeatmap
+                  ? 10
+                  : 5,
+              cursor: "default",
+              zIndex: 1,
+              zIndexHover: 1,
+            },
+          })),
+        );
+      }
+
+      forceRedraw(concentrationPlaceObjectManager);
+    };
+
+    const setConcentrationPlacesVariant = (variant: string | null) => {
+      self.concentrationPlacesVariant =
+        supportedConcentrationPlacesVariants.includes(
+          variant as SupportedConcentrationPlacesVariant,
+        )
+          ? (variant as SupportedConcentrationPlacesVariant)
+          : null;
+
+      drawConcentrationPlaces();
+
+      getRoot<RootStoreType>(self).onConcentrationPlacesChanged();
+    };
 
     const updateBounds = (center: Coordinate, zoom: number) => {
       const prevZoom = self.zoom;
@@ -81,33 +192,35 @@ export const MapStore = types
 
     const getMap = () => map;
 
-    const setMap = (mapInstance: any) => {
+    const setMap = (mapInstance: Map) => {
       map = mapInstance;
+      pointObjectManager = new window.ymaps.ObjectManager({});
+      concentrationPlaceObjectManager = new window.ymaps.ObjectManager({});
 
-      objectManager = new window.ymaps.ObjectManager({});
-
-      objectManager.objects.events.add(
+      pointObjectManager.objects.events.add(
         "click",
         (ev: { get: (arg0: string) => string }) => {
           handlerClickToObj(ev.get("objectId"));
         },
       );
-      objectManager.objects.balloon.events.add("userclose", () => {
+      pointObjectManager.objects.balloon.events.add("userclose", () => {
         handlerCloseBalloon();
       });
-      objectManager.objects.balloon.events.add(
+      pointObjectManager.objects.balloon.events.add(
         "open",
         (ev: { get: (arg0: string) => string }) => {
           handlerOpenBalloon(ev.get("objectId"));
         },
       );
-      objectManager.clusters.balloon.events.add("close", () => {
+      pointObjectManager.clusters.balloon.events.add("close", () => {
         handlerCloseBalloon();
       });
-      objectManager.clusters.state.events.add("change", () => {
-        handlerActiveChanged(objectManager.clusters.state.get("activeObject"));
+      pointObjectManager.clusters.state.events.add("change", () => {
+        handlerActiveChanged(
+          pointObjectManager.clusters.state.get("activeObject"),
+        );
       });
-      objectManager.clusters.balloon.events.add("close", () => {
+      pointObjectManager.clusters.balloon.events.add("close", () => {
         handlerCloseBalloon();
       });
 
@@ -128,13 +241,15 @@ export const MapStore = types
       });
       heatmap.setMap(map, {});
 
-      map.geoObjects.add(objectManager);
-
-      updateBounds(map.getCenter(), map.getZoom());
+      map.geoObjects.add(pointObjectManager);
+      map.geoObjects.add(concentrationPlaceObjectManager);
+      drawConcentrationPlaces();
+      updateBounds(map.getCenter() as Coordinate, map.getZoom());
+      self.mapReady = true;
     };
 
     const handlerClickToObj = (objectId: string) => {
-      const obj = objectManager.objects.getById(objectId);
+      const obj = pointObjectManager.objects.getById(objectId);
       if (obj) {
         obj.properties.balloonContentBody = ReactDOMServer.renderToStaticMarkup(
           InfoBalloonContent({
@@ -146,7 +261,7 @@ export const MapStore = types
             injured: obj.properties.injured,
           }),
         );
-        objectManager.objects.balloon.open(objectId);
+        pointObjectManager.objects.balloon.open(objectId);
       }
     };
 
@@ -165,8 +280,8 @@ export const MapStore = types
     };
 
     const handlerOpenBalloon = (objectId: string) => {
-      objectManager.objects.balloon.setPosition(
-        objectManager.objects.getById(objectId).geometry.coordinates,
+      pointObjectManager.objects.balloon.setPosition(
+        pointObjectManager.objects.getById(objectId).geometry.coordinates,
       );
       const currentParams = new URLSearchParams(document.location.search);
       currentParams.set("active-obj", objectId);
@@ -187,7 +302,7 @@ export const MapStore = types
         radius:
           calculateMetersPerPixelInWgs84(acc.point.latitude, zoom) *
           pointRadiusInPixels,
-        coordinates: [acc.point.latitude, acc.point.longitude],
+        coordinates: [acc.point.longitude, acc.point.latitude],
       },
       properties: {
         ...acc,
@@ -208,12 +323,12 @@ export const MapStore = types
       }
     };
 
-    const createHeatFeature = (acc: Accident) => ({
+    const createHeatmapFeature = (acc: Accident) => ({
       id: acc.id,
       type: "Feature",
       geometry: {
         type: "Point",
-        coordinates: [acc.point.latitude, acc.point.longitude],
+        coordinates: [acc.point.longitude, acc.point.latitude],
       },
       properties: {
         weight: acc.severity,
@@ -221,7 +336,7 @@ export const MapStore = types
     });
 
     const clearObjects = () => {
-      objectManager.removeAll();
+      pointObjectManager.removeAll();
       heatmap.setData([]);
     };
 
@@ -229,36 +344,40 @@ export const MapStore = types
       const zoom = self.zoom;
 
       const data = accs.map((a) => createFeature(a, zoom));
-      objectManager.removeAll();
-      objectManager.add(data);
+      pointObjectManager.removeAll();
+      pointObjectManager.add(data);
       openActiveObjectBalloon();
     };
 
     const updatePointRadius = () => {
-      objectManager.objects.each((object: any) => {
+      pointObjectManager.objects.each((object: any) => {
         object.geometry.radius =
           calculateMetersPerPixelInWgs84(
-            object.geometry.coordinates[0],
+            object.geometry.coordinates[1],
             self.zoom,
           ) * pointRadiusInPixels;
       });
-      const mapInstance = objectManager.getParent();
-      objectManager.setParent(null);
-      objectManager.setParent(mapInstance);
+
+      forceRedraw(pointObjectManager);
+
+      drawConcentrationPlaces();
+
       openActiveObjectBalloon();
     };
 
     const drawHeat = (accs: any[]) => {
-      objectManager.removeAll();
-      const data = accs.map((a) => createHeatFeature(a));
+      pointObjectManager.removeAll();
+      const data = accs.map((a) => createHeatmapFeature(a));
       heatmap.setData(data);
     };
 
     const setFilter = (filter: any) => {
-      objectManager.setFilter((object: any) => filter(object.properties));
+      pointObjectManager.setFilter((object: any) => filter(object.properties));
     };
 
     return {
+      setConcentrationPlacesVariant,
+      drawConcentrationPlaces,
       setMap,
       getMap,
       updateBounds,
