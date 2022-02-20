@@ -114,9 +114,7 @@ export default {
   );
 
   logStatement(
-    `Created ${dotenvFilePath} file with ${Object.values(envToWrite).join(
-      ", ",
-    )}`,
+    `Created ${dotenvFilePath} file with ${Object.keys(envToWrite).join(", ")}`,
   );
 }
 
