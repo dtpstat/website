@@ -2,13 +2,14 @@ import { observer } from "mobx-react";
 import * as React from "react";
 
 import { Colors } from "../../../styles/colors";
-import { useStore } from "../models/root-store";
+import { minZoomForHeatmap, useStore } from "../models/root-store";
 
 export const InfoPanel = observer(() => {
-  const { areaStore } = useStore();
+  const { areaStore, mapStore } = useStore();
   const { area, statistics } = areaStore;
+  const { zoom } = mapStore;
 
-  if (!area) {
+  if (!area || zoom < minZoomForHeatmap) {
     return null;
   }
 
