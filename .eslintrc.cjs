@@ -24,7 +24,6 @@ module.exports = {
         "@typescript-eslint/no-unsafe-member-access": "off",
         "@typescript-eslint/no-unsafe-return": "off",
         "@typescript-eslint/no-use-before-define": "off",
-        "id-length": "off",
         "no-param-reassign": "off",
         "unicorn/consistent-destructuring": "off",
         "unicorn/consistent-function-scoping": "off",

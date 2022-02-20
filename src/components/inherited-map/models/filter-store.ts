@@ -61,7 +61,7 @@ export const FilterStore = types
     const updateStreets = (accidents: Accident[] | undefined) => {
       if (accidents) {
         const streetFilter = self.filters.find(
-          (f: any) => f.key === "street",
+          (filter: any) => filter.key === "street",
         ) as CategoryFilterType | undefined;
         if (streetFilter) {
           const streets = new Set<string>(
@@ -70,10 +70,12 @@ export const FilterStore = types
               .filter((street): street is string => Boolean(street)),
           );
           const selectedStreets = new Set(
-            streetFilter.values.filter((v) => v.selected).map((s) => s.preview),
+            streetFilter.values
+              .filter((value) => value.selected)
+              .map((value) => value.preview),
           );
-          for (const s of selectedStreets) {
-            streets.add(s);
+          for (const selectedStreet of selectedStreets) {
+            streets.add(selectedStreet);
           }
           const sortedStreets = [...streets];
           sortedStreets.sort();
@@ -98,8 +100,8 @@ export const FilterStore = types
     const setVisible = (visible: boolean) => {
       self.visible = visible;
     };
-    const setSearch = (s: string) => {
-      self.search = s;
+    const setSearch = (search: string) => {
+      self.search = search;
     };
 
     return {
@@ -114,7 +116,7 @@ export const FilterStore = types
   .views((self) => ({
     get date() {
       const dateFilters = self.filters.filter(
-        (f) => f.name === "date",
+        (filter) => filter.name === "date",
       ) as DateFilterType[];
 
       return dateFilters[0];
