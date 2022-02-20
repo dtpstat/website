@@ -67,6 +67,7 @@
     "@types/yandex-maps": "^2.1.20",
     "dotenv-flow": "^3.2.0",
     "eslint": "^8.9.0",
+    "execa": "^6.1.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.4",
     "markdownlint-cli": "^0.31.1",
