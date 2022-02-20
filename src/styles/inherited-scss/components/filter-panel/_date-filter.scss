@@ -24,7 +24,7 @@
   // background-color: aliceblue;
   color: $greyDark;
   &:hover,
-  &:focus {
+  &:focus-visible {
     background: $grey20;
     // background: $grey70;
     box-shadow: none;

@@ -81,7 +81,7 @@
   margin-right: 10px;
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     background-color: rgba(#0088cc, 0.8);
   }
 
@@ -107,7 +107,7 @@
   background-color: #1da1f2;
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     background-color: rgba(#1da1f2, 0.8);
   }
 

@@ -25,7 +25,7 @@
   }
 
   button {
-    &:focus,
+    &:focus-visible,
     &:hover {
       box-shadow: none;
     }
@@ -35,7 +35,7 @@
     align-self: stretch;
     border-radius: 4px;
     &:hover,
-    &:focus {
+    &:focus-visible {
       color: $white;
       background-color: $grey50;
     }
@@ -46,7 +46,7 @@
     display: none;
     padding: 7px 10px 7px 10px;
     &:hover,
-    &:focus {
+    &:focus-visible {
       background-color: $grey50;
     }
   }
