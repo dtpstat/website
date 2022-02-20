@@ -1,5 +1,5 @@
 [build]
-command = "node ./prepare-netlify-dotenv.mjs && yarn build"
+command = "node ./build-on-netlify.mjs"
 publish = ".next"
 
 ## Yarn 3 cache does not work out of the box as of Jan 2022. Context:
