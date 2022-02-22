@@ -29,6 +29,13 @@ const hander: NextApiHandler = async (req, res) => {
 
   const pathname = upstreamUrl.pathname;
 
+  // Prevent direct access to this API route
+  if (pathname === "/api/rewrites/proxy-django-html-page") {
+    res.status(404).send("404 Not found");
+
+    return;
+  }
+
   let html = pageCache.get(pathname);
 
   if (!html) {
