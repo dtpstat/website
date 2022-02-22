@@ -57,6 +57,21 @@ const nextConfig = {
       process.env.DJANGO_BASE_URL &&
       process.env.DJANGO_CONTENT_FALLBACK === "true"
         ? [
+            // Serve known pages with a local LRU cache and HTML modifications while proxying
+            ...[
+              "/",
+              "/blog",
+              "/blog/vision-zero",
+              "/blog/proektirovanie-bezopasnykh-ulits",
+              "/blog/zachem-nuzhny-dannye-dtp-i-chto-s",
+              "/donate",
+              "/opendata",
+              "/pages/about",
+              "/pages/dashboard",
+            ].map((source) => ({
+              source,
+              destination: "/api/rewrites/proxy-django-html-page",
+            })),
             {
               // Add trailing slash to page-like paths (/hello/world) to avoid infinite redirects
               source: "/:path([^\\.]+)*",
