@@ -40,6 +40,17 @@ const nextConfig = {
       destination: "/iframes/comments?accident-id=:slug",
       permanent: true,
     },
+    // Data dumps like /media/opendata/penzenskaia-oblast.geojson are too large to be
+    // proxied by Netlify via fallback rewrites. Direct links are redirected to Django.
+    ...(process.env.DJANGO_BASE_URL
+      ? [
+          {
+            source: "/media/opendata/:slug*",
+            destination: `${process.env.DJANGO_BASE_URL}/media/opendata/:slug*`,
+            permanent: false,
+          },
+        ]
+      : []),
   ],
 
   rewrites: () => ({
