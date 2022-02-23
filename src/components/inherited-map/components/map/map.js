@@ -50,7 +50,7 @@ export const Map = observer(() => {
       );
       mapStore.setMap(map);
       map.copyrights.add(
-        '<a href="https://dtp-stat.ru/opendata/">Официальные данные ГИБДД</a>',
+        '<a href="https://dtp-stat.ru/opendata" target="_blank">Официальные данные ГИБДД</a>',
       );
       map.events.add("boundschange", boundsChangeHandler);
     });
