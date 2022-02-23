@@ -3,11 +3,12 @@ import { NextApiHandler, NextApiRequest } from "next";
 
 const robotsTxtInProduction = `
 User-agent: *
+Disallow: /accounts
 Disallow: /admin
 Disallow: /api
-Disallow: /ckeditor
 Disallow: /board
-Disallow: /accounts
+Disallow: /ckeditor
+Disallow: /iframes
 `.trim();
 
 const robotsTxtElsewhere = `
