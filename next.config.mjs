@@ -40,6 +40,17 @@ const nextConfig = {
       destination: "/iframes/comments?accident-id=:slug",
       permanent: true,
     },
+    // Data dumps like /media/opendata/penzenskaia-oblast.geojson are too large to be
+    // proxied by Netlify via fallback rewrites. Direct links are redirected to Django.
+    ...(process.env.DJANGO_BASE_URL
+      ? [
+          {
+            source: "/media/opendata/:slug*",
+            destination: `${process.env.DJANGO_BASE_URL}/media/opendata/:slug*`,
+            permanent: false,
+          },
+        ]
+      : []),
   ],
 
   rewrites: () => ({
@@ -57,6 +68,21 @@ const nextConfig = {
       process.env.DJANGO_BASE_URL &&
       process.env.DJANGO_CONTENT_FALLBACK === "true"
         ? [
+            // Serve known pages with a local LRU cache and HTML modifications while proxying
+            ...[
+              "/",
+              "/blog",
+              "/blog/vision-zero",
+              "/blog/proektirovanie-bezopasnykh-ulits",
+              "/blog/zachem-nuzhny-dannye-dtp-i-chto-s",
+              "/donate",
+              "/opendata",
+              "/pages/about",
+              "/pages/dashboard",
+            ].map((source) => ({
+              source,
+              destination: "/api/rewrites/proxy-django-html-page",
+            })),
             {
               // Add trailing slash to page-like paths (/hello/world) to avoid infinite redirects
               source: "/:path([^\\.]+)*",
