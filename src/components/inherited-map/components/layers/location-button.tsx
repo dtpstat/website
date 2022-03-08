@@ -24,7 +24,6 @@ export const LocationButton = observer<
     try {
       // @ts-expect-error -- geolocation is not included into Yandex Maps typings
       const result = await window.ymaps.geolocation.get({
-        provider: "yandex",
         mapStateAutoApply: true,
       });
       await map?.panTo(result.geoObjects.position);
