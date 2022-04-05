@@ -19,7 +19,7 @@ const colorBySeverity: Record<number, string> = {
   4: "#FF001A",
 };
 
-export const supportedConcentrationPlacesVariants = ["2020"] as const;
+export const supportedConcentrationPlacesVariants = ["2020", "2021"] as const;
 export type SupportedConcentrationPlacesVariant =
   typeof supportedConcentrationPlacesVariants[number];
 
