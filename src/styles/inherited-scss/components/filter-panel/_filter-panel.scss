@@ -21,7 +21,7 @@
 
   @media screen and (max-width: 800px) {
     max-height: calc(100% - 120px);
-    margin-top: 70px;
+    margin-top: 50px;
     margin-left: 8px;
   }
 
@@ -43,6 +43,11 @@
   flex-direction: column;
   padding: 20px;
   padding-bottom: 38px;
+  
+  @media screen and (max-width: 800px) {
+    padding: 6px 16px;
+    padding-bottom: 15px;
+  }
 }
 
 .filter-panel-category {
