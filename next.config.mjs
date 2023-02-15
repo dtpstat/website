@@ -84,9 +84,17 @@ const nextConfig = {
               destination: "/api/rewrites/proxy-django-html-page",
             })),
             {
-              // Add trailing slash to page-like paths (/hello/world) to avoid infinite redirects
-              source: "/:path([^\\.]+)*",
-              destination: `${process.env.DJANGO_BASE_URL}/:path*/`,
+              // Fetch sitemap from Django until sitemap generation is moved to Next
+              source: "/sitemap.xml",
+              destination: `${process.env.DJANGO_BASE_URL}/sitemap.xml`,
+            },
+            {
+              source: "/sitemap-DTP.xml",
+              destination: `${process.env.DJANGO_BASE_URL}/sitemap-DTP.xml`,
+            },
+            {
+              source: "/sitemap-DTP.xml?p=:page",
+              destination: `${process.env.DJANGO_BASE_URL}/sitemap-DTP.xml?p=:page`,
             },
             {
               // Add trailing slash to root file-like paths (/hello.txt), also to avoid infinite
