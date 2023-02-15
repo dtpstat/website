@@ -89,8 +89,8 @@ const nextConfig = {
               destination: `${process.env.DJANGO_BASE_URL}/sitemap.xml`,
             },
             {
-              source: "/sitemap-DTP.xml",
-              destination: `${process.env.DJANGO_BASE_URL}/sitemap-DTP.xml`,
+              source: "/sitemap-dtp.xml",
+              destination: `${process.env.DJANGO_BASE_URL}/sitemap-dtp.xml`,
             },
             {
               // Add trailing slash to root file-like paths (/hello.txt), also to avoid infinite
