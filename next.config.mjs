@@ -84,6 +84,15 @@ const nextConfig = {
               destination: "/api/rewrites/proxy-django-html-page",
             })),
             {
+              // Fetch sitemap from Django until sitemap generation is moved to Next
+              source: "/sitemap.xml",
+              destination: `${process.env.DJANGO_BASE_URL}/sitemap.xml`,
+            },
+            {
+              source: "/sitemap-dtp.xml",
+              destination: `${process.env.DJANGO_BASE_URL}/sitemap-dtp.xml`,
+            },
+            {
               // Add trailing slash to page-like paths (/hello/world) to avoid infinite redirects
               source: "/:path([^\\.]+)*",
               destination: `${process.env.DJANGO_BASE_URL}/:path*/`,
