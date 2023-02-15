@@ -93,10 +93,6 @@ const nextConfig = {
               destination: `${process.env.DJANGO_BASE_URL}/sitemap-DTP.xml`,
             },
             {
-              source: "/sitemap-DTP.xml?p=:page",
-              destination: `${process.env.DJANGO_BASE_URL}/sitemap-DTP.xml?p=:page`,
-            },
-            {
               // Add trailing slash to root file-like paths (/hello.txt), also to avoid infinite
               // redirects (this is needed because of a special `old_redirect` rule in Django)
               source: "/:path",
