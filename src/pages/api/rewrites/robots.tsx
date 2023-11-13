@@ -10,7 +10,7 @@ Disallow: /board
 Disallow: /ckeditor
 Disallow: /iframes
 
-https://dtp-stat.ru/sitemap.xml
+Sitemap: https://dtp-stat.ru/sitemap.xml
 `.trim();
 
 const robotsTxtElsewhere = `
