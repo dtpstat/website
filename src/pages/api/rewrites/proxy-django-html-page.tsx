@@ -7,6 +7,8 @@ import { djangoBaseUrl } from "../../../shared/django-helpers";
 // Netlify runs inside Lambda functions, so page caching is not very efficient
 // or reliable. However, if two requests hit the same function instance, this
 // improves latency at a small memory footprint cost.
+
+// @ts-ignore
 const pageCache = new LRU<string, string>({
   max: 100, // Capping the number of entries helps us avoid accidental memory overflows
   ttl: 1000 * 60 * 10, // 10 minutes
