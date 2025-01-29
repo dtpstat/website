@@ -16,6 +16,7 @@
     "lint:tsc": "tsc --project .",
     "lint:yarn-dedupe": "yarn dedupe --check",
     "start": "next start",
+    "prepare": "husky install",
     "postinstall": "husky install",
     "prisma": "node -r dotenv-flow/config ./node_modules/.bin/prisma"
   },
