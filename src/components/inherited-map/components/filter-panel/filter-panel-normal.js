@@ -4,7 +4,7 @@ import * as React from "react";
 import { useStore } from "../../models/root-store";
 import { DateFilter } from "./date-filter";
 import { ParticipantsFilter } from "./participants-filter";
-import { RegionFilter } from "./region-filter";
+import { RegionFilterSection } from "./region-filter";
 import { SeverityFilter } from "./severity-filter";
 
 const FilterSection = ({ filter }) => {
@@ -16,7 +16,7 @@ const FilterSection = ({ filter }) => {
     case "severity":
       return <SeverityFilter {...filter} />;
     case "region":
-      return <RegionFilter {...filter} />;
+      return <RegionFilterSection {...filter} />;
     default:
       return null;
   }
