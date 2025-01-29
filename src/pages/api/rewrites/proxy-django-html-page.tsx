@@ -9,7 +9,7 @@ import { djangoBaseUrl } from "../../../shared/django-helpers";
 // improves latency at a small memory footprint cost.
 const pageCache = new LRU<string, string>({
   max: 100, // Capping the number of entries helps us avoid accidental memory overflows
-  maxAge: 1000 * 60 * 10, // 10 minutes
+  ttl: 1000 * 60 * 10, // 10 minutes
 });
 
 const transformHtmlByPathname: Record<string, (rawHtml: string) => string> = {
