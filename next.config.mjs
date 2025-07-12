@@ -32,6 +32,15 @@ const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
 
+  // Статический экспорт для Timeweb Apps
+  ...(process.env.STATIC_EXPORT === 'true' && {
+    output: 'export',
+    trailingSlash: true,
+    images: {
+      unoptimized: true,
+    },
+  }),
+
   redirects: async () => [
     // This redirect was added before the public release to minimise SSR.
     // @todo Remove after 2022-03-01

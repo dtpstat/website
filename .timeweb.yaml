@@ -1,0 +1,44 @@
+# Конфигурация для Timeweb Apps
+# Документация: https://timeweb.com/ru/docs/apps/
+
+# Название приложения
+name: dtp-stat-website
+
+# Версия Node.js
+node_version: 18
+
+# Команда сборки
+build_command: yarn build:static
+
+# Папка с собранными файлами
+publish_folder: out
+
+# Переменные окружения (заполните своими значениями)
+environment_variables:
+  # Основные переменные
+  NODE_ENV: production
+  
+  # Django API (если используется)
+  # DJANGO_BASE_URL: https://your-django-api.com
+  
+  # Sentry (если используется)
+  # SENTRY_DSN: your-sentry-dsn
+  # SENTRY_ENVIRONMENT: production
+  
+  # Auth0 (если используется)
+  # AUTH0_SECRET: your-auth0-secret
+  # AUTH0_BASE_URL: https://your-domain.com
+  # AUTH0_ISSUER_BASE_URL: https://your-tenant.auth0.com
+  # AUTH0_CLIENT_ID: your-client-id
+  # AUTH0_CLIENT_SECRET: your-client-secret
+
+# Настройки для статических файлов
+static_files:
+  - path: /
+    directory: out
+    index: index.html
+
+# Настройки для обработки ошибок
+error_pages:
+  404: /404.html
+  500: /500.html 

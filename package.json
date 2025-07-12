@@ -3,6 +3,7 @@
   "license": "GPL-3.0",
   "scripts": {
     "build": "next build",
+    "build:static": "node ./build-for-timeweb.mjs",
     "dev": "next dev",
     "fix": "npm-run-all --continue-on-error \"fix:*\"",
     "fix:eslint": "eslint --fix \"**/*\"",
