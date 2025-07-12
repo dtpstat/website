@@ -18,6 +18,27 @@ const logStatement = (/** @type {string} */ message) => {
   /* eslint-enable no-console */
 };
 
+// Функция для поиска файлов по паттерну
+const findFilesByPattern = (dir, pattern) => {
+  const files = [];
+  const searchRecursive = (currentDir) => {
+    if (fs.existsSync(currentDir)) {
+      const items = fs.readdirSync(currentDir);
+      items.forEach(item => {
+        const fullPath = `${currentDir}/${item}`;
+        const stat = fs.statSync(fullPath);
+        if (stat.isDirectory()) {
+          searchRecursive(fullPath);
+        } else if (pattern.test(item)) {
+          files.push(fullPath.replace(dir + '/', ''));
+        }
+      });
+    }
+  };
+  searchRecursive(dir);
+  return files;
+};
+
 logStatement("Начинаем сборку статического экспорта для Timeweb Apps");
 
 // Устанавливаем переменную окружения для статического экспорта
@@ -69,9 +90,6 @@ try {
     if (fs.existsSync(".next/export-marker.json")) {
       logStatement("✅ Статический экспорт создан в .next");
       
-      // Копируем статические файлы из .next в out
-      logStatement("Копируем статические файлы в папку out");
-      
       // Создаем папку out
       if (!fs.existsSync("out")) {
         fs.mkdirSync("out", { recursive: true });
@@ -96,32 +114,67 @@ try {
         logStatement("✅ Статические файлы скопированы в out");
       }
       
-      // Создаем index.html если его нет
-      if (!fs.existsSync("out/index.html")) {
-        const indexHtml = `<!DOCTYPE html>
-<html>
+      // Находим правильные имена файлов
+      const jsFiles = findFilesByPattern("out", /\.js$/);
+      const cssFiles = findFilesByPattern("out", /\.css$/);
+      
+      logStatement(`Найдено JS файлов: ${jsFiles.length}`);
+      logStatement(`Найдено CSS файлов: ${cssFiles.length}`);
+      
+      // Создаем index.html с динамическими именами файлов
+      const cssLinks = cssFiles.map(file => `<link rel="stylesheet" href="/${file}">`).join('\n    ');
+      const jsScripts = jsFiles.map(file => `<script src="/${file}"></script>`).join('\n    ');
+      
+      const indexHtml = `<!DOCTYPE html>
+<html lang="ru">
 <head>
     <meta charset="utf-8">
-    <title>DTP Stat</title>
+    <title>DTP Stat - Статистика ДТП</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Статистика дорожно-транспортных происшествий в России">
+    ${cssLinks}
 </head>
 <body>
     <div id="__next"></div>
-    <script src="/_next/static/chunks/main.js"></script>
+    ${jsScripts}
 </body>
 </html>`;
         fs.writeFileSync("out/index.html", indexHtml);
-        logStatement("✅ Создан index.html");
+        logStatement("✅ Создан index.html с динамическими файлами");
+        
+        // Создаем 404.html
+        const error404Html = `<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>404 - Страница не найдена | DTP Stat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div style="text-align: center; padding: 50px;">
+        <h1>404</h1>
+        <h2>Страница не найдена</h2>
+        <p>Запрашиваемая страница не существует.</p>
+        <a href="/">Вернуться на главную</a>
+    </div>
+</body>
+</html>`;
+        fs.writeFileSync("out/404.html", error404Html);
+        logStatement("✅ Создан 404.html");
+        
+        // Проверяем содержимое папки out
+        const outContents = fs.readdirSync("out");
+        logStatement(`Содержимое папки out: ${outContents.join(", ")}`);
+        
+      } else {
+        logStatement("❌ Статический экспорт не создан");
+        process.exit(1);
       }
-      
     } else {
-      logStatement("❌ Статический экспорт не создан");
+      logStatement("❌ Папка .next не создана");
       process.exit(1);
     }
-  } else {
-    logStatement("❌ Папка .next не создана");
-    process.exit(1);
-  }
+  
 
   logStatement("Сборка статического экспорта завершена успешно!");
 } finally {
@@ -137,4 +190,4 @@ try {
     fs.renameSync(apiBackupPath, apiPath);
     logStatement("Восстановлена папка api");
   }
-} 
+}
