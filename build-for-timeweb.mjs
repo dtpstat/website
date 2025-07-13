@@ -176,11 +176,94 @@ try {
     <div id="__next">
       <div class="loading">Загрузка приложения...</div>
     </div>
-    ${jsScripts}
     <script>
-      // Устанавливаем флаг статического экспорта
+      // Глобальные заглушки для предотвращения ошибок
       window.STATIC_EXPORT = true;
       
+      // Заглушка для textContent
+      const originalTextContent = Object.getOwnPropertyDescriptor(Element.prototype, 'textContent');
+      Object.defineProperty(Element.prototype, 'textContent', {
+        get: function() {
+          if (this === null || this === undefined) {
+            return '';
+          }
+          return originalTextContent.get.call(this) || '';
+        },
+        set: function(value) {
+          if (this === null || this === undefined) {
+            return;
+          }
+          originalTextContent.set.call(this, value);
+        }
+      });
+      
+      // Заглушка для innerHTML
+      const originalInnerHTML = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
+      Object.defineProperty(Element.prototype, 'innerHTML', {
+        get: function() {
+          if (this === null || this === undefined) {
+            return '';
+          }
+          return originalInnerHTML.get.call(this) || '';
+        },
+        set: function(value) {
+          if (this === null || this === undefined) {
+            return;
+          }
+          originalInnerHTML.set.call(this, value);
+        }
+      });
+      
+      // Заглушка для querySelector
+      const originalQuerySelector = Element.prototype.querySelector;
+      Element.prototype.querySelector = function(selector) {
+        try {
+          return originalQuerySelector.call(this, selector);
+        } catch (e) {
+          console.warn('querySelector error:', e);
+          return null;
+        }
+      };
+      
+      // Заглушка для getElementById
+      const originalGetElementById = Document.prototype.getElementById;
+      Document.prototype.getElementById = function(id) {
+        try {
+          return originalGetElementById.call(this, id);
+        } catch (e) {
+          console.warn('getElementById error:', e);
+          return null;
+        }
+      };
+      
+      // Заглушка для ymaps
+      if (!window.ymaps) {
+        window.ymaps = {
+          ready: () => Promise.resolve(),
+          Map: class MockMap {
+            constructor() {
+              this.events = { add: () => {} };
+              this.geoObjects = { add: () => {} };
+              this.copyrights = { add: () => {} };
+            }
+          },
+          ObjectManager: class MockObjectManager {
+            constructor() {
+              this.objects = { 
+                events: { add: () => {} },
+                balloon: { events: { add: () => {} } }
+              };
+              this.clusters = { 
+                balloon: { events: { add: () => {} } },
+                state: { events: { add: () => {} } }
+              };
+            }
+          }
+        };
+      }
+    </script>
+    ${jsScripts}
+    <script>
       // Обработка ошибок загрузки
       window.addEventListener('error', function(e) {
         console.warn('Ошибка загрузки:', e.error);
