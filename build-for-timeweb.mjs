@@ -7,15 +7,12 @@
 import { execa } from "execa";
 import fs from "node:fs";
 
-const mark = " [build-for-timeweb.mjs] ";
 const logStatement = (/** @type {string} */ message) => {
-  /* eslint-disable no-console */
   console.log("");
   console.log("===");
   console.log(message);
   console.log("===");
   console.log("");
-  /* eslint-enable no-console */
 };
 
 // Функция для поиска файлов по паттерну
@@ -39,6 +36,20 @@ const findFilesByPattern = (dir, pattern) => {
   return files;
 };
 
+// Функция для рекурсивного копирования
+const copyRecursive = (src, dest) => {
+  if (fs.statSync(src).isDirectory()) {
+    if (!fs.existsSync(dest)) {
+      fs.mkdirSync(dest, { recursive: true });
+    }
+    fs.readdirSync(src).forEach(file => {
+      copyRecursive(`${src}/${file}`, `${dest}/${file}`);
+    });
+  } else {
+    fs.copyFileSync(src, dest);
+  }
+};
+
 logStatement("Начинаем сборку статического экспорта для Timeweb Apps");
 
 // Устанавливаем переменную окружения для статического экспорта
@@ -50,13 +61,16 @@ if (fs.existsSync("out")) {
   logStatement("Удалена существующая папка out");
 }
 
-// Временно переименовываем папку api
+// Временно копируем папку api вместо переименования
 const apiPath = "src/pages/api";
-const apiBackupPath = "src/api.bak"; // перемещаем за пределы pages
+const apiBackupPath = "src/api.bak";
 
 if (fs.existsSync(apiPath)) {
-  fs.renameSync(apiPath, apiBackupPath);
-  logStatement("Временно перемещена папка api в src/api.bak");
+  // Копируем папку api
+  copyRecursive(apiPath, apiBackupPath);
+  // Удаляем оригинальную папку
+  fs.rmSync(apiPath, { recursive: true, force: true });
+  logStatement("Временно скопирована папка api в src/api.bak");
 }
 
 // Создаем временную конфигурацию для статического экспорта
@@ -64,7 +78,7 @@ const originalConfig = "next.config.mjs";
 const staticConfig = "next.config.static.mjs";
 
 if (fs.existsSync(originalConfig)) {
-  fs.renameSync(originalConfig, originalConfig + ".bak");
+  fs.copyFileSync(originalConfig, originalConfig + ".bak");
   logStatement("Сохранена оригинальная конфигурация как next.config.mjs.bak");
 }
 
@@ -97,19 +111,6 @@ try {
       
       // Копируем все файлы из .next/static в out
       if (fs.existsSync(".next/static")) {
-        const copyRecursive = (src, dest) => {
-          if (fs.statSync(src).isDirectory()) {
-            if (!fs.existsSync(dest)) {
-              fs.mkdirSync(dest, { recursive: true });
-            }
-            fs.readdirSync(src).forEach(file => {
-              copyRecursive(`${src}/${file}`, `${dest}/${file}`);
-            });
-          } else {
-            fs.copyFileSync(src, dest);
-          }
-        };
-        
         copyRecursive(".next/static", "out");
         logStatement("✅ Статические файлы скопированы в out");
       }
@@ -181,13 +182,18 @@ try {
   // Восстанавливаем оригинальную конфигурацию
   if (fs.existsSync(originalConfig + ".bak")) {
     fs.unlinkSync(originalConfig);
-    fs.renameSync(originalConfig + ".bak", originalConfig);
+    fs.copyFileSync(originalConfig + ".bak", originalConfig);
+    fs.unlinkSync(originalConfig + ".bak");
     logStatement("Восстановлена оригинальная конфигурация");
   }
   
   // Восстанавливаем папку api
   if (fs.existsSync(apiBackupPath)) {
-    fs.renameSync(apiBackupPath, apiPath);
+    if (fs.existsSync(apiPath)) {
+      fs.rmSync(apiPath, { recursive: true, force: true });
+    }
+    copyRecursive(apiBackupPath, apiPath);
+    fs.rmSync(apiBackupPath, { recursive: true, force: true });
     logStatement("Восстановлена папка api");
   }
-}
+} 
