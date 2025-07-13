@@ -17,7 +17,7 @@ const nextConfig = {
     styledComponents: true,
   },
 
-  productionBrowserSourceMaps: true,
+  productionBrowserSourceMaps: false,
   reactStrictMode: true,
   swcMinify: true,
 
@@ -34,6 +34,11 @@ const nextConfig = {
 
   // Исключаем API Routes из сборки
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'].filter(ext => ext !== 'api'),
+
+  // Отключаем Sentry для статического экспорта
+  sentry: {
+    hideSourceMaps: true,
+  },
 
   // Базовые редиректы (без API зависимостей)
   redirects: async () => [
@@ -53,6 +58,11 @@ const nextConfig = {
       },
     ],
   }),
+
+  // Отключаем некоторые функции для статического экспорта
+  experimental: {
+    esmExternals: false,
+  },
 };
 
-export default nextConfig; 
+export default nextConfig;
