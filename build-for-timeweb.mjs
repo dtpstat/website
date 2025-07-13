@@ -139,64 +139,79 @@ try {
         margin: 0; 
         padding: 0; 
         font-family: Arial, sans-serif; 
-        background: #f5f5f5;
       }
       #__next { 
         min-height: 100vh; 
+      }
+      .loading { 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        height: 100vh; 
+        font-size: 18px; 
+      }
+      .error-fallback {
+        text-align: center;
+        padding: 50px;
+        background: #f5f5f5;
+        min-height: 100vh;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        text-align: center;
       }
-      .demo-content {
-        background: white;
-        padding: 40px;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        max-width: 600px;
-      }
-      .demo-content h1 {
+      .error-fallback h1 {
         color: #18334a;
         margin-bottom: 20px;
       }
-      .demo-content p {
+      .error-fallback p {
         color: #666;
         line-height: 1.6;
         margin-bottom: 15px;
-      }
-      .demo-content .features {
-        text-align: left;
-        margin-top: 20px;
-      }
-      .demo-content .features li {
-        margin-bottom: 8px;
-        color: #555;
+        max-width: 600px;
       }
     </style>
 </head>
 <body>
     <div id="__next">
-      <div class="demo-content">
-        <h1>DTP Stat</h1>
-        <p>Демо-версия приложения статистики дорожно-транспортных происшествий</p>
-        <p>В статической версии некоторые функции недоступны:</p>
-        <div class="features">
-          <ul>
-            <li>Интерактивные карты</li>
-            <li>Комментарии и аутентификация</li>
-            <li>API запросы к серверу</li>
-            <li>Динамическая загрузка данных</li>
-          </ul>
-        </div>
-        <p>Для полной функциональности используйте серверную версию приложения.</p>
-      </div>
+      <div class="loading">Загрузка приложения...</div>
     </div>
+    ${jsScripts}
     <script>
-      // Отключаем загрузку сложных компонентов
+      // Устанавливаем флаг статического экспорта
       window.STATIC_EXPORT = true;
+      
+      // Обработка ошибок загрузки
       window.addEventListener('error', function(e) {
         console.warn('Ошибка загрузки:', e.error);
+        
+        // Показываем fallback только если приложение не загрузилось
+        setTimeout(() => {
+          const nextElement = document.getElementById('__next');
+          if (nextElement && nextElement.children.length === 1 && 
+              nextElement.children[0].classList.contains('loading')) {
+            nextElement.innerHTML = 
+              '<div class="error-fallback">' +
+              '<h1>DTP Stat</h1>' +
+              '<p>Демо-версия приложения</p>' +
+              '<p>Некоторые функции могут быть недоступны в статической версии:</p>' +
+              '<ul style="text-align: left; max-width: 400px; margin: 0 auto;">' +
+              '<li>Интерактивные карты</li>' +
+              '<li>Комментарии и аутентификация</li>' +
+              '<li>API запросы к серверу</li>' +
+              '</ul>' +
+              '</div>';
+          }
+        }, 5000); // Ждем 5 секунд перед показом fallback
       });
+      
+      // Убираем loading через 2 секунды
+      setTimeout(() => {
+        const loadingElement = document.querySelector('.loading');
+        if (loadingElement) {
+          loadingElement.style.display = 'none';
+        }
+      }, 2000);
     </script>
 </body>
 </html>`;
