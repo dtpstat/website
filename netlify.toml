@@ -10,3 +10,9 @@ YARN_VERSION = "3.1.1"
 
 [[plugins]]
 package = "@netlify/plugin-nextjs"
+
+[[redirects]]
+from = "/api/*"
+to = "https://cms.dtp-stat.ru/api/:splat"
+status = 200
+force = true
