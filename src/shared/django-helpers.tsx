@@ -10,9 +10,12 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 import * as React from "react";
 
+import { getUrl } from 'nextjs-current-url';
+
 import { Link } from "../components/link";
 
-export const djangoBaseUrl = process.env.NEXT_PUBLIC_DJANGO_BASE_URL ?? "";
+// export const djangoBaseUrl = process.env.NEXT_PUBLIC_DJANGO_BASE_URL ?? "";
+export const djangoBaseUrl = getUrl({ req: context.req.host }) ?? '';
 export const djangoContentFallback =
   process.env.NEXT_PUBLIC_DJANGO_CONTENT_FALLBACK === "true";
 
