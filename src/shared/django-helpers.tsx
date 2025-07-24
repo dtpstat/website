@@ -12,7 +12,8 @@ import * as React from "react";
 
 import { Link } from "../components/link";
 
-export const djangoBaseUrl = process.env.NEXT_PUBLIC_DJANGO_BASE_URL ?? "";
+// export const djangoBaseUrl = process.env.NEXT_PUBLIC_DJANGO_BASE_URL ?? "";
+export const djangoBaseUrl = window.location.origin ?? "";
 export const djangoContentFallback =
   process.env.NEXT_PUBLIC_DJANGO_CONTENT_FALLBACK === "true";
 
