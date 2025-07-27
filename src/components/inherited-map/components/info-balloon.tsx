@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {
-  djangoBaseUrl,
+  getDjangoBaseUrl, // Изменено на getDjangoBaseUrl
   djangoContentFallback,
 } from "../../../shared/django-helpers";
 import { Colors } from "../../../styles/colors";
@@ -65,7 +65,7 @@ export const InfoBalloonContent = (props: Props) => {
         <a
           id="balloon-button"
           className="btn-light"
-          href={`${djangoContentFallback ? "" : djangoBaseUrl}/dtp/${props.id}`}
+          href={`${djangoContentFallback ? "" : getDjangoBaseUrl({ headers: { host: '', protocol: '' } })}/dtp/${props.id}`} // Используем getDjangoBaseUrl
           target="_blank"
           rel="noopener noreferrer"
         >

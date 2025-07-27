@@ -1,12 +1,13 @@
-import { djangoBaseUrl } from "../../shared/django-helpers";
+import { getDjangoBaseUrl } from "../../shared/django-helpers"; // Изменено на getDjangoBaseUrl
 import { Coordinate, FilterResponse, ShortStatisticsResponse } from "./types";
 
-export const fetchFilters = (): Promise<FilterResponse[]> =>
-  fetch(`${djangoBaseUrl}/api/filters`).then((response) => response.json());
+export const fetchFilters = (req: { headers: { host: string }; protocol: string }): Promise<FilterResponse[]> =>
+  fetch(`${getDjangoBaseUrl(req)}/api/filters`).then((response) => response.json());
 
 let areaController: AbortController | null;
 
 export const fetchArea = (
+  req: { headers: { host: string }; protocol: string }, // Добавлено req
   center: Coordinate,
   zoom: number,
 ): Promise<ShortStatisticsResponse> => {
@@ -14,7 +15,7 @@ export const fetchArea = (
   areaController = new AbortController();
 
   return fetch(
-    `${djangoBaseUrl}/api/stat/?center_point=${center[0]!}+${center[1]!}&scale=${zoom}`,
+    `${getDjangoBaseUrl(req)}/api/stat/?center_point=${center[0]!}+${center[1]!}&scale=${zoom}`,
     {
       signal: areaController.signal,
     },
@@ -25,14 +26,14 @@ export const fetchArea = (
 
 const cache: any = {};
 
-const fetchDtpYear = (signal: AbortSignal, year: number, region: string) => {
+const fetchDtpYear = (signal: AbortSignal, year: number, region: string, req: { headers: { host: string }; protocol: string }) => { // Добавлено req
   const result = cache[region]?.[year];
   if (result) {
     return Promise.resolve(result);
   }
 
   return fetch(
-    `${djangoBaseUrl}/api/dtp_load/?year=${year}&region_slug=${region}&format=json`,
+    `${getDjangoBaseUrl(req)}/api/dtp_load/?year=${year}&region_slug=${region}&format=json`,
     {
       signal,
     },
@@ -50,11 +51,11 @@ const fetchDtpYear = (signal: AbortSignal, year: number, region: string) => {
 
 let dtpController: AbortController | null;
 
-export const fetchDtp = (years: number[], region: string) => {
+export const fetchDtp = (years: number[], region: string, req: { headers: { host: string }; protocol: string }) => { // Добавлено req
   dtpController?.abort();
   dtpController = new AbortController();
 
   return Promise.all(
-    years.map((y) => fetchDtpYear(dtpController!.signal, y, region)),
+    years.map((y) => fetchDtpYear(dtpController!.signal, y, region, req)), // Передаем req
   );
 };

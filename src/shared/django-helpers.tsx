@@ -12,7 +12,19 @@ import * as React from "react";
 
 import { Link } from "../components/link";
 
-export const djangoBaseUrl = process.env.NEXT_PUBLIC_DJANGO_BASE_URL ?? "";
+// export const djangoBaseUrl = process.env.NEXT_PUBLIC_DJANGO_BASE_URL ?? "";
+// export const djangoBaseUrl = window.location.origin ?? "";
+
+export const getDjangoBaseUrl = (req: { headers: { host: string }; protocol: string }): string => {
+  return `${req.protocol}://${req.headers.host}`;
+};
+
+export async function getServerSideProps({ req }) {
+  const protocol = req.headers['x-forwarded-proto'] || 'https';
+  const host = req.headers.host;
+  return { props: { djangoBaseUrl: `${protocol}://${host}` } };
+}
+
 export const djangoContentFallback =
   process.env.NEXT_PUBLIC_DJANGO_CONTENT_FALLBACK === "true";
 

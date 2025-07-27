@@ -2,37 +2,30 @@ import { withSentry } from "@sentry/nextjs";
 import LRU from "lru-cache";
 import { NextApiHandler } from "next";
 
-import { djangoBaseUrl } from "../../../shared/django-helpers";
+import { getDjangoBaseUrl } from "../../../shared/django-helpers"; // Изменено на getDjangoBaseUrl
 
-// Netlify runs inside Lambda functions, so page caching is not very efficient
-// or reliable. However, if two requests hit the same function instance, this
-// improves latency at a small memory footprint cost.
 const pageCache = new LRU<string, string>({
-  max: 100, // Capping the number of entries helps us avoid accidental memory overflows
-  maxAge: 1000 * 60 * 10, // 10 minutes
+  max: 100,
+  maxAge: 1000 * 60 * 10,
 });
 
 const transformHtmlByPathname: Record<string, (rawHtml: string) => string> = {
   "/opendata": (rawHtml) =>
-    // Netlify is unable to proxy requests larger than 6 MB. We prefix all download links like
-    // /media/opendata/penzenskaia-oblast.geojson with Django base URL to ‘fix’ broken proxying.
     rawHtml.replace(
       /href="\/media\/opendata\//g,
-      `href="${djangoBaseUrl}/media/opendata/`,
+      `href="${getDjangoBaseUrl({ headers: { host: '', protocol: '' } })}/media/opendata/`, // Используем getDjangoBaseUrl
     ),
 };
 
-const hander: NextApiHandler = async (req, res) => {
-  const upstreamUrl = new URL(req.url ?? "/", djangoBaseUrl);
+const handler: NextApiHandler = async (req, res) => {
+  const upstreamUrl = new URL(req.url ?? "/", getDjangoBaseUrl(req)); // Используем getDjangoBaseUrl
   upstreamUrl.hash = "";
   upstreamUrl.search = "";
 
   const pathname = upstreamUrl.pathname;
 
-  // Prevent direct access to this API route
   if (pathname === "/api/rewrites/proxy-django-html-page") {
     res.status(404).send("404 Not found");
-
     return;
   }
 
@@ -52,4 +45,4 @@ const hander: NextApiHandler = async (req, res) => {
   res.send(html);
 };
 
-export default withSentry(hander);
+export default withSentry(handler);
