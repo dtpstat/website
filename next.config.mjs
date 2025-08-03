@@ -21,6 +21,18 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  i18n: {
+    defaultLocale: "ru",
+    locales: ["ru", "en"],
+    localeDetection: false, // отключить автоопределение по Accept-Language
+    localeCookie: {
+      name: "django_language",
+      httpOnly: false,
+      sameSite: false, // Django uses None, Next.js uses false for None
+      path: "/",
+      secure: false, // same as Django DEBUG mode
+    },
+  },
 
   productionBrowserSourceMaps: true,
   reactStrictMode: true,

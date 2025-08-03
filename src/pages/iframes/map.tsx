@@ -1,6 +1,8 @@
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
 import Script from "next/script";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import * as React from "react";
 
 import { usePostLocationSearchChangesToIframeParent } from "../../shared/django-helpers";
@@ -13,6 +15,7 @@ const InheritedMap = dynamic(
 
 const MapIframePage: NextPage = () => {
   usePostLocationSearchChangesToIframeParent();
+  const { t } = useTranslation("common");
 
   return (
     <>
@@ -28,5 +31,13 @@ const MapIframePage: NextPage = () => {
     </>
   );
 };
+
+export async function getServerSideProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? "ru", ["common"])),
+    },
+  };
+}
 
 export default MapIframePage;
