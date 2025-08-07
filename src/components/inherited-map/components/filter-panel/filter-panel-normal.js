@@ -1,4 +1,5 @@
 import { observer } from "mobx-react";
+import { useTranslation } from "next-i18next";
 import * as React from "react";
 
 import { useStore } from "../../models/root-store";
@@ -65,6 +66,7 @@ const CategoryTag = observer(({ filter }) => {
 export const FilterPanelNormal = observer(() => {
   const { filterStore } = useStore();
   const { filters } = filterStore;
+  const { t } = useTranslation("common");
 
   const mainFilters = filters.filter(
     (currentFilter) => currentFilter.name !== "category",
@@ -83,7 +85,7 @@ export const FilterPanelNormal = observer(() => {
           </div>
         ))}
         <div className="filter-item">
-          <p className="subtitle2">Фильтры</p>
+          <p className="subtitle2">{t("filters")}</p>
           <div className="category-filter">
             {categoryFilters.map((currentFilter) => (
               <CategoryTag key={currentFilter.key} filter={currentFilter} />
@@ -100,7 +102,7 @@ export const FilterPanelNormal = observer(() => {
         <svg className="icon icon-arrow-up">
           <use xlinkHref="/static/media/svg/sprite.svg#arrow-up" />
         </svg>
-        <span>Скрыть</span>
+        <span>{t("hide")}</span>
       </button>
     </div>
   );

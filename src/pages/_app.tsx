@@ -2,6 +2,7 @@ import "../styles/inherited-scss/style.scss";
 
 import { UserProvider } from "@auth0/nextjs-auth0";
 import { AppProps } from "next/app";
+import { appWithTranslation } from "next-i18next";
 import * as React from "react";
 import { ThemeProvider } from "styled-components";
 
@@ -24,4 +25,4 @@ const App: React.VoidFunctionComponent<AppProps & { err: Error }> = ({
   );
 };
 
-export default App;
+export default appWithTranslation(App);
